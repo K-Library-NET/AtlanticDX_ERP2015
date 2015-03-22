@@ -1,0 +1,83 @@
+﻿@model YuShang.ERP.Entities.Configs.CoreConfig
+@{
+    ViewBag.Title = "系统参数配置";
+}
+<script>
+    function func_operation_formatter(value, row, index) {
+        var temp = '<a href="javascript:;" class="edit" onclick="edit_row(' + index + ')">修改</a>';
+        temp += '|';
+        temp += '<a href="javascript:;" class="del" onclick="remove_row(' + index + ')">删除</a>';
+        return temp;
+    }
+</script>
+@*datagrid*@
+<div style="margin:15px;" id="config_d">
+    <table id="my_datagrid" title=""
+           data-options="rownumbers:true,pagination:true,singleSelect:true,url:'/@ViewContext.RouteData.Values["Area"].ToString()/@ViewContext.RouteData.Values["Controller"].ToString()/Index',method:'post',toolbar:datagrid_toolbar">
+        <thead>
+            <tr>
+                <th data-options="field:'ConfigName',width:120,algin:'center'">@Html.Label("ConfigName")</th>
+                <th data-options="field:'ConfigTypeKey',width:120,algin:'center'">@Html.Label("ConfigTypeKey")</th>
+                <th data-options="field:'ConfigKey',width:120,align:'center'">@Html.Label("ConfigKey")</th>
+                <th data-options="field:'ConfigValue',width:120,align:'center'">@Html.Label("ConfigValue")</th>
+                <th data-options="field:'Caozuo',width:150,align:'center',formatter:func_operation_formatter">操作</th>
+            </tr>
+        </thead>
+    </table>
+</div>
+@*add dialog*@
+<div id="add_dialog" class="easyui-dialog" style="width:500px;height:350px;padding:10px 20px;" data-options="modal:true,closed:true" buttons="#add_dialog_buttons">
+    <form method="post" class="dlg-form">
+        <div class="form-item">
+            @Html.LabelFor(m => m.ConfigName)
+            @Html.EditorFor(m => m.ConfigName)
+        </div>
+        <div class="form-item">
+            @Html.LabelFor(m => m.ConfigTypeKey)
+            @Html.DropDownListFor(m => m.ConfigTypeKey, (IEnumerable<SelectListItem>)ViewBag.ConfigTypes)
+        </div>
+        <div class="form-item">
+            @Html.LabelFor(m => m.ConfigKey)
+            @Html.EditorFor(m => m.ConfigKey)
+        </div>
+        <div class="form-item">
+            @Html.LabelFor(m => m.ConfigValue)
+            @Html.EditorFor(m => m.ConfigValue)
+        </div>
+    </form>
+</div>
+<div id="add_dialog_buttons">
+    <a href="javascript:void(0)" class="easyui-linkbutton"  onclick="javascript: submitForm('#add_dialog form');">提交</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton"  onclick="javascript: closeDialog('#add_dialog');">关闭</a>
+</div>
+@*edit dialog*@
+<div id="edit_dialog" class="easyui-dialog" style="width:500px;height:350px;padding:10px 20px;" data-options="modal:true,closed:true" buttons="#edit_dialog_buttons">
+    <form method="post" novalidate class="dlg-form">
+        <input type="hidden" name="CoreConfigId" value="" />
+        <div class="form-item">
+            @Html.LabelFor(m => m.ConfigName)
+            @Html.EditorFor(m => m.ConfigName)
+        </div>
+        <div class="form-item">
+            @Html.LabelFor(m => m.ConfigTypeKey)
+            @Html.DropDownListFor(m => m.ConfigTypeKey, (IEnumerable<SelectListItem>)ViewBag.ConfigTypes)
+        </div>
+        <div class="form-item">
+            @Html.LabelFor(m => m.ConfigKey)
+            @Html.EditorFor(m => m.ConfigKey)
+        </div>
+        <div class="form-item">
+            @Html.LabelFor(m => m.ConfigValue)
+            @Html.EditorFor(m => m.ConfigValue)
+        </div>
+    </form>
+</div>
+<div id="edit_dialog_buttons">
+    <a href="javascript:void(0)" class="easyui-linkbutton"  onclick="javascript: submitForm('#edit_dialog form');">提交</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton"  onclick="javascript: closeDialog('#edit_dialog');">关闭</a>
+</div>
+@section Scripts{
+    <script type="text/javascript">
+
+    </script>
+}

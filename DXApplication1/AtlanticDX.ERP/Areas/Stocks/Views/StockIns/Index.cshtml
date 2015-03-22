@@ -1,0 +1,78 @@
+﻿@model YuShang.ERP.Entities.Stocks.StockItem
+@{
+    ViewBag.Title = "采购入库";
+}
+<div style="margin:15px;" id="cgrk">
+    <div class="right_content_top" style="width:1050px;">
+        <form id="filter_form">
+            <div class="search mr15">
+                <input type="text" value="请输入订单/货品" name="filterValue" onfocus="if (this.value == '请输入订单/货品') this.value = '';" onblur="    if (this.value == '') this.value = '请输入订单/货品';" />
+                <button type="submit">查询</button>
+            </div>
+        </form>
+    </div>
+    <div class="clear"></div>
+    <script>
+        function operation_formatter(value, row, index) {
+            var temp = '';
+
+            temp += '<a href="javascript:;" class="bargain" onclick="stock_in_row(\'' + row.ProductItemId + '\')">入库</a>';
+            return temp;
+        }
+
+        function stock_in_row(ProductItemId) {
+            $('#add_dialog :hidden[name="ProductItemId"]').val(ProductItemId);
+            $('#add_dialog form').form('reset');
+            $('#add_dialog').dialog('open').dialog('setTitle', '入库');
+        }
+    </script>
+    <table id="my_datagrid" style="width:892px;" title=""
+           data-options="rownumbers:true,pagination:true,singleSelect:true,url:'/@ViewContext.RouteData.Values["Area"].ToString()/@ViewContext.RouteData.Values["Controller"].ToString()/Index',method:'post'">
+        <thead>
+            <tr data-options="height:120">
+                <th data-options="field:'ProductName',width:240,algin:'center',formatter:easyui_field_formatter">@Html.LabelFor(m => m.ProductItem.ProductName)</th>
+                <th data-options="field:'Quantity',width:120,algin:'center',formatter:easyui_field_formatter">@Html.LabelFor(m => m.ProductItem.Quantity)</th>
+                <th data-options="field:'Units',width:120,align:'center',formatter:easyui_field_formatter">@Html.LabelFor(m => m.ProductItem.Units)</th>
+                <th data-options="field:'UnitPrice',width:120,align:'center',formatter:easyui_field_formatter">@Html.LabelFor(m => m.ProductItem.UnitPrice)</th>
+                <th data-options="field:'CaoZuo',width:120,align:'center',formatter:operation_formatter">操作</th>
+            </tr>
+        </thead>
+    </table>
+</div>
+@*add dialog*@
+<div id="add_dialog" class="easyui-dialog" style="width:500px;height:500px;padding:20px 35px;" data-options="modal:true,closed:true" buttons="#add_dialog_buttons">
+    <form method="post" class="dlg-form">
+        <input type="hidden" name="ProductItemId" value="" />
+        <div class="form-item">
+            @Html.LabelFor(m => m.StoreHouseId)
+            @Html.DropDownListFor(m => m.StoreHouseId, AtlanticDX.ERP.Helper.StocksHelper.GetStoreHouses())
+        </div>
+        <div class="form-item">
+            @Html.LabelFor(m => m.StoreHouseMountNumber)
+            @Html.TextBoxFor(m => m.StoreHouseMountNumber)
+        </div>
+        <div class="form-item">
+            @Html.LabelFor(m => m.Quantity)
+            @Html.TextBoxFor(m => m.Quantity)
+        </div>
+        <div class="form-item">
+            @Html.LabelFor(m => m.StockWeight)
+            @Html.TextBoxFor(m => m.StockWeight)
+        </div>
+        <div class="form-item">
+            @Html.LabelFor(m => m.StockInDate)
+            @Html.TextBoxFor(m => m.StockInDate, new { @class = "easyui-datebox" })
+        </div>
+    </form>
+</div>
+<div id="add_dialog_buttons">
+    <a href="javascript:void(0)" class="easyui-linkbutton" onclick="javascript: submitForm('#add_dialog form');">提交</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" onclick="javascript: closeDialog('#add_dialog');">关闭</a>
+</div>
+@section scripts{
+    <script>
+        $(function () {
+
+        });
+    </script>
+}

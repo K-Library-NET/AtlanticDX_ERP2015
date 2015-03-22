@@ -1,0 +1,76 @@
+﻿@model YuShang.ERP.Entities.Sale.SaleContract
+@{
+    ViewBag.Title = "现货销售";
+}
+<div class="right_content_top" style="width:1971px;">
+    <form id="filter_form">
+        <span class="eta ml20">日期</span>
+        <span class="eta_in"><input type="text" class="easyui-datebox" name="TimeFrom" /></span>
+        <span class="eta_in"><input type="text" class="easyui-datebox" name="TimeTo" /></span>
+        <div class="search mr15">
+            <input type="text" value="请输入单据号或供应商" name="filterValue" onfocus="if (this.value == '请输入单据号或供应商') this.value = '';" onblur="    if (this.value == '') this.value = '请输入单据号或供应商';" />
+            <button type="submit">查询</button>
+        </div>
+    </form>
+    <button class="new_order mr15"><i></i>新增订单</button>
+    <button class="print mr15">打印</button>
+    <button class="export mr15">导出</button>
+</div>
+<script>
+    function func_operation_formatter(value, row, index) {
+        var temp = '';
+        if (row.SaleContractStatus==0){
+            temp += '<a href="javascript:;" class="edit" onclick="edit_sale_contract(\'' + row.SaleContractId + '\')">编辑</a>';
+            temp += '<a href="javascript:;" class="audit" onclick="audit_sale_contract(\'' + row.SaleContractId + '\')">审核</a>';
+        }
+        temp += '<a href="javascript:;" class="bargain" onclick="add_sale_contract_bargain(\'' + row.SaleContractId + '\')">还价</a>';
+        return temp;
+    }
+
+    function edit_sale_contract(SaleContractId) {
+        parent.addMainTab('编辑现货订单', '/' + Area + '/' + Controller + '/Edit?SaleContractId=' + SaleContractId);
+    } 
+
+    function audit_sale_contract(SaleContractId) {
+        parent.addMainTab('审核现货销售', '/' + Area + '/' + Controller + '/Audit?SaleContractId=' + SaleContractId, true);
+    }
+
+    function add_sale_contract_bargain(SaleContractId) {
+        parent.addMainTab('还价', '/'+ Area + '/' + Controller + '/AddSaleBargin?SaleContractId=' + SaleContractId, true);
+    }
+
+</script>
+
+@*datagrid*@
+<div class="ddgl clearf calculate" style="margin:15px;" id="xhcg">
+    <table id="my_datagrid" class="" style="width:1923px;" title=""
+           data-options="view:detailview,detailFormatter: saleProductDetailFormatter,rownumbers:true,pagination:true,singleSelect:true,url:'/@ViewContext.RouteData.Values["Area"].ToString()/@ViewContext.RouteData.Values["Controller"].ToString()/Index',method:'post'">
+        <thead>
+            <tr data-options="height:120">
+                <th data-options="field:'SaleContractId',width:150,algin:'center'">@Html.LabelFor(m => m.SaleContractId)</th>
+                <th data-options="field:'SaleContractKey',width:100,algin:'center'">@Html.LabelFor(m => m.SaleContractKey)</th>
+                <th data-options="field:'OrderType',width:100,algin:'center',formatter:func_ordertype_formatter">@Html.LabelFor(m => m.OrderType)</th>
+                <th data-options="field:'SaleClientName',width:150,align:'center'">@Html.LabelFor(m => m.SaleClientName)</th>
+                <th data-options="field:'DiscountAmount',width:150,align:'center'">@Html.LabelFor(m => m.DiscountAmount)</th>
+                <th data-options="field:'Total',width:150,align:'center'">@Html.LabelFor(m => m.Total)</th>
+                <th data-options="field:'TotalAfterDiscount',width:150,align:'center'">@Html.LabelFor(m => m.TotalAfterDiscount)</th>
+                <th data-options="field:'SaleDeposite',width:150,align:'center'">@Html.LabelFor(m => m.SaleDeposite)</th>
+                <th data-options="field:'SaleBalancedPayment',width:150,align:'center'">@Html.LabelFor(m => m.SaleBalancedPayment)</th>
+                <th data-options="field:'OperatorSysUser',width:150,align:'center'">@Html.LabelFor(m => m.OperatorSysUser)</th>
+                <th data-options="field:'Caozuo',width:300,align:'center',formatter:func_operation_formatter">操作</th>
+            </tr>
+        </thead>
+    </table>
+</div>
+
+@section scripts{
+    <script type="text/javascript" src="~/Scripts/datagrid-detailview.js"></script>
+    <script>
+        $(function () {
+            $('button.new_order').click(function () {
+                parent.addMainTab('新建现货销售', '/' + Area + '/' + Controller + '/Add', true);
+            });
+
+        });
+    </script>
+}

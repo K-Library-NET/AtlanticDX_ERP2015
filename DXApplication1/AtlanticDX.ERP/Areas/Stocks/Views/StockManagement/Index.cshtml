@@ -1,0 +1,52 @@
+﻿@model IEnumerable<AtlanticDX.ERP.Areas.Stocks.Models.StockHouseViewModel> 
+@using YuShang.ERP.Entities.Stocks
+@using YuShang.ERP.Entities.ResMgr
+@using AtlanticDX.ERP.Areas.Stocks.Models
+@{
+    ViewBag.Title = "库存管理";  
+}
+
+<div>
+    @*<p>
+            <button class="create"><i></i>商品入仓</button>
+        </p>*@
+    @foreach (var vm in Model)
+    {
+        <div class="row">
+            <div class="col-md-4">
+                <h2>@vm.StoreHouse.StoreHouseName</h2>
+                @*@Html.LabelFor(m => m.StoreHouse.StoreHouseName)</h2>*@
+                <p>
+                    @foreach (var stockItem in vm.StockItems)
+                    {
+                        <div class="datagrid-row-collapse">
+                            <table class="table">
+                                <caption>@stockItem.StockItem.ProductName</caption>
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (Model != null && Model.Count() > 0)
+                                    {
+                                        foreach (var item in Model)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    @Html.ActionLink("Edit", "Edit", new { id = item.StockHouseViewModelId }) |
+                                                    @Html.ActionLink("Details", "Details", new { id = item.StockHouseViewModelId }) |
+                                                    @Html.ActionLink("Delete", "Delete", new { id = item.StockHouseViewModelId })
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    }
+                </p>
+            </div> 
+        </div>
+    }
+</div> 

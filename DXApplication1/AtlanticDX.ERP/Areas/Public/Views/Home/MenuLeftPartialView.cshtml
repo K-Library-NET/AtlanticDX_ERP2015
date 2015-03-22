@@ -1,0 +1,23 @@
+<div class="left_nav">
+    <div class="top"></div>
+    @foreach (var topMenu in ViewBag.TopMenus)
+    {
+        <div class="@topMenu.StyleClass first">
+            @if (ViewData["SubMenu" + topMenu.SysMenuId] == null)
+            {
+                <i class="o"></i><a href="javascript:;" onclick="javascript: addMainTab('@topMenu.MenuName','/@topMenu.Area/@topMenu.Controller/@topMenu.Action');">@topMenu.MenuName</a>
+            }
+            else
+            {
+                <i class="o"></i>@topMenu.MenuName
+                <i class="t"></i>
+                <div class="secondary">
+                    @foreach (var subMenu in ViewData["SubMenu" + topMenu.SysMenuId])
+                    {
+                        <div class="secondary_f" onclick="javascript: addMainTab('@subMenu.MenuName','/@subMenu.Area/@subMenu.Controller/@subMenu.Action');">@subMenu.MenuName<i></i></div>
+                    }
+                </div>
+            }
+        </div>
+    }
+</div>

@@ -1,0 +1,240 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{92FD9902-5A89-4999-A62B-20E0C5C9457C}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>AtlanticDX_TestDemo</RootNamespace>
+    <AssemblyName>AtlanticDX_TestDemo</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DlgOrderContract.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DlgOrderContract.Designer.cs">
+      <DependentUpon>DlgOrderContract.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\ContractStatus.cs" />
+    <Compile Include="Entities\FinancialRecord.cs" />
+    <Compile Include="Entities\SalesLogistics.cs" />
+    <Compile Include="Form2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form2.Designer.cs">
+      <DependentUpon>Form2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormBargain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormBargain.Designer.cs">
+      <DependentUpon>FormBargain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormClaimCompensation.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormClaimCompensation.Designer.cs">
+      <DependentUpon>FormClaimCompensation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormClientReceived.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormClientReceived.Designer.cs">
+      <DependentUpon>FormClientReceived.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormFinancialRecords.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormFinancialRecords.Designer.cs">
+      <DependentUpon>FormFinancialRecords.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormHub.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormHub.Designer.cs">
+      <DependentUpon>FormHub.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormImportLogistics.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormImportLogistics.Designer.cs">
+      <DependentUpon>FormImportLogistics.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormImportReceived.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormImportReceived.Designer.cs">
+      <DependentUpon>FormImportReceived.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormPayImportLogisticsCost.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormPayImportLogisticsCost.Designer.cs">
+      <DependentUpon>FormPayImportLogisticsCost.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormSaleContractAuth.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormSaleContractAuth.Designer.cs">
+      <DependentUpon>FormSaleContractAuth.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormSaleDelivery.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormSaleDelivery.Designer.cs">
+      <DependentUpon>FormSaleDelivery.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ProductEntities.cs" />
+    <Compile Include="Entities\Bargain.cs" />
+    <Compile Include="Entities\ClaimCompensation.cs" />
+    <Compile Include="Entities\Currency.cs" />
+    <Compile Include="Entities\Harbor.cs" />
+    <Compile Include="Entities\HarborAgent.cs" />
+    <Compile Include="Entities\HarborAgentItem.cs" />
+    <Compile Include="Entities\HongkongLogistics.cs" />
+    <Compile Include="Entities\HongkongLogisticsItem.cs" />
+    <Compile Include="Entities\LogisticsProductItem.cs" />
+    <Compile Include="Entities\MainlandLogistics.cs" />
+    <Compile Include="Entities\MainlandLogisticsItem.cs" />
+    <Compile Include="Entities\OrderContract.cs" />
+    <Compile Include="Entities\OrderContractPayment.cs" />
+    <Compile Include="Entities\OrderContractPaymentResidual.cs" />
+    <Compile Include="Entities\PayItem.cs" />
+    <Compile Include="Entities\Product.cs" />
+    <Compile Include="Entities\ProductItem.cs" />
+    <Compile Include="Entities\SaleClient.cs" />
+    <Compile Include="Entities\SaleContract.cs" />
+    <Compile Include="Entities\SaleContractShipment.cs" />
+    <Compile Include="Entities\StockItem.cs" />
+    <Compile Include="Entities\Vendor.cs" />
+    <Compile Include="Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormFirst.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormFirst.Designer.cs">
+      <DependentUpon>FormFirst.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormSecond.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormSecond.Designer.cs">
+      <DependentUpon>FormSecond.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="DlgOrderContract.resx">
+      <DependentUpon>DlgOrderContract.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form2.resx">
+      <DependentUpon>Form2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormBargain.resx">
+      <DependentUpon>FormBargain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormClaimCompensation.resx">
+      <DependentUpon>FormClaimCompensation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormClientReceived.resx">
+      <DependentUpon>FormClientReceived.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormFinancialRecords.resx">
+      <DependentUpon>FormFinancialRecords.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormFirst.resx">
+      <DependentUpon>FormFirst.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormHub.resx">
+      <DependentUpon>FormHub.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormImportLogistics.resx">
+      <DependentUpon>FormImportLogistics.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormImportReceived.resx">
+      <DependentUpon>FormImportReceived.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormPayImportLogisticsCost.resx">
+      <DependentUpon>FormPayImportLogisticsCost.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormSaleContractAuth.resx">
+      <DependentUpon>FormSaleContractAuth.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormSaleDelivery.resx">
+      <DependentUpon>FormSaleDelivery.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormSecond.resx">
+      <DependentUpon>FormSecond.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

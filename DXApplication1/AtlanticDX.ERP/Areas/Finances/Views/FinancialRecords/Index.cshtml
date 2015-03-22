@@ -1,0 +1,79 @@
+﻿@model AtlanticDX.ERP.Areas.Finances.Models.FinancialRecordViewModel
+@{
+    ViewBag.Title = "财务记录";
+}
+@*datagrid*@
+<script>
+    function operation_formatter(value, row, index) {
+        var temp = '';
+
+        temp += '<a href="javascript:;" class="edit" onclick="edit_row(\'' + index + '\')">编辑</a>';
+        return temp;
+    }
+</script>
+<div class="right_content_top" style="margin:15px;" id="declaration">
+    <div class="topbar">
+        <form id="filter_form">
+            <span class="eta">@Html.DisplayNameFor(m => m.CTIME)</span><span class="eta_in"><input type="text" class="easyui-datebox" name="CTIME" /></span>
+            <span class="default"> @Html.LabelFor(m => m.RecordType)</span>@Html.EnumDropDownListFor(m => m.RecordType, "（空）", new { @class = "date_select mr20" })
+            <div class="search mr15">
+                <span class="eta">合同编号</span><input type="text" name="ContractKey" />
+                <a href="javascript:;" class="easyui-linkbutton" id="btn_financial_record_filter" onclick="$('#filter_form').submit();">查找</a>
+            </div>
+        </form>
+        <button class="add_some mt10" onclick="add_row()"><i></i>新建</button>
+        <div class="clear"></div>
+    </div>
+    <div class="clear"></div>
+
+    <table id="my_datagrid"
+           style="width:1200px;height:auto;"
+           data-options="rownumbers:true,pagination:true,singleSelect:true,url:'/@ViewContext.RouteData.Values["Area"].ToString()/@ViewContext.RouteData.Values["Controller"].ToString()/Index',method:'post'">
+        <thead>
+            <tr>
+                <th data-options="field:'CTIME_Str',width:'150',editor:'text'">@Html.DisplayNameFor(m => m.CTIME_Str)</th>
+                <th data-options="field:'EventTypeStr',width:'150',editor:'text'">@Html.DisplayNameFor(m => m.EventTypeStr)</th>
+                <th data-options="field:'Amount_Round',width:'150',editor:'text'">@Html.DisplayNameFor(m => m.Amount_Round)</th>
+                <th data-options="field:'RecordTypeStr',width:'150',editor:'text'">@Html.DisplayNameFor(m => m.RecordTypeStr)</th>
+                <th data-options="field:'OperateSysUser_PersonName',width:'150',editor:'text'">@Html.DisplayNameFor(m => m.OperateSysUser_PersonName)</th>
+                <th data-options="field:'Comments',width:'150',editor:'text'">@Html.DisplayNameFor(m => m.Comments)</th>
+                <th data-options="field:'CaoZuo',width:120,align:'center',formatter:operation_formatter">操作</th>
+            </tr>
+        </thead>
+    </table>
+</div>
+@*add dialog*@
+<div id="add_dialog" class="easyui-dialog" style="width:500px;height:500px;padding:20px 35px;" data-options="modal:true,closed:true" buttons="#add_dialog_buttons">
+    <form method="post" class="dlg-form">
+        <input type="hidden" name="ProductItemId" value="" />
+        <div class="form-item">
+
+        </div>
+    </form>
+</div>
+<div id="add_dialog_buttons">
+    <a href="javascript:void(0)" class="easyui-linkbutton" onclick="javascript: submitForm('#add_dialog form');">提交</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" onclick="javascript: closeDialog('#add_dialog');">关闭</a>
+</div>
+@*edit dialog*@
+<div id="edit_dialog" class="easyui-dialog" style="width:500px;height:200px;padding:20px 35px;" data-options="modal:true,closed:true" buttons="#edit_dialog_buttons">
+    <form method="post" class="dlg-form">
+        <input type="hidden" name="AccountsRecordId" value="" />
+        <div class="form-item">
+            @Html.LabelFor(m => m.Comments)
+            @Html.TextAreaFor(m => m.Comments, new { @class = "", @style = "" })
+        </div>
+    </form>
+</div>
+<div id="edit_dialog_buttons">
+    <a href="javascript:void(0)" class="easyui-linkbutton" onclick="javascript: submitForm('#edit_dialog form');">提交</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" onclick="javascript: closeDialog('#edit_dialog');">关闭</a>
+</div>
+@section Scripts{
+
+    <script type="text/javascript">
+
+    </script>
+}
+
+

@@ -1,0 +1,46 @@
+﻿@model AtlanticDX.ERP.Areas.Finances.Models.AccountsReceivableViewModel
+@{
+    ViewBag.Title = "应收账款";
+}
+@*datagrid*@
+<div style="margin:15px;" id="declaration">
+    <div class="topbar right_content_top">
+        <form id="filter_form">
+            <input type="text" name="filterValue" value="请输入查找信息" style="width:200px;height:28px; text-indent:1em; margin-top:10px; float:left;" />
+            <a href="javascript:;" class="easyui-linkbutton" id="btn_accounts_payable_filter"
+               onclick="$('#filter_form').submit();">查找</a>
+        </form>
+        <div class="clear"></div>
+    </div>
+    <div class="clear"></div>
+
+    <table id="my_datagrid" class="easyui-datagrid"
+           style="width:1200px;height:auto;"
+           data-options="rownumbers:true,pagination:true,singleSelect:true,url:'/@ViewContext.RouteData.Values["Area"].ToString()/@ViewContext.RouteData.Values["Controller"].ToString()/Index',method:'post'">
+        <thead>
+            <tr>
+                <th data-options="field:'CTIME_Str',width:'150',editor:'text'">@Html.DisplayFor(a => a.CTIME_Str)</th>
+                <th data-options="field:'EventType_Str',width:'150',editor:'text'">@Html.DisplayFor(a => a.EventType_Str)</th>
+                <th data-options="field:'Amount_Round',width:'150',editor:'text'">@Html.DisplayFor(a => a.Amount_Round)</th>
+                <th data-options="field:'RecordTypeStr',width:'150',editor:'text'">@Html.DisplayFor(a => a.RecordTypeStr)</th>
+                <th data-options="field:'PayStatus_Str',width:'150',editor:'text'">@Html.DisplayFor(a => a.PayStatus_Str)</th>
+                <th data-options="field:'OrderContractKey',width:'150',editor:'text'">@Html.DisplayFor(a => a.SaleContractKey)</th>
+                <th data-options="field:'HasPaidAmount',width:'150',editor:'text'">@Html.DisplayFor(a => a.HasReceivedAmount)</th>
+                <th data-options="field:'ToBePaidAmount',width:'150',editor:'text'">@Html.DisplayFor(a => a.ToBeReceivedAmount)</th>
+                <th data-options="field:'OperateSysUser_PersonName',width:'150',editor:'text'">@Html.DisplayFor(a => a.OperateSysUser_PersonName)</th>
+                <th data-options="field:'Comments',width:'150',editor:'text'">@Html.DisplayFor(a => a.Comments)</th>
+            </tr>
+        </thead>
+    </table>
+</div>
+
+@section Scripts{
+
+    <script type="text/javascript">
+
+    </script>
+}
+
+
+
+

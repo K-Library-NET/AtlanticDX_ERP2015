@@ -1,0 +1,13 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<h2>配置设置</h2>
+
+<ul>
+    @for (int i = 0; i < ViewBag.NumTimes; i++)
+    {
+        <li>@ViewBag.Message</li>
+    }
+</ul>

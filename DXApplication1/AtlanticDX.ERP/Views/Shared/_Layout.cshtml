@@ -1,0 +1,19 @@
+﻿<!doctype html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/StyleBundle/libs", "~/StyleBundle/css")
+    @RenderSection("styles", required: false)
+    <script>
+        var Area = '@ViewContext.RouteData.Values["area"].ToString()';
+        var Controller = '@ViewContext.RouteData.Values["controller"].ToString()';
+        var Action = '@ViewContext.RouteData.Values["action"].ToString()';
+    </script>
+    @Scripts.Render("~/ScriptBundle/libs","~/ScriptBundle/js")
+</head>
+<body>
+    @RenderBody()
+    @RenderSection("scripts", required: false)
+</body>
+</html>

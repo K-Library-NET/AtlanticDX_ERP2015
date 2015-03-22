@@ -1,0 +1,113 @@
+﻿@{
+    ViewBag.Title = "应收账款汇总表";
+}
+
+<div style="margin:15px; width:auto;" id="supplier">
+
+    <div class="topbar">
+        <input type="text" name="filterValue" value="请输入供应商公司名称" style="width:200px;height:28px; text-indent:1em; float:left;" />
+        <a href="javascript:;" class="easyui-linkbutton" id="btn_order_products_filter">查找</a>
+
+        <a href="javascript:;" class="topabr_but" onclick="">导出</a>
+        <a href="javascript:;" class="topabr_but" onclick="">打印</a>
+
+        <div class="clear"></div>
+    </div>
+    <div class="clear"></div>
+
+
+    <div class="ddgl clearf calculate">
+
+
+        <table class="svs_table" style="width:950px;">
+            <thead class="">
+                <tr>
+                    <th class="w150">商品编号</th>
+                    <th class="w150">商品名称</th>
+                    <th class="w150">规格型号</th>
+                    <th class="w100">单位</th>
+                    <th class="w100">仓库</th>
+                    <th class="w100">数量</th>
+                    <th class="w100">单价</th>
+                    <th class="w100">应收金额</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>00001</td>
+                    <td>澳洲牛排骨</td>
+                    <td>50/件</td>
+                    <td>磅</td>
+                    <td>新仓一</td>
+                    <td>5000</td>
+                    <td>880</td>
+                    <td>856000.00</td>
+                </tr>
+                <tr>
+                    <td>00001</td>
+                    <td>澳洲牛排骨</td>
+                    <td>50/件</td>
+                    <td>磅</td>
+                    <td>新仓一</td>
+                    <td>5000</td>
+                    <td>880</td>
+                    <td>56000.00</td>
+                </tr>
+                <tr>
+                    <td>00001</td>
+                    <td>澳洲牛排骨</td>
+                    <td>50/件</td>
+                    <td>磅</td>
+                    <td>新仓一</td>
+                    <td>5000</td>
+                    <td>880</td>
+                    <td>36000.00</td>
+                </tr>
+                <tr>
+                    <td>00001</td>
+                    <td>澳洲牛排骨</td>
+                    <td>50/件</td>
+                    <td>磅</td>
+                    <td>新仓一</td>
+                    <td>5000</td>
+                    <td>680</td>
+                    <td>76000.00</td>
+                </tr>
+                <tr>
+                    <td>00001</td>
+                    <td>澳洲牛排骨</td>
+                    <td>50/件</td>
+                    <td>磅</td>
+                    <td>新仓一</td>
+                    <td>5000</td>
+                    <td>380</td>
+                    <td>36000.00</td>
+                </tr>
+                <tr>
+                    <td colspan=5 class="t-right">合计</td>
+                    <td>25000</td>
+                    <td>3700</td>
+                    <td>1060000</td>
+                </tr>
+            </tbody>
+        </table>
+
+
+
+    </div>
+
+
+
+
+
+
+
+</div>
+@section scripts{
+    <script>
+        //$('button.index').click(function () {
+        //    parent.addMainTab('现货库存', '/' + Area + '/' + 'StockItems' + '/Index', true);
+        //    parent.add
+        //});
+    </script>
+}

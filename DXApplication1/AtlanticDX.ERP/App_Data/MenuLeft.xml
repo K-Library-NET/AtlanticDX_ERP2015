@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<items>
+  <item Text="订单管理" Area="Orders" StyleClass="on">
+    <item Text="采购与销售合同" Area="Orders" Controller="OrderContract" Action="Index" StyleClass="">
+      <!--<item Text="新建采购合同" Area="Orders" Controller="OrderContract" Action="Add" StyleClass=""/>
+        -->
+    </item>
+    <item Text="合同交单" Area="Orders" Controller="OrderSubmit" Action="Index" StyleClass="">
+      <item Text="审核" Area="Orders" Controller="OrderSubmit" Action="Audit" StyleClass="" />
+    </item>
+    <!--<item Text="香港物流" Area="Orders" Controller="HongkongLogistics" Action="Index" StyleClass=""/>
+    <item Text="内地物流" Area="Orders" Controller="MainlandLogistics" Action="Index" StyleClass=""/>-->
+    <item Text="采购收货与索赔" Area="Orders" Controller="ImportReceived" Action="Index" StyleClass=""/>
+    <!--<item Text="现货销售" Area="Sales" Controller="SalesByInventories" Action="Index" StyleClass="" />
+    <item Text="期货销售" Area="Sales" Controller="SalesByFutures" Action="Index" StyleClass="" />-->
+    <item Text="销售发货与索赔" Area="Sales" Controller="SalesContractShipment" Action="Index" StyleClass="" />
+  </item>
+  <item Text="库存管理" Area="Stocks" StyleClass="fo">
+    <item Text="现货库存"  Area="Stocks" Controller="StockItems" Action="Index" StyleClass="" />
+    <item Text="采购入库"  Area="Stocks" Controller="StockIns" Action="Index" StyleClass="" />
+    <item Text="商品出仓记录" Area="Stocks" Controller="StockOutRecords" Action="Index" StyleClass=""  />
+  </item>
+  <item Text="资源管理" Area="ResMgr" StyleClass="fo">
+    <item Text="供应商管理" Area="ResMgr" Controller="Suppliers" Action="Index" StyleClass="" />
+    <item Text="报关公司管理" Area="ResMgr" Controller="DeclarationCompanies" Action="Index" StyleClass=""  />
+    <item Text="港口管理"  Area="ResMgr" Controller="Harbors" Action="Index" StyleClass=""  />
+    <item Text="客户管理" Area="ResMgr" Controller="SaleClients" Action="Index" StyleClass="" />
+    <item Text="内地物流公司管理" Area="ResMgr" Controller="MainlandLogistics" Action="Index" StyleClass=""  />
+    <item Text="香港物流公司管理" Area="ResMgr" Controller="HongkongLogistics" Action="Index" StyleClass=""  />
+    <item Text="产品管理" Area="ResMgr" Controller="Products" Action="Index" StyleClass=""  />
+    <item Text="仓库管理" Area="ResMgr" Controller="StoreHouses" Action="Index" StyleClass=""  />
+  </item>
+  <item Text="财务管理" Area="Finances" StyleClass="si">
+    <item Text="财务记录" Area="Finances" Controller="FinancialRecords" Action="Index" StyleClass=""  />
+
+    <item Text="应付账款" Area="Finances" Controller="AccountsPayables" Action="Index" StyleClass=""  />
+    <item Text="应收账款" Area="Finances" Controller="AccountsReceivables" Action="Index" StyleClass=""  />
+
+
+    <!--<item Text="采购订金" Area="Finances" Controller="ImportDeposite" Action="Index" StyleClass=""  />
+    <item Text="采购尾款" Area="Finances" Controller="ImportBalancedPayment" Action="Index" StyleClass=""  />
+    <item Text="港口代理费" Area="Finances" Controller="HarborAgentFee" Action="Index" StyleClass=""  />
+    <item Text="香港物流费" Area="Finances" Controller="HKLogisticsFee" Action="Index" StyleClass=""  />
+    <item Text="内地物流费" Area="Finances" Controller="MainlandLogisticsFee" Action="Index" StyleClass=""  />
+    <item Text="仓租" Area="Finances" Controller="InventoriesRentingFee" Action="Index" StyleClass=""  />
+    <item Text="销售订金" Area="Finances" Controller="SalesDeposite" Action="Index" StyleClass=""  />
+    <item Text="销售尾款" Area="Finances" Controller="SalesBalancedPayment" Action="Index" StyleClass=""  />-->
+
+    <item Text="员工工资" Area="Finances" Controller="EmploymentSalary" Action="Index" StyleClass=""  />
+    <item Text="其他分类" Area="Finances" Controller="FinancialOthers" Action="Index" StyleClass=""  />
+  </item>
+  <item Text="报表输出" Area="Reports" StyleClass="fi">
+    <item Text="采购汇总表" Area="Reports" Controller="ImportSummary" Action="Index" StyleClass=""  />
+    <item Text="销售汇总表" Area="Reports" Controller="SalesSummary" Action="Index" StyleClass=""  />
+    <item Text="商品库存汇总表" Area="Reports" Controller="InventorySummary" Action="Index" StyleClass=""  />
+    <item Text="应付账款汇总表" Area="Reports" Controller="AccountsPayableSummary" Action="Index" StyleClass=""  />
+    <item Text="应收账款汇总表" Area="Reports" Controller="AccountsReceivableSummary" Action="Index" StyleClass=""  />
+  </item>
+  <item Text="系统设置" Area="Configs" StyleClass="se">
+    <item Text="系统参数配置" Area="Configs" Controller="SysConfigs" Action="Index" StyleClass="" />
+    <item Text="角色管理" Area="Configs" Controller="RoleMgmt" Action="Index" StyleClass="" />
+    <item Text="用户管理" Area="Configs" Controller="UserMgmt" Action="Index" StyleClass="" />
+  </item>
+</items>

@@ -1,0 +1,17 @@
+﻿.validation-summary-errors{
+    width: 100%;
+    text-align: center;
+    margin:5px;
+}
+.validation-summary-errors ul li{
+    font-size: 16px;
+    color:red;
+}
+
+.form-item{
+	margin-bottom:5px;
+}
+.form-item label{
+	display:inline-block;
+	width:80px;
+}

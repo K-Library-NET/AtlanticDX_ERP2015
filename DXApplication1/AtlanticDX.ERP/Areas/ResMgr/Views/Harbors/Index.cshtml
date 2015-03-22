@@ -1,0 +1,88 @@
+﻿@*datagrid*@
+<script>
+    function func_operation_formatter(value, row, index) {
+        var temp = '<a href="javascript:;" class="edit" onclick="edit_row(' + index + ')">修改</a>';
+        temp += '|';
+        temp += '<a href="javascript:;" class="del" onclick="remove_row(' + index + ')">删除</a>';
+        return temp;
+    }
+</script>
+<div style="margin:15px;" id="Harbor">
+
+    <div class="topbar">
+        <input type="text" name="filterValue" value="请输入目的港的国际代码/中文/英文名称" style="width:200px;height:28px; text-indent:1em; float:left;" />
+        <a href="javascript:;" class="easyui-linkbutton" id="btn_order_products_filter">查找</a>
+        <a href="javascript:;" class="add_some" onclick="add_row()"><i></i>添加</a>
+
+        <a href="javascript:;" class="topabr_but" onclick="">导出</a>
+        <a href="javascript:;" class="topabr_but" onclick="">删除</a>
+
+        <div class="clear"></div>
+    </div>
+    <div class="clear"></div>
+
+    <table id="my_datagrid" class="" title="" style="width:801px;height:auto;"
+           data-options="rownumbers:true,pagination:true,singleSelect:true,url:'/@ViewContext.RouteData.Values["Area"].ToString()/@ViewContext.RouteData.Values["Controller"].ToString()/Index',method:'post'">
+        <thead>
+            <tr>
+                <th data-options="field:'HarborName',width:'200',editor:'text'">港口名称（中）</th>
+                <th data-options="field:'HarborNameENG',width:'200',editor:'text'">港口名称（英）</th>
+                <th data-options="field:'HarborKey',width:'150',editor:'text'">国际代码</th>
+                <th data-options="field:'Caozuo',width:'150',align:'center',formatter:func_operation_formatter">操作</th>
+            </tr>
+        </thead>
+    </table>
+</div>
+@*add dialog*@
+<div id="add_dialog" class="easyui-dialog Harbor_add" style="width:510px;height:300px;padding:10px 20px;" data-options="modal:true,closed:true" buttons="#add_dialog_buttons">
+    <form method="post" class="dlg-form">
+        <div class="form-item">
+            <label><samp style="color:red;">*</samp>港口名称（中）:</label>
+            <input type="text" name="HarborName" data-options="required:true" />
+        </div>
+        <div class="form-item">
+            <label><samp style="color:red;">*</samp>港口名称（英）:</label>
+            <input type="text" name="HarborNameENG" data-options="required:true" />
+        </div>
+        <div class="form-item">
+            <label><samp style="color:red;">*</samp>国际代码:</label>
+            <input type="text" name="HarborKey" data-options="required:true" />
+        </div>
+    </form>
+</div>
+<div id="add_dialog_buttons">
+    <a href="javascript:void(0)" class="easyui-linkbutton"  onclick="javascript: submitForm('#add_dialog form');">提交</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton"  onclick="javascript: closeDialog('#add_dialog');">关闭</a>
+</div>
+@*edit dialog*@
+<div id="edit_dialog" class="easyui-dialog Harbor_add" style="width:510px;height:300px;padding:10px 20px;"
+     data-options="modal:true,closed:true" buttons="#edit_dialog_buttons">
+    <form method="post" novalidate class="dlg-form">
+        <input type="hidden" name="HarborId" value="" />
+        <div class="form-item">
+            <label><samp style="color:red;">*</samp>港口名称（中）:</label>
+            <input type="text" name="HarborName" data-options="required:true" />
+        </div>
+        <div class="form-item">
+            <label><samp style="color:red;">*</samp>港口名称（英）:</label>
+            <input type="text" name="HarborNameENG" data-options="required:true" />
+        </div>
+        <div class="form-item">
+            <label><samp style="color:red;">*</samp>国际代码:</label>
+            <input type="text" name="HarborKey" data-options="required:true" />
+        </div>
+    </form>
+</div>
+<div id="edit_dialog_buttons">
+    <a href="javascript:void(0)" class="easyui-linkbutton" onclick="javascript: submitForm('#edit_dialog form');">提交</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" onclick="javascript: closeDialog('#edit_dialog');">关闭</a>
+</div>
+
+@section Scripts{
+
+    <script type="text/javascript">
+
+    </script>
+}
+
+

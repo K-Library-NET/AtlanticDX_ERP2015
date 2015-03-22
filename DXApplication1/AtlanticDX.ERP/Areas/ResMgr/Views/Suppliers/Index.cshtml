@@ -1,0 +1,173 @@
+﻿@*datagrid*@
+<script>
+    function func_operation_formatter(value, row, index) {
+        var temp = '<a href="javascript:;" class="edit" onclick="edit_row(' + index + ')">修改</a>';
+        temp += '|';
+        temp += '<a href="javascript:;" class="del" onclick="remove_row(' + index + ')">删除</a>';
+        return temp;
+    }
+</script>
+<div style="margin:15px; width:auto;" id="supplier">
+
+    <div class="topbar">
+        <input type="text" name="filterValue" value="请输入供应商公司名称" style="width:200px;height:28px; text-indent:1em; float:left;" />
+        <a href="javascript:;" class="easyui-linkbutton" id="btn_order_products_filter">查找</a>
+        <a href="javascript:;" class="add_some" onclick="add_row()"><i></i>添加</a>
+
+        <a href="javascript:;" class="topabr_but" onclick="">导出</a>
+        <a href="javascript:;" class="topabr_but" onclick="">删除</a>
+
+        <div class="clear"></div>
+    </div>
+    <div class="clear"></div>
+    <table id="my_datagrid" class="" @*title="供应商管理"*@ style="@*width:2290px;height:623px;*@ height:auto;margin-right:20px;"
+           data-options="rownumbers:true,pagination:true,singleSelect:true,url:'/@ViewContext.RouteData.Values["Area"].ToString()/@ViewContext.RouteData.Values["Controller"].ToString()/Index',method:'post'">
+        <thead>
+            <tr>
+                <th data-options="field:'SupplierArea',width:'150',editor:'text'">供应商地区</th>
+                @*<th data-options="field:'SupplierId',width:'150',editor:'text'">供应商编号</th>*@
+                <th data-options="field:'SupplierName',width:'150',editor:'text'">公司名称</th>
+                <th data-options="field:'Telephone',width:'100',editor:'text'">公司电话</th>
+                <th data-options="field:'Name',width:'100',editor:'text'">联系人</th>
+                <th data-options="field:'MobilePhone',width:'100',editor:'text'">手机号码</th>
+                <th data-options="field:'Email',width:'100',editor:'text'">邮箱</th>
+                <th data-options="field:'QQ_or_WeChat',width:'100',editor:'text'">QQ/微信</th>
+                <th data-options="field:'DepositeRates',width:'100',editor:'text'">订金比率</th>
+                <th data-options="field:'SupplierPayment',width:'100',editor:'text'">付款方式</th>
+                <th data-options="field:'SupplierMoney',width:'100',editor:'text'">期初往来余额</th>
+                <th data-options="field:'FAX',width:'100',editor:'text'">传真</th>
+                <th data-options="field:'Address',width:'200',editor:'text'">公司地址</th>
+                <th data-options="field:'Caozuo',width:'150',align:'center',formatter:func_operation_formatter">操作</th>
+            </tr>
+        </thead>
+    </table>
+</div>
+@*add dialog*@
+<div id="add_dialog" class="easyui-dialog supplier_add" style="width:510px;height:500px;padding:10px 20px;" data-options="modal:true,closed:true" buttons="#add_dialog_buttons">
+    <form method="post" class="dlg-form">
+        <div class="form-item">
+            <label>供应商地区:</label>
+            <input type="text" name="SupplierArea" data-options="required:false" maxlength="50" />
+        </div>
+        <div class="form-item">
+            <label><samp style="color:red;">*</samp>公司名称:</label>
+            <input type="text" name="SupplierName" data-options="required:true" maxlength="100" />
+        </div>
+        <div class="form-item">
+            <label>公司电话:</label>
+            <input type="text" name="Telephone" data-options="required:false" maxlength="50" />
+        </div>
+        <div class="form-item">
+            <label><samp style="color:red;">*</samp>联系人:</label>
+            <input type="text" name="Name" data-options="required:false" maxlength="50" />
+        </div>
+        <div class="form-item">
+            <label><samp style="color:red;">*</samp>手机号码:</label>
+            <input type="text" name="MobilePhone" data-options="required:false" maxlength="20" />
+        </div>
+        <div class="form-item">
+            <label>邮箱:</label>
+            <input type="text" name="Email" data-options="required:false" maxlength="100" />
+        </div>
+        <div class="form-item">
+            <label>QQ/微信:</label>
+            <input type="text" name="QQ_or_WeChat" data-options="required:false" maxlength="50" />
+        </div>
+        <div class="form-item">
+            <label><samp style="color:red;">*</samp>订金比率:</label>
+            <input type="text" name="DepositeRates" data-options="required:false" maxlength="50" />
+        </div>
+        <div class="form-item">
+            <label>付款方式:</label>
+            <input type="text" name="SupplierPayment" data-options="required:false" maxlength="50" />
+        </div>
+        <div class="form-item">
+            <label>期初往来余额:</label>
+            <input type="text" name="SupplierMoney" data-options="required:false" maxlength="50" />
+        </div>
+        <div class="form-item">
+            <label>传真:</label>
+            <input type="text" name="FAX" data-options="required:false" maxlength="50" />
+        </div>
+        <div class="form-item">
+            <label>公司地址:</label>
+            <input type="text" name="Address" data-options="required:false" maxlength="100" />
+        </div>
+    </form>
+</div>
+<div id="add_dialog_buttons">
+    <a href="javascript:void(0)" class="easyui-linkbutton" onclick="javascript: submitForm('#add_dialog form');">提交</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" onclick="javascript: closeDialog('#add_dialog');">关闭</a>
+</div>
+@*edit dialog*@
+<div id="edit_dialog" class="easyui-dialog supplier_add" style="width:510px;height:500px;padding:10px 20px;"
+     data-options="modal:true,closed:true" buttons="#edit_dialog_buttons">
+    <form method="post" novalidate class="dlg-form">
+        <input type="hidden" name="SupplierId" value="" />
+        <div class="form-item">
+            <label>供应商地区:</label>
+            <input type="text" name="SupplierArea" data-options="required:false" maxlength="50" />
+        </div>
+        <div class="form-item">
+            <label><samp style="color:red;">*</samp>公司名称:</label>
+            <input type="text" name="SupplierName" data-options="required:true" maxlength="100" />
+        </div>
+        <div class="form-item">
+            <label>公司电话:</label>
+            <input type="text" name="Telephone" data-options="required:false" maxlength="50" />
+        </div>
+        <div class="form-item">
+            <label><samp style="color:red;">*</samp>联系人:</label>
+            <input type="text" name="Name" data-options="required:false" maxlength="50" />
+        </div>
+        <div class="form-item">
+            <label><samp style="color:red;">*</samp>手机号码:</label>
+            <input type="text" name="MobilePhone" data-options="required:false" maxlength="20" />
+        </div>
+        <div class="form-item">
+            <label>邮箱:</label>
+            <input type="text" name="Email" data-options="required:false" maxlength="100" />
+        </div>
+        <div class="form-item">
+            <label>QQ/微信:</label>
+            <input type="text" name="QQ_or_WeChat" data-options="required:false" maxlength="50" />
+        </div>
+        <div class="form-item">
+            <label><samp style="color:red;">*</samp>订金比率:</label>
+            <input type="text" name="DepositeRates" data-options="required:false" maxlength="50" />
+        </div>
+        <div class="form-item">
+            <label>付款方式:</label>
+            <input type="text" name="SupplierPayment" data-options="required:false" maxlength="50" />
+        </div>
+        <div class="form-item">
+            <label>期初往来余额:</label>
+            <input type="text" name="SupplierMoney" data-options="required:false" maxlength="50" />
+        </div>
+        <div class="form-item">
+            <label>传真:</label>
+            <input type="text" name="FAX" data-options="required:false" maxlength="50" />
+        </div>
+        <div class="form-item">
+            <label>公司地址:</label>
+            <input type="text" name="Address" data-options="required:false" maxlength="100" />
+        </div>
+    </form>
+</div>
+<div id="edit_dialog_buttons">
+    <a href="javascript:void(0)" class="easyui-linkbutton" onclick="javascript: submitForm('#edit_dialog form');">提交</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" onclick="javascript: closeDialog('#edit_dialog');">关闭</a>
+</div>
+
+@section Scripts{
+
+    <script type="text/javascript">
+
+
+
+
+
+    </script>
+}
+
+

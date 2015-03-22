@@ -1,0 +1,105 @@
+﻿@model AtlanticDX.ERP.Areas.Configs.Models.SysUserViewModel
+@*datagrid*@
+<script>
+    function func_operation_formatter(value, row, index) {
+        var temp = '<a href="javascript:;" class="edit" onclick="edit_row(' + index + ')">修改</a>';
+        temp += '|';
+        temp += '<a href="javascript:;" class="del" onclick="remove_row(' + index + ')">删除</a>';
+        return temp;
+    }
+</script>
+
+<div style="margin:15px;" id="userm">
+    <div class="topbar">
+        <a href="javascript:;" class="add_some" onclick="add_row()"><i></i>添加</a>
+        <div class="clear"></div>
+    </div>
+    <div class="clear"></div>
+    <table id="my_datagrid" title=""
+           data-options="rownumbers:true,pagination:true,singleSelect:true,url:'/@ViewContext.RouteData.Values["Area"].ToString()/@ViewContext.RouteData.Values["Controller"].ToString()/Index',method:'post'">
+        <thead>
+            <tr data-options="height:120">
+                <th data-options="field:'UserName',width:120,algin:'center'">@Html.Label("UserName")</th>
+                <th data-options="field:'Name',width:120,algin:'center'">@Html.Label("Name")</th>
+                <th data-options="field:'PhoneNumber',width:120,align:'center'">@Html.Label("PhoneNumber")</th>
+                <th data-options="field:'Email',width:120,align:'center'">@Html.Label("Email")</th>
+                <th data-options="field:'Caozuo',width:150,align:'center',formatter:func_operation_formatter">操作</th>
+            </tr>
+        </thead>
+    </table>
+</div>
+@*add dialog*@
+<div id="add_dialog" class="easyui-dialog" style="width:500px;height:500px;padding:20px 35px;" data-options="modal:true,closed:true" buttons="#add_dialog_buttons">
+    <form method="post"  class="dlg-form">
+        <input type="hidden" name="" value="" />
+        <div class="form-item">
+            <label>@Html.Label("UserName")</label>
+            <input type="text" name="UserName" data-options="required:true" />
+        </div>
+        <div class="form-item">
+            <label>@Html.Label("Name")</label>
+            <input type="text" name="Name" data-options="required:true" />
+        </div>
+        <div class="form-item">
+            <label>@Html.Label("PhoneNumber")</label>
+            <input type="text" name="PhoneNumber" data-options="required:true" maxlength="11" />
+        </div>
+        <div class="form-item">
+            <label>角色</label>
+            @Html.DropDownListFor(m=>m.RoleName, AtlanticDX.ERP.Helper.ConfigsHelper.GetSysRoles(), "--请选择--", new { @class = "date_select mr20" })
+        </div>
+        <div class="form-item">
+            <label>@Html.Label("Email")</label>
+            <input type="text" name="Email" data-options="required:true" />
+        </div>
+        <div class="form-item">
+            <label>密码</label>
+            <input type="password" name="Password" data-options="required:true" />
+        </div>
+        <div class="form-item">
+            <label>确认密码</label>
+            <input type="password" name="ConfirmPassword" data-options="required:true" />
+        </div>
+    </form>
+</div>
+<div id="add_dialog_buttons">
+    <a href="javascript:void(0)" class="easyui-linkbutton" onclick="javascript: submitForm('#add_dialog form');">提交</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" onclick="javascript: closeDialog('#add_dialog');">关闭</a>
+</div>
+@*edit dialog*@
+<div id="edit_dialog" class="easyui-dialog" style="width:500px;height:390px;padding:20px 35px;" data-options="modal:true,closed:true" buttons="#edit_dialog_buttons">
+    <form method="post" novalidate class="dlg-form">
+        <div class="form-item">
+            <label>@Html.Label("UserName")</label>
+            <input type="text" name="UserName" data-options="required:true" />
+        </div>
+        <div class="form-item">
+            <label>@Html.Label("Name")</label>
+            <input type="text" name="Name" data-options="required:true" />
+        </div>
+        <div class="form-item">
+            <label>角色</label>
+            @Html.DropDownListFor(m => m.RoleName, AtlanticDX.ERP.Helper.ConfigsHelper.GetSysRoles(), "--请选择--", new { @class = "date_select mr20" })
+        </div>
+        <div class="form-item">
+            <label>@Html.Label("PhoneNumber")</label>
+            <input type="text" name="PhoneNumber" data-options="required:true" maxlength="11" />
+        </div>
+        <div class="form-item">
+            <label>@Html.Label("Email")</label>
+            <input type="text" name="Email" data-options="required:true" />
+        </div>
+        <input type="hidden" name="Id" />
+    </form>
+</div>
+<div id="edit_dialog_buttons">
+    <a href="javascript:void(0)" class="easyui-linkbutton" onclick="javascript: submitForm('#edit_dialog form');">提交</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" onclick="javascript: closeDialog('#edit_dialog');">关闭</a>
+</div>
+
+@section Scripts{
+
+<script type="text/javascript">
+
+</script>    
+}

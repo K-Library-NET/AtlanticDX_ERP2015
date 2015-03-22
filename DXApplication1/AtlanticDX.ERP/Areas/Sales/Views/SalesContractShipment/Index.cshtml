@@ -1,0 +1,186 @@
+﻿@model PrivilegeFramework.SaleProductItemInfo
+@{
+    ViewBag.Title = "销售发货与索赔";
+}
+<div class="right_content_top">
+    <form id="filter_form">
+        <span class="eta ml20">订单日期</span>
+        <span class="eta_in"><input type="text" class="easyui-datebox" name="OrderCreateTimeFrom" /></span>
+        <span class="eta_in"><input type="text" class="easyui-datebox" name="OrderCreateTimeTo" /></span>
+        <div class="search mr15">
+            <input value="请输入单据号或供应商或备注" name="filterValue" type="text" onfocus="if (this.value == '请输入单据号或供应商或备注') this.value = '';" onblur="    if (this.value == '') this.value = '请输入单据号或供应商或备注';" />
+            <button type="submit">查询</button>
+        </div>
+    </form>
+</div>
+
+<div class="ddgl clearf calculate">
+    @*datagrid*@
+    <script>
+        function func_operation_formatter(value, row, index) {
+            var temp = '';
+            //if(row.ShipmentStatus==0){
+                temp += '<a href="javascript:;" class="audit" onclick="shipment_row(' + index + ')">发货</a>';
+            //}
+            if(temp!=''){
+                temp += '&nbsp;&nbsp;&nbsp;&nbsp;';
+            }
+            temp += '<a href="javascript:;" class="audit" onclick="compensate_row(' + index + ')">索赔</a>';
+            return temp;
+        }
+    </script>
+
+    <div style="margin:15px;" id="cgjdsh">
+        <table id="my_datagrid" class="" style="" title=""
+               data-options="rownumbers:true,pagination:true,singleSelect:true,url:'/@ViewContext.RouteData.Values["Area"].ToString()/@ViewContext.RouteData.Values["Controller"].ToString()/Index',method:'post'">
+            <thead>
+                <tr data-options="height:120">
+                    <th data-options="field:'ProductKey',width:150,algin:'center',formatter:easyui_field_formatter">@Html.DisplayNameFor(m => m.ProductKey)</th>
+                    <th data-options="field:'ProductName',width:200,algin:'center',formatter:easyui_field_formatter">@Html.LabelFor(m => m.ProductName)</th>
+                    <th data-options="field:'Units',width:150,align:'center',formatter:easyui_field_formatter">@Html.LabelFor(m => m.Units)</th>
+                    <th data-options="field:'Quantity',width:150,align:'center'">@Html.LabelFor(m => m.Quantity)</th>
+                    <th data-options="field:'UnitPrice',width:150,align:'center'">@Html.LabelFor(m => m.UnitPrice)</th>
+                    <th data-options="field:'Quantity',width:150,align:'center'">@Html.LabelFor(m => m.Currency)</th>
+                    <th data-options="field:'SalesGuidePrice',width:150,align:'center'">@Html.LabelFor(m => m.SalesGuidePrice)</th>
+                    <th data-options="field:'OrderContractKey',width:150,align:'center'">@Html.LabelFor(m => m.OrderContractKey)</th>
+                    <th data-options="field:'CaoZuo',width:150,align:'center',formatter:func_operation_formatter">操作</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+    @*索赔弹出层*@
+    <div id="compensate_dialog" class="easyui-dialog" style="width:510px;height:398px;padding:10px 20px;" data-options="modal:true,closed:true" buttons="#compensate_dialog_bottons">
+        <div style="padding:10px 0px;">
+            <form>
+                <input type="hidden" name="SaleProductItemId" />
+                <p>
+                    <label>索赔币种</label>
+                    <select name="Currency" style="width:100px;">
+                        <option>美元</option>
+                        <option>港元</option>
+                        <option>人民币</option>
+                    </select>
+                </p>
+                <p>
+                    <label>索赔金额</label>
+                    <input type="text" name="Compensation" />
+                </p>
+                <p>
+                    <label>索赔原因</label>
+                    <input type="text" name="CompensationReason" />
+                </p>
+            </form>
+        </div>
+    </div>
+    <div id="compensate_dialog_bottons">
+        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="javascript: $('#compensate_dialog form').submit();">确定</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="javascript: closeDialog('#compensate_dialog');">取消</a>
+    </div>
+    @*发货弹出层*@
+    <div id="shipment_dialog" class="easyui-dialog" style="width:510px;height:320px;padding:10px 20px;" data-options="modal:true,closed:true" buttons="#shipment_dialog_bottons">
+        <div style="padding:10px 0px;">
+            <form>
+                <input type="hidden" name="SaleProductItemId" />
+                <p>
+                    <label>发货状态</label>
+                    @Html.EnumDropDownListFor(m => m.ShipmentStatus)
+                </p>
+                <p style="margin-top:10px;">
+                    <label>备注</label>
+                    <textarea name="Comments" cols="33" rows="2"></textarea>
+                </p>
+
+            </form>
+        </div>
+    </div>
+    <div id="shipment_dialog_bottons">
+        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="javascript: $('#shipment_dialog form').submit();">确定</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="javascript: closeDialog('#shipment_dialog');">取消</a>
+    </div>
+</div>
+
+@section scripts{
+    <script>
+        function shipment_row(index) {
+            var row = get_datagrid_row_by_index(index);
+            $('#shipment_dialog form').form('reset')
+            $('#shipment_dialog form :hidden[name="SaleProductItemId"]').val(row.SaleProductItemId);
+            $('#shipment_dialog').dialog('open').dialog('setTitle', '发货');
+        }
+        function compensate_row(index) {
+            var row = get_datagrid_row_by_index(index);
+            $('#compensate_dialog form').form('reset')
+            $('#compensate_dialog form :hidden[name="SaleProductItemId"]').val(row.SaleProductItemId);
+            $('#compensate_dialog').dialog('open').dialog('setTitle', '索赔');
+        }
+        $(function () {
+            //提交索赔
+            var validateOptions = get_validate_rules_messages('#compensate_dialog form');
+            $('#compensate_dialog form').validate({
+                rules: validateOptions.rules,
+                messages: validateOptions.messages,
+                submitHandler: function (form) {
+                    $.ajax({
+                        url: '/' + Area + '/' + Controller + '/ClaimCompensation',
+                        type: 'post',
+                        data: $('#compensate_dialog form').serialize(),
+                        dataType: 'json',
+                        beforeSend: function () {
+                            $.messager.progress({
+                                title: '',
+                                msg: '处理中...'
+                            });
+                        },
+                        success: function (resp) {
+                            $.messager.progress('close');
+                            var messages = GetModelStateErrors(resp);
+                            if (messages.length > 0) {
+                                $.messager.alert('提示', messages.join('\n'));
+                            } else {
+                                $.messager.alert('提示', '操作成功');
+                                $('#compensate_dialog').dialog('close')
+                                $('#my_datagrid').datagrid('reload');
+                            }
+                        }
+                    });
+                }
+            });
+
+            //提交收货
+            var validateOptions2 = get_validate_rules_messages('#shipment_dialog form');
+            $('#shipment_dialog form').validate({
+                rules: validateOptions2.rules,
+                messages: validateOptions2.messages,
+                submitHandler: function (form) {
+                    $.ajax({
+                        url: '/' + Area + '/' + Controller + '/Shipment',
+                        type: 'post',
+                        data: $('#shipment_dialog form').serialize(),
+                        dataType: 'json',
+                        beforeSend: function () {
+                            $.messager.progress({
+                                title: '',
+                                msg: '处理中...'
+                            });
+                        },
+                        success: function (resp) {
+                            $.messager.progress('close');
+                            var messages = GetModelStateErrors(resp);
+                            if (messages.length > 0) {
+                                $.messager.alert('提示', messages.join('\n'));
+                            } else {
+                                $.messager.alert('提示', '操作成功');
+                                $('#shipment_dialog').dialog('close')
+                                $('#my_datagrid').datagrid('reload');
+                            }
+                        }
+                    });
+                }
+            });
+
+
+        });
+
+
+    </script>
+}

@@ -1,0 +1,65 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section styles{
+
+}
+<div id="">
+    @Html.Partial("HeaderPartialView")
+    <div class="main clearf">
+        <div class="wrapper">
+            @Html.Partial("MenuLeftPartialView")
+            <div class="right_content">
+                <div id="mainTabs">
+
+                </div>
+                <div class="ddgl clearf calculate">
+                </div>
+            </div>
+            <div class="footer">
+                <div class="wrapper"></div>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+    <script type="text/javascript">
+        $('#mainTabs').tabs({ tabHeight: 43 });
+        //添加Tab
+        function addMainTab(title, url, closable) {
+            if ($('#mainTabs').tabs('exists', title)) {
+                $('#mainTabs').tabs('select', title);
+            } else {
+                if (closable == undefined) { closable = true; }
+                $('#mainTabs').tabs('add', {
+                    title: title,
+                    content: '<iframe style="width:100%;height:100%;border:none;margin:0;padding:0;" src="' + url + '"></iframe>',
+                    closable: closable
+                });
+                
+                $(".right_content .panel-body").css("height", $(window).height() - 68);
+                $(".tabs-panels iframe").height($(window).height() - 113);
+
+            }
+        }
+        $(function () {
+            //首页Tab初始化
+            addMainTab('首页', '/Public/Home/Main', false);
+        });
+        //修改tab
+        function updateMainTab(title,newTitle,url) {
+            var tab = $('#mainTabs').tabs('getSelected');
+            $('#mainTabs').tabs('update', {
+                tab: tab,
+                options: {
+                    title: newTitle,
+                    content: '<iframe style="width:100%;height:100%;border:none;margin:0;padding:0;" src="' + url + '"></iframe>'
+                }
+            });
+        }
+        //close tab
+        function closeMainTab(title) {
+            $('#mainTabs').tabs('close',title);
+        }
+    </script>
+}

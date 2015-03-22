@@ -1,0 +1,38 @@
+﻿@*datagrid*@
+<div style="margin:15px;" id="declaration">
+    <div class="topbar">
+        <form id="filter_form">
+            <input type="text" name="filterValue" value="请输入查找信息" style="width:200px;height:28px; text-indent:1em; float:left;" />
+            <a href="javascript:;" class="easyui-linkbutton" id="btn_financial_record_filter" onclick="$('#filter_form').submit();">查找</a>
+        </form>
+        <div class="clear"></div>
+    </div>
+    <div class="clear"></div>
+
+    <table id="my_datagrid" class="easyui-datagrid" title="港口代理费"
+           style="width:1200px;height:auto;"
+           data-options="rownumbers:true,pagination:true,singleSelect:true,url:'/@ViewContext.RouteData.Values["Area"].ToString()/@ViewContext.RouteData.Values["Controller"].ToString()/Index',method:'post'">
+        <thead>
+            <tr>
+                <th data-options="field:'CTIME_Str',width:'150',editor:'text'">时间</th>
+                <th data-options="field:'EventType_Str',width:'150',editor:'text'">会计科目</th>
+                <th data-options="field:'Amount_Round',width:'150',editor:'text'">金额</th>
+                <th data-options="field:'RecordTypeStr',width:'150',editor:'text'">记录类型</th>
+                <th data-options="field:'PayStatus_Str',width:'150',editor:'text'">支付状态</th>
+                <th data-options="field:'PayStatus_Str',width:'150',editor:'text'">已付账款</th>
+                <th data-options="field:'PayStatus_Str',width:'150',editor:'text'">未付账款</th>
+                <th data-options="field:'OperateSysUser_PersonName',width:'150',editor:'text'">操作用户</th>
+                <th data-options="field:'Comments',width:'150',editor:'text'">备注</th>
+            </tr>
+        </thead>
+    </table>
+</div>
+
+@section Scripts{
+
+    <script type="text/javascript">
+
+    </script>
+}
+
+

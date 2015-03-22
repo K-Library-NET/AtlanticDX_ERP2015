@@ -1,0 +1,296 @@
+﻿@model PrivilegeFramework.ContractInfo
+@{
+    ViewBag.Title = "编辑现货销售合同";
+}
+
+<form id="add_order_form" method="post" action="/@ViewContext.RouteData.Values["Area"].ToString()/@ViewContext.RouteData.Values["Controller"].ToString()/Add">
+    <input type="hidden" name="ContractType" value="1" />
+    <input type="hidden" name="OrderType" value="1" />
+    <div class="orders_list">
+        <div class="right_content_top bgc1" style="width:1780px;">
+            <span class="default red ml20">*</span>
+            <span class="default">选择客户</span>
+            <input type="text" name="SaleClientCompanyName" class="w120" readonly="readonly" />
+            <input type="hidden" name="SaleClientId" data-val-required="必须选择客户" />
+            <span class="default red">*</span>
+            <span class="default">@Html.DisplayNameFor(m => m.ContractKey)</span>
+            @Html.TextBoxFor(m => m.ContractKey, new { @class = "w120" })
+            <span class="default red">*</span>
+            <span class="default">@Html.DisplayNameFor(m => m.CTIME)</span>
+            <span class="eta_in">@Html.TextBoxFor(m => m.CTIME, new { @class = "easyui-datebox", @style = "width:98%;" })</span>
+            <input type="hidden" name="OrderType" value="1" />
+        </div>
+        <div class="ddgl clearf calculate">
+            <table id="picked_products_table" class="svs_table ml20 mr20" style="width:1730px;">
+                <thead class="">
+                    <tr>
+                        <th class="check w20" width="20"></th>
+                        <th class="w150" style="width:150px;">货品出厂编号</th>
+                        <th class="w200" style="width:200px;">国家/厂号/货品名/品牌</th>
+                        <th class="w150" style="width:150px;">规格</th>
+                        <th class="w100" style="width:100px;">包装</th>
+                        <th class="w100" style="width:100px;">件数</th>
+                        <th class="w100" style="width:100px;">销售数量</th>
+                        <th class="w100" style="width:100px;">销售吨重</th>
+                        <th class="w100" style="width:100px;">销售单价</th>
+                        <th class="w100" style="width:100px;">货币</th>
+                        <th class="w100" style="width:100px;">货款小计</th>
+                        <th class="operation w150" style="width:150px;">操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @if (Model.SaleProductItems != null)
+                    {
+                        for (int i = 0; i < Model.SaleProductItems.Count; i++)
+                        {
+                            <tr>
+                                <td class="check" style="width:20px;">@(i + 1)</td>
+                                <td name="ProductKey" style="width:100px;">@Model.SaleProductItems.ElementAt(i).ProductKey</td>
+                                <td name="ProductName" style="width:200px;">@Model.SaleProductItems.ElementAt(i).ProductName</td>
+                                <td name="ProductItem.Product.Specification" style="width:50px;">@*@Model.SaleProductItems.ElementAt(i).ProductItem.Product.Specification*@</td>
+                                <td name="ProductItem.Product.Packing" style="width:50px;">@*@Model.SaleProductItems.ElementAt(i).ProductItem.Product.Packing*@</td>
+                                <td name="Quantity" style="width:50px;">@*@Model.SaleProductItems.ElementAt(i).ProductItem.Quantity*@</td>
+                                <td style="width:100px;">
+                                    <input type="hidden" name="SaleProductItems[@i].StockItemId" value="" />
+                                    <input name="SaleProductItems[@i].Quantity" type="text" style="width:100px;" value="@Model.SaleProductItems.ElementAt(i).Quantity" />
+                                </td>
+                                <td style="width:100px;">
+                                    <input name="SaleProductItems[@i].Weight" class="num_compute" type="text" style="width:100px;" value="@Model.SaleProductItems.ElementAt(i).Weight" />
+                                </td>
+                                <td style="width:100px;">
+                                    <input name="SaleProductItems[@i].UnitPrice" class="num_compute" type="text" style="width:100px;" value="@Model.SaleProductItems.ElementAt(i).UnitPrice" />
+                                </td>
+                                <td style="width:100px;">
+                                    <select name="SaleProductItems[@i].Currency" style="width:100px;">
+                                        <option @(Model.SaleProductItems.ElementAt(i).Currency == "美元" ? "selected" : "")>美元</option>
+                                        <option @(Model.SaleProductItems.ElementAt(i).Currency == "港元" ? "selected" : "")>港元</option>
+                                        <option @(Model.SaleProductItems.ElementAt(i).Currency == "人民币" ? "selected" : "")>人民币</option>
+                                    </select>
+                                </td>
+                                <td name="SaleProductItems.SubTotal" style="width:100px;">@Model.SaleProductItems.ElementAt(i).SubTotal</td>
+                                <td class="operation" style="width:150px;">
+                                    <a href="javascript:;" class="add">新增</a>
+                                    <span>|</span>
+                                    <a href="javascript:;" class="del">删除</a>
+                                </td>
+
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+            <div style="width: 1780px;" class="table_info mt10">
+                <p class="clearf ml20">
+                    <span class="default">折扣率</span>
+                    <input class="w115" name="DiscountRate" value="100" data-val-min="0" data-val-max="100" type="text" />
+                    <span class="default">折扣额</span>
+                    <input class="w115" name="DiscountAmount2" value="0" type="text">
+                    <span class="default">折扣金额</span>
+                    <input class="w115 compute_all_subtotal" name="DiscountAmount" readonly="readonly" value="0" type="text">
+                    <span class="default">固定定金</span>
+                    <input class="w115" name="SaleDepositeStatic" value="0" type="text" readonly="readonly">
+                </p>
+                <p class="clearf ml20">
+                    <span class="default mr100">@Html.DisplayNameFor(m => m.CreateSysUserKey)： @Model.CreateSysUserKey</span>
+                </p>
+            </div>
+            <div style="width: 1780px;" class="submit">
+                <button class="default" type="submit">保存</button>
+                <button class="default" type="reset">取消</button>
+            </div>
+        </div>
+    </div>
+</form>
+@*选择商品弹出层*@
+<div id="pick_product_dialog" class="easyui-dialog" style="width:680px;min-height:240px;max-height:500px; height:50%;  padding:10px 20px;" data-options="modal:true,closed:true" buttons="#pick_product_dialog_bottons">
+    <div style="padding:10px 0px;">
+        <input type="text" name="filterValue" value="请输入商品编号或名称或规格" style="width:200px;height:28px; text-indent:1em; float:left;" />
+        <a href="javascript:;" class="easyui-linkbutton" id="btn_pick_products_filter">查找</a>
+        <div class="clear"></div>
+    </div>
+    <script>
+        function pick_product_operation_formatter(value, row, index) {
+            return '<a href="javascript:showProductDetailDialog(' + row.ProductItem.ProductId + ');">查看</a>';
+        }
+    </script>
+    <table id="pick_products_datagrid" class="easyui-datagrid" data-options="pageSize: 5,pageList: [5, 10, 20],rownumbers:true,pagination:true,singleSelect:true,url:'/Public/Data/StockItemProducts',method:'post'">
+        <thead>
+            <tr data-options="height:120">
+                <th data-options="field:'CaoZuo',width:40,algin:'center',formatter:pick_product_operation_formatter">操作</th>
+                <th data-options="field:'ProductItem.Product.ProductKey',width:100,algin:'center',formatter:easyui_field_formatter">货品出厂编号</th>
+                <th data-options="field:'ProductItem.Product.ProductFullName',width:200,algin:'center',formatter:easyui_field_formatter">国家/厂号/货品名/品牌</th>
+                <th data-options="field:'ProductItem.Product.Specification',width:50,algin:'center',formatter:easyui_field_formatter">规格</th>
+                <th data-options="field:'ProductItem.Product.Packing',width:100,algin:'center',formatter:easyui_field_formatter">包装</th>
+                <th data-options="field:'ProductItem.Product.Units',width:50,algin:'center',formatter:easyui_field_formatter">单位</th>
+                <th data-options="field:'Quantity',width:50,algin:'center',formatter:easyui_field_formatter">件数</th>
+                <th data-options="field:'StockWeight',width:100,algin:'center',formatter:easyui_field_formatter">入仓吨数</th>
+                <th data-options="field:'StockInDate',width:150,algin:'center',formatter:easyui_field_formatter">入仓时间</th>
+    </table>
+</div>
+<div id="pick_product_dialog_bottons">
+    <a href="javascript:void(0)" class="easyui-linkbutton" onclick="javascript: ;" data-id-name="StockItemId">选中</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" onclick="javascript: closeDialog('#pick_product_dialog');">关闭</a>
+</div>
+@Html.Partial("ProductDetailDialog")
+
+@*选择客户弹出层*@
+<div id="pick_client_dialog" class="easyui-dialog" style="width:680px;min-height:240px;max-height:500px; height:50%;  padding:10px 20px;" data-options="modal:true,closed:true" buttons="#pick_client_dialog_bottons">
+    <div style="padding:10px 0px;">
+        <input type="text" name="filterValue" data-default-value="请输入名称/联系人/电话" style="width:200px;height:28px; text-indent:1em; float:left;" />
+        <a href="javascript:;" class="easyui-linkbutton" id="btn_clients_filter">查找</a>
+        <div class="clear"></div>
+    </div>
+    <table id="pick_clients_datagrid" data-url="/Public/Data/SaleClients"></table>
+</div>
+<div id="pick_client_dialog_bottons">
+    <a href="javascript:void(0)" class="easyui-linkbutton" onclick="javascript: ;" data-id-name="SaleClientId">选中</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" onclick="javascript: closeDialog('#pick_client_dialog');">关闭</a>
+</div>
+
+@section scripts{
+    <script type="text/javascript" src="~/Scripts/pick_product.js"></script>
+    <script>
+        $(function () {
+            //选择客户
+            $('#add_order_form input[name="SaleClientCompanyName"]').focus(function () {
+                $('#pick_client_dialog').dialog('open').dialog('setTitle', '选择客户');
+            });
+            //选择客户弹出层列表
+            $('#pick_clients_datagrid').datagrid({
+                url: $('#pick_clients_datagrid').attr('data-url'),
+                method: 'post',
+                rownumbers: true,
+                pageSize: 5,
+                pageList: [5, 10, 20],
+                pagination: true,
+                singleSelect: true,
+                columns: [[
+                    //{
+                    //    field: 'Caozuo',
+                    //    width: 80,
+                    //    align: 'center',
+                    //    title: '操作',
+                    //    formatter: function (value, row, index) {
+                    //        return '<a  href="javascript:;">查看</a>';
+                    //    }
+                    //},
+                    { field: 'CompanyName', width: 150, title: '公司名' },
+                    { field: 'Address', width: 200, title: '地址' },
+                    { field: 'Name', width: 100, title: '联系人姓名' },
+                    { field: 'Telephone', width: 100, title: '电话' },
+                    { field: 'MobilePhone', width: 100, title: '手机' }
+                ]]
+            });
+            //选择客户查询
+            var pickClientFilterDefaultValue = $('#pick_client_dialog input[name="filterValue"]').data('default-value');
+            $('#pick_client_dialog input[name="filterValue"]').val(pickClientFilterDefaultValue);
+            $('#pick_client_dialog input[name="filterValue"]').focus(function () {
+                if ($(this).val() == pickClientFilterDefaultValue) $(this).val('');
+            }).blur(function () {
+                if ($(this).val() == '') $(this).val(pickClientFilterDefaultValue);
+            });
+            $('#btn_clients_filter').click(function () {
+                var filterValue = $('#pick_client_dialog input[name="filterValue"]').val();
+                if (filterValue == '' || filterValue == pickClientFilterDefaultValue) {
+
+                } else {
+                    $('#pick_clients_datagrid').datagrid('load', {
+                        filterValue: filterValue
+                    });
+                }
+            });
+            //选中客户
+            $('#pick_client_dialog_bottons a:first').click(function () {
+                var row = $('#pick_clients_datagrid').datagrid('getSelected');
+                if (row == null) {
+                    $.messager.alert('提示', '请选择客户');
+                } else {
+                    $('#add_order_form input[name="SaleClientCompanyName"]').val(row.CompanyName);
+                    $('#add_order_form :hidden[name="SaleClientId"]').val(row.SaleClientId);
+                    if (row.SaleDepositeStatic != null && row.SaleDepositeStatic != '') {
+                        $('#add_order_form input[name="SaleDepositeStatic"]').val(row.SaleDepositeStatic);
+                    }
+                    $('#pick_client_dialog').dialog('close');
+                }
+            });
+
+            //折扣额度计算
+            $('#add_order_form input[name="DiscountRate"]').keyup(function () {
+                if ($.isNumeric($(this).val())) {
+                    var rate = parseInt($(this).val());
+                    if (rate > 0 && rate <= 100) {
+                        var amount = parseInt($('#add_order_form input[name="DiscountAmount"]').data('total'));
+                        $('#add_order_form input[name="DiscountAmount"]').val((amount * rate / 100).toFixed(2));
+                        $('#add_order_form input[name="DiscountAmount2"]').val((amount * (100 - rate) / 100).toFixed(2));
+                    }
+                } else {
+                    $(this).val('');
+                }
+            });
+
+            //提交
+            var validateOptions = get_validate_rules_messages('#add_order_form');
+            $('#add_order_form').validate({
+                rules: validateOptions.rules,
+                messages: validateOptions.messages,
+                submitHandler: function (form) {
+                    //检查已选商品列
+                    if (picked_productkeys_ids.length == 0) {
+                        $.messager.alert('提示', '未选择商品');
+                        return false;
+                    }
+                    var exit = false;
+                    $('#picked_products_table tbody tr').each(function (index, obj) {
+                        if ($(obj).find('td').eq(1).text() == '') {
+                            exit = true;
+                            $.messager.alert('提示', '已选商品列表存在空行');
+                            return false;
+                        } else {
+                            $inputs = $(obj).find(':text');
+                            for (i = 0; i < $inputs.length; i++) {
+                                if ($inputs.eq(i).val() == '' || isNaN($inputs.eq(i).val())) {
+                                    exit = true;
+                                    var labelObj = $('#picked_products_table thead th:nth-child(' + ($inputs.eq(i).parent().index() + 1) + ')');
+                                    var labelText = labelObj.find('label').size() == 1 ? $.trim(labelObj.find('label').text()) : labelObj.text()
+                                    alert('请正确填写' + labelText);
+                                    $inputs.eq(i).focus();
+                                    return false;
+                                }
+                            };
+                            if (exit) {
+                                return false;
+                            }
+                        }
+                    });
+                    if (exit) {
+                        return false;
+                    }
+                    //发送请求
+                    $.ajax({
+                        url: $('#add_order_form').prop('action'),
+                        data: $(form).serialize(),
+                        type: 'post',
+                        cache: false,
+                        beforeSend: function () {
+                            $.messager.progress({
+                                title: '',
+                                msg: '处理中...'
+                            });
+                        },
+                        success: function (resp) {
+                            $.messager.progress('close');
+                            var messages = GetModelStateErrors(resp);
+                            if (messages.length > 0) {
+                                $.messager.alert('提示', messages.join('<br/>'));
+                            } else {
+                                alert('操作成功');
+                                parent.closeMainTab('添加现货销售');
+                            }
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+}

@@ -1,0 +1,238 @@
+﻿@*datagrid*@
+<script>
+    function func_operation_formatter(value, row, index) {
+        var temp = '<a href="javascript:;" class="edit" onclick="edit_row(' + index + ')">修改</a>';
+        temp += '|';
+        temp += '<a href="javascript:;" class="del" onclick="remove_row(' + index + ')">删除</a>';
+        temp += '|';
+        temp += '<a href="javascript:;" class="pic" onclick="###">图片</a>';
+        return temp;
+    }
+</script>
+<div style="margin:15px;" id="product">
+
+    <div class="topbar">
+        <input type="text" name="filterValue" value="请输入商品编号或名称或规格" style="width:200px;height:28px; text-indent:1em; float:left;" />
+        <a href="javascript:;" class="easyui-linkbutton" id="btn_order_products_filter">查找</a>
+        <a href="javascript:;" class="add_some" onclick="add_row()"><i></i>添加</a>
+
+        <a href="javascript:;" class="topabr_but" onclick="">导出</a>
+        <a href="javascript:;" class="topabr_but" onclick="">删除</a>
+
+        <div class="clear"></div>
+    </div>
+    <div class="clear"></div>
+
+    <table id="my_datagrid" class="" title="" style="height:auto;"
+           data-options="rownumbers:true,pagination:true,singleSelect:true,url:'/@ViewContext.RouteData.Values["Area"].ToString()/@ViewContext.RouteData.Values["Controller"].ToString()/Index',method:'post'">
+        <thead>
+            <tr>
+                <th data-options="field:'ProductType',width:'150',editor:'text'">商品类别</th>
+                @*<th data-options="field:'ProductKey',width:'150',editor:'text'">商品编号</th>*@
+                <th data-options="field:'ProductKey',width:'150',editor:'text'">货品出厂编号</th>
+                <th data-options="field:'ProductNameENG',width:'200',editor:'text'">货品名（英）</th>
+                <th data-options="field:'ProductName',width:'200',editor:'text'">货品名（中）</th>
+                <th data-options="field:'MadeInCountry',width:'150',editor:'text'">国家</th>
+                <th data-options="field:'MadeInFactory',width:'150',editor:'text'">厂号</th>
+                <th data-options="field:'Brand',width:'150',editor:'text'">品牌</th>
+                <th data-options="field:'Grade',width:'150',editor:'text'">级别</th>
+                <th data-options="field:'Specification',width:'120',editor:'text'">规格</th>
+                <th data-options="field:'Packing',width:'100',editor:'text'">包装</th>
+                <th data-options="field:'Units',width:'100',editor:'text'">单位</th>
+                <th data-options="field:'UnitsPerMonth',width:'100',editor:'text'">月生产量/吨</th>
+                <th data-options="field:'Comments',width:'250',editor:'text'">备注</th>
+                <th data-options="field:'Caozuo',width:'220',align:'center',formatter:func_operation_formatter">操作</th>
+
+                <!--
+                                <th data-options="field:'Number',width:'100',editor:'text'">数量</th>
+                                <th data-options="field:'Chengben',width:'100',editor:'text'">单位成本</th>
+                                <th data-options="field:'SumPrice',width:'100',editor:'text'">期初总价</th>
+                                <th data-options="field:'PayPrice',width:'100',editor:'text'">采购价格</th>
+                                <th data-options="field:'SalePrice',width:'100',editor:'text'">销售价格</th>-->
+            </tr>
+        </thead>
+    </table>
+</div>
+@*add dialog*@
+<div id="add_dialog" class="easyui-dialog product_add" style="width:510px;height:500px;padding:10px 20px;" data-options="modal:true,closed:true" buttons="#add_dialog_buttons">
+    <form method="post" class="dlg-form">
+        <div class="form-item">
+            <label>商品类别:</label>
+            <input type="text" name="ProductType" data-options="required:false" maxlength="50" />
+        </div>
+        <div class="form-item">
+            <label><samp style="color:red;">*</samp>货品出厂编号:</label>
+            <input type="text" name="ProductKey" data-options="required:true" maxlength="50" />
+        </div>
+        @*<div class="form-item">
+                <label>商品编号:</label>
+                <input type="text" name="ProductKey" data-options="required:true" />
+            </div>*@
+        <div class="form-item">
+            <label><samp style="color:red;">*</samp>货品名（英）:</label>
+            <input type="text" name="ProductNameENG" data-options="required:true" maxlength="50" />
+        </div>
+        <div class="form-item">
+            <label><samp style="color:red;">*</samp>货品名（中）:</label>
+            <input type="text" name="ProductName" data-options="required:true" maxlength="50" />
+        </div>
+        <div class="form-item">
+            <label>国家:</label>
+            <input type="text" name="MadeInCountry" data-options="required:true" maxlength="50" />
+        </div>
+        <div class="form-item">
+            <label>厂号:</label>
+            <input type="text" name="MadeInFactory" data-options="required:true" maxlength="50" />
+        </div>
+        <div class="form-item">
+            <label>品牌:</label>
+            <input type="text" name="Brand" data-options="required:true" maxlength="50" />
+        </div>
+        <div class="form-item">
+            <label>级别:</label>
+            <input type="text" name="Grade" data-options="required:false" maxlength="50" />
+        </div>
+        <div class="form-item">
+            <label>规格:</label>
+            <input type="text" name="Specification" data-options="required:false" maxlength="50" />
+        </div>
+        <div class="form-item">
+            <label>包装:</label>
+            <input type="text" name="Packing" data-options="required:false" maxlength="50" />
+        </div>
+        <div class="form-item">
+            <label>单位:</label>
+            <input type="text" name="Units" data-options="required:false" maxlength="50" />
+        </div>
+        <div class="form-item">
+            <label>月生产量/吨:</label>
+            <input type="text" name="UnitsPerMonth" data-options="required:false" maxlength="50" />
+        </div>
+        <!--
+        <div class="form-item">
+            <label>数量:</label>
+            <input type="text" name="Number" data-options="required:true" />
+        </div>
+        <div class="form-item">
+            <label>单位成本:</label>
+            <input type="text" name="Chengben" data-options="required:true" />
+        </div>
+        <div class="form-item">
+            <label>期初总价:</label>
+            <input type="text" name="SumPrice" data-options="required:true" />
+        </div>
+        <div class="form-item">
+            <label>采购价格:</label>
+            <input type="text" name="PayPrice" data-options="required:true" />
+        </div>
+        <div class="form-item">
+            <label>销售价格:</label>
+            <input type="text" name="SalePrice" data-options="required:true" />
+        </div>-->
+        <div class="form-item">
+            <label>备注:</label>
+            <input type="text" name="Comments" data-options="required:false" />
+        </div>
+    </form>
+</div>
+<div id="add_dialog_buttons">
+    <a href="javascript:void(0)" class="easyui-linkbutton" onclick="javascript: submitForm('#add_dialog form');">提交</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" onclick="javascript: closeDialog('#add_dialog');">关闭</a>
+</div>
+@*edit dialog*@
+<div id="edit_dialog" class="easyui-dialog product_add" style="width:510px;height:500px;padding:10px 20px;"
+     data-options="modal:true,closed:true" buttons="#edit_dialog_buttons">
+    <form method="post" novalidate class="dlg-form">
+        <input type="hidden" name="ProductId" value="" />
+        <div class="form-item">
+            <label>商品类别:</label>
+            <input type="text" name="ProductType" data-options="required:false" maxlength="50" />
+        </div>
+        <div class="form-item">
+            <label><samp style="color:red;">*</samp>货品出厂编号:</label>
+            <input type="text" name="ProductKey" data-options="required:true" maxlength="50" />
+        </div>
+        @*<div class="form-item">
+                <label>商品编号:</label>
+                <input type="text" name="ProductKey" data-options="required:true" />
+            </div>*@
+        <div class="form-item">
+            <label><samp style="color:red;">*</samp>货品名（英）:</label>
+            <input type="text" name="ProductNameENG" data-options="required:true" maxlength="50" />
+        </div>
+        <div class="form-item">
+            <label><samp style="color:red;">*</samp>货品名（中）:</label>
+            <input type="text" name="ProductName" data-options="required:true" maxlength="50" />
+        </div>
+        <div class="form-item">
+            <label>国家:</label>
+            <input type="text" name="MadeInCountry" data-options="required:true" maxlength="50" />
+        </div>
+        <div class="form-item">
+            <label>厂号:</label>
+            <input type="text" name="MadeInFactory" data-options="required:true" maxlength="50" />
+        </div>
+        <div class="form-item">
+            <label>品牌:</label>
+            <input type="text" name="Brand" data-options="required:true" maxlength="50" />
+        </div>
+        <div class="form-item">
+            <label>级别:</label>
+            <input type="text" name="Grade" data-options="required:false" maxlength="50" />
+        </div>
+        <div class="form-item">
+            <label>规格:</label>
+            <input type="text" name="Specification" data-options="required:false" maxlength="50" />
+        </div>
+        <div class="form-item">
+            <label>包装:</label>
+            <input type="text" name="Packing" data-options="required:false" maxlength="50" />
+        </div>
+        <div class="form-item">
+            <label>单位:</label>
+            <input type="text" name="Units" data-options="required:false" maxlength="50" />
+        </div>
+        <div class="form-item">
+            <label>月生产量/吨:</label>
+            <input type="text" name="UnitsPerMonth" data-options="required:false" maxlength="50" />
+        </div>
+        <!--
+        <div class="form-item">
+            <label>数量:</label>
+            <input type="text" name="Number" data-options="required:true" />
+        </div>
+        <div class="form-item">
+            <label>单位成本:</label>
+            <input type="text" name="Chengben" data-options="required:true" />
+        </div>
+        <div class="form-item">
+            <label>期初总价:</label>
+            <input type="text" name="SumPrice" data-options="required:true" />
+        </div>
+        <div class="form-item">
+            <label>采购价格:</label>
+            <input type="text" name="PayPrice" data-options="required:true" />
+        </div>
+        <div class="form-item">
+            <label>销售价格:</label>
+            <input type="text" name="SalePrice" data-options="required:true" />
+        </div>-->
+        <div class="form-item">
+            <label>备注:</label>
+            <input type="text" name="Comments" data-options="required:false" />
+        </div>
+    </form>
+</div>
+<div id="edit_dialog_buttons">
+    <a href="javascript:void(0)" class="easyui-linkbutton" onclick="javascript: submitForm('#edit_dialog form');">提交</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" onclick="javascript: closeDialog('#edit_dialog');">关闭</a>
+</div>
+
+@section Scripts{
+
+    <script type="text/javascript">
+
+    </script>
+}
+
+

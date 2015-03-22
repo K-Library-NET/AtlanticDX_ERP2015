@@ -1,0 +1,64 @@
+﻿@model YuShang.ERP.Entities.Configs.CoreConfig
+@{
+    ViewBag.Title = "系统参数配置";
+}
+@*datagrid*@
+<div class="system_set clearf calculate">
+    <div class="system_set_info">
+        <div class="top_info clearf">
+            <div class="li"><span>公司名称</span><br><input type="text" value="大西洋贸易有限公司"></div>
+            <div class="li"><span>公司地址</span><br><input type="text" value="广州市天河区金贸大厦14楼"></div>
+            <div class="li"><span>公司电话</span><br><input type="text" value="0757-85201314"></div>
+            <div class="li"><span>公司传真</span><br><input type="text" value="0757-85201314"></div>
+            <div class="li"><span>公司邮编</span><br><input type="text" value="528231"></div>
+        </div>
+        <div class="user_time">
+            <span class="sp1">启用时间</span><span class="sp2">2014-10-18</span>
+        </div>
+        <div class="unit clearf">
+            <div class="li">
+                <span>币种选择</span><br>
+                <select class="date_select">
+                    <option>RMB</option>
+                    <option>RMB</option>
+                    <option>RMB</option>
+                </select>
+            </div>
+            <div class="li">
+                <span>数量小数位</span><br>
+                <select class="date_select">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                </select>
+            </div>
+            <div class="li">
+                <span>单位小数位</span><br>
+                <select class="date_select">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                </select>
+            </div>
+        </div>
+        <div class="o_unit">
+            <p class="clearf">
+                <span class="sp2">是否检查负库存：</span>
+                <input title="选择/不选" type="checkbox">
+                <span class="sp2">是否启用税金：</span>
+                <input title="选择/不选" type="checkbox">
+                <span class="sp1">增值税税率</span>
+            </p>
+            <p class="clearf">
+                <span class="sp2">是否启用审核：</span>
+                <input title="选择/不选" type="checkbox">
+                <span class="sp1">(启用后单据只有审核后才会生效，报表数据才会变化)</span>
+            </p>
+        </div>
+        <button class="bs">保存</button>
+    </div>
+</div>

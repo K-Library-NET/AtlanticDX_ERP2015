@@ -1,0 +1,65 @@
+﻿@model AtlanticDX.ERP.Areas.Stocks.Models.StockHouseViewModel
+
+@{
+    ViewBag.Title = "现货库存";
+}
+<script type="text/javascript" src="~/Scripts/datagrid-detailview.js"></script>
+<script>
+    function productItemsDetailFormatter(rowIndex, rowData) {
+        var temp = '<table border="0" cellspacing="1" cellpadding="0" style="background-color:#ccc;" class="the_xlb">';
+        temp += '<tr>' +
+            '<td style="border:none; text-align:center; font-size:14px; width:150px;">货品出厂编号</td>' +
+            '<td style="border:none; text-align:center; font-size:14px; width:120px;">货品名</td>' +
+            '<td style="border:none; text-align:center; font-size:14px; width:120px;">件数</td>' +
+            '<td style="border:none; text-align:center; font-size:14px; width:100px;">入仓吨数</td>' +
+            '<td style="border:none; text-align:center; font-size:14px; width:100px;">入仓时间</td>' +
+            '</tr>';
+        var rows = rowData.StockItems;
+        if (rows == null) return '';
+        for (i = 0; i < rows.length; i++) {
+            temp += '<tr>' +
+                    '<td style="border:0;padding-right:10px">' + rows[i]['StockItem']['ProductKey'] + '</td>' +
+                    '<td style="border:0;padding-right:10px">' + rows[i]['StockItem']['ProductName'] + '</td>' +
+                    '<td style="border:0;padding-right:10px">' + rows[i]['StockItem']['Quantity'] + '</td>' +
+                    '<td style="border:0;padding-right:10px">' + rows[i]['StockItem']['StockWeight'] + '</td>' +
+                    '<td style="border:0;padding-right:10px">' + rows[i]['StockItem']['StockInDate'] + '</td>' +
+                    '</tr>';
+        }
+        temp += '</table>'
+        return temp;
+    }
+</script>
+
+<div style="margin:15px;">
+    <div class="right_content_top">
+        <form id="filter_form">
+            <div class="search mr15">
+                <input type="text" value="请输入仓库/货品" name="filterValue" onfocus="if (this.value == '请输入仓库/货品') this.value = '';" onblur="    if (this.value == '') this.value = '请输入仓库/货品';" />
+                <button type="submit">查询</button>
+            </div>
+        </form>
+        <button class="add_some mt10"><i></i>采购入库</button>
+    </div>
+    <div class="clear"></div>
+    <table id="my_datagrid" style="width:892px;" title=""
+           data-options="view:detailview,detailFormatter: productItemsDetailFormatter,rownumbers:true,pagination:true,singleSelect:true,url:'/@ViewContext.RouteData.Values["Area"].ToString()/@ViewContext.RouteData.Values["Controller"].ToString()/Index',method:'post'">
+        <thead>
+            <tr data-options="height:120">
+                <th data-options="field:'StoreHouse.StoreHouseName',width:120,algin:'center',formatter:easyui_field_formatter">@Html.LabelFor(m => m.StoreHouse.StoreHouseName)</th>
+                <th data-options="field:'StoreHouse.StorageVolume',width:120,algin:'center',formatter:easyui_field_formatter">@Html.LabelFor(m => m.StoreHouse.StorageVolume)</th>
+                <th data-options="field:'StoreHouse.Name',width:120,algin:'center',formatter:easyui_field_formatter">@Html.LabelFor(m => m.StoreHouse.Name)</th>
+                <th data-options="field:'StoreHouse.MobilePhone',width:120,align:'center',formatter:easyui_field_formatter">@Html.LabelFor(m => m.StoreHouse.MobilePhone)</th>
+                <th data-options="field:'StoreHouse.Address',width:320,align:'center',formatter:easyui_field_formatter">@Html.LabelFor(m => m.StoreHouse.Address)</th>
+
+            </tr>
+        </thead>
+    </table>
+
+</div>
+    @section scripts{
+        <script>
+            $('button.add_some').click(function () {
+                parent.addMainTab($(this).text(), '/' + Area + '/' + 'StockIns' + '/Index', true);
+            });
+        </script>
+    }

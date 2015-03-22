@@ -1,0 +1,43 @@
+﻿<div id="products_detail_dialog" class="easyui-dialog" style="width:640px;height:400px;padding:10px 20px;" data-options="modal:true,closed:true" buttons="#products_detail_dialog_bottons">
+    
+    <span>商品类别:</span><input type="text" name="ProductType" value="" />
+    <span>商品编号:</span><input type="text" name="ProductId" value="" />
+    <span>货品名（英）:</span><input type="text" name="ProductNameENG" value="" style="width:460px;" />
+    <span>货品名（中）:</span><input type="text" name="ProductName" value="" style="width:460px;" />
+    <span>国家:</span><input type="text" name="MadeInCountry" value="" style="width:232px;" />
+    <span>厂号:</span><input type="text" name="MadeInFactory" value="" />
+    <span>品牌:</span><input type="text" name="Brand" value="" style="width:232px;" />
+    <span>级别:</span><input type="text" name="Grade" value="" />
+    <span>规格型号:</span><input type="text" name="Specification" value="" style="width:200px;" />
+    <span>包装:</span><input type="text" name="Packing" value="" />
+    
+    
+    <span>月生产量/吨:</span><input type="text" name="UnitsPerMonth" value="" style="width:178px;" />
+    <span>数量:</span><input type="text" name="Number" value="" />
+    <span>货品出厂编号:</span><input type="text" name="ProductKey" value="" style="width:168px;" />
+    <span>单位成本:</span><input type="text" name="Chengben" value="" />
+    <span>期初总价:</span><input type="text" name="SumPrice" value="" />
+    <span>采购价格:</span><input type="text" name="PayPrice" value="" />
+    <span>销售价格:</span><input type="text" name="SalePrice" value="" />
+
+    <span>备注:</span><input type="text" name="Notice" value="" />
+
+</div>
+<div id="products_detail_dialog_bottons">
+    <a href="javascript:void(0)" class="easyui-linkbutton"  onclick="javascript: closeDialog('#products_detail_dialog');">关闭</a>
+</div>
+<script>
+    //显示商品详情弹出层
+    function showProductDetailDialog(productId) {
+        $.post('/Public/Data/ProductDetail', 'productId=' + productId, function (resp) {
+            if (resp != null) {
+                for (var key in resp) {
+                    $('#products_detail_dialog :input[name="' + key + '"]').val(resp[key]).attr('readonly',true);
+                }
+            }
+            $('#products_detail_dialog').dialog('open').dialog('setTitle', '商品详情');
+        }, 'json');
+    }
+</script>
+
+

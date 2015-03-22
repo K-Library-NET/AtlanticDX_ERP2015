@@ -1,0 +1,185 @@
+﻿<error errorId="c537e654-01b5-4993-9310-04a513d9d5f3" application="/LM/W3SVC/2/ROOT" host="KEITHMACVM" type="MySql.Data.MySqlClient.MySqlException" message="Table 'test.aspnetusers' doesn't exist" source="MySql.Data" detail="System.Data.Entity.Core.EntityCommandExecutionException: 执行命令定义时出错。有关详细信息，请参阅内部异常。 ---&gt; MySql.Data.MySqlClient.MySqlException: Table 'test.aspnetusers' doesn't exist&#xD;&#xA;   在 MySql.Data.MySqlClient.MySqlStream.ReadPacket()&#xD;&#xA;   在 MySql.Data.MySqlClient.NativeDriver.GetResult(Int32&amp; affectedRow, Int64&amp; insertedId)&#xD;&#xA;   在 MySql.Data.MySqlClient.Driver.GetResult(Int32 statementId, Int32&amp; affectedRows, Int64&amp; insertedId)&#xD;&#xA;   在 MySql.Data.MySqlClient.Driver.NextResult(Int32 statementId, Boolean force)&#xD;&#xA;   在 MySql.Data.MySqlClient.MySqlDataReader.NextResult()&#xD;&#xA;   在 MySql.Data.MySqlClient.MySqlCommand.ExecuteReader(CommandBehavior behavior)&#xD;&#xA;   在 MySql.Data.Entity.EFMySqlCommand.ExecuteDbDataReader(CommandBehavior behavior)&#xD;&#xA;   在 System.Data.Common.DbCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)&#xD;&#xA;--- 引发异常的上一位置中堆栈跟踪的末尾 ---&#xD;&#xA;   在 System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)&#xD;&#xA;   在 System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)&#xD;&#xA;   在 System.Runtime.CompilerServices.TaskAwaiter`1.GetResult()&#xD;&#xA;   在 System.Data.Entity.Utilities.TaskExtensions.CultureAwaiter`1.GetResult()&#xD;&#xA;   在 System.Data.Entity.Core.EntityClient.Internal.EntityCommandDefinition.&lt;ExecuteStoreCommandsAsync&gt;d__c.MoveNext()&#xD;&#xA;   --- 内部异常堆栈跟踪的结尾 ---&#xD;&#xA;   在 System.Data.Entity.Core.EntityClient.Internal.EntityCommandDefinition.&lt;ExecuteStoreCommandsAsync&gt;d__c.MoveNext()&#xD;&#xA;--- 引发异常的上一位置中堆栈跟踪的末尾 ---&#xD;&#xA;   在 System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)&#xD;&#xA;   在 System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)&#xD;&#xA;   在 System.Runtime.CompilerServices.TaskAwaiter`1.GetResult()&#xD;&#xA;   在 System.Data.Entity.Utilities.TaskExtensions.CultureAwaiter`1.GetResult()&#xD;&#xA;   在 System.Data.Entity.Core.Objects.Internal.ObjectQueryExecutionPlan.&lt;ExecuteAsync&gt;d__0`1.MoveNext()&#xD;&#xA;--- 引发异常的上一位置中堆栈跟踪的末尾 ---&#xD;&#xA;   在 System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)&#xD;&#xA;   在 System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)&#xD;&#xA;   在 System.Runtime.CompilerServices.TaskAwaiter`1.GetResult()&#xD;&#xA;   在 System.Data.Entity.Utilities.TaskExtensions.CultureAwaiter`1.GetResult()&#xD;&#xA;   在 System.Data.Entity.Core.Objects.ObjectContext.&lt;ExecuteInTransactionAsync&gt;d__3d`1.MoveNext()&#xD;&#xA;--- 引发异常的上一位置中堆栈跟踪的末尾 ---&#xD;&#xA;   在 System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)&#xD;&#xA;   在 System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)&#xD;&#xA;   在 System.Runtime.CompilerServices.TaskAwaiter`1.GetResult()&#xD;&#xA;   在 System.Data.Entity.Utilities.TaskExtensions.CultureAwaiter`1.GetResult()&#xD;&#xA;   在 System.Data.Entity.Core.Objects.ObjectQuery`1.&lt;GetResultsAsync&gt;d__e.MoveNext()&#xD;&#xA;--- 引发异常的上一位置中堆栈跟踪的末尾 ---&#xD;&#xA;   在 System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)&#xD;&#xA;   在 System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)&#xD;&#xA;   在 System.Runtime.CompilerServices.TaskAwaiter`1.GetResult()&#xD;&#xA;   在 System.Data.Entity.Utilities.TaskExtensions.CultureAwaiter`1.GetResult()&#xD;&#xA;   在 System.Data.Entity.Internal.LazyAsyncEnumerator`1.&lt;FirstMoveNextAsync&gt;d__0.MoveNext()&#xD;&#xA;--- 引发异常的上一位置中堆栈跟踪的末尾 ---&#xD;&#xA;   在 System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)&#xD;&#xA;   在 System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)&#xD;&#xA;   在 System.Runtime.CompilerServices.TaskAwaiter`1.GetResult()&#xD;&#xA;   在 System.Data.Entity.Utilities.TaskExtensions.CultureAwaiter`1.GetResult()&#xD;&#xA;   在 System.Data.Entity.Infrastructure.IDbAsyncEnumerableExtensions.&lt;FirstOrDefaultAsync&gt;d__25`1.MoveNext()&#xD;&#xA;--- 引发异常的上一位置中堆栈跟踪的末尾 ---&#xD;&#xA;   在 System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)&#xD;&#xA;   在 System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)&#xD;&#xA;   在 System.Runtime.CompilerServices.TaskAwaiter`1.GetResult()&#xD;&#xA;   在 Microsoft.AspNet.Identity.UserValidator`2.&lt;ValidateUserName&gt;d__4.MoveNext()&#xD;&#xA;--- 引发异常的上一位置中堆栈跟踪的末尾 ---&#xD;&#xA;   在 System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)&#xD;&#xA;   在 System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)&#xD;&#xA;   在 System.Runtime.CompilerServices.TaskAwaiter.GetResult()&#xD;&#xA;   在 Microsoft.AspNet.Identity.UserValidator`2.&lt;ValidateAsync&gt;d__0.MoveNext()&#xD;&#xA;--- 引发异常的上一位置中堆栈跟踪的末尾 ---&#xD;&#xA;   在 System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)&#xD;&#xA;   在 System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)&#xD;&#xA;   在 System.Runtime.CompilerServices.TaskAwaiter`1.GetResult()&#xD;&#xA;   在 Microsoft.AspNet.Identity.TaskExtensions.CultureAwaiter`1.GetResult()&#xD;&#xA;   在 Microsoft.AspNet.Identity.UserManager`2.&lt;CreateAsync&gt;d__0.MoveNext()&#xD;&#xA;--- 引发异常的上一位置中堆栈跟踪的末尾 ---&#xD;&#xA;   在 System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)&#xD;&#xA;   在 System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)&#xD;&#xA;   在 System.Runtime.CompilerServices.TaskAwaiter`1.GetResult()&#xD;&#xA;   在 Microsoft.AspNet.Identity.TaskExtensions.CultureAwaiter`1.GetResult()&#xD;&#xA;   在 Microsoft.AspNet.Identity.UserManager`2.&lt;CreateAsync&gt;d__d.MoveNext()&#xD;&#xA;--- 引发异常的上一位置中堆栈跟踪的末尾 ---&#xD;&#xA;   在 System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)&#xD;&#xA;   在 System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)&#xD;&#xA;   在 System.Runtime.CompilerServices.TaskAwaiter`1.GetResult()&#xD;&#xA;   在 WebApplication1.Controllers.AccountController.&lt;Register&gt;d__13.MoveNext() 位置 \\psf\home\Documents\Visual Studio 2013\Projects\WpfApplication1\WebApplication1\Controllers\AccountController.cs:行号 158&#xD;&#xA;--- 引发异常的上一位置中堆栈跟踪的末尾 ---&#xD;&#xA;   在 System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)&#xD;&#xA;   在 System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)&#xD;&#xA;   在 System.Runtime.CompilerServices.TaskAwaiter.GetResult()&#xD;&#xA;   在 System.Threading.Tasks.TaskHelpersExtensions.ThrowIfFaulted(Task task)&#xD;&#xA;   在 System.Web.Mvc.Async.TaskAsyncActionDescriptor.EndExecute(IAsyncResult asyncResult)&#xD;&#xA;   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.&lt;&gt;c__DisplayClass37.&lt;BeginInvokeAsynchronousActionMethod&gt;b__36(IAsyncResult asyncResult)&#xD;&#xA;   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.CallEndDelegate(IAsyncResult asyncResult)&#xD;&#xA;   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()&#xD;&#xA;   在 System.Web.Mvc.Async.AsyncResultWrapper.End[TResult](IAsyncResult asyncResult, Object tag)&#xD;&#xA;   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethod(IAsyncResult asyncResult)&#xD;&#xA;   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.&lt;InvokeActionMethodFilterAsynchronouslyRecursive&gt;b__3d()&#xD;&#xA;   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.&lt;&gt;c__DisplayClass46.&lt;InvokeActionMethodFilterAsynchronouslyRecursive&gt;b__3f()&#xD;&#xA;   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.&lt;&gt;c__DisplayClass33.&lt;BeginInvokeActionMethodWithFilters&gt;b__32(IAsyncResult asyncResult)&#xD;&#xA;   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.CallEndDelegate(IAsyncResult asyncResult)&#xD;&#xA;   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()&#xD;&#xA;   在 System.Web.Mvc.Async.AsyncResultWrapper.End[TResult](IAsyncResult asyncResult, Object tag)&#xD;&#xA;   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethodWithFilters(IAsyncResult asyncResult)&#xD;&#xA;   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.&lt;&gt;c__DisplayClass21.&lt;&gt;c__DisplayClass2b.&lt;BeginInvokeAction&gt;b__1c()&#xD;&#xA;   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.&lt;&gt;c__DisplayClass21.&lt;BeginInvokeAction&gt;b__1e(IAsyncResult asyncResult)&#xD;&#xA;   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.CallEndDelegate(IAsyncResult asyncResult)&#xD;&#xA;   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()&#xD;&#xA;   在 System.Web.Mvc.Async.AsyncResultWrapper.End[TResult](IAsyncResult asyncResult, Object tag)&#xD;&#xA;   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeAction(IAsyncResult asyncResult)&#xD;&#xA;   在 System.Web.Mvc.Controller.&lt;BeginExecuteCore&gt;b__1d(IAsyncResult asyncResult, ExecuteCoreState innerState)&#xD;&#xA;   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncVoid`1.CallEndDelegate(IAsyncResult asyncResult)&#xD;&#xA;   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()&#xD;&#xA;   在 System.Web.Mvc.Async.AsyncResultWrapper.End[TResult](IAsyncResult asyncResult, Object tag)&#xD;&#xA;   在 System.Web.Mvc.Async.AsyncResultWrapper.End(IAsyncResult asyncResult, Object tag)&#xD;&#xA;   在 System.Web.Mvc.Controller.EndExecuteCore(IAsyncResult asyncResult)&#xD;&#xA;   在 System.Web.Mvc.Controller.&lt;BeginExecute&gt;b__15(IAsyncResult asyncResult, Controller controller)&#xD;&#xA;   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncVoid`1.CallEndDelegate(IAsyncResult asyncResult)&#xD;&#xA;   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()&#xD;&#xA;   在 System.Web.Mvc.Async.AsyncResultWrapper.End[TResult](IAsyncResult asyncResult, Object tag)&#xD;&#xA;   在 System.Web.Mvc.Async.AsyncResultWrapper.End(IAsyncResult asyncResult, Object tag)&#xD;&#xA;   在 System.Web.Mvc.Controller.EndExecute(IAsyncResult asyncResult)&#xD;&#xA;   在 System.Web.Mvc.Controller.System.Web.Mvc.Async.IAsyncController.EndExecute(IAsyncResult asyncResult)&#xD;&#xA;   在 System.Web.Mvc.MvcHandler.&lt;BeginProcessRequest&gt;b__5(IAsyncResult asyncResult, ProcessRequestState innerState)&#xD;&#xA;   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncVoid`1.CallEndDelegate(IAsyncResult asyncResult)&#xD;&#xA;   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()&#xD;&#xA;   在 System.Web.Mvc.Async.AsyncResultWrapper.End[TResult](IAsyncResult asyncResult, Object tag)&#xD;&#xA;   在 System.Web.Mvc.Async.AsyncResultWrapper.End(IAsyncResult asyncResult, Object tag)&#xD;&#xA;   在 System.Web.Mvc.MvcHandler.EndProcessRequest(IAsyncResult asyncResult)&#xD;&#xA;   在 System.Web.Mvc.MvcHandler.System.Web.IHttpAsyncHandler.EndProcessRequest(IAsyncResult result)&#xD;&#xA;   在 System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()&#xD;&#xA;   在 System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean&amp; completedSynchronously)" time="2014-11-10T17:31:01.3903709Z">
+  <serverVariables>
+    <item name="ALL_HTTP">
+      <value string="HTTP_CACHE_CONTROL:no-cache&#xD;&#xA;HTTP_CONNECTION:Keep-Alive&#xD;&#xA;HTTP_CONTENT_LENGTH:200&#xD;&#xA;HTTP_CONTENT_TYPE:application/x-www-form-urlencoded&#xD;&#xA;HTTP_ACCEPT:image/jpeg, application/x-ms-application, image/gif, application/xaml+xml, image/pjpeg, application/x-ms-xbap, */*&#xD;&#xA;HTTP_ACCEPT_ENCODING:gzip, deflate&#xD;&#xA;HTTP_ACCEPT_LANGUAGE:zh-Hans-CN,zh-Hans;q=0.8,en-US;q=0.5,en;q=0.3&#xD;&#xA;HTTP_COOKIE:__RequestVerificationToken=HjvmRI3d3I8BfyaCsNGR8i_jBEM5b3O1r5al8yU10AzQWevytRtApRrrGzOTYbJGXXGz0f_toNk58CvSfixhiFwSWaKnJ_CiV28fZ_7xCDY1&#xD;&#xA;HTTP_HOST:localhost:5250&#xD;&#xA;HTTP_REFERER:http://localhost:5250/Account/Register&#xD;&#xA;HTTP_USER_AGENT:Mozilla/5.0 (Windows NT 6.2; WOW64; Trident/7.0; rv:11.0; Eureka/1.0) like Gecko&#xD;&#xA;" />
+    </item>
+    <item name="ALL_RAW">
+      <value string="Cache-Control: no-cache&#xD;&#xA;Connection: Keep-Alive&#xD;&#xA;Content-Length: 200&#xD;&#xA;Content-Type: application/x-www-form-urlencoded&#xD;&#xA;Accept: image/jpeg, application/x-ms-application, image/gif, application/xaml+xml, image/pjpeg, application/x-ms-xbap, */*&#xD;&#xA;Accept-Encoding: gzip, deflate&#xD;&#xA;Accept-Language: zh-Hans-CN,zh-Hans;q=0.8,en-US;q=0.5,en;q=0.3&#xD;&#xA;Cookie: __RequestVerificationToken=HjvmRI3d3I8BfyaCsNGR8i_jBEM5b3O1r5al8yU10AzQWevytRtApRrrGzOTYbJGXXGz0f_toNk58CvSfixhiFwSWaKnJ_CiV28fZ_7xCDY1&#xD;&#xA;Host: localhost:5250&#xD;&#xA;Referer: http://localhost:5250/Account/Register&#xD;&#xA;User-Agent: Mozilla/5.0 (Windows NT 6.2; WOW64; Trident/7.0; rv:11.0; Eureka/1.0) like Gecko&#xD;&#xA;" />
+    </item>
+    <item name="APPL_MD_PATH">
+      <value string="/LM/W3SVC/2/ROOT" />
+    </item>
+    <item name="APPL_PHYSICAL_PATH">
+      <value string="\\psf\home\documents\visual studio 2013\Projects\WpfApplication1\WebApplication1\" />
+    </item>
+    <item name="AUTH_TYPE">
+      <value string="" />
+    </item>
+    <item name="AUTH_USER">
+      <value string="" />
+    </item>
+    <item name="AUTH_PASSWORD">
+      <value string="" />
+    </item>
+    <item name="LOGON_USER">
+      <value string="" />
+    </item>
+    <item name="REMOTE_USER">
+      <value string="" />
+    </item>
+    <item name="CERT_COOKIE">
+      <value string="" />
+    </item>
+    <item name="CERT_FLAGS">
+      <value string="" />
+    </item>
+    <item name="CERT_ISSUER">
+      <value string="" />
+    </item>
+    <item name="CERT_KEYSIZE">
+      <value string="" />
+    </item>
+    <item name="CERT_SECRETKEYSIZE">
+      <value string="" />
+    </item>
+    <item name="CERT_SERIALNUMBER">
+      <value string="" />
+    </item>
+    <item name="CERT_SERVER_ISSUER">
+      <value string="" />
+    </item>
+    <item name="CERT_SERVER_SUBJECT">
+      <value string="" />
+    </item>
+    <item name="CERT_SUBJECT">
+      <value string="" />
+    </item>
+    <item name="CONTENT_LENGTH">
+      <value string="200" />
+    </item>
+    <item name="CONTENT_TYPE">
+      <value string="application/x-www-form-urlencoded" />
+    </item>
+    <item name="GATEWAY_INTERFACE">
+      <value string="CGI/1.1" />
+    </item>
+    <item name="HTTPS">
+      <value string="off" />
+    </item>
+    <item name="HTTPS_KEYSIZE">
+      <value string="" />
+    </item>
+    <item name="HTTPS_SECRETKEYSIZE">
+      <value string="" />
+    </item>
+    <item name="HTTPS_SERVER_ISSUER">
+      <value string="" />
+    </item>
+    <item name="HTTPS_SERVER_SUBJECT">
+      <value string="" />
+    </item>
+    <item name="INSTANCE_ID">
+      <value string="2" />
+    </item>
+    <item name="INSTANCE_META_PATH">
+      <value string="/LM/W3SVC/2" />
+    </item>
+    <item name="LOCAL_ADDR">
+      <value string="::1" />
+    </item>
+    <item name="PATH_INFO">
+      <value string="/Account/Register" />
+    </item>
+    <item name="PATH_TRANSLATED">
+      <value string="\\psf\home\documents\visual studio 2013\Projects\WpfApplication1\WebApplication1\Account\Register" />
+    </item>
+    <item name="QUERY_STRING">
+      <value string="" />
+    </item>
+    <item name="REMOTE_ADDR">
+      <value string="::1" />
+    </item>
+    <item name="REMOTE_HOST">
+      <value string="::1" />
+    </item>
+    <item name="REMOTE_PORT">
+      <value string="21041" />
+    </item>
+    <item name="REQUEST_METHOD">
+      <value string="POST" />
+    </item>
+    <item name="SCRIPT_NAME">
+      <value string="/Account/Register" />
+    </item>
+    <item name="SERVER_NAME">
+      <value string="localhost" />
+    </item>
+    <item name="SERVER_PORT">
+      <value string="5250" />
+    </item>
+    <item name="SERVER_PORT_SECURE">
+      <value string="0" />
+    </item>
+    <item name="SERVER_PROTOCOL">
+      <value string="HTTP/1.1" />
+    </item>
+    <item name="SERVER_SOFTWARE">
+      <value string="Microsoft-IIS/8.0" />
+    </item>
+    <item name="URL">
+      <value string="/Account/Register" />
+    </item>
+    <item name="HTTP_CACHE_CONTROL">
+      <value string="no-cache" />
+    </item>
+    <item name="HTTP_CONNECTION">
+      <value string="Keep-Alive" />
+    </item>
+    <item name="HTTP_CONTENT_LENGTH">
+      <value string="200" />
+    </item>
+    <item name="HTTP_CONTENT_TYPE">
+      <value string="application/x-www-form-urlencoded" />
+    </item>
+    <item name="HTTP_ACCEPT">
+      <value string="image/jpeg, application/x-ms-application, image/gif, application/xaml+xml, image/pjpeg, application/x-ms-xbap, */*" />
+    </item>
+    <item name="HTTP_ACCEPT_ENCODING">
+      <value string="gzip, deflate" />
+    </item>
+    <item name="HTTP_ACCEPT_LANGUAGE">
+      <value string="zh-Hans-CN,zh-Hans;q=0.8,en-US;q=0.5,en;q=0.3" />
+    </item>
+    <item name="HTTP_COOKIE">
+      <value string="__RequestVerificationToken=HjvmRI3d3I8BfyaCsNGR8i_jBEM5b3O1r5al8yU10AzQWevytRtApRrrGzOTYbJGXXGz0f_toNk58CvSfixhiFwSWaKnJ_CiV28fZ_7xCDY1" />
+    </item>
+    <item name="HTTP_HOST">
+      <value string="localhost:5250" />
+    </item>
+    <item name="HTTP_REFERER">
+      <value string="http://localhost:5250/Account/Register" />
+    </item>
+    <item name="HTTP_USER_AGENT">
+      <value string="Mozilla/5.0 (Windows NT 6.2; WOW64; Trident/7.0; rv:11.0; Eureka/1.0) like Gecko" />
+    </item>
+  </serverVariables>
+  <form>
+    <item name="__RequestVerificationToken">
+      <value string="yX44BEPsEIKWEQWabvcb-gcmoHLv9J_kUOchxfguHz-rG21ZkRMtLpx1t7QulLYKC_KfHx1OMSDbkdanaq46PHFvXK87_jC2u8rCEz7bcmw1" />
+    </item>
+    <item name="Email">
+      <value string="gzkeith@163.com" />
+    </item>
+    <item name="Password">
+      <value string="wijmo_A6" />
+    </item>
+    <item name="ConfirmPassword">
+      <value string="wijmo_A6" />
+    </item>
+  </form>
+  <cookies>
+    <item name="__RequestVerificationToken">
+      <value string="HjvmRI3d3I8BfyaCsNGR8i_jBEM5b3O1r5al8yU10AzQWevytRtApRrrGzOTYbJGXXGz0f_toNk58CvSfixhiFwSWaKnJ_CiV28fZ_7xCDY1" />
+    </item>
+  </cookies>
+</error>

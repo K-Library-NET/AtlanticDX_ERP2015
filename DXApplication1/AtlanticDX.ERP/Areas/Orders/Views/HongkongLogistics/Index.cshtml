@@ -1,0 +1,44 @@
+﻿@model YuShang.ERP.Entities.Orders.ProductItem
+@{
+    ViewBag.Title = "香港物流";
+}
+<div class="right_content_top">
+    <form id="filter_form">
+        <span class="eta ml20">收货日期</span>
+        <span class="eta_in"><input type="text" class="easyui-datebox" name="ReceiveTimeFrom" /></span>
+        <span class="eta_in"><input type="text" class="easyui-datebox" name="ReceiveTimeTo" /></span>
+        <div class="search mr15">
+            <input value="物流公司" type="text" name="LogisCompanyName" onfocus="if (this.value == '物流公司') this.value = '';" onblur="    if (this.value == '') this.value = '物流公司';" />
+            <button type="submit">查询</button>
+        </div>
+    </form>
+</div>
+
+<div class="ddgl clearf calculate" style="margin:15px;">
+    <table id="my_datagrid" class="" title=""
+           data-options="rownumbers:true,pagination:true,singleSelect:true,url:'/@ViewContext.RouteData.Values["Area"].ToString()/@ViewContext.RouteData.Values["Controller"].ToString()/Index',method:'post'">
+        <thead>
+            <tr data-options="height:120">
+                <th data-options="field:'Product.ProductKey',width:150,algin:'center',formatter:easyui_field_formatter">@Html.Label("ProductKey")</th>
+                <th data-options="field:'Product.ProductFullName',width:200,algin:'center',formatter:easyui_field_formatter">@Html.LabelFor(m => m.Product.ProductFullName)</th>
+                <th data-options="field:'Product.Specification',width:150,align:'center',formatter:easyui_field_formatter">@Html.LabelFor(m => m.Product.Specification)</th>
+                <th data-options="field:'Product.Packing',width:150,align:'center',formatter:easyui_field_formatter">@Html.LabelFor(m => m.Product.Packing)</th>
+                <th data-options="field:'Product.Units',width:150,align:'center',formatter:easyui_field_formatter">@Html.LabelFor(m => m.Product.Units)</th>
+                <th data-options="field:'Quantity',width:150,align:'center'">@Html.LabelFor(m => m.Quantity)</th>
+                <th data-options="field:'NetWeight',width:150,align:'center'">@Html.LabelFor(m => m.NetWeight)</th>
+                <th data-options="field:'UnitPrice',width:150,align:'center'">@Html.LabelFor(m => m.UnitPrice)</th>
+                <th data-options="field:'Quantity',width:150,align:'center'">@Html.LabelFor(m => m.Currency)</th>
+                <th data-options="field:'OrderContractKey',width:150,align:'center'">@Html.LabelFor(m => m.OrderContractKey)</th>
+            </tr>
+        </thead>
+    </table>
+</div>
+
+@section scripts{
+    <script>
+        $(function () {
+            
+
+        });
+    </script>
+}

@@ -1,0 +1,870 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{E5465488-613F-4B89-ACBB-0B8CD1FE420D}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>AtlanticDX.ERP</RootNamespace>
+    <AssemblyName>AtlanticDX.ERP</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>4.0</OldToolsVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UpgradeBackupLocation />
+    <NuGetPackageImportStamp>5761e18c</NuGetPackageImportStamp>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Antlr3.Runtime, Version=3.5.0.2, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Devart.Data, Version=5.0.1095.0, Culture=neutral, PublicKeyToken=09af7300eec23701, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Devart.Data.MySql, Version=8.3.303.0, Culture=neutral, PublicKeyToken=09af7300eec23701, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Devart.Data.MySql.Entity, Version=8.3.303.6, Culture=neutral, PublicKeyToken=09af7300eec23701, processorArchitecture=MSIL">
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Devart.Data.MySql.Web.Identity, Version=8.3.303.2, Culture=neutral, PublicKeyToken=09af7300eec23701, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Devarts\Devart.Data.MySql.Web.Identity.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.AspNet, Version=4.3.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\DotNetOpenAuth.AspNet.4.3.4.13329\lib\net45-full\DotNetOpenAuth.AspNet.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.Core, Version=4.3.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\DotNetOpenAuth.Core.4.3.4.13329\lib\net45-full\DotNetOpenAuth.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OAuth, Version=4.3.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\DotNetOpenAuth.OAuth.Core.4.3.4.13329\lib\net45-full\DotNetOpenAuth.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OAuth.Consumer, Version=4.3.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\DotNetOpenAuth.OAuth.Consumer.4.3.4.13329\lib\net45-full\DotNetOpenAuth.OAuth.Consumer.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OpenId, Version=4.3.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\DotNetOpenAuth.OpenId.Core.4.3.4.13329\lib\net45-full\DotNetOpenAuth.OpenId.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OpenId.RelyingParty, Version=4.3.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\DotNetOpenAuth.OpenId.RelyingParty.4.3.4.13329\lib\net45-full\DotNetOpenAuth.OpenId.RelyingParty.dll</HintPath>
+    </Reference>
+    <Reference Include="Elmah, Version=1.2.14706.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\elmah.corelibrary.1.2.2\lib\Elmah.dll</HintPath>
+    </Reference>
+    <Reference Include="Elmah.Mvc">
+      <HintPath>..\..\packages\Elmah.MVC.2.1.1\lib\net40\Elmah.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework">
+      <HintPath>..\..\packages\EntityFramework.6.1.2\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\..\packages\EntityFramework.6.1.2\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net">
+      <HintPath>..\..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core">
+      <HintPath>..\..\packages\Microsoft.AspNet.Identity.Core.2.1.0\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Microsoft.AspNet.Identity.EntityFramework.2.1.0\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin">
+      <HintPath>..\..\packages\Microsoft.AspNet.Identity.Owin.2.1.0\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Owin, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Microsoft.Owin.3.0.0\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb">
+      <HintPath>..\..\packages\Microsoft.Owin.Host.SystemWeb.3.0.0\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Microsoft.Owin.Security.3.0.0\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Microsoft.Owin.Security.Cookies.3.0.0\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Microsoft.Owin.Security.OAuth.3.0.0\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.WebPages.OAuth, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.OAuth.3.2.2\lib\net45\Microsoft.Web.WebPages.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\packages\Newtonsoft.Json.6.0.7\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin">
+      <HintPath>..\..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.Extensions">
+      <HintPath>..\..\packages\Microsoft.Net.Http.2.2.28\lib\net45\System.Net.Http.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Microsoft.AspNet.WebApi.Client.5.2.2\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Primitives">
+      <HintPath>..\..\packages\Microsoft.Net.Http.2.2.28\lib\net45\System.Net.Http.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.2\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=5.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Microsoft.AspNet.WebApi.Core.5.2.2\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.2\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Microsoft.AspNet.Mvc.5.2.2\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Microsoft.AspNet.Razor.3.2.2\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.2\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.2\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.2\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="WebGrease, Version=1.6.5135.21930, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="WebMatrix.Data, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.Data.3.2.2\lib\net45\WebMatrix.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="WebMatrix.WebData, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.WebData.3.2.2\lib\net45\WebMatrix.WebData.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Data\MenuLeft.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Areas\Reports\Views\_ViewStart.cshtml" />
+    <Content Include="Content\css\base.css" />
+    <Content Include="Content\css\dxy.css" />
+    <Content Include="Content\css\site.css" />
+    <Content Include="Content\images\111.jpg" />
+    <Content Include="Content\images\13x30.png" />
+    <Content Include="Content\images\192x192x1.png" />
+    <Content Include="Content\images\204x33x1.png" />
+    <Content Include="Content\images\224x68x1.png" />
+    <Content Include="Content\images\271x89x1.png" />
+    <Content Include="Content\easyui\themes\black\accordion.css" />
+    <Content Include="Content\easyui\themes\black\calendar.css" />
+    <Content Include="Content\easyui\themes\black\combo.css" />
+    <Content Include="Content\easyui\themes\black\combobox.css" />
+    <Content Include="Content\easyui\themes\black\datagrid.css" />
+    <Content Include="Content\easyui\themes\black\datebox.css" />
+    <Content Include="Content\easyui\themes\black\dialog.css" />
+    <Content Include="Content\easyui\themes\black\easyui.css" />
+    <Content Include="Content\easyui\themes\black\filebox.css" />
+    <Content Include="Content\easyui\themes\black\images\accordion_arrows.png" />
+    <Content Include="Content\easyui\themes\black\images\blank.gif" />
+    <Content Include="Content\easyui\themes\black\images\calendar_arrows.png" />
+    <Content Include="Content\easyui\themes\black\images\combo_arrow.png" />
+    <Content Include="Content\easyui\themes\black\images\datagrid_icons.png" />
+    <Content Include="Content\easyui\themes\black\images\datebox_arrow.png" />
+    <Content Include="Content\easyui\themes\black\images\layout_arrows.png" />
+    <Content Include="Content\easyui\themes\black\images\linkbutton_bg.png" />
+    <Content Include="Content\easyui\themes\black\images\loading.gif" />
+    <Content Include="Content\easyui\themes\black\images\menu_arrows.png" />
+    <Content Include="Content\easyui\themes\black\images\messager_icons.png" />
+    <Content Include="Content\easyui\themes\black\images\pagination_icons.png" />
+    <Content Include="Content\easyui\themes\black\images\panel_tools.png" />
+    <Content Include="Content\easyui\themes\black\images\searchbox_button.png" />
+    <Content Include="Content\easyui\themes\black\images\slider_handle.png" />
+    <Content Include="Content\easyui\themes\black\images\spinner_arrows.png" />
+    <Content Include="Content\easyui\themes\black\images\tabs_icons.png" />
+    <Content Include="Content\easyui\themes\black\images\tree_icons.png" />
+    <Content Include="Content\easyui\themes\black\images\validatebox_warning.png" />
+    <Content Include="Content\easyui\themes\black\layout.css" />
+    <Content Include="Content\easyui\themes\black\linkbutton.css" />
+    <Content Include="Content\easyui\themes\black\menu.css" />
+    <Content Include="Content\easyui\themes\black\menubutton.css" />
+    <Content Include="Content\easyui\themes\black\messager.css" />
+    <Content Include="Content\easyui\themes\black\numberbox.css" />
+    <Content Include="Content\easyui\themes\black\pagination.css" />
+    <Content Include="Content\easyui\themes\black\panel.css" />
+    <Content Include="Content\easyui\themes\black\progressbar.css" />
+    <Content Include="Content\easyui\themes\black\propertygrid.css" />
+    <Content Include="Content\easyui\themes\black\searchbox.css" />
+    <Content Include="Content\easyui\themes\black\slider.css" />
+    <Content Include="Content\easyui\themes\black\spinner.css" />
+    <Content Include="Content\easyui\themes\black\splitbutton.css" />
+    <Content Include="Content\easyui\themes\black\tabs.css" />
+    <Content Include="Content\easyui\themes\black\textbox.css" />
+    <Content Include="Content\easyui\themes\black\tooltip.css" />
+    <Content Include="Content\easyui\themes\black\tree.css" />
+    <Content Include="Content\easyui\themes\black\validatebox.css" />
+    <Content Include="Content\easyui\themes\black\window.css" />
+    <Content Include="Content\easyui\themes\bootstrap\accordion.css" />
+    <Content Include="Content\easyui\themes\bootstrap\calendar.css" />
+    <Content Include="Content\easyui\themes\bootstrap\combo.css" />
+    <Content Include="Content\easyui\themes\bootstrap\combobox.css" />
+    <Content Include="Content\easyui\themes\bootstrap\datagrid.css" />
+    <Content Include="Content\easyui\themes\bootstrap\datebox.css" />
+    <Content Include="Content\easyui\themes\bootstrap\dialog.css" />
+    <Content Include="Content\easyui\themes\bootstrap\easyui.css" />
+    <Content Include="Content\easyui\themes\bootstrap\filebox.css" />
+    <Content Include="Content\easyui\themes\bootstrap\images\accordion_arrows.png" />
+    <Content Include="Content\easyui\themes\bootstrap\images\blank.gif" />
+    <Content Include="Content\easyui\themes\bootstrap\images\calendar_arrows.png" />
+    <Content Include="Content\easyui\themes\bootstrap\images\combo_arrow.png" />
+    <Content Include="Content\easyui\themes\bootstrap\images\datagrid_icons.png" />
+    <Content Include="Content\easyui\themes\bootstrap\images\datebox_arrow.png" />
+    <Content Include="Content\easyui\themes\bootstrap\images\layout_arrows.png" />
+    <Content Include="Content\easyui\themes\bootstrap\images\linkbutton_bg.png" />
+    <Content Include="Content\easyui\themes\bootstrap\images\loading.gif" />
+    <Content Include="Content\easyui\themes\bootstrap\images\menu_arrows.png" />
+    <Content Include="Content\easyui\themes\bootstrap\images\messager_icons.png" />
+    <Content Include="Content\easyui\themes\bootstrap\images\pagination_icons.png" />
+    <Content Include="Content\easyui\themes\bootstrap\images\panel_tools.png" />
+    <Content Include="Content\easyui\themes\bootstrap\images\searchbox_button.png" />
+    <Content Include="Content\easyui\themes\bootstrap\images\slider_handle.png" />
+    <Content Include="Content\easyui\themes\bootstrap\images\spinner_arrows.png" />
+    <Content Include="Content\easyui\themes\bootstrap\images\tabs_icons.png" />
+    <Content Include="Content\easyui\themes\bootstrap\images\tree_icons.png" />
+    <Content Include="Content\easyui\themes\bootstrap\images\validatebox_warning.png" />
+    <Content Include="Content\easyui\themes\bootstrap\layout.css" />
+    <Content Include="Content\easyui\themes\bootstrap\linkbutton.css" />
+    <Content Include="Content\easyui\themes\bootstrap\menu.css" />
+    <Content Include="Content\easyui\themes\bootstrap\menubutton.css" />
+    <Content Include="Content\easyui\themes\bootstrap\messager.css" />
+    <Content Include="Content\easyui\themes\bootstrap\numberbox.css" />
+    <Content Include="Content\easyui\themes\bootstrap\pagination.css" />
+    <Content Include="Content\easyui\themes\bootstrap\panel.css" />
+    <Content Include="Content\easyui\themes\bootstrap\progressbar.css" />
+    <Content Include="Content\easyui\themes\bootstrap\propertygrid.css" />
+    <Content Include="Content\easyui\themes\bootstrap\searchbox.css" />
+    <Content Include="Content\easyui\themes\bootstrap\slider.css" />
+    <Content Include="Content\easyui\themes\bootstrap\spinner.css" />
+    <Content Include="Content\easyui\themes\bootstrap\splitbutton.css" />
+    <Content Include="Content\easyui\themes\bootstrap\tabs.css" />
+    <Content Include="Content\easyui\themes\bootstrap\textbox.css" />
+    <Content Include="Content\easyui\themes\bootstrap\tooltip.css" />
+    <Content Include="Content\easyui\themes\bootstrap\tree.css" />
+    <Content Include="Content\easyui\themes\bootstrap\validatebox.css" />
+    <Content Include="Content\easyui\themes\bootstrap\window.css" />
+    <Content Include="Content\easyui\themes\color.css" />
+    <Content Include="Content\easyui\themes\default\accordion.css" />
+    <Content Include="Content\easyui\themes\default\calendar.css" />
+    <Content Include="Content\easyui\themes\default\combo.css" />
+    <Content Include="Content\easyui\themes\default\combobox.css" />
+    <Content Include="Content\easyui\themes\default\datagrid.css" />
+    <Content Include="Content\easyui\themes\default\datebox.css" />
+    <Content Include="Content\easyui\themes\default\dialog.css" />
+    <Content Include="Content\easyui\themes\default\easyui.css" />
+    <Content Include="Content\easyui\themes\default\filebox.css" />
+    <Content Include="Content\easyui\themes\default\images\accordion_arrows.png" />
+    <Content Include="Content\easyui\themes\default\images\blank.gif" />
+    <Content Include="Content\easyui\themes\default\images\calendar_arrows.png" />
+    <Content Include="Content\easyui\themes\default\images\combo_arrow.png" />
+    <Content Include="Content\easyui\themes\default\images\datagrid_icons.png" />
+    <Content Include="Content\easyui\themes\default\images\datebox_arrow.png" />
+    <Content Include="Content\easyui\themes\default\images\layout_arrows.png" />
+    <Content Include="Content\easyui\themes\default\images\linkbutton_bg.png" />
+    <Content Include="Content\easyui\themes\default\images\loading.gif" />
+    <Content Include="Content\easyui\themes\default\images\menu_arrows.png" />
+    <Content Include="Content\easyui\themes\default\images\messager_icons.png" />
+    <Content Include="Content\easyui\themes\default\images\pagination_icons.png" />
+    <Content Include="Content\easyui\themes\default\images\panel_tools.png" />
+    <Content Include="Content\easyui\themes\default\images\searchbox_button.png" />
+    <Content Include="Content\easyui\themes\default\images\slider_handle.png" />
+    <Content Include="Content\easyui\themes\default\images\spinner_arrows.png" />
+    <Content Include="Content\easyui\themes\default\images\tabs_icons.png" />
+    <Content Include="Content\easyui\themes\default\images\tree_icons.png" />
+    <Content Include="Content\easyui\themes\default\images\validatebox_warning.png" />
+    <Content Include="Content\easyui\themes\default\layout.css" />
+    <Content Include="Content\easyui\themes\default\linkbutton.css" />
+    <Content Include="Content\easyui\themes\default\menu.css" />
+    <Content Include="Content\easyui\themes\default\menubutton.css" />
+    <Content Include="Content\easyui\themes\default\messager.css" />
+    <Content Include="Content\easyui\themes\default\numberbox.css" />
+    <Content Include="Content\easyui\themes\default\pagination.css" />
+    <Content Include="Content\easyui\themes\default\panel.css" />
+    <Content Include="Content\easyui\themes\default\progressbar.css" />
+    <Content Include="Content\easyui\themes\default\propertygrid.css" />
+    <Content Include="Content\easyui\themes\default\searchbox.css" />
+    <Content Include="Content\easyui\themes\default\slider.css" />
+    <Content Include="Content\easyui\themes\default\spinner.css" />
+    <Content Include="Content\easyui\themes\default\splitbutton.css" />
+    <Content Include="Content\easyui\themes\default\tabs.css" />
+    <Content Include="Content\easyui\themes\default\textbox.css" />
+    <Content Include="Content\easyui\themes\default\tooltip.css" />
+    <Content Include="Content\easyui\themes\default\tree.css" />
+    <Content Include="Content\easyui\themes\default\validatebox.css" />
+    <Content Include="Content\easyui\themes\default\window.css" />
+    <Content Include="Content\easyui\themes\gray\accordion.css" />
+    <Content Include="Content\easyui\themes\gray\calendar.css" />
+    <Content Include="Content\easyui\themes\gray\combo.css" />
+    <Content Include="Content\easyui\themes\gray\combobox.css" />
+    <Content Include="Content\easyui\themes\gray\datagrid.css" />
+    <Content Include="Content\easyui\themes\gray\datebox.css" />
+    <Content Include="Content\easyui\themes\gray\dialog.css" />
+    <Content Include="Content\easyui\themes\gray\easyui.css" />
+    <Content Include="Content\easyui\themes\gray\filebox.css" />
+    <Content Include="Content\easyui\themes\gray\images\accordion_arrows.png" />
+    <Content Include="Content\easyui\themes\gray\images\blank.gif" />
+    <Content Include="Content\easyui\themes\gray\images\calendar_arrows.png" />
+    <Content Include="Content\easyui\themes\gray\images\combo_arrow.png" />
+    <Content Include="Content\easyui\themes\gray\images\datagrid_icons.png" />
+    <Content Include="Content\easyui\themes\gray\images\datebox_arrow.png" />
+    <Content Include="Content\easyui\themes\gray\images\layout_arrows.png" />
+    <Content Include="Content\easyui\themes\gray\images\linkbutton_bg.png" />
+    <Content Include="Content\easyui\themes\gray\images\loading.gif" />
+    <Content Include="Content\easyui\themes\gray\images\menu_arrows.png" />
+    <Content Include="Content\easyui\themes\gray\images\messager_icons.png" />
+    <Content Include="Content\easyui\themes\gray\images\pagination_icons.png" />
+    <Content Include="Content\easyui\themes\gray\images\panel_tools.png" />
+    <Content Include="Content\easyui\themes\gray\images\searchbox_button.png" />
+    <Content Include="Content\easyui\themes\gray\images\slider_handle.png" />
+    <Content Include="Content\easyui\themes\gray\images\spinner_arrows.png" />
+    <Content Include="Content\easyui\themes\gray\images\tabs_icons.png" />
+    <Content Include="Content\easyui\themes\gray\images\tree_icons.png" />
+    <Content Include="Content\easyui\themes\gray\images\validatebox_warning.png" />
+    <Content Include="Content\easyui\themes\gray\layout.css" />
+    <Content Include="Content\easyui\themes\gray\linkbutton.css" />
+    <Content Include="Content\easyui\themes\gray\menu.css" />
+    <Content Include="Content\easyui\themes\gray\menubutton.css" />
+    <Content Include="Content\easyui\themes\gray\messager.css" />
+    <Content Include="Content\easyui\themes\gray\numberbox.css" />
+    <Content Include="Content\easyui\themes\gray\pagination.css" />
+    <Content Include="Content\easyui\themes\gray\panel.css" />
+    <Content Include="Content\easyui\themes\gray\progressbar.css" />
+    <Content Include="Content\easyui\themes\gray\propertygrid.css" />
+    <Content Include="Content\easyui\themes\gray\searchbox.css" />
+    <Content Include="Content\easyui\themes\gray\slider.css" />
+    <Content Include="Content\easyui\themes\gray\spinner.css" />
+    <Content Include="Content\easyui\themes\gray\splitbutton.css" />
+    <Content Include="Content\easyui\themes\gray\tabs.css" />
+    <Content Include="Content\easyui\themes\gray\textbox.css" />
+    <Content Include="Content\easyui\themes\gray\tooltip.css" />
+    <Content Include="Content\easyui\themes\gray\tree.css" />
+    <Content Include="Content\easyui\themes\gray\validatebox.css" />
+    <Content Include="Content\easyui\themes\gray\window.css" />
+    <Content Include="Content\easyui\themes\icon.css" />
+    <Content Include="Content\easyui\themes\icons\back.png" />
+    <Content Include="Content\easyui\themes\icons\blank.gif" />
+    <Content Include="Content\easyui\themes\icons\cancel.png" />
+    <Content Include="Content\easyui\themes\icons\clear.png" />
+    <Content Include="Content\easyui\themes\icons\cut.png" />
+    <Content Include="Content\easyui\themes\icons\edit_add.png" />
+    <Content Include="Content\easyui\themes\icons\edit_remove.png" />
+    <Content Include="Content\easyui\themes\icons\filesave.png" />
+    <Content Include="Content\easyui\themes\icons\filter.png" />
+    <Content Include="Content\easyui\themes\icons\help.png" />
+    <Content Include="Content\easyui\themes\icons\large_chart.png" />
+    <Content Include="Content\easyui\themes\icons\large_clipart.png" />
+    <Content Include="Content\easyui\themes\icons\large_picture.png" />
+    <Content Include="Content\easyui\themes\icons\large_shapes.png" />
+    <Content Include="Content\easyui\themes\icons\large_smartart.png" />
+    <Content Include="Content\easyui\themes\icons\lock.png" />
+    <Content Include="Content\easyui\themes\icons\man.png" />
+    <Content Include="Content\easyui\themes\icons\mini_add.png" />
+    <Content Include="Content\easyui\themes\icons\mini_edit.png" />
+    <Content Include="Content\easyui\themes\icons\mini_refresh.png" />
+    <Content Include="Content\easyui\themes\icons\no.png" />
+    <Content Include="Content\easyui\themes\icons\ok.png" />
+    <Content Include="Content\easyui\themes\icons\pencil.png" />
+    <Content Include="Content\easyui\themes\icons\print.png" />
+    <Content Include="Content\easyui\themes\icons\redo.png" />
+    <Content Include="Content\easyui\themes\icons\reload.png" />
+    <Content Include="Content\easyui\themes\icons\search.png" />
+    <Content Include="Content\easyui\themes\icons\sum.png" />
+    <Content Include="Content\easyui\themes\icons\tip.png" />
+    <Content Include="Content\easyui\themes\icons\undo.png" />
+    <Content Include="Content\easyui\themes\metro\accordion.css" />
+    <Content Include="Content\easyui\themes\metro\calendar.css" />
+    <Content Include="Content\easyui\themes\metro\combo.css" />
+    <Content Include="Content\easyui\themes\metro\combobox.css" />
+    <Content Include="Content\easyui\themes\metro\datagrid.css" />
+    <Content Include="Content\easyui\themes\metro\datebox.css" />
+    <Content Include="Content\easyui\themes\metro\dialog.css" />
+    <Content Include="Content\easyui\themes\metro\easyui.css" />
+    <Content Include="Content\easyui\themes\metro\filebox.css" />
+    <Content Include="Content\easyui\themes\metro\images\accordion_arrows.png" />
+    <Content Include="Content\easyui\themes\metro\images\blank.gif" />
+    <Content Include="Content\easyui\themes\metro\images\calendar_arrows.png" />
+    <Content Include="Content\easyui\themes\metro\images\combo_arrow.png" />
+    <Content Include="Content\easyui\themes\metro\images\datagrid_icons.png" />
+    <Content Include="Content\easyui\themes\metro\images\datebox_arrow.png" />
+    <Content Include="Content\easyui\themes\metro\images\layout_arrows.png" />
+    <Content Include="Content\easyui\themes\metro\images\linkbutton_bg.png" />
+    <Content Include="Content\easyui\themes\metro\images\loading.gif" />
+    <Content Include="Content\easyui\themes\metro\images\menu_arrows.png" />
+    <Content Include="Content\easyui\themes\metro\images\messager_icons.png" />
+    <Content Include="Content\easyui\themes\metro\images\pagination_icons.png" />
+    <Content Include="Content\easyui\themes\metro\images\panel_tools.png" />
+    <Content Include="Content\easyui\themes\metro\images\searchbox_button.png" />
+    <Content Include="Content\easyui\themes\metro\images\slider_handle.png" />
+    <Content Include="Content\easyui\themes\metro\images\spinner_arrows.png" />
+    <Content Include="Content\easyui\themes\metro\images\tabs_icons.png" />
+    <Content Include="Content\easyui\themes\metro\images\tree_icons.png" />
+    <Content Include="Content\easyui\themes\metro\images\validatebox_warning.png" />
+    <Content Include="Content\easyui\themes\metro\layout.css" />
+    <Content Include="Content\easyui\themes\metro\linkbutton.css" />
+    <Content Include="Content\easyui\themes\metro\menu.css" />
+    <Content Include="Content\easyui\themes\metro\menubutton.css" />
+    <Content Include="Content\easyui\themes\metro\messager.css" />
+    <Content Include="Content\easyui\themes\metro\numberbox.css" />
+    <Content Include="Content\easyui\themes\metro\pagination.css" />
+    <Content Include="Content\easyui\themes\metro\panel.css" />
+    <Content Include="Content\easyui\themes\metro\progressbar.css" />
+    <Content Include="Content\easyui\themes\metro\propertygrid.css" />
+    <Content Include="Content\easyui\themes\metro\searchbox.css" />
+    <Content Include="Content\easyui\themes\metro\slider.css" />
+    <Content Include="Content\easyui\themes\metro\spinner.css" />
+    <Content Include="Content\easyui\themes\metro\splitbutton.css" />
+    <Content Include="Content\easyui\themes\metro\tabs.css" />
+    <Content Include="Content\easyui\themes\metro\textbox.css" />
+    <Content Include="Content\easyui\themes\metro\tooltip.css" />
+    <Content Include="Content\easyui\themes\metro\tree.css" />
+    <Content Include="Content\easyui\themes\metro\validatebox.css" />
+    <Content Include="Content\easyui\themes\metro\window.css" />
+    <Content Include="Content\images\50x50x1.png" />
+    <Content Include="Content\images\header.png" />
+    <Content Include="Content\images\index.png" />
+    <Content Include="Content\images\layershow.png" />
+    <Content Include="Content\images\left_nav.png" />
+    <Content Include="Content\images\right_content_top.png" />
+    <Content Include="Global.asax" />
+    <Content Include="Properties\PublishProfiles\ReleaseBeta.pubxml.user" />
+    <Content Include="Properties\PublishProfiles\ReleaseV001.pubxml.user" />
+    <Content Include="Scripts\add_edit_remove.js" />
+    <Content Include="Scripts\common.js" />
+    <Content Include="Scripts\datagrid-detailview.js" />
+    <Content Include="Scripts\dxy.js" />
+    <Content Include="Scripts\easyui-lang-zh_CN.js" />
+    <Content Include="Scripts\globalize.cultures.js" />
+    <Content Include="Scripts\globalize.js" />
+    <Content Include="Areas\Public\Views\Home\Index.cshtml" />
+    <Content Include="Areas\Public\Views\Home\Main.cshtml" />
+    <Content Include="Areas\Public\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Orders\Views\web.config" />
+    <Content Include="Areas\Stocks\Views\web.config" />
+    <Content Include="Areas\ResMgr\Views\web.config" />
+    <Content Include="Areas\Finances\Views\web.config" />
+    <Content Include="Areas\Configs\Views\web.config" />
+    <Content Include="Areas\Reports\Views\web.config" />
+    <Content Include="Areas\Orders\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Sales\Views\web.config" />
+    <Content Include="Areas\Sales\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Configs\Views\UserMgmt\Index.cshtml" />
+    <Content Include="Areas\Configs\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Finances\Views\FinancialOthers\Index.cshtml" />
+    <Content Include="Areas\Finances\Views\FinancialRecords\Index.cshtml" />
+    <Content Include="Areas\Finances\Views\EmploymentSalary\Index.cshtml" />
+    <Content Include="Areas\Finances\Views\HarborAgentFee\Index.cshtml" />
+    <Content Include="Areas\Finances\Views\HKLogisticsFee\Index.cshtml" />
+    <Content Include="Areas\Finances\Views\ImportBalancedPayment\Index.cshtml" />
+    <Content Include="Areas\Finances\Views\ImportDeposite\Index.cshtml" />
+    <Content Include="Areas\Finances\Views\InventoriesRentingFee\Index.cshtml" />
+    <Content Include="Areas\Finances\Views\MainlandLogisticsFee\Index.cshtml" />
+    <Content Include="Areas\Finances\Views\SalesBalancedPayment\Index.cshtml" />
+    <Content Include="Areas\Finances\Views\SalesDeposite\Index.cshtml" />
+    <Content Include="Areas\Reports\Views\AccountsPayableSummary\Index.cshtml" />
+    <Content Include="Areas\Reports\Views\AccountsReceivableSummary\Index.cshtml" />
+    <Content Include="Areas\Reports\Views\ImportSummary\Index.cshtml" />
+    <Content Include="Areas\Reports\Views\InventorySummary\Index.cshtml" />
+    <Content Include="Areas\Reports\Views\SalesSummary\Index.cshtml" />
+    <Content Include="Areas\Stocks\Views\StockManagement\Index.cshtml" />
+    <Content Include="Areas\Stocks\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Orders\Views\OrderSubmit\Index.cshtml" />
+    <Content Include="Areas\Orders\Views\OrderContract\Edit.cshtml" />
+    <Content Include="Areas\Orders\Views\HongkongLogistics\Index.cshtml" />
+    <Content Include="Areas\Orders\Views\MainlandLogistics\Index.cshtml" />
+    <Content Include="Areas\Orders\Views\ImportReceived\Index.cshtml" />
+    <Content Include="Areas\Orders\Views\ImportClaimCompensation\Index.cshtml" />
+    <Content Include="Areas\Sales\Views\SalesByInventories\Index.cshtml" />
+    <Content Include="Areas\Sales\Views\SalesByFutures\Index.cshtml" />
+    <Content Include="Areas\Sales\Views\SalesByInventories\Add.cshtml" />
+    <Content Include="Areas\Sales\Views\SalesByInventories\Edit.cshtml" />
+    <Content Include="Areas\Sales\Views\SalesContractShipment\Index.cshtml" />
+    <Content Include="Areas\Sales\Views\SalesClaimCompensation\Index.cshtml" />
+    <Content Include="Areas\Sales\Views\SalesReturns\Index.cshtml" />
+    <Content Include="Areas\ResMgr\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Sales\Views\SalesByFutures\Add.cshtml" />
+    <Content Include="Areas\Sales\Views\SalesByInventories\AddSaleBargin.cshtml" />
+    <Content Include="Areas\Sales\Views\SalesByInventories\Audit.cshtml" />
+    <Content Include="Areas\Configs\Views\RoleMgmt\Index.cshtml" />
+    <Content Include="Areas\Finances\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Finances\Views\AccountsReceivables\Index.cshtml" />
+    <Content Include="Areas\Finances\Views\AccountsPayables\Index.cshtml" />
+    <Content Include="Areas\Sales\Views\SalesByFutures\AddSaleBargin.cshtml" />
+    <Content Include="Areas\Sales\Views\SalesByFutures\Audit.cshtml" />
+    <Content Include="Areas\Sales\Views\SalesByFutures\Edit.cshtml" />
+    <None Include="Properties\PublishProfiles\ReleaseBeta.pubxml" />
+    <None Include="Properties\PublishProfiles\ReleaseV001.pubxml" />
+    <None Include="Scripts\jquery-1.9.1.intellisense.js" />
+    <Content Include="Scripts\jquery-1.9.1.js" />
+    <Content Include="Scripts\jquery-1.9.1.min.js" />
+    <None Include="Scripts\jquery-2.1.1.intellisense.js" />
+    <Content Include="Scripts\jquery-2.1.1.js" />
+    <Content Include="Scripts\jquery-2.1.1.min.js" />
+    <Content Include="Scripts\jquery.easyui.min.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
+    <Content Include="Areas\ResMgr\Views\Products\Index.cshtml" />
+    <Content Include="Areas\Orders\Views\OrderContract\Index.cshtml" />
+    <Content Include="Areas\ResMgr\Views\Suppliers\Index.cshtml" />
+    <Content Include="Areas\ResMgr\Views\StoreHouses\Index.cshtml" />
+    <Content Include="Areas\ResMgr\Views\SaleClients\Index.cshtml" />
+    <Content Include="Areas\ResMgr\Views\MainlandLogistics\Index.cshtml" />
+    <Content Include="Areas\ResMgr\Views\HongkongLogistics\Index.cshtml" />
+    <Content Include="Areas\ResMgr\Views\Harbors\Index.cshtml" />
+    <Content Include="Areas\ResMgr\Views\DeclarationCompanies\Index.cshtml" />
+    <Content Include="Areas\Configs\Views\SysConfigs\Index.cshtml" />
+    <Content Include="Areas\Orders\Views\OrderContract\Add.cshtml" />
+    <Content Include="Areas\Stocks\Views\StockItems\Index.cshtml" />
+    <Content Include="Areas\Stocks\Views\StockIns\Index.cshtml" />
+    <Content Include="Areas\Stocks\Views\StockOutRecords\Index.cshtml" />
+    <Content Include="Areas\Stocks\Views\StockOutRecords\Create.cshtml" />
+    <Content Include="Scripts\jquery-1.9.1.min.map" />
+    <Content Include="Scripts\jquery-2.1.1.min.map" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.messages_zh.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="packages.config" />
+    <Content Include="Areas\Public\Views\web.config" />
+    <Content Include="Areas\Public\Views\Account\Login.cshtml" />
+    <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\pick_product.js" />
+    <Content Include="Scripts\PNG.js" />
+    <Content Include="Scripts\reports\adapters\standalone-framework.js" />
+    <Content Include="Scripts\reports\adapters\standalone-framework.src.js" />
+    <Content Include="Scripts\reports\highcharts-3d.js" />
+    <Content Include="Scripts\reports\highcharts-3d.src.js" />
+    <Content Include="Scripts\reports\highcharts-all.js" />
+    <Content Include="Scripts\reports\highcharts-more.js" />
+    <Content Include="Scripts\reports\highcharts-more.src.js" />
+    <Content Include="Scripts\reports\highcharts.js" />
+    <Content Include="Scripts\reports\highcharts.src.js" />
+    <Content Include="Scripts\reports\jquery-1.8.2.min.js" />
+    <Content Include="Scripts\reports\modules\canvas-tools.js" />
+    <Content Include="Scripts\reports\modules\canvas-tools.src.js" />
+    <Content Include="Scripts\reports\modules\data.js" />
+    <Content Include="Scripts\reports\modules\data.src.js" />
+    <Content Include="Scripts\reports\modules\drilldown.js" />
+    <Content Include="Scripts\reports\modules\drilldown.src.js" />
+    <Content Include="Scripts\reports\modules\exporting.js" />
+    <Content Include="Scripts\reports\modules\exporting.src.js" />
+    <Content Include="Scripts\reports\modules\funnel.js" />
+    <Content Include="Scripts\reports\modules\funnel.src.js" />
+    <Content Include="Scripts\reports\modules\heatmap.js" />
+    <Content Include="Scripts\reports\modules\heatmap.src.js" />
+    <Content Include="Scripts\reports\modules\no-data-to-display.js" />
+    <Content Include="Scripts\reports\modules\no-data-to-display.src.js" />
+    <Content Include="Scripts\reports\modules\solid-gauge.js" />
+    <Content Include="Scripts\reports\modules\solid-gauge.src.js" />
+    <Content Include="Scripts\reports\themes\dark-blue.js" />
+    <Content Include="Scripts\reports\themes\dark-green.js" />
+    <Content Include="Scripts\reports\themes\dark-unica.js" />
+    <Content Include="Scripts\reports\themes\gray.js" />
+    <Content Include="Scripts\reports\themes\grid-light.js" />
+    <Content Include="Scripts\reports\themes\grid.js" />
+    <Content Include="Scripts\reports\themes\sand-signika.js" />
+    <Content Include="Scripts\reports\themes\skies.js" />
+    <Content Include="Scripts\script.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Public\Views\Home\HeaderPartialView.cshtml" />
+    <Content Include="Areas\Public\Views\Home\MenuLeftPartialView.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\ProductDetailDialog.cshtml" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Code\ConfigsHelper.cs" />
+    <Compile Include="App_Code\ControllerExtension.cs" />
+    <Content Include="App_Code\OrdersHelper.cs" />
+    <Content Include="App_Code\StocksHelper.cs" />
+    <Compile Include="App_Start\AuthConfig.cs" />
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Areas\Configs\ConfigsAreaRegistration.cs" />
+    <Compile Include="Areas\Configs\Models\SysUserViewModel.cs" />
+    <Compile Include="Areas\Finances\Controllers\AccountsPayablesController.cs" />
+    <Compile Include="Areas\Finances\Controllers\AccountsReceivablesController.cs" />
+    <Compile Include="Areas\Finances\FinancesAreaRegistration.cs" />
+    <Compile Include="Areas\Finances\Models\FinancialRecordFilterViewModel.cs" />
+    <Compile Include="Areas\Finances\Models\FinancialRecordViewModel.cs" />
+    <Compile Include="Areas\Finances\Models\FinancialViewModel.cs" />
+    <Compile Include="Areas\Orders\Models\AddCompensateViewModel.cs" />
+    <Compile Include="Areas\Orders\Models\AddSaleBarginViewModel.cs" />
+    <Compile Include="Areas\Orders\Models\AddSalesGuidePriceViewModel.cs" />
+    <Compile Include="Areas\Orders\Models\AuditOrderContractViewModel.cs" />
+    <Compile Include="Areas\Orders\Models\AuditSaleContractViewModel.cs" />
+    <Compile Include="Areas\Orders\Models\OrderSubmitFilterViewModel.cs" />
+    <Compile Include="Areas\Orders\Models\ReceiveViewModel.cs" />
+    <Compile Include="Areas\Orders\OrdersAreaRegistration.cs" />
+    <Compile Include="Areas\Public\Controllers\AccountController.cs" />
+    <Compile Include="Areas\Public\Controllers\DataController.cs" />
+    <Compile Include="Areas\Public\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Public\PublicAreaRegistration.cs" />
+    <Compile Include="Areas\Reports\Controllers\AccountsPayableSummaryController.cs" />
+    <Compile Include="Areas\Reports\Controllers\AccountsReceivableSummaryController.cs" />
+    <Compile Include="Areas\Reports\Controllers\ImportSummaryController.cs" />
+    <Compile Include="Areas\Reports\Controllers\InventorySummaryController.cs" />
+    <Compile Include="Areas\Reports\Controllers\SalesSummaryController.cs" />
+    <Compile Include="Areas\Reports\ReportsAreaRegistration.cs" />
+    <Compile Include="Areas\ResMgr\ResMgrAreaRegistration.cs" />
+    <Compile Include="Areas\Sales\Models\SaleContractWithBargainsViewModel.cs" />
+    <Compile Include="Areas\Sales\SalesAreaRegistration.cs" />
+    <Compile Include="Areas\Stocks\Controllers\StockInsController.cs" />
+    <Compile Include="Areas\Stocks\Controllers\StockItemsController.cs" />
+    <Compile Include="Areas\Stocks\Controllers\StockManagementController.cs" />
+    <Compile Include="Areas\Stocks\Controllers\StockOutRecordsController.cs" />
+    <Compile Include="Areas\Stocks\Models\StockHouseViewModel.cs" />
+    <Compile Include="Areas\Stocks\Models\StockItemViewModel.cs" />
+    <Compile Include="Areas\Stocks\Models\StockOutRecordViewModel.cs" />
+    <Compile Include="Areas\Stocks\StocksAreaRegistration.cs" />
+    <Compile Include="AtlanticDXContext.cs" />
+    <Compile Include="Areas\Finances\Controllers\EmploymentSalaryController.cs" />
+    <Compile Include="Areas\Finances\Controllers\FinancialOthersController.cs" />
+    <Compile Include="Areas\Finances\Controllers\FinancialRecordsController.cs" />
+    <Compile Include="Areas\Finances\Controllers\HarborAgentFeeController.cs" />
+    <Compile Include="Areas\Finances\Controllers\HKLogisticsFeeController.cs" />
+    <Compile Include="Areas\Finances\Controllers\ImportDepositeController.cs" />
+    <Compile Include="Areas\Finances\Controllers\ImportBalancedPaymentController.cs" />
+    <Compile Include="Areas\Finances\Controllers\InventoriesRentingFeeController.cs" />
+    <Compile Include="Areas\Finances\Controllers\MainlandLogisticsFeeController.cs" />
+    <Compile Include="Areas\Finances\Controllers\SalesBalancedPaymentController.cs" />
+    <Compile Include="Areas\Finances\Controllers\SalesDepositeController.cs" />
+    <Compile Include="Areas\Orders\Controllers\HongkongLogisticsController.cs" />
+    <Compile Include="Areas\Orders\Controllers\ImportClaimCompensationController.cs" />
+    <Compile Include="Areas\Orders\Controllers\ImportInStocksController.cs" />
+    <Compile Include="Areas\Orders\Controllers\MainlandLogisticsController.cs" />
+    <Compile Include="Areas\Orders\Controllers\ImportReceivedController.cs" />
+    <Compile Include="Areas\Orders\Controllers\OrderContractController.cs" />
+    <Compile Include="Areas\Orders\Controllers\OrderSubmitController.cs" />
+    <Compile Include="Areas\ResMgr\Controllers\DeclarationCompaniesController.cs" />
+    <Compile Include="Areas\ResMgr\Controllers\HarborsController.cs" />
+    <Compile Include="Areas\ResMgr\Controllers\HongkongLogisticsController.cs" />
+    <Compile Include="Areas\ResMgr\Controllers\MainlandLogisticsController.cs" />
+    <Compile Include="Areas\ResMgr\Controllers\ProductsController.cs" />
+    <Compile Include="Areas\ResMgr\Controllers\SaleClientsController.cs" />
+    <Compile Include="Areas\ResMgr\Controllers\StoreHousesController.cs" />
+    <Compile Include="Areas\ResMgr\Controllers\SuppliersController.cs" />
+    <Compile Include="Areas\Sales\Controllers\SalesByFuturesController.cs" />
+    <Compile Include="Areas\Sales\Controllers\SalesByInventoriesController.cs" />
+    <Compile Include="Areas\Sales\Controllers\SalesClaimCompensationController.cs" />
+    <Compile Include="Areas\Sales\Controllers\SalesContractShipmentController.cs" />
+    <Compile Include="Areas\Sales\Controllers\SalesReturnsController.cs" />
+    <Compile Include="Areas\Configs\Controllers\RoleMgmtController.cs" />
+    <Compile Include="Areas\Configs\Controllers\SysConfigsController.cs" />
+    <Compile Include="Areas\Configs\Controllers\UserMgmtController.cs" />
+    <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201501310559404_InitDatabaseV20.cs" />
+    <Compile Include="Migrations\201501310559404_InitDatabaseV20.Designer.cs">
+      <DependentUpon>201501310559404_InitDatabaseV20.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201502010244408_InitDatabaseV201.cs" />
+    <Compile Include="Migrations\201502010244408_InitDatabaseV201.Designer.cs">
+      <DependentUpon>201502010244408_InitDatabaseV201.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Areas\Public\Models\AccountModels.cs" />
+    <Compile Include="Migrations\CustomMigrationHelper.cs" />
+    <Compile Include="Migrations\Debugs\DebugSeed.cs" />
+    <Compile Include="Migrations\Releases\ReleaseSeed.cs" />
+    <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\SysConfigs\SysConfigViewModel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Startup.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\PrivilegeFramework\PrivilegeFramework.csproj">
+      <Project>{666527f1-14af-4af6-80c9-5daaeb6b4156}</Project>
+      <Name>PrivilegeFramework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\UtilityFramework\UtilityFramework.csproj">
+      <Project>{22453fc9-a538-4845-867b-aef70084631b}</Project>
+      <Name>UtilityFramework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\YuShang.ERP.Entities\YuShang.ERP.Entities.csproj">
+      <Project>{d0116402-fdde-47f6-9dfa-5fb4e3ac191a}</Project>
+      <Name>YuShang.ERP.Entities</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Themes\" />
+    <Folder Include="Areas\Configs\Views\Shared\" />
+    <Folder Include="Areas\Finances\Views\Shared\" />
+    <Folder Include="Areas\Orders\Views\Shared\" />
+    <Folder Include="Areas\Public\Views\Shared\" />
+    <Folder Include="Areas\Reports\Models\" />
+    <Folder Include="Areas\Reports\Views\Shared\" />
+    <Folder Include="Areas\ResMgr\Models\" />
+    <Folder Include="Areas\ResMgr\Views\Shared\" />
+    <Folder Include="Areas\Sales\Views\Shared\" />
+    <Folder Include="Areas\Stocks\Views\Shared\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201501310559404_InitDatabaseV20.resx">
+      <DependentUpon>201501310559404_InitDatabaseV20.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201502010244408_InitDatabaseV201.resx">
+      <DependentUpon>201502010244408_InitDatabaseV201.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>16129</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:56129/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Import Project="..\..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>这台计算机上缺少此项目引用的 NuGet 程序包。启用“NuGet 程序包还原”可下载这些程序包。有关详细信息，请参阅 http://go.microsoft.com/fwlink/?LinkID=322105。缺少的文件是 {0}。</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets'))" />
+    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
+  </Target>
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+</Project>

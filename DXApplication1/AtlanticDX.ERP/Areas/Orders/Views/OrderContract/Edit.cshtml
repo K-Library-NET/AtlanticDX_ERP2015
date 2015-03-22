@@ -1,0 +1,379 @@
+﻿@model PrivilegeFramework.ContractInfo
+@{
+    ViewBag.Title = "编辑采购合同";
+}
+
+<form id="add_order_form" method="post" action="/@ViewContext.RouteData.Values["Area"].ToString()/@ViewContext.RouteData.Values["Controller"].ToString()/Edit">
+    @Html.HiddenFor(m => m.ContractId)
+    <input type="hidden" name="ContractType" value="0" />
+    <div class="orders_list">
+        <div class="right_content_top bgc1" style="width:3080px;">
+            <span class="default ml20">@Html.DisplayNameFor(m => m.SupplierId)</span>
+            <span class="default"> @Html.DropDownListFor(m => m.SupplierId, AtlanticDX.ERP.Helper.OrdersHelper.GetSuppliers(), new { @class = "date_select mr20" }) </span>
+            <span class="default ml20">@Html.DisplayNameFor(m => m.CTIME)</span>
+            <span class="default">@Html.LabelFor(m => m.CTIME)</span>
+            <span class="default ml20">@Html.DisplayNameFor(m => m.ETA)</span>
+            <span class="eta_in">@Html.EditorFor(m => m.ETA, new { htmlAttributes = new { @class = "easyui-datebox", @style = "width:98%;" } })</span>
+            <span class="default ml20">@Html.DisplayNameFor(m => m.ETD)</span>
+            <span class="eta_in">@Html.EditorFor(m => m.ETD, new { htmlAttributes = new { @class = "easyui-datebox", @style = "width:98%;" } })</span>
+            <span class="default ml20">@Html.DisplayNameFor(m => m.ShipmentPeriod)</span>
+            <span class="default"> @Html.EditorFor(m => m.ShipmentPeriod, new { htmlAttributes = new { @class = "w120" } })</span>
+            <span class="default ml20">@Html.DisplayNameFor(m => m.HarborId)</span>
+            <span class="default"> @Html.DropDownListFor(m => m.HarborId, AtlanticDX.ERP.Helper.OrdersHelper.GetHarbors(), "--请选择--", new { @class = "date_select mr20" })</span>
+            <span class="default ml20">@Html.DisplayNameFor(m => m.ContractKey)</span>
+            <span>@Html.EditorFor(m => m.ContractKey, new { htmlAttributes = new { @class = "w120" } })</span>
+        </div>
+        <div class="right_content_top bb1" style="width:3080px;">
+            <span class="default ml20">@Html.DisplayNameFor(m => m.ContainerSerial)</span>
+            <span class="default">@Html.EditorFor(m => m.ContainerSerial, new { htmlAttributes = new { @class = "w120" } })</span>
+            <span class="default ml20">@Html.DisplayNameFor(m => m.DeliveryBillSerial)</span>
+            <span class="default">@Html.EditorFor(m => m.DeliveryBillSerial, new { htmlAttributes = new { @class = "w120" } })</span>
+            <span class="default ml20">@Html.DisplayNameFor(m => m.HarborAgent)</span>
+            <span class="default">
+                @Html.DropDownListFor(m => m.HarborAgent.DeclarationCompanyId, AtlanticDX.ERP.Helper.OrdersHelper.GetHarborAgents(), new { @class = "date_select mr20" })
+            </span>
+            <span class="default ml20">@Html.DisplayNameFor(m => m.HongkongLogistics)</span>
+            <span class="default">
+                @Html.DropDownListFor(m => m.HongkongLogistics.HongKongLogisticsCompanyId, AtlanticDX.ERP.Helper.OrdersHelper.GetHongkongLogisticsCompanies(), new { @class = "date_select mr20" })
+            </span>
+            <span class="default ml20">@Html.DisplayNameFor(m => m.MainlandLogistics)</span>
+            <span class="default">
+                @Html.DropDownListFor(m => m.MainlandLogistics.MainlandLogisticsCompanyId, AtlanticDX.ERP.Helper.OrdersHelper.GetMainlandLogisticsCompanies(), new { @class = "date_select mr20" })
+            </span>
+            <span class="default">@Html.DisplayNameFor(m => m.OrderType)</span>
+            <select name="OrderType" class="date_select mr20">
+                <option value="0">期货</option>
+                <option value="1">现货</option>
+            </select>
+        </div>
+        <div class="ddgl clearf calculate">
+            <table id="picked_products_table" class="svs_table ml20 mr20" style="width:3010px;">
+                <thead class="">
+                    <tr>
+                        <th class="check w20"></th>
+                        <th class="w150">货品出厂编号</th>
+                        <th class="w200">国家/厂号/货品名/品牌</th>
+                        <th class="w150">规格</th>
+                        <th class="w100">包装</th>
+                        <th class="w100">单位（吨/磅）</th>
+                        <th class="w100">件数</th>
+                        <th class="w100">净重</th>
+                        <th class="w100">单价</th>
+                        <th class="w100">采购币种</th>
+                        <th class="w100">货款小计</th>
+                        <th class="operation w150">操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.ContractItems != null && Model.ContractItems.Count > 0)
+                    {
+                        for (int i = 0; i < Model.ContractItems.Count; i++)
+                        {
+                            <tr>
+                                <td class="check">@(i + 1)</td>
+                                <td name="ProductKey">@Model.ContractItems.ElementAt(i).ProductKey</td>
+                                <td name="ProductFullName">@Model.ContractItems.ElementAt(i).Product.ProductFullName</td>
+                                <td name="Specification">@Model.ContractItems.ElementAt(i).Product.Specification</td>
+                                <td name="Packing">@Model.ContractItems.ElementAt(i).Product.Packing</td>
+                                <td>
+                                    <select name="ContractItems[@i].Units" style="width:100px;">
+                                        <option>吨</option>
+                                        <option>千克</option>
+                                        <option>磅</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <input type="hidden" name="ContractItems[@i].ProductId" value="@Model.ContractItems.ElementAt(i).ProductId" />
+                                    <input type="hidden" name="ContractItems[@i].ProductKey" value="@Model.ContractItems.ElementAt(i).ProductKey" />
+                                    <input type="hidden" name="ContractItems[@i].Units" value="@Model.ContractItems.ElementAt(i).Units" />
+                                    <input name="ContractItems[@i].Quantity" type="text" value="@Model.ContractItems.ElementAt(i).Quantity" style="width:100px;" />
+                                </td>
+                                <td>
+                                    <input name="ContractItems[@i].NetWeight" type="text" value="@Model.ContractItems.ElementAt(i).NetWeight" style="width:100px;" />
+                                </td>
+                                <td>
+                                    <input name="ContractItems[@i].UnitPrice" type="text" value="@Model.ContractItems.ElementAt(i).UnitPrice" style="width:100px;" />
+                                </td>
+                                <td>
+                                    <select name="ContractItems[@i].Currency" style="width:100px;">
+                                        <option @(@Model.ContractItems.ElementAt(i).Currency == "美元" ? " selected" : "")>美元</option>
+                                        <option @(@Model.ContractItems.ElementAt(i).Currency == "港元" ? " selected" : "")>港元</option>
+                                        <option @(@Model.ContractItems.ElementAt(i).Currency == "人民币" ? " selected" : "")>人民币</option>
+                                    </select>
+                                </td>
+                                <td name="ContractItems.SubTotal">@(@Model.ContractItems.ElementAt(i).SubTotal)</td>
+                                <td class="operation">
+                                    <a href="javascript:;" class="add">新增</a>
+                                    <span>|</span>
+                                    <a href="javascript:;" class="del">删除</a>
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+            <div class="easyui-accordion" style="margin:30px;" id="other_info_accordion">
+                <div title="港口代理" style="overflow:auto;padding:10px;display:none;">
+                    @Html.LabelFor(m => m.HarborAgent.HarborCost)
+                    @Html.TextBoxFor(m => m.HarborAgent.HarborCost)
+                    @Html.LabelFor(m => m.HarborAgent.AgentCost)
+                    @Html.TextBoxFor(m => m.HarborAgent.AgentCost)
+                    @Html.LabelFor(m => m.HarborAgent.Tariff)
+                    @Html.TextBoxFor(m => m.HarborAgent.Tariff)
+                    @Html.LabelFor(m => m.HarborAgent.AntiDumpingTax)
+                    @Html.TextBoxFor(m => m.HarborAgent.AntiDumpingTax)
+                    @Html.LabelFor(m => m.HarborAgent.OthersCost)
+                    @Html.TextBoxFor(m => m.HarborAgent.OthersCost)
+                    @Html.LabelFor(m => m.HarborAgent.Memo)
+                    @Html.TextBoxFor(m => m.HarborAgent.Memo)
+                    @Html.LabelFor(m => m.HarborAgent.Total)
+                    @Html.TextBoxFor(m => m.HarborAgent.Total)
+                </div>
+                <div title="香港物流" style="overflow:auto;padding:10px;">
+                    <table class="svs_table ml20 mr20 related_product_table" style="">
+                        <thead class="">
+                            <tr>
+                                <th class="check w20" width="20"></th>
+                                <th class="w200" style="width:200px;">国家/厂号/货品名/品牌</th>
+                                <th class="w120" style="width:120px;">
+                                    @Html.DisplayNameFor(m => m.HongkongLogistics.LogisItems.First().ContractQuantity)
+                                </th>
+                                <th class="w120" style="width:120px;">
+                                    @Html.DisplayNameFor(m => m.HongkongLogistics.LogisItems.First().ContractWeight)
+                                </th>
+                                <th class="w120" style="width:120px;">
+                                    @Html.DisplayNameFor(m => m.HongkongLogistics.LogisItems.First().FreightCharges)
+                                </th>
+                                <th class="w120" style="width:120px;">
+                                    @Html.DisplayNameFor(m => m.HongkongLogistics.LogisItems.First().Insurance)
+                                </th>
+                                <th class="w120" style="width:120px;">
+                                    @Html.DisplayNameFor(m => m.HongkongLogistics.LogisItems.First().SubTotal)
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model.HongkongLogistics.LogisItems != null && Model.HongkongLogistics.LogisItems.Count > 0)
+                            {
+                                for (int i = 0; i < Model.ContractItems.Count; i++)
+                                {
+                                    <tr>
+                                        <td>@(i + 1)</td>
+                                        <td>
+                                            <input name="ProductFullName" style="width:200px;" value="@Model.ContractItems.ElementAt(i).ProductFullName" />
+                                        </td>
+                                        <td>
+                                            <input type="hidden" name="HongkongLogistics.LogisItems[0].ProductItemId" value="@Model.HongkongLogistics.LogisItems.ElementAt(i).ProductItemId" />
+                                            <input name="HongkongLogistics.LogisItems[0].ContractQuantity" type="text" value="@Model.HongkongLogistics.LogisItems.ElementAt(i).ContractQuantity" />
+                                        </td>
+                                        <td>
+                                            <input name="HongkongLogistics.LogisItems[0].ContractWeight" type="text" class="num_compute" value="@Model.HongkongLogistics.LogisItems.ElementAt(i).ContractWeight" />
+                                        </td>
+                                        <td>
+                                            <input name="HongkongLogistics.LogisItems[0].FreightCharges" type="text" class="num_compute" value="@Model.HongkongLogistics.LogisItems.ElementAt(i).FreightCharges" />
+                                        </td>
+                                        <td>
+                                            <input name="HongkongLogistics.LogisItems[0].Insurance" type="text" value="@Model.HongkongLogistics.LogisItems.ElementAt(i).Insurance" />
+                                        </td>
+                                        <td>
+                                            <input name="HongkongLogistics.LogisItems.SubTotal" type="text" value="@Model.HongkongLogistics.LogisItems.ElementAt(i).SubTotal" />
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <div title="内地物流" style="padding:10px;">
+                    <table class="svs_table ml20 mr20 related_product_table" style="">
+                        <thead class="">
+                            <tr>
+                                <th class="check w20" width="20"></th>
+                                <th class="w200" style="width:200px;">国家/厂号/货品名/品牌</th>
+                                <th class="w120" style="width:120px;">
+                                    @Html.LabelFor(m => m.MainlandLogistics.LogisItems.First().ContractQuantity)
+                                </th>
+                                <th class="w120" style="width:120px;">
+                                    @Html.LabelFor(m => m.MainlandLogistics.LogisItems.First().ContractWeight)
+                                </th>
+                                <th class="w120" style="width:120px;">
+                                    @Html.LabelFor(m => m.MainlandLogistics.LogisItems.First().FreightCharges)
+                                </th>
+                                <th class="w120" style="width:120px;">
+                                    @Html.LabelFor(m => m.MainlandLogistics.LogisItems.First().Insurance)
+                                </th>
+                                <th class="w120" style="width:120px;">
+                                    @Html.LabelFor(m => m.MainlandLogistics.LogisItems.First().SubTotal)
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model.MainlandLogistics.LogisItems != null && Model.MainlandLogistics.LogisItems.Count > 0)
+                            {
+                                for (int i = 0; i < Model.MainlandLogistics.LogisItems.Count; i++)
+                                {
+                                    <tr>
+                                        <td>@(i + 1)</td>
+                                        <td>
+                                            <input name="ProductFullName" style="width:200px;" value="@Model.ContractItems.ElementAt(i).ProductFullName" />
+                                        </td>
+                                        <td>
+                                            <input type="hidden" name="MainlandLogistics.LogisItems[0].ProductItemId" value="@Model.MainlandLogistics.LogisItems.ElementAt(i).ProductItemId" />
+                                            <input name="MainlandLogistics.LogisItems[0].ContractQuantity" type="text" value="@Model.MainlandLogistics.LogisItems.ElementAt(i).ContractQuantity" />
+                                        </td>
+                                        <td>
+                                            <input name="MainlandLogistics.LogisItems[0].ContractWeight" type="text" class="num_compute" value="@Model.MainlandLogistics.LogisItems.ElementAt(i).ContractWeight" />
+                                        </td>
+                                        <td>
+                                            <input name="MainlandLogistics.LogisItems[0].FreightCharges" type="text" class="num_compute" value="@Model.MainlandLogistics.LogisItems.ElementAt(i).FreightCharges" />
+                                        </td>
+                                        <td>
+                                            <input name="MainlandLogistics.LogisItems[0].Insurance" type="text" value="@Model.MainlandLogistics.LogisItems.ElementAt(i).Insurance" />
+                                        </td>
+                                        <td>
+                                            <input name="MainlandLogistics.LogisItems.SubTotal" type="text" value="@Model.MainlandLogistics.LogisItems.ElementAt(i).SubTotal" />
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div style="width: 1428px;" class="table_info mt10">
+                <p class="clearf ml20">
+                    <span class="default">@Html.DisplayNameFor(m => m.Payment)</span> @Html.EditorFor(m => m.Payment, new { htmlAttributes = new { @class = "w800" } })
+                </p>
+                <p class="clearf ml20">
+                    <span class="default">@Html.DisplayNameFor(m => m.ImportDeposite)</span> @Html.EditorFor(m => m.ImportDeposite, new { htmlAttributes = new { @class = "w115" } })
+                    <span class="default">@Html.DisplayNameFor(m => m.ImportBalancedPayment)</span> @Html.EditorFor(m => m.ImportBalancedPayment, new { htmlAttributes = new { @class = "w115" } })
+                </p>
+                <p class="clearf ml20">
+                    <span class="default mr100">@Html.DisplayNameFor(m => m.CreateSysUserKey)： @Model.CreateSysUserKey</span>
+                </p>
+            </div>
+            <div style="width: 1428px;" class="submit">
+                <button class="default" type="submit">保存</button>
+                <button class="default" type="reset">取消</button>
+            </div>
+        </div>
+    </div>
+</form>
+
+@*选择商品弹出层*@
+<div id="pick_product_dialog" class="easyui-dialog" style="width:680px;min-height:240px;max-height:500px; height:50%;  padding:10px 20px;" data-options="modal:true,closed:true" buttons="#pick_product_dialog_bottons">
+    <div style="padding:10px 0px;">
+        <input type="text" name="filterValue" value="请输入商品编号或名称或规格" style="width:200px;height:28px; text-indent:1em; float:left;" />
+        <a href="javascript:;" class="easyui-linkbutton" id="btn_pick_products_filter">查找</a>
+        <div class="clear"></div>
+    </div>
+    <script>
+        function pick_product_operation_formatter(value, row, index) {
+            return '<a href="javascript:showProductDetailDialog(' + row.ProductId + ');">查看</a>';
+        }
+    </script>
+    <table id="pick_products_datagrid" class="easyui-datagrid" data-options="pageSize: 5,pageList: [5, 10, 20],rownumbers:true,pagination:true,singleSelect:true,url:'/Public/Data/Products',method:'post'">
+        <thead>
+            <tr data-options="height:120">
+                <th data-options="field:'CaoZuo',width:80,algin:'center',formatter:pick_product_operation_formatter">操作</th>
+                <th data-options="field:'ProductKey',width:100,algin:'center'">货品出厂编号</th>
+                <th data-options="field:'ProductFullName',width:200,algin:'center'">国家/厂号/货品名/品牌</th>
+                <th data-options="field:'Specification',width:50,algin:'center'">规格</th>
+                <th data-options="field:'Packing',width:100,algin:'center'">包装</th>
+                <th data-options="field:'Units',width:50,algin:'center'">单位</th>
+    </table>
+</div>
+<div id="pick_product_dialog_bottons">
+    <a href="javascript:void(0)" class="easyui-linkbutton" onclick="javascript: ;" data-id-name="ProductKey">选中</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" onclick="javascript: closeDialog('#pick_product_dialog');">关闭</a>
+</div>
+
+@Html.Partial("ProductDetailDialog")
+
+@section scripts{
+    <script type="text/javascript" src="~/Scripts/pick_product.js"></script>
+    @if (Model.ContractItems != null && Model.ContractItems.Count > 0)
+    {
+        foreach (var item in Model.ContractItems)
+        {
+            <script>
+                picked_productkeys_ids.push('@item.ProductKey');
+            </script>
+        }
+    }
+    <script>
+        $(function () {
+            //提交
+            var validateOptions = get_validate_rules_messages('#add_order_form');
+            $('#add_order_form').validate({
+                rules: validateOptions.rules,
+                messages: validateOptions.messages,
+                submitHandler: function (form) {
+                    //检查已选商品列
+                    if (picked_productkeys_ids.length == 0) {
+                        $.messager.alert('提示', '未选择商品');
+                        return false;
+                    }
+                    var exit = false;
+                    $('#picked_products_table tbody tr').each(function (index, obj) {
+                        if ($(obj).find('td').eq(1).text() == '') {
+                            exit = true;
+                            $.messager.alert('提示', '已选商品列表存在空行');
+                            return false;
+                        } else {
+                            $inputs = $(obj).find(':text');
+                            for (i = 0; i < $inputs.length; i++) {
+                                var isHkLogistics = $inputs.eq(i).prop('name').indexOf('HongKongLogistics') >= 0;
+                                var isMlLogistics = $inputs.eq(i).prop('name').indexOf('MainlandLogistics') >= 0;
+                                var needHkLogistics = $('#add_order_form select[name="HongkongLogistics.HongKongLogisticsCompanyId"]').val() != '';
+                                var needMlLogistics = $('#add_order_form select[name="MainlandLogistics.MainlandLogisticsCompanyId"]').val() != '';
+                                if (isHkLogistics && !needHkLogistics) {
+
+                                } else if (isMlLogistics && !needMlLogistics) {
+
+                                }
+                                else if ($inputs.eq(i).val() == '' || isNaN($inputs.eq(i).val())) {
+                                    exit = true;
+                                    var labelObj = $('#picked_products_table thead th:nth-child(' + ($inputs.eq(i).parent().index() + 1) + ')');
+                                    var labelText = labelObj.find('label').size() == 1 ? $.trim(labelObj.find('label').text()) : labelObj.text()
+                                    alert('请正确填写' + labelText);
+                                    $inputs.eq(i).focus();
+                                    return false;
+                                }
+                            };
+                            if (exit) {
+                                return false;
+                            }
+                        }
+                    });
+                    if (exit) {
+                        return false;
+                    }
+                    //发送请求
+                    $.ajax({
+                        url: $('#add_order_form').prop('action'),
+                        data: $(form).serialize(),
+                        type: 'post',
+                        cache: false,
+                        beforeSend: function () {
+                            $.messager.progress({
+                                title: '',
+                                msg: '处理中...'
+                            });
+                        },
+                        success: function (resp) {
+                            $.messager.progress('close');
+                            var messages = GetModelStateErrors(resp);
+                            if (messages.length > 0) {
+                                $.messager.alert('提示', messages.join('<br/>'));
+                            } else {
+                                $.messager.alert('提示', '添加成功');
+                                parent.updateMainTab('新建采购订单', '采购交单', '/Orders/OrderSubmit/Index');
+                            }
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+}

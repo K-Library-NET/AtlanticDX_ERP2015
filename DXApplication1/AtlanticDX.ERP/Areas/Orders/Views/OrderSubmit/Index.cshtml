@@ -1,0 +1,306 @@
+﻿@model YuShang.ERP.Entities.Orders.OrderContract
+@{
+    ViewBag.Title = "合同交单";
+}
+<div class="right_content_top" >
+    @*<span class="sum_mec">数量小计:0</span>
+    <span class="sum_mec">采购额小计:0</span>
+    <span class="sum_mec">数量合计:@ViewBag.ProductsTotal</span>
+    <span class="sum_mec">采购额合计:@ViewBag.PaymentTotal</span>*@
+    <span class="eta pl20">选择查询条件</span>
+    <span class="date_select_down mr10">
+        <input type="text" id="filter_trigger" style="width:98%;" />
+        @*条件筛选dialog begin*@
+        <div class="date_select_downb" id="filter_dialog" style="z-index:10; display:none;">
+            <form id="filter_form">
+                <p class="clearf">
+                    <span class="sp1">@Html.Label("OrderCreateTime")</span>
+                    <span class="eta_in">
+                        <input type="text" class="easyui-datebox" name="OrderCreateTimeFrom" />
+                    </span>
+                    <span class="sp2">至</span>
+                    <span class="eta_in">
+                        <input type="text" class="easyui-datebox" name="OrderCreateTimeTo" />
+                    </span>
+                </p>
+                <p class="clearf">
+                    <span class="sp1">预计交货日期</span>
+                    <span class="eta_in">
+                        <input type="text" class="easyui-datebox" name="ETAFrom" />
+                    </span>
+                    <span class="sp2">至</span>
+                    <span class="eta_in">
+                        <input type="text" class="easyui-datebox" name="ETATo" />
+                    </span>
+                </p>
+                <p class="clearf">
+                    <span class="sp1">@Html.Label("SupplierId")</span>
+                    <select name="SupplierId">
+                        @foreach (var item in @AtlanticDX.ERP.Helper.OrdersHelper.GetSuppliers())
+                        {
+                            <option value="@item.Value">@item.Text</option>
+                        }
+                    </select>
+                </p>
+                <p class="clearf">
+                    <span class="sp1">
+                        商品
+                        <br>&nbsp;
+                    </span>
+                    <input class="input1" name="ProductKeys" type="text">
+                    <span class="sp3">
+                        （可用，分割多个编码如1001,1008,2001，或直接输入编码段如1001-1009查询）
+                    </span>
+                </p>
+                @*<p class="clearf">
+                        <span class="sp1">状态</span>
+                        <input class="input2" title="" type="checkbox">
+                        <span class="sp4">未入仓</span>
+                        <input class="input2" title="" type="checkbox">
+                        <span class="sp4">部分入仓</span>
+                        <input class="input2" title="" type="checkbox">
+                        <span class="sp4">已入仓</span>
+                    </p>*@
+                <p class="clearf">
+                    <button class="button1 mr20" type="submit">确定</button>
+                    <button class="button1 mr15" type="reset">重置</button>
+                </p>
+            </form>
+        </div>
+        @*条件筛选dialog end*@
+    </span><button class="tjsx" onclick="$('#filter_form').submit();"><i></i></button>
+    <button class="print mr15 ml100">打印</button>
+    <button class="export mr15">导出</button>
+</div>
+<div class="ddgl clearf calculate">
+    @*<div class="svs_table_title">
+            <div style="width: 1794px;">
+                <span class="sp2">采购交单跟踪</span>
+            </div>
+        </div>*@
+    @*datagrid*@
+    <script>
+        function func_operation_formatter(value, row, index) {
+            var temp = '';
+            if (row.ContractStatus == 0) {
+                temp = '<a href="javascript:;" class="audit" onclick="audit_row(' + index + ')">审核</a>';
+            }
+            return temp;
+        }
+
+        function datagrid_onLoadSuccess(data) {
+            $('span.sum_mec').eq(0).text('数量小计:' + data.ProductsTotal);
+            $('span.sum_mec').eq(1).text('采购额小计:' + data.PaymentTotal);
+        }
+
+        /*采购回单产品模板行*/
+        var orderSubmitProductDetailFormatter = function (rowIndex, rowData) {
+            var temp = '<form onsubmit="return submit_order_submit_product_detail_form(this)">';
+            temp += '<table border="0" cellspacing="1" cellpadding="0" style="background-color:#ccc;" class="the_xlb">';
+            temp += '<tr><td colspan="10" style="border:none; text-align:left; font-size:16px;">' + '商品信息' + '</td>' +
+                '<td colspan="5" style="border:none; font-size:16px; text-align:center;">' + '香港物流信息' + '</td>' +
+                '<td colspan="5" style="border:none; font-size:16px; text-align:center;">' + '内地物流信息' + '</td>' +
+            '<td style="border:none; font-size:16px; text-align:center;"><input class="xszdj" type="submit" value="更新指导价" /></td>'
+                + '</tr>';
+            temp += '<tr><td style="border:none; text-align:center; font-size:14px; width:150px;">' + '货品出厂编号' + '</td><td style="border:none; text-align:center; font-size:14px; width:120px;">' + '货品名' + '</td><td style="border:none; text-align:center; font-size:14px; width:120px;">' + '国家' + '</td><td style="border:none; text-align:center; font-size:14px; width:120px;">' + '厂号' + '</td><td style="border:none; text-align:center; font-size:14px; width:120px;">' + '品牌' + '</td><td style="border:none; text-align:center; font-size:14px; width:100px;">' + '件数' + '</td><td style="border:none; text-align:center; font-size:14px; width:100px;">' + '净重' + '</td><td style="border:none; text-align:center; font-size:14px; width:100px;">' + '单价' + '</td><td style="border:none; text-align:center; font-size:14px; width:120px;">' + '采购币种' + '</td><td style="border:none; text-align:center; font-size:14px; width:130px;">' + '货款小计' + '</td><td style="border:none; text-align:center; font-size:14px; width:70px;">' + '收单件数' + '</td><td style="border:none; text-align:center; font-size:14px; width:70px;">' + '收单吨重' + '</td><td style="border:none; text-align:center; font-size:14px; width:70px;">' + '运费/吨' + '</td><td style="border:none; text-align:center; font-size:14px; width:70px;">' + '保险' + '</td><td style="border:none; text-align:center; font-size:14px; width:70px;">' + '运费小计' + '</td><td style="border:none; text-align:center; font-size:14px; width:70px;">' + '收单件数' + '</td><td style="border:none; text-align:center; font-size:14px; width:70px;">' + '收单吨重' + '</td><td style="border:none; text-align:center; font-size:14px; width:70px;">' + '运费/吨' + '</td><td style="border:none; text-align:center; font-size:14px; width:70px;">' + '保险' + '</td><td style="border:none; text-align:center; font-size:14px; width:70px;">' +
+                '运费小计' + '</td>' +
+                '<td style="border:none; text-align:center; font-size:14px; width:80px;">指导销售价</td>' +
+                '</tr>';
+            var rows = rowData.OrderProducts;
+            if (rows == null) return '';
+            for (i = 0; i < rows.length; i++) {
+                temp += '<tr>' +
+                '<td style="border:0;padding-right:10px">' + rows[i].Product.ProductKey +
+                '</td>' +
+                '<td style="border:0;padding-right:10px">' + rows[i].Product.ProductFullName +
+                '</td>' +
+                '<td style="border:0;padding-right:10px">' + rows[i].Product.MadeInCountry +
+                '</td>' +
+                '<td style="border:0;padding-right:10px">' + rows[i].Product.MadeInFactory +
+                '</td>' +
+                '<td style="border:0;padding-right:10px">' + rows[i].Product.Brand +
+                '</td>' +
+                '<td style="border:0;padding-right:10px; text-align:center;">' + rows[i].Quantity +
+                '</td>' +
+                '<td style="border:0;padding-right:10px; text-align:center;">' + rows[i].NetWeight +
+                '</td>' +
+                '<td style="border:0; text-align:center;">' + rows[i].UnitPrice +
+                '</td>' +
+                '<td style="border:0;padding-right:10px; text-align:center;">' + rows[i].Currency +
+                '</td>' +
+                 '<td style="border:0;padding-right:10px">' + rows[i].SubTotal +
+                '</td>' +
+                 '<td style="border:0;padding-right:10px">' + rows[i].Product.ProductFullName +
+                '</td>' +
+                '<td style="border:0;padding-right:10px">' + rows[i].Product.ProductFullName +
+                '</td>' +
+                '<td style="border:0;padding-right:10px; text-align:center;">' + rows[i].Quantity +
+                '</td>' +
+                '<td style="border:0;padding-right:10px; text-align:center;">' + rows[i].NetWeight +
+                '</td>' +
+                '<td style="border:0; text-align:center;">' + rows[i].UnitPrice +
+                '</td>' +
+                 '<td style="border:0;padding-right:10px">' + rows[i].Product.ProductFullName +
+                '</td>' +
+                '<td style="border:0;padding-right:10px">' + rows[i].Product.ProductFullName +
+                '</td>' +
+                '<td style="border:0;padding-right:10px; text-align:center;">' + rows[i].Quantity +
+                '</td>' +
+                '<td style="border:0;padding-right:10px; text-align:center;">' + rows[i].NetWeight +
+                '</td>' +
+                '<td style="border:0; text-align:center;">' + rows[i].UnitPrice +
+                '</td>' +
+                '<td style="border:0; text-align:center;">' +
+                '<input type="hidden" name="[' + i + '].ProductItemId" value="' + rows[i].ProductItemId + '" />' +
+                '<input class="gai" style="width:80px; border:none; text-align:center;" type="text" name="[' + i + '].SalesGuidePrice" value="' + rows[i].UnitPrice + '"></td>' +
+                '</tr>';
+            }
+            temp += '</table>';
+            temp += '';
+            temp += '</form>';
+            return temp;
+        }
+
+
+    </script>
+
+    <div style="margin:15px;" id="cgjdgz">
+        <table id="my_datagrid" class="" title=""
+               data-options="view:detailview,detailFormatter: orderSubmitProductDetailFormatter,rownumbers:true,pagination:true,singleSelect:true,onLoadSuccess:datagrid_onLoadSuccess,url:'/@ViewContext.RouteData.Values["Area"].ToString()/@ViewContext.RouteData.Values["Controller"].ToString()/Index',method:'post'">
+            <thead>
+                <tr data-options="height:120">
+                    <th data-options="field:'OrderContractKey',width:150,algin:'center'">@Html.Label("OrderContractKey")</th>
+                    <th data-options="field:'OrderType',width:100,algin:'center',formatter:func_ordertype_formatter">@Html.DisplayNameFor(m=>m.OrderType)</th>
+                    <th data-options="field:'OrderCreateTime',width:150,align:'center'">@Html.DisplayNameFor(m=>m.OrderCreateTime)</th>
+                    <th data-options="field:'ETA',width:150,align:'center'">@Html.DisplayNameFor(m=>m.ETA)</th>
+                    <th data-options="field:'ETD',width:150,align:'center'">@Html.DisplayNameFor(m=>m.ETD)</th>
+                    <th data-options="field:'ShipmentPeriod',width:120,align:'center'">@Html.DisplayNameFor(m=>m.ShipmentPeriod)</th>
+                    <th data-options="field:'ContainerSerial',width:120,align:'center'">@Html.DisplayNameFor(m=>m.ContainerSerial)</th>
+                    <th data-options="field:'DeliveryBillSerial',width:150,align:'center'">@Html.DisplayNameFor(m=>m.DeliveryBillSerial)</th>
+                    <th data-options="field:'DestinationHarborKey',width:250,align:'center'">@Html.DisplayNameFor(m => m.DestinationHarborKey)</th>
+                    <th data-options="field:'OrderSysUserKey',width:120,align:'center'">@Html.DisplayNameFor(m=>m.OrderSysUserKey)</th>
+                    <th data-options="field:'ImportDeposite',width:120,align:'center'">@Html.DisplayNameFor(m => m.ImportDeposite)</th>
+                    <th data-options="field:'ImportBalancedPayment',width:120,align:'center'">@Html.DisplayNameFor(m=>m.ImportBalancedPayment)</th>
+                    <th data-options="field:'PaymentTotal',width:120,align:'center'">@Html.DisplayNameFor(m=>m.PaymentTotal)</th>
+                    <th data-options="field:'ContractStatus',width:100,align:'center',formatter:func_contractStatus_formatter">@Html.DisplayNameFor(m=>m.ContractStatus)</th>
+                    <th data-options="field:'Caozuo',width:120,align:'center',formatter:func_operation_formatter">操作</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+    @*<div style="width: 2175px;" class="t-center svs_page_b">
+            <span>小计:  10000.00</span>
+            <span>5.85</span>
+            <span>合计:  20000.00</span>
+            <span>11.7</span>
+        </div>*@
+    @*审核弹出层*@
+    <div id="audit_ordercontract_dialog" class="easyui-dialog" style="width:510px;height:398px;padding:10px 20px;" data-options="modal:true,closed:true" buttons="#audit_ordercontract__bottons">
+        <div style="padding:10px 0px;">
+            <form id="auditOrderContractForm">
+                <input type="hidden" name="OrderContractId" />
+                <p>
+                    @Html.LabelFor(m => m.ContractStatus)
+                    <select name="ContractStatus">
+                        <option value="@YuShang.ERP.Entities.Orders.ContractStatus.AuditPassed.ToString()">审核通过</option>
+                        <option value="@YuShang.ERP.Entities.Orders.ContractStatus.AuditNoPass.ToString()">审核不通过</option>
+                    </select>
+                </p>
+                <p>
+                    @Html.LabelFor(m => m.Comments)
+                    <textarea name="Comments" rows="2" cols="33"></textarea>
+                </p>
+            </form>
+        </div>
+    </div>
+    <div id="audit_ordercontract__bottons">
+        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="javascript: $('#auditOrderContractForm').submit();">确定</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="javascript: closeDialog('#audit_ordercontract_dialog');">取消</a>
+    </div>
+</div>
+@section scripts{
+    <script type="text/javascript" src="~/Scripts/datagrid-detailview.js"></script>
+    <script>
+        function audit_row(index) {
+            var row = get_datagrid_row_by_index(index);
+            $('#audit_ordercontract_dialog form').form('reset')
+            $('#audit_ordercontract_dialog form :hidden[name="OrderContractId"]').val(row.OrderContractId);
+            $('#audit_ordercontract_dialog').dialog('open').dialog('setTitle', '审核');
+        }
+        //提交销售指导价
+        function submit_order_submit_product_detail_form(obj) {
+            $.ajax({
+                url: '/' + Area + '/' + Controller + '/AddProductItemSalesGuidePrice',
+                type: 'post',
+                data: $(obj).serialize(),
+                dataType: 'json',
+                beforeSend: function () {
+                    $.messager.progress({
+                        title: '',
+                        msg: '处理中...'
+                    });
+                },
+                success: function (resp) {
+                    $.messager.progress('close');
+                    var messages = [];
+                    for (i = 0; i < resp.length; i++) {
+                        for (j = 0; j < resp[i]['Messages'].length; j++) {
+                            messages.push(resp[i]['Messages'][j]);
+                        }
+                    }
+                    if (messages.length > 0) {
+                        $.messager.alert('提示', messages.join('\n'));
+                    } else {
+                        $.messager.alert('提示', '操作成功');
+                    }
+                }
+            });
+            return false;
+        }
+
+        $(function () {
+            //提交审核
+            var validateOptions = get_validate_rules_messages('#auditOrderContractForm');
+            $('#auditOrderContractForm').validate({
+                rules: validateOptions.rules,
+                messages: validateOptions.messages,
+                submitHandler: function (form) {
+                    $.ajax({
+                        url: '/' + Area + '/' + Controller + '/Audit',
+                        type: 'post',
+                        data: $('#auditOrderContractForm').serialize(),
+                        dataType: 'json',
+                        beforeSend: function () {
+                            $.messager.progress({
+                                title: '',
+                                msg: '处理中...'
+                            });
+                        },
+                        success: function (resp) {
+                            $.messager.progress('close');
+                            var messages = [];
+                            for (i = 0; i < resp.length; i++) {
+                                for (j = 0; j < resp[i]['Messages'].length; j++) {
+                                    messages.push(resp[i]['Messages'][j]);
+                                }
+                            }
+                            if (messages.length > 0) {
+                                $.messager.alert('提示', messages.join('\n'));
+                            } else {
+                                $.messager.alert('提示', '操作成功');
+                                $('#audit_ordercontract_dialog').dialog('close')
+                                $('#my_datagrid').datagrid('reload');
+                            }
+                        }
+                    });
+                }
+            });
+            //筛选
+            $('#filter_trigger').focus(function () {
+                $('#filter_dialog').show();
+            });
+
+            
+        });
+    </script>
+}
