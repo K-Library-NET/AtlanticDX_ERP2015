@@ -629,22 +629,21 @@ input::-ms-reveal{display: none;}
 
 
 
-#cght .datagrid-cell-c1-OrderContractKey { width:120px;}
-#cght .datagrid-cell-c1-OrderType { width:75px;}
-#cght .datagrid-cell-c1-OrderCreateTime { width:85px;}
-#cght .datagrid-cell-c1-CTIME_STR { width:85px;} 
-#cght .datagrid-cell-c1-ETA { width:90px;}
-#cght .datagrid-cell-c1-ETD { width:90px;}
-#cght .datagrid-cell-c1-ShipmentPeriod { width:90px;}
+#cght .datagrid-cell-c1-OrderContractKey { width:150px;}
+#cght .datagrid-cell-c1-OrderType { width:100px;}
+#cght .datagrid-cell-c1-OrderCreateTime { width:150px;}
+#cght .datagrid-cell-c1-ETA { width:150px;}
+#cght .datagrid-cell-c1-ETD { width:150px;}
+#cght .datagrid-cell-c1-ShipmentPeriod { width:150px;}
 #cght .datagrid-cell-c1-ContainerSerial { width:120px;}
-#cght .datagrid-cell-c1-DeliveryBillSerial { width:120px;}
+#cght .datagrid-cell-c1-DeliveryBillSerial { width:150px;}
 #cght .datagrid-cell-c1-DestinationHarborKey { width:250px;}
-#cght .datagrid-cell-c1-OrderSysUserKey { width:80px;}
-#cght .datagrid-cell-c1-ImportDeposite { width:80px;}
-#cght .datagrid-cell-c1-ImportBalancedPayment { width:80px;}
-#cght .datagrid-cell-c1-PaymentTotal { width:80px;}
-#cght .datagrid-cell-c1-xszdj { width:80px;}
-#cght .datagrid-cell-c1-Caozuo { width:80px;}
+#cght .datagrid-cell-c1-OrderSysUserKey { width:120px;}
+#cght .datagrid-cell-c1-ImportDeposite { width:120px;}
+#cght .datagrid-cell-c1-ImportBalancedPayment { width:120px;}
+#cght .datagrid-cell-c1-PaymentTotal { width:120px;}
+#cght .datagrid-cell-c1-xszdj { width:120px;}
+#cght .datagrid-cell-c1-Caozuo { width:120px;}
 
 
 #audit_ordercontract_dialog label { width:100px; height:50px; display:block; float:left;}
@@ -813,6 +812,36 @@ input::-ms-reveal{display: none;}
 
 .right_content_top .date_select_r{border: 0px solid #c8c8c8;width: 80px;float: left;margin-top: 10px;height: 30px;color: #9cb2be;line-height: 30px;}
 .right_content_top input.w50{float: left;line-height: 30px; height: 30px;font-size: 14px;border: 0;background-color: #fff;margin-top: 10px;padding: 0 10px;width: 50px;color: #9cb2be;font-weight: 400;margin-right: 20px;}
+
+
+
+
+.gkdl { width:90%; margin:30px auto 0; border:1px solid #999; background-color:#fff;}
+.gkdl .title { height:40px; background-color:#ACC1CA; color:#fff; font-size:16px; text-align:center; line-height:40px; font-weight:bold; }
+
+.gkdl .title .list { width:100%;}
+.gkdl_list_top { width:96%; height:35px; line-height:35px; font-size:14px; padding:0 2%;}
+
+.gkdl_list_bot { width:96%; line-height:30px; font-size:14px; overflow:hidden; padding:20px 2%; border-top:1px solid #999;}
+
+.gkdl_list_bot label { float:left; width:60px; text-align:right; padding-right:20px; height:30px; line-height:30px; margin-left:20px;}
+.gkdl_list_bot input { float:left; width:130px; text-align:left; text-indent:1em; height:26px; line-height:26px; }
+
+.the_wuliu { background-color:#acc1ca; color:#fff;}
+.the_wuliu td { background-color:#fff; color:#666; text-align:center;}
+
+.the_wuliu thead th { background-color:#acc1ca; color:#fff; font-size:14px;}
+.the_wuliu td input { border:1px solid #fff;}
+
+.tijiao_bar {width:90%; margin:30px auto 0; text-align:center; }
+
+.the_bz { height:60px; background-color:#edf3f8; line-height:60px; font-size:16px; color:#fff; padding-left:20px; }
+.the_bz .new_order{float: left;line-height: 30px; height: 30px;font-size: 14px;border: 0;background-color: #f39c11;margin-top: 15px;padding: 0 10px;color: #fff; margin-right:15px;}
+.the_bz .new_order i{background: url(../images/right_content_top.png) -324px 6px no-repeat;height: 30px;width: 25px;float: left;}
+
+
+
+
 
 
 

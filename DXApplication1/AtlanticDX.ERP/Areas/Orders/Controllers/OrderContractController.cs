@@ -88,6 +88,45 @@ namespace AtlanticDX.ERP.Areas.Orders.Controllers
             return View();
         }
 
+
+        /// <summary>
+        /// 报关和物流信息页面
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult AddBgwl(string OrderContractKey)
+        {
+            ContractListCondition condition = new ContractListCondition()
+            {
+                IsEnable = true,
+                UserName = HttpContext.User.Identity.Name,
+                ListInclude = ContractListInclude.WithMainlandLogistics | ContractListInclude.WithHongkongLogistics
+               | ContractListInclude.WithHarborAgent | ContractListInclude.WithOrderCompensation
+            };
+            var temp = ContractManager.Instance.FindBy(dxContext, HttpContext.GetOwinContext(),
+                OrderContractKey, ContractViewModelType.OrderContract, condition);
+          
+            return View(temp);
+        }
+
+        [HttpPost]
+        public JsonResult AddBgwl(ContractInfo model)
+        {
+            if (ModelState.IsValid)
+            {
+                string errorMessage = AppBusinessManager.Instance.AddOrderContractRelatedObjs(
+                    dxContext as ExtendedIdentityDbContext, model,
+                    HttpContext.User.Identity.Name);
+
+                if (!string.IsNullOrEmpty(errorMessage))
+                {
+                    ModelState.AddModelError(string.Empty, "添加失败");
+                }
+            }
+            var temp = ModelState.GetModelStateErrors();
+            //System.Diagnostics.Debug.WriteLine(ModelState.GetModelStateErrors());
+            return Json(temp);  //ModelState.GetModelStateErrors());
+        }
+
         [HttpPost]
         public JsonResult Add(ContractInfo model)
         {
