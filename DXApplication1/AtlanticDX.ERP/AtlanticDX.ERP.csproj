@@ -782,8 +782,12 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Areas\Public\Models\AccountModels.cs" />
     <Compile Include="Migrations\CustomMigrationHelper.cs" />
-    <Compile Include="Migrations\Debugs\DebugSeed.cs" />
-    <Compile Include="Migrations\Releases\ReleaseSeed.cs" />
+    <Compile Include="Migrations\DebugSeeds\DebugSeed.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Migrations\ReleaseSeeds\ReleaseSeed.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\SysConfigs\SysConfigViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
