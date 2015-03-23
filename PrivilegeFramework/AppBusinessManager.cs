@@ -119,6 +119,21 @@ namespace PrivilegeFramework
             return m_orderContractImpl.AddOrderContractCore(dbContext, model, userName);
         }
 
+
+        /// <summary>
+        /// 新增报关和物流信息
+        /// 返回值为异常信息，如果返回空字符串则没有异常。
+        /// </summary>
+        /// <param name="dbContext"></param>
+        /// <param name="model"></param>
+        /// <param name="userName"></param>
+        /// <returns></returns>
+        public string AddOrderContractRelatedObjs(ExtendedIdentityDbContext dbContext,
+            ContractInfo model, string userName)
+        {
+            return m_orderContractImpl.AddOrderContractRelatedObjs(dbContext, model, userName);
+        }
+
         /// <summary>
         /// 交单（审核通过），如果model的OrderContractId/OrderContractKey找不到数据库的记录，
         /// 会强行创建一个（方便填写完了“直接交单”）。

@@ -156,6 +156,34 @@ namespace PrivilegeFramework.AppBusinessImpl
             return string.Empty;
         }
 
+        /// <summary>
+        /// 单独添加报关和物流信息
+        /// </summary>
+        /// <param name="dbContext"></param>
+        /// <param name="model"></param>
+        /// <param name="userName"></param>
+        /// <returns></returns>
+        public string AddOrderContractRelatedObjs(ExtendedIdentityDbContext dbContext,
+            ContractInfo model, string userName)
+        {
+            try
+            {
+                OrderContract contract = dbContext.OrderContracts.Create();               
+                AddOrderContractRelatedObjs(dbContext, model, userName, contract); 
+                int effectedRows = dbContext.SaveChanges();
+                if (effectedRows < 1)
+                {
+                    return "添加失败";
+                }
+            }
+            catch (Exception ee)
+            {
+                LogHelper.Error("添加报关物流信息失败。", ee);
+                return ee.Message;
+            }
+            return string.Empty;
+        }
+
         private void AddOrderContractRelatedObjs(ExtendedIdentityDbContext dbContext,
             ContractInfo model, string userName, OrderContract contract)
         {
