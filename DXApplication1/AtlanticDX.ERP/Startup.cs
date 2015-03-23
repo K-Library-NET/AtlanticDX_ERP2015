@@ -106,7 +106,7 @@ namespace AtlanticDX.ERP
         private void InitDatabases()
         {
             //debug
-            //AppDomain.CurrentDomain.AssemblyResolve += CurrentDomain_AssemblyResolve;
+            AppDomain.CurrentDomain.AssemblyResolve += CurrentDomain_AssemblyResolve;
             var test = Devart.Data.MySql.Entity.MySqlEntityProviderServices.Instance;
             System.Data.Entity.DbConfiguration.Loaded +=
                 (sender, e) =>
@@ -142,7 +142,7 @@ namespace AtlanticDX.ERP
                     else if (this.GetForceExternalSeedingFromConfig())
                     {//20150120 liangdawen: force to seed! 
                         LogHelper.Info(string.Format("Start Code First force Seeding external......"));
-                        migrator.Update(); 
+                        migrator.Update();
                         LogHelper.Info("Finish Code First force Seeding external. ");
                     }
 
@@ -182,7 +182,7 @@ namespace AtlanticDX.ERP
             //migrator.Update(key);
             ////var config = new AtlanticDX.ERP.Migrations.Configuration();
             //if (this.GetForceExternalSeedingFromConfig())
-                config.SeedExternal(context, key);
+            config.SeedExternal(context, key);
         }
 
         private bool GetForceExternalSeedingFromConfig()
@@ -218,39 +218,39 @@ namespace AtlanticDX.ERP
         /// <returns></returns>
         Assembly CurrentDomain_AssemblyResolve(object sender, ResolveEventArgs args)
         {
-            //if (args.Name.StartsWith("Devart"))
-            //{
-            int shortArgNameLast = args.Name.IndexOf(',');
-            string shortArgName = args.Name;
-            if (shortArgNameLast > 0 && shortArgNameLast <= shortArgName.Length)
+            if (args.Name.StartsWith("Devart"))
             {
-                shortArgName = shortArgName.Substring(0, shortArgNameLast);
-            }
-
-            string dir = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "bin\\");
-            var files = System.IO.Directory.EnumerateFiles(dir, shortArgName + "*.DLL", System.IO.SearchOption.AllDirectories);
-
-            foreach (var file in files)
-            {
-                try
+                int shortArgNameLast = args.Name.IndexOf(',');
+                string shortArgName = args.Name;
+                if (shortArgNameLast > 0 && shortArgNameLast <= shortArgName.Length)
                 {
-                    string shortFile = System.IO.Path.GetFileNameWithoutExtension(file);
-                    if (shortFile == shortArgName)
+                    shortArgName = shortArgName.Substring(0, shortArgNameLast);
+                }
+
+                string dir = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "bin\\");
+                var files = System.IO.Directory.EnumerateFiles(dir, shortArgName + "*.DLL", System.IO.SearchOption.AllDirectories);
+
+                foreach (var file in files)
+                {
+                    try
                     {
-                        var assem = Assembly.LoadFrom(file);
-                        System.Console.WriteLine("Assembly Loaded: "
-                            + assem.ToString() + "\t" + file);
-                        return assem;
+                        string shortFile = System.IO.Path.GetFileNameWithoutExtension(file);
+                        if (shortFile == shortArgName)
+                        {
+                            var assem = Assembly.LoadFrom(file);
+                            System.Console.WriteLine("Assembly Loaded: "
+                                + assem.ToString() + "\t" + file);
+                            return assem;
+                        }
+                    }
+                    catch (Exception ee)
+                    {
+                        LogHelper.Error("Assembly Load Failed: "
+                                + file, ee);
+                        continue;
                     }
                 }
-                catch (Exception ee)
-                {
-                    LogHelper.Error("Assembly Load Failed: "
-                            + file, ee);
-                    continue;
-                }
             }
-            //}
 
             //string dir = AppDomain.CurrentDomain.BaseDirectory + "bin\\zh-Hans";
             //var assem = Assembly.LoadFrom(System.IO.Path.Combine(dir, "EntityFramework.resources.dll"));
