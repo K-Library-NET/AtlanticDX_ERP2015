@@ -181,3 +181,4 @@ UpgradeLog*.htm
 
 # Microsoft Fakes
 FakesAssemblies/
+DXApplication1/AtlanticDX.ERP/App_Data/elmah/
