@@ -19,6 +19,8 @@
             <span class="default">@Html.LabelFor(m => m.CTIME)</span>
             <span class="eta_in">@Html.TextBoxFor(m => m.CTIME, new { @class = "easyui-datebox", @id = "thedate", @style = "width:98%;", @required = "required", @Value = DateTime.Now.ToString("yyyy-MM-dd") })</span>
             <input type="hidden" name="OrderType" value="1" />
+
+            <span class="default red">*</span><span class="default">汇率</span>@Html.TextBoxFor(m => m.Comments, new { @class = "w50" })
 </div>
         <div class="ddgl clearf calculate">
             <table id="picked_products_table" class="svs_table ml20 mr20">
