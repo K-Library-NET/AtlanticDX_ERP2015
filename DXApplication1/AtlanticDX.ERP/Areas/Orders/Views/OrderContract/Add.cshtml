@@ -23,7 +23,7 @@
     <span class="default">@Html.DisplayNameFor(m => m.HarborId)</span>@Html.DropDownListFor(m => m.HarborId, AtlanticDX.ERP.Helper.OrdersHelper.GetHarbors(), "--请选择--", new { @class = "date_select mr20" })*@
             <span class="default red">*</span><span class="default">@Html.DisplayNameFor(m => m.ContractKey)</span>
             <span class="eta_in">
-                @Html.TextBoxFor(m => m.ContractKey, new { @class = "easyui-textbox w120", @required = "required" })
+                @Html.TextBoxFor(m => m.ContractKey, new { @class = "easyui-textbox w120"})
             </span>
             <span class="default red">*</span><span class="default">@Html.DisplayNameFor(m => m.OrderType)</span>
             <select name="OrderType" class="date_select date_select_r mr20">
@@ -117,10 +117,10 @@
                 <p class="clearf ml20">
                     <span class="default red">*</span><span class="default">@Html.DisplayNameFor(m => m.Payment)</span><span class="default">@Html.TextBoxFor(m => m.Payment, new { @class = "w300" })</span>
                     <span class="default red">*</span>
-                    <span class="default">@Html.DisplayNameFor(m => m.PaymentTotal)</span> <span class="default">@Html.TextBoxFor(m => m.PaymentTotal, new { @class = "w115" })</span>
-                    <span class="default">@Html.DisplayNameFor(m => m.ImportDeposite)</span> <span class="default ">@Html.TextBoxFor(m => m.ImportDeposite, new { @class = "w115" })</span>
+                    <span class="default">@Html.DisplayNameFor(m => m.PaymentTotal)</span> <span class="default">@Html.TextBoxFor(m => m.PaymentTotal, new { @class = "w115 compute_all_subtotal" ,@Value="0.00"})</span>
+                    <span class="default">@Html.DisplayNameFor(m => m.ImportDeposite)</span> <span class="default ">@Html.TextBoxFor(m => m.ImportDeposite, new { @class = "w115",@Value="0.00" })</span>
                     <span class="default red">*</span>
-                    <span class="default">@Html.DisplayNameFor(m => m.ImportBalancedPayment)</span> <span class="default eta_in">@Html.TextBoxFor(m => m.ImportBalancedPayment, new { @class = "w115" })</span>
+                    <span class="default">@Html.DisplayNameFor(m => m.ImportBalancedPayment)</span> <span class="default eta_in">@Html.TextBoxFor(m => m.ImportBalancedPayment, new { @class = "w115 compute_all_subtotal", @Value = "0.00" })</span>
                 </p>
                 <p class="clearf ml20">
                     <span class="default mr100">@Html.DisplayNameFor(m => m.CreateSysUserKey)： @ViewBag.CurrentUser.Name (@ViewBag.CurrentUser.UserName)</span>
@@ -170,6 +170,21 @@
     <script>
 
         $(function () {
+            //绑定自动计算           
+            $('#PaymentTotal').on('change', compute_ImportBalancedPayment);
+            $('#ImportDeposite').on('change', compute_ImportBalancedPayment);
+
+            //计算采购尾款默认值
+            function compute_ImportBalancedPayment() {
+                var balancedPayment = 0;
+                var total = parseFloat($('#PaymentTotal').val());
+                var deposite = parseFloat($('#ImportDeposite').val());
+                if ($.isNumeric(total) && $.isNumeric(deposite) && (total - deposite) > 0) {
+                    balancedPayment = (total - deposite).toFixed(2);
+                }
+                $('#ImportBalancedPayment').val(balancedPayment);
+            }
+
             //绑定合同编号变化事件
             $('#ContractKey').textbox({
                 validType: ['length[1,50]'],
@@ -185,6 +200,10 @@
                 messages: validateOptions.messages,
                 submitHandler: function (form) {
                     var isPass = false;
+                    if ($('#ContractKey').val().trim() == '') {
+                        $.messager.alert('提示', '合同编号不能为空!');
+                        return isPass;
+                    }
                     //检查已选商品列
                     if (picked_productkeys_ids.length == 0) {
                         $.messager.alert('提示', '未选择商品');

@@ -588,6 +588,7 @@
     <Content Include="Areas\Sales\Views\SalesByFutures\AddSaleBargin.cshtml" />
     <Content Include="Areas\Sales\Views\SalesByFutures\Audit.cshtml" />
     <Content Include="Areas\Sales\Views\SalesByFutures\Edit.cshtml" />
+    <Content Include="Areas\Orders\Views\OrderContract\AddBgwl.cshtml" />
     <None Include="Properties\PublishProfiles\ReleaseBeta.pubxml" />
     <None Include="Properties\PublishProfiles\ReleaseV001.pubxml" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
@@ -626,6 +627,7 @@
     <Content Include="Areas\Public\Views\web.config" />
     <Content Include="Areas\Public\Views\Account\Login.cshtml" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\Order\AddBjwl.js" />
     <Content Include="Scripts\pick_product.js" />
     <Content Include="Scripts\PNG.js" />
     <Content Include="Scripts\reports\adapters\standalone-framework.js" />
@@ -782,12 +784,8 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Areas\Public\Models\AccountModels.cs" />
     <Compile Include="Migrations\CustomMigrationHelper.cs" />
-    <Compile Include="Migrations\DebugSeeds\DebugSeed.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Migrations\ReleaseSeeds\ReleaseSeed.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="Migrations\Debugs\DebugSeed.cs" />
+    <Compile Include="Migrations\Releases\ReleaseSeed.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\SysConfigs\SysConfigViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -822,6 +820,8 @@
     <Folder Include="Areas\ResMgr\Views\Shared\" />
     <Folder Include="Areas\Sales\Views\Shared\" />
     <Folder Include="Areas\Stocks\Views\Shared\" />
+    <Folder Include="Migrations\DebugSeeds\" />
+    <Folder Include="Migrations\ReleaseSeeds\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201501310559404_InitDatabaseV20.resx">

@@ -143,7 +143,7 @@ $(function () {
         //onfocusout: false,
         showErrors: function (errorMap, errorList) {
             if (errorList != null && errorList.length > 0) {
-                alert(errorList[0].message);
+                $.messager.alert('提示',errorList[0].message);
             }
         }
     });
@@ -495,3 +495,5 @@ var saleProductDetailFormatter = function (rowIndex, rowData) {
     temp += '</table>';
     return temp;
 }
+
+
