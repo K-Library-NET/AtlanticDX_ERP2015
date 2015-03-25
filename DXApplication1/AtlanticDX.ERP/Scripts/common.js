@@ -143,7 +143,7 @@ $(function () {
         //onfocusout: false,
         showErrors: function (errorMap, errorList) {
             if (errorList != null && errorList.length > 0) {
-                $.messager.alert('提示',errorList[0].message);
+                $.messager.alert('提示', errorList[0].message);
             }
         }
     });
@@ -496,4 +496,200 @@ var saleProductDetailFormatter = function (rowIndex, rowData) {
     return temp;
 }
 
+function getVal(objStr) {
+    return objStr == null || objStr == undefined ? '' : objStr;
+}
 
+
+/*采购产品模板行*/
+var productDetailFormatterNew = function (rowIndex, rowData) {
+    var arrayHtml = new Array();
+    arrayHtml.push('<table class="mobanhang" border="0" cellspacing="1" cellpadding="0">');
+    arrayHtml.push('<tr class="the_title">');
+    arrayHtml.push('  <td>订单信息</td>');
+    arrayHtml.push('</tr>');
+    arrayHtml.push('<tr>');
+    arrayHtml.push('<td style="padding:0">');
+    arrayHtml.push('<table border="0" cellspacing="1" cellpadding="0" style="background-color:#666; width:100%;">');
+    arrayHtml.push('  <tr>');
+    arrayHtml.push('	<td class="the_left">合同编号</td>');
+    arrayHtml.push('	<td>' + rowData.ContractKey + '</td>');
+    arrayHtml.push('	<td class="the_left">货品类型</td>');
+    arrayHtml.push('	<td>' + func_ContractType_formatter(rowData.OrderType, rowData, rowIndex) + '</td>');
+    arrayHtml.push('	<td class="the_left">合同类型</td>');
+    arrayHtml.push('	<td>采购合同</td>');
+    arrayHtml.push('	<td class="the_left">订单状态</td>');
+    arrayHtml.push('	<td>' + func_contractStatus_formatter(rowData.ContractStatus, rowData, rowIndex) + '</td>');
+    arrayHtml.push('  </tr>');
+    arrayHtml.push('  <tr>');
+    arrayHtml.push('	<td class="the_left">订单日期</td>');
+    arrayHtml.push('	<td>' + rowData.CTIME_STR + '</td>');
+    arrayHtml.push('	<td class="the_left">ETA</td>');
+    arrayHtml.push('	<td>' + getVal(rowData.ETA) + '</td>');
+    arrayHtml.push('	<td class="the_left">ETD</td>');
+    arrayHtml.push('	<td>' + getVal(rowData.ETD) + '</td>');
+    arrayHtml.push('	<td class="the_left">操作人</td>');
+    arrayHtml.push('	<td>' + getVal(rowData.OperatorPersonName) + '</td>');
+    arrayHtml.push('  </tr>');
+    arrayHtml.push('  <tr>');
+    arrayHtml.push('	<td class="the_left">订单船期</td>');
+    arrayHtml.push('	<td>' + getVal(rowData.ShipmentPeriod) + '</td>');
+    arrayHtml.push('	<td class="the_left">目的港</td>');
+    arrayHtml.push('	<td>' + getVal(rowData.DestinationHarborKey) + '</td>');
+    arrayHtml.push('	<td class="the_left">提货单号</td>');
+    arrayHtml.push('	<td>' + getVal(rowData.DeliveryBillSerial) + '</td>');
+    arrayHtml.push('	<td class="the_left">柜号</td>');
+    arrayHtml.push('	<td>' + getVal(rowData.ContainerSerial) + '</td>');
+    arrayHtml.push('  </tr>');
+    arrayHtml.push('  <tr>');
+    arrayHtml.push('	<td class="the_left">付款方式</td>');
+    arrayHtml.push('	<td>' + getVal(rowData.Payment) + '</td>');
+    arrayHtml.push('	<td class="the_left">货款总计</td>');
+    arrayHtml.push('	<td>' + getVal(rowData.ShipmentPeriod) + '</td>');
+    arrayHtml.push('	<td class="the_left">采购订金</td>');
+    arrayHtml.push('	<td>' + getVal(rowData.ImportDeposite) + '</td>');
+    arrayHtml.push('	<td class="the_left">采购尾款</td>');
+    arrayHtml.push('	<td>' + getVal(rowData.ImportBalancedPayment) + '</td>');
+    arrayHtml.push('  </tr>');
+    arrayHtml.push('  <tr>');
+    arrayHtml.push('	<td class="the_left">汇率</td>');
+    arrayHtml.push('	<td>6.25</td>');
+    arrayHtml.push('	<td class="the_left">实收金额</td>');
+    arrayHtml.push('	<td>' + getVal(rowData.TotalAfterDiscount) + '</td>');
+    arrayHtml.push('	<td class="the_left"></td>');
+    arrayHtml.push('	<td></td>');
+    arrayHtml.push('	<td class="the_left"></td>');
+    arrayHtml.push('	<td></td>');
+    arrayHtml.push('  </tr>');
+    arrayHtml.push('</table>');
+    arrayHtml.push('</td>');
+    arrayHtml.push('</tr>');
+    arrayHtml.push('<tr class="the_title">');
+    arrayHtml.push('<td>商品信息</td>');
+    arrayHtml.push('</tr>');
+
+    var rows = rowData.ContractType == 0 ? rowData.ContractItems : rowData.SaleProductItems;
+    var productitemrows = rowData.ContractItems;
+    //香港物流：根据for循环的i去写入
+    var hklogisItems = rowData.HongkongLogistics == null || rowData.HongkongLogistics.IsEnable == false ?null : rowData.HongkongLogistics.LogisItems;
+    hklogisItems = (hklogisItems == null || hklogisItems == undefined )? new Array(rows.length) : hklogisItems;
+    //内地物流：根据for循环的i去写入
+    var mllogisItems = rowData.MainlandLogistics == null || rowData.MainlandLogistics.IsEnable == false ? null : rowData.MainlandLogistics.LogisItems;
+    mllogisItems = (mllogisItems == null || mllogisItems == undefined) ? new Array(rows.length) : mllogisItems;
+    //var rows = rowData.OrderType == 0 ? rowData.ContractItems : rowData.SaleProductItems;
+    if (rows == null) return '';
+    for (i = 0; i < rows.length; i++) {
+        if (productitemrows[i] != null && productitemrows[i].Quantity != null) {
+            arrayHtml.push('<tr>');
+            arrayHtml.push('<td style="padding:0">');
+            arrayHtml.push('<table border="0" cellspacing="1" cellpadding="0" style="background-color:#666; width:100%;">');
+            arrayHtml.push('  <tr class="the_fenge">');
+            arrayHtml.push('	<td colspan="10"></td>');
+            arrayHtml.push('  </tr>');
+            arrayHtml.push('  <tr>');
+            arrayHtml.push('	<td colspan="10" class="the_wuliu">商品</td>');
+            arrayHtml.push('  </tr>');
+            arrayHtml.push('  <tr>');
+            arrayHtml.push('	<td class="the_left">货品出厂编号</td>');
+            arrayHtml.push('	<td>' + rows[i].ProductKey + '</td>');
+            arrayHtml.push('	<td class="the_left">货品名</td>');
+            arrayHtml.push('	<td>' + rows[i].ProductName + '</td>');
+            arrayHtml.push('	<td class="the_left">国家</td>');
+            arrayHtml.push('	<td>' + getVal(productitemrows[i].Product.MadeInCountry) + '</td>');
+            arrayHtml.push('	<td class="the_left">厂号</td>');
+            arrayHtml.push('	<td>' + getVal(productitemrows[i].Product.MadeInFactory) + '</td>');
+            arrayHtml.push('	<td class="the_left">品牌</td>');
+            arrayHtml.push('	<td>' + getVal(productitemrows[i].Product.Brand) + '</td>');
+            arrayHtml.push('  </tr>');
+            arrayHtml.push('  <tr>');
+            arrayHtml.push('	<td class="the_left">件数</td>');
+            arrayHtml.push('	<td>' + getVal(productitemrows[i].Quantity) + '</td>');
+            arrayHtml.push('	<td class="the_left">净重</td>');
+            arrayHtml.push('	<td>' + getVal(productitemrows[i].NetWeight) + '</td>');
+            arrayHtml.push('	<td class="the_left">单价</td>');
+            arrayHtml.push('	<td>' + getVal(productitemrows[i].UnitPrice) + '</td>');
+            arrayHtml.push('	<td class="the_left">采购币种</td>');
+            arrayHtml.push('	<td>' + getVal(productitemrows[i].Currency) + '</td>');
+            arrayHtml.push('	<td class="the_left">货款小计</td>');
+            arrayHtml.push('	<td>' + getVal(productitemrows[i].SubTotal) + '</td>');
+            arrayHtml.push('  </tr>');
+
+            arrayHtml.push('  <tr>');
+            arrayHtml.push('	<td colspan="10" class="the_wuliu">香港物流</td>');
+            arrayHtml.push('  </tr>');
+            arrayHtml.push('  <tr>');
+            arrayHtml.push('	<td class="the_left">收单件数</td>');
+
+            if (hklogisItems[i] != undefined) {
+                arrayHtml.push('	<td>');
+                arrayHtml.push(getVal(hklogisItems[i].ContractQuantity));
+                arrayHtml.push('	</td><td class="the_left">收单顿重</td>');
+                arrayHtml.push('	<td>');
+                arrayHtml.push(getVal(hklogisItems[i].ContractWeight));
+                arrayHtml.push('</td>');
+                arrayHtml.push('	<td class="the_left">运费/吨</td>');
+                arrayHtml.push('	<td>');
+                arrayHtml.push('	<td>' + getVal(hklogisItems[i].FreightCharges) + '</td>');
+                arrayHtml.push('	<td class="the_left">保险</td>');
+                arrayHtml.push('	<td>');
+                arrayHtml.push('	<td>' + getVal(hklogisItems[i].Insurance) + '</td>');
+                arrayHtml.push('	<td class="the_left">运费小计</td>');
+                arrayHtml.push('	<td>');
+                arrayHtml.push('	<td>' + getVal(hklogisItems[i].SubTotal) + '</td>');
+            }
+            else {
+                arrayHtml.push('	<td></td>');
+                arrayHtml.push('	<td class="the_left">收单顿重</td>');
+                arrayHtml.push('	<td></td>');
+                arrayHtml.push('	<td class="the_left">运费/吨</td>');
+                arrayHtml.push('	<td></td>');
+                arrayHtml.push('	<td class="the_left">保险</td>');
+                arrayHtml.push('	<td></td>');
+                arrayHtml.push('	<td class="the_left">运费小计</td>');
+                arrayHtml.push('	<td></td>');
+            }
+            arrayHtml.push('  </tr>');
+
+            if (mllogisItems) {
+                arrayHtml.push('  <tr>');
+                arrayHtml.push('	<td colspan="10" class="the_wuliu">内地物流</td>');
+                arrayHtml.push('  </tr>');
+                arrayHtml.push('  <tr>');
+                arrayHtml.push('	<td class="the_left">收单件数</td>');
+                if (mllogisItems[i] != undefined) {
+                    arrayHtml.push('	<td>' + getVal(mllogisItems[i].ContractQuantity) + '</td>');
+                    arrayHtml.push('	<td class="the_left">收单顿重</td>');
+                    arrayHtml.push('	<td>' + getVal(mllogisItems[i].ContractWeight) + '</td>');
+                    arrayHtml.push('	<td class="the_left">运费/吨</td>');
+                    arrayHtml.push('	<td>' + getVal(mllogisItems[i].FreightCharges) + '</td>');
+                    arrayHtml.push('	<td class="the_left">保险</td>');
+                    arrayHtml.push('	<td>' + getVal(mllogisItems[i].Insurance) + '</td>');
+                    arrayHtml.push('	<td class="the_left">运费小计</td>');
+                    arrayHtml.push('	<td>' + getVal(mllogisItems[i].SubTotal) + '</td>');
+                }
+                else {
+                    arrayHtml.push('	<td></td>');
+                    arrayHtml.push('	<td class="the_left">收单顿重</td>');
+                    arrayHtml.push('	<td></td>');
+                    arrayHtml.push('	<td class="the_left">运费/吨</td>');
+                    arrayHtml.push('	<td></td>');
+                    arrayHtml.push('	<td class="the_left">保险</td>');
+                    arrayHtml.push('	<td></td>');
+                    arrayHtml.push('	<td class="the_left">运费小计</td>');
+                    arrayHtml.push('	<td></td>');
+                }
+                arrayHtml.push('  </tr>');
+            }
+            arrayHtml.push('  <tr class="the_fenge">');
+            arrayHtml.push('	<td colspan="10"></td>');
+            arrayHtml.push('  </tr>');
+
+        }
+    }
+
+    arrayHtml.push('</table>');
+    arrayHtml.push('</td>');
+    arrayHtml.push('</tr>  ');
+    arrayHtml.push('</table>');
+    return arrayHtml.join('');
+}

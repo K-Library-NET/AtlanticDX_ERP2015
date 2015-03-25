@@ -1,9 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <items>
   <item Text="订单管理" Area="Orders" StyleClass="on">
-    <item Text="采购与销售合同" Area="Orders" Controller="OrderContract" Action="Index" StyleClass="">
+    <item Text="采购合同" Area="Orders" Controller="OrderContract" Action="Index" StyleClass="">
       <!--<item Text="新建采购合同" Area="Orders" Controller="OrderContract" Action="Add" StyleClass=""/>
         -->
+    </item>
+    <item Text="现货销售合同" Area="Sales" Controller="SalesByInventories" Action="Index" StyleClass="">
+    
+    </item>
+    <item Text="期货销售合同" Area="Sales" Controller="SalesByFutures" Action="Index" StyleClass="">
+     
     </item>
     <item Text="合同交单" Area="Orders" Controller="OrderSubmit" Action="Index" StyleClass="">
       <item Text="审核" Area="Orders" Controller="OrderSubmit" Action="Audit" StyleClass="" />
