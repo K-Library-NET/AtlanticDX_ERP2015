@@ -14,6 +14,7 @@
             <input type="hidden" name="SaleClientId" data-val-required="必须选择客户" />
             <span class="default red">*</span>
             <span class="default">@Html.DisplayNameFor(m => m.ContractKey)</span>
+<<<<<<< Updated upstream
             <span class="eta_in">
                 @Html.TextBoxFor(m => m.ContractKey, new { @class = "easyui-textbox  w120" })
             </span>
@@ -22,6 +23,13 @@
             <span class="eta_in">@Html.TextBoxFor(m => m.CTIME, new { @class = "easyui-datebox", @id = "thedate", @style = "width:98%;", @required = "required", @Value = DateTime.Now.ToString("yyyy-MM-dd") })</span>
             <input type="hidden" name="OrderType" value="1" />
             <span class="default red">*</span><span class="default">汇率</span>@Html.TextBoxFor(m => m.Comments, new { @class = "w50" })
+=======
+            @Html.TextBoxFor(m => m.ContractKey, new { @class = "w120" })
+            <span class="default red">*</span>
+            <span class="default">@Html.DisplayNameFor(m => m.CTIME)</span>
+            <span class="eta_in">@Html.TextBoxFor(m => m.CTIME, new { @class = "easyui-datebox", @style = "width:98%;" })</span>
+            <input type="hidden" name="OrderType" value="1" />
+>>>>>>> Stashed changes
         </div>
         <div class="ddgl clearf calculate">
             <table id="picked_products_table" class="svs_table ml20 mr20">
@@ -42,6 +50,7 @@
                     </tr>
                 </thead>
                 <tbody>
+<<<<<<< Updated upstream
 
                     @for (int i = 0; i <= 0; i++)
                     {
@@ -78,6 +87,44 @@
 
                         </tr>
                     }
+=======
+                    
+                        @for (int i = 0; i <= 0; i++)
+                        {
+                            <tr>
+                                <td class="check" style="width:20px;">@(i + 1)</td>
+                                @*<td name="ProductKey" style="width:100px;"></td>*@
+                                <td name="ProductName" style="width:100px;"></td>
+                                <td name="ProductItem.Product.Specification" style="width:50px;"></td>
+                                <td name="ProductItem.Product.Packing" style="width:80px;"></td>
+                                <td name="Quantity" style="width:80px;"></td>
+                                <td style="width:80px;">
+                                    <input type="hidden" name="SaleProductItems[@i].StockItemId" value="" />
+                                    <input name="SaleProductItems[@i].Quantity" type="text" style="width:80px;" />
+                                </td>
+                                <td style="width:80px;">
+                                    <input name="SaleProductItems[@i].Weight" class="num_compute" type="text" style="width:80px;" />
+                                </td>
+                                <td style="width:50px;">
+                                    <input name="SaleProductItems[@i].UnitPrice" class="num_compute" type="text" style="width:50px;" />
+                                </td>
+                                <td style="width:50px;">
+                                    <select name="SaleProductItems[@i].Currency" style="width:50px;">
+                                        <option>美元</option>
+                                        <option>港元</option>
+                                        <option>人民币</option>
+                                    </select>
+                                </td>
+                                <td name="SaleProductItems.SubTotal" style="width:80px;"></td>
+                                <td class="operation" style="width:80px;">
+                                    <a href="javascript:;" class="add">新增</a>
+                                    <span>|</span>
+                                    <a href="javascript:;" class="del">删除</a>
+                                </td>
+
+                            </tr>
+                        }
+>>>>>>> Stashed changes
                 </tbody>
             </table>
             <div style="width: 1780px;" class="table_info mt10">
@@ -85,7 +132,11 @@
                     <span class="default">折扣率</span>
                     <input class="w115" name="DiscountRate" value="100" data-val-min="0" data-val-max="100" type="text" />
                     <span class="default">折扣额</span>
+<<<<<<< Updated upstream
                     <input class="w115" name="DiscountAmount2" value="0" type="text" readonly="readonly">
+=======
+                    <input class="w115" name="DiscountAmount2" value="0" type="text">
+>>>>>>> Stashed changes
                     <span class="default">折扣金额</span>
                     <input class="w115 compute_all_subtotal" name="DiscountAmount" readonly="readonly" value="0" type="text">
                     <span class="default">固定定金</span>
@@ -152,6 +203,7 @@
     <script type="text/javascript" src="~/Scripts/pick_product.js"></script>
     <script>
         $(function () {
+<<<<<<< Updated upstream
             //绑定合同编号变化事件
             $('#ContractKey').textbox({
                 validType: ['length[1,50]'],
@@ -160,11 +212,16 @@
                     $('#ContractKey').textbox('setValue', newValue.toUpperCase());
                 }
             });
+=======
+>>>>>>> Stashed changes
             //选择客户
             $('#add_order_form input[name="SaleClientCompanyName"]').focus(function () {
                 $('#pick_client_dialog').dialog('open').dialog('setTitle', '选择客户');
             });
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
             //选择客户弹出层列表
             $('#pick_clients_datagrid').datagrid({
                 url: $('#pick_clients_datagrid').attr('data-url'),
@@ -224,7 +281,10 @@
                 }
             });
 
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
             //折扣额度计算
             $('#add_order_form input[name="DiscountRate"]').keyup(function () {
                 if ($.isNumeric($(this).val())) {
@@ -263,9 +323,14 @@
                                     exit = true;
                                     var labelObj = $('#picked_products_table thead th:nth-child(' + ($inputs.eq(i).parent().index() + 1) + ')');
                                     var labelText = labelObj.find('label').size() == 1 ? $.trim(labelObj.find('label').text()) : labelObj.text()
+<<<<<<< Updated upstream
                                     $.messager.alert('提示', '请正确填写' + labelText, 'info', function () {
                                         $inputs.eq(i).focus();
                                     });
+=======
+                                    alert('请正确填写' + labelText);
+                                    $inputs.eq(i).focus();
+>>>>>>> Stashed changes
                                     return false;
                                 }
                             };
@@ -295,16 +360,58 @@
                             if (messages.length > 0) {
                                 $.messager.alert('提示', messages.join('<br/>'));
                             } else {
+<<<<<<< Updated upstream
                                 $.messager.alert('提示', '新建成功', null, function () {
                                     parent.closeMainTab('新建现货销售合同');
                                     parent.addMainTab('采购与销售合同', 'Orders/OrderContract/Index');
                                 });
+=======
+                                alert('操作成功');
+                                parent.closeMainTab('添加现货销售');
+>>>>>>> Stashed changes
                             }
                         }
                     });
                 }
             });
 
+<<<<<<< Updated upstream
+=======
+            $(".easyui-datebox").datebox({
+                value: function () {
+                    var date = new Date();
+                    //alert(date.getMonth().toString().length);
+
+                    if (date.getMonth().toString().length < 2 && date.getDate().toString().length < 2) {
+
+                        var ctime = date.getFullYear() + '-0' + (date.getMonth() + 1) + '-0' + date.getDate();
+
+                    }
+
+                    if (date.getMonth().toString().length < 2 && date.getDate().toString().length > 1) {
+
+                        var ctime = date.getFullYear() + '-0' + (date.getMonth() + 1) + '-' + date.getDate();
+
+                    }
+
+                    if (date.getMonth().toString().length > 1 && date.getDate().toString().length < 2) {
+
+                        var ctime = date.getFullYear() + '-' + (date.getMonth() + 1) + '-0' + date.getDate();
+
+                    }
+
+                    if (date.getMonth().toString().length > 1 && date.getDate().toString().length > 1) {
+
+                        var ctime = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
+
+                    }
+
+
+
+                    return ctime;
+                }
+            });
+>>>>>>> Stashed changes
         });
     </script>
 }

@@ -588,7 +588,10 @@
     <Content Include="Areas\Sales\Views\SalesByFutures\AddSaleBargin.cshtml" />
     <Content Include="Areas\Sales\Views\SalesByFutures\Audit.cshtml" />
     <Content Include="Areas\Sales\Views\SalesByFutures\Edit.cshtml" />
+<<<<<<< Updated upstream
     <Content Include="Areas\Orders\Views\OrderContract\AddBgwl.cshtml" />
+=======
+>>>>>>> Stashed changes
     <None Include="Properties\PublishProfiles\ReleaseBeta.pubxml" />
     <None Include="Properties\PublishProfiles\ReleaseV001.pubxml" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
@@ -627,7 +630,10 @@
     <Content Include="Areas\Public\Views\web.config" />
     <Content Include="Areas\Public\Views\Account\Login.cshtml" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+<<<<<<< Updated upstream
     <Content Include="Scripts\Order\AddBjwl.js" />
+=======
+>>>>>>> Stashed changes
     <Content Include="Scripts\pick_product.js" />
     <Content Include="Scripts\PNG.js" />
     <Content Include="Scripts\reports\adapters\standalone-framework.js" />
@@ -784,8 +790,17 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Areas\Public\Models\AccountModels.cs" />
     <Compile Include="Migrations\CustomMigrationHelper.cs" />
+<<<<<<< Updated upstream
     <Compile Include="Migrations\Seeds\DebugSeed.cs" />
     <Compile Include="Migrations\Seeds\ReleaseSeed.cs" />
+=======
+    <Compile Include="Migrations\Seeds\DebugSeed.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Migrations\Seeds\ReleaseSeed.cs">
+      <SubType>Code</SubType>
+    </Compile>
+>>>>>>> Stashed changes
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\SysConfigs\SysConfigViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -836,11 +851,19 @@
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+<<<<<<< Updated upstream
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
   </Target>
   <Target Name="AfterBuild">
+=======
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+>>>>>>> Stashed changes
   </Target> -->
   <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
     <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
