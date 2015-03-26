@@ -66,7 +66,16 @@ namespace AtlanticDX.ERP.Areas.Sales.Controllers
             else if (viewModels != null && !string.IsNullOrEmpty(viewModels.ErrorMessage))
             {
                 ModelState.AddModelError(string.Empty, viewModels.ErrorMessage);
-            }           
+            }
+
+            //IQueryable<SaleContract> saleContractQuery =
+            //    AppBusinessManager.Instance.GetIndexListSaleContract(dxContext, 1, //现货销售
+            //    DateFrom, DateTo, filterValue, HttpContext.User.Identity.Name, out total);
+
+            //IEnumerable<SaleContract> list = saleContractQuery.AsParallel()
+            //   .OrderByDescending(m => m.SaleCreateTime).Skip((page - 1) * rows).Take(rows).ToList();
+
+            //FIXED  获取现货销售列表
             return Json(new { total = total, rows = new ContractInfo[] { } });
         }
 
