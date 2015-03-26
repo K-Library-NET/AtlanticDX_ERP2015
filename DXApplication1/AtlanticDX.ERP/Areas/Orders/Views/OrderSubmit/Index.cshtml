@@ -166,23 +166,23 @@
 
     <div style="margin:15px;" id="cgjdgz">
         <table id="my_datagrid" class="" title=""
-               data-options="view:detailview,detailFormatter: orderSubmitProductDetailFormatter,rownumbers:true,pagination:true,singleSelect:true,onLoadSuccess:datagrid_onLoadSuccess,url:'/@ViewContext.RouteData.Values["Area"].ToString()/@ViewContext.RouteData.Values["Controller"].ToString()/Index',method:'post'">
+               data-options="fitColumns:true,view:detailview,detailFormatter: orderSubmitProductDetailFormatterNew,rownumbers:true,pagination:true,singleSelect:true,onLoadSuccess:datagrid_onLoadSuccess,url:'/@ViewContext.RouteData.Values["Area"].ToString()/@ViewContext.RouteData.Values["Controller"].ToString()/Index',method:'post'">
             <thead>
                 <tr data-options="height:120">
                     <th data-options="field:'OrderContractKey',width:150,algin:'center'">@Html.Label("OrderContractKey")</th>
-                    <th data-options="field:'OrderType',width:100,algin:'center',formatter:func_ordertype_formatter">@Html.DisplayNameFor(m=>m.OrderType)</th>
-                    <th data-options="field:'OrderCreateTime',width:150,align:'center'">@Html.DisplayNameFor(m=>m.OrderCreateTime)</th>
-                    <th data-options="field:'ETA',width:150,align:'center'">@Html.DisplayNameFor(m=>m.ETA)</th>
-                    <th data-options="field:'ETD',width:150,align:'center'">@Html.DisplayNameFor(m=>m.ETD)</th>
-                    <th data-options="field:'ShipmentPeriod',width:120,align:'center'">@Html.DisplayNameFor(m=>m.ShipmentPeriod)</th>
-                    <th data-options="field:'ContainerSerial',width:120,align:'center'">@Html.DisplayNameFor(m=>m.ContainerSerial)</th>
-                    <th data-options="field:'DeliveryBillSerial',width:150,align:'center'">@Html.DisplayNameFor(m=>m.DeliveryBillSerial)</th>
+                    <th data-options="field:'OrderType',width:100,algin:'center',formatter:func_ordertype_formatter">@Html.DisplayNameFor(m => m.OrderType)</th>
+                    <th data-options="field:'OrderCreateTime',width:150,align:'center'">@Html.DisplayNameFor(m => m.OrderCreateTime)</th>
+                    <th data-options="field:'ETA',width:150,align:'center'">@Html.DisplayNameFor(m => m.ETA)</th>
+                    <th data-options="field:'ETD',width:150,align:'center'">@Html.DisplayNameFor(m => m.ETD)</th>
+                    <th data-options="field:'ShipmentPeriod',width:120,align:'center'">@Html.DisplayNameFor(m => m.ShipmentPeriod)</th>
+                    <th data-options="field:'ContainerSerial',width:120,align:'center'">@Html.DisplayNameFor(m => m.ContainerSerial)</th>
+                    <th data-options="field:'DeliveryBillSerial',width:150,align:'center'">@Html.DisplayNameFor(m => m.DeliveryBillSerial)</th>
                     <th data-options="field:'DestinationHarborKey',width:250,align:'center'">@Html.DisplayNameFor(m => m.DestinationHarborKey)</th>
-                    <th data-options="field:'OrderSysUserKey',width:120,align:'center'">@Html.DisplayNameFor(m=>m.OrderSysUserKey)</th>
+                    <th data-options="field:'OrderSysUserKey',width:120,align:'center'">@Html.DisplayNameFor(m => m.OrderSysUserKey)</th>
                     <th data-options="field:'ImportDeposite',width:120,align:'center'">@Html.DisplayNameFor(m => m.ImportDeposite)</th>
-                    <th data-options="field:'ImportBalancedPayment',width:120,align:'center'">@Html.DisplayNameFor(m=>m.ImportBalancedPayment)</th>
-                    <th data-options="field:'PaymentTotal',width:120,align:'center'">@Html.DisplayNameFor(m=>m.PaymentTotal)</th>
-                    <th data-options="field:'ContractStatus',width:100,align:'center',formatter:func_contractStatus_formatter">@Html.DisplayNameFor(m=>m.ContractStatus)</th>
+                    <th data-options="field:'ImportBalancedPayment',width:120,align:'center'">@Html.DisplayNameFor(m => m.ImportBalancedPayment)</th>
+                    <th data-options="field:'PaymentTotal',width:120,align:'center'">@Html.DisplayNameFor(m => m.PaymentTotal)</th>
+                    <th data-options="field:'ContractStatus',width:100,align:'center',formatter:func_contractStatus_formatter">@Html.DisplayNameFor(m => m.ContractStatus)</th>
                     <th data-options="field:'Caozuo',width:120,align:'center',formatter:func_operation_formatter">操作</th>
                 </tr>
             </thead>

@@ -496,6 +496,62 @@ var saleProductDetailFormatter = function (rowIndex, rowData) {
     return temp;
 }
 
+
+function getVal(objStr) {
+    return objStr == null || objStr == undefined ? '' : objStr;
+}
+
+function func_operation_formatter(value, row, index) {
+    var temp = '';
+    if (row.ContractStatus == 0) {
+        temp = '<a href="javascript:;" class="edit" onclick="edit_order_contract(' + index + ')">编辑</a>';
+        if (row.ContractType == 1) {
+            temp += '<a href="javascript:;" class="audit" onclick="audit_sale_contract(\'' + index + '\')">审核</a>';
+        }
+    }
+    if (row.ContractType == 1) {
+        temp += '<a href="javascript:;" class="bargain" onclick="add_sale_contract_bargain(\'' + index + '\')">还价</a>';
+    }
+    return temp;
+}
+
+function func_ContractType_formatter(value, row, index) {
+    var temp = '';
+    if (row.ContractType == 0) {
+        temp = '采购订单';
+    } else if (row.ContractType == 1) {
+        temp = '销售订单';
+    }
+    return temp;
+}
+
+function edit_order_contract(index) {
+    var row = get_datagrid_row_by_index(index);
+    if (row.ContractType == 0) {
+        parent.addMainTab('编辑采购合同', '/Orders/OrderContract/Edit?OrderContractKey=' + row.ContractKey);
+    } else if (row.ContractType == 1) {
+        if (row.OrderType == 0) {
+            parent.addMainTab('编辑期货销售合同', '/Sales/SalesByFutures/Edit?SaleContractKey=' + row.ContractKey);
+        } else if (row.OrderType == 1) {
+            parent.addMainTab('编辑现货销售合同', '/Sales/SalesByInventories/Edit?SaleContractKey=' + row.ContractKey);
+        }
+    }
+}
+
+function audit_sale_contract(index) {
+    var row = get_datagrid_row_by_index(index);
+    var controller = row.OrderType == 0 ? 'SalesByFutures' : 'SalesByInventories';
+    var tapName = row.OrderType == 0 ? '审核期货销售' : '审核现货销售';
+    parent.addMainTab(tapName, '/Sales/' + controller + '/Audit?SaleContractKey=' + row.ContractKey, true);
+}
+
+function add_sale_contract_bargain(index) {
+    var row = get_datagrid_row_by_index(index);
+    var controller = row.OrderType == 0 ? 'SalesByFutures' : 'SalesByInventories';
+    parent.addMainTab('还价', '/Sales/' + controller + '/AddSaleBargin?SaleContractKey=' + row.ContractKey, true);
+}
+
+
 function getVal(objStr) {
     return objStr == null || objStr == undefined ? '' : objStr;
 }
@@ -503,6 +559,14 @@ function getVal(objStr) {
 
 /*采购产品模板行*/
 var productDetailFormatterNew = function (rowIndex, rowData) {
+    return formatOrder(rowIndex, rowData, false);
+}
+/*采购产品模板行*/
+var orderSubmitProductDetailFormatterNew = function (rowIndex, rowData) {
+    return formatOrder(rowIndex, rowData, true);
+}
+
+function formatOrder(rowIndex, rowData, isSubmit) {
     var arrayHtml = new Array();
     arrayHtml.push('<table class="mobanhang" border="0" cellspacing="1" cellpadding="0">');
     arrayHtml.push('<tr class="the_title">');
@@ -565,14 +629,22 @@ var productDetailFormatterNew = function (rowIndex, rowData) {
     arrayHtml.push('</td>');
     arrayHtml.push('</tr>');
     arrayHtml.push('<tr class="the_title">');
-    arrayHtml.push('<td>商品信息</td>');
+    arrayHtml.push('<td>商品信息');
+    //交单模板
+    if (isSubmit) {
+        arrayHtml.push(' <input  type="submit" value="更新销售指导价" class="zdxsj" id="updateSale' + rowData.ContractKey + '">');
+    }
+    arrayHtml.push(' </td>');
     arrayHtml.push('</tr>');
 
     var rows = rowData.ContractType == 0 ? rowData.ContractItems : rowData.SaleProductItems;
+    if (rows == null || rows == undefined) return arrayHtml.join('');
+
+
     var productitemrows = rowData.ContractItems;
     //香港物流：根据for循环的i去写入
-    var hklogisItems = rowData.HongkongLogistics == null || rowData.HongkongLogistics.IsEnable == false ?null : rowData.HongkongLogistics.LogisItems;
-    hklogisItems = (hklogisItems == null || hklogisItems == undefined )? new Array(rows.length) : hklogisItems;
+    var hklogisItems = rowData.HongkongLogistics == null || rowData.HongkongLogistics.IsEnable == false ? null : rowData.HongkongLogistics.LogisItems;
+    hklogisItems = (hklogisItems == null || hklogisItems == undefined) ? new Array(rows.length) : hklogisItems;
     //内地物流：根据for循环的i去写入
     var mllogisItems = rowData.MainlandLogistics == null || rowData.MainlandLogistics.IsEnable == false ? null : rowData.MainlandLogistics.LogisItems;
     mllogisItems = (mllogisItems == null || mllogisItems == undefined) ? new Array(rows.length) : mllogisItems;
@@ -613,6 +685,24 @@ var productDetailFormatterNew = function (rowIndex, rowData) {
             arrayHtml.push('	<td class="the_left">货款小计</td>');
             arrayHtml.push('	<td>' + getVal(productitemrows[i].SubTotal) + '</td>');
             arrayHtml.push('  </tr>');
+
+
+            if (isSubmit) {
+                arrayHtml.push('<tr>');
+                arrayHtml.push('  <td class="the_left">销售指导价</td>');
+                arrayHtml.push('  <td>');
+                arrayHtml.push('<input type="hidden" name="[' + i + '].ProductItemId" value="' + getVal(productitemrows[i].ProductItemId) + '" />');
+                arrayHtml.push('<input class="gai" style="width:49px;" type="text" name="[' + i + '].SalesGuidePrice" value="' + getVal(productitemrows[i].UnitPrice) + '"></td>');
+                arrayHtml.push('  <td class="the_left"></td>');
+                arrayHtml.push('  <td></td>');
+                arrayHtml.push('  <td class="the_left"></td>');
+                arrayHtml.push('  <td></td>');
+                arrayHtml.push('  <td class="the_left"></td>');
+                arrayHtml.push('  <td></td>');
+                arrayHtml.push('  <td class="the_left"></td>');
+                arrayHtml.push('  <td></td>');
+                arrayHtml.push(' </tr>');
+            }
 
             arrayHtml.push('  <tr>');
             arrayHtml.push('	<td colspan="10" class="the_wuliu">香港物流</td>');
