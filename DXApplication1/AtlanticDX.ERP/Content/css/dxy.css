@@ -841,6 +841,26 @@ input::-ms-reveal{display: none;}
 .the_bz .new_order i{background: url(../images/right_content_top.png) -324px 6px no-repeat;height: 30px;width: 25px;float: left;}
 
 
+.mobanhang { width:90%; margin:30px auto; background-color:#666; position:relative;}
+.mobanhang tr { height:28px;}
+.mobanhang tr td { background-color:#fff; padding-left:10px;}
+
+.mobanhang .the_title { height:35px;}
+.mobanhang .the_title td { height:35px; color:#fff; background-color:#acc1ca; text-align:center; font-size:14px; line-height:35px; font-weight:bold; padding:0; }
+
+.mobanhang .the_left { width:80px; text-align:center; padding:0; background-color:#f7f7f7;}
+.mobanhang .the_wuliu {  text-align:center; padding:0; background-color:#f7f7f7; color:#666;}
+.mobanhang .the_fenge { height:10px; background-color:#35ACDD;}
+.mobanhang .the_fenge td { background-color:#35ACDD;}
+
+.mobanhang .blue3 { color:#35ACDD; font-weight:bold;}
+
+.mobanhang .zdxsj {position:absolute; right:20px; margin-top:5px; color:#fff; background-color:#35acdd; border:1px solid #176e92; height:28px; cursor:pointer; padding:0 10px;}
+
+
+
+
+
 
 
 

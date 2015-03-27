@@ -17,63 +17,9 @@
     <button class="new_order"><i></i>新建现货销售合同</button>
     <button class="new_order"><i></i>新建期货销售合同</button>
 </div>
-<script>
-    function func_operation_formatter(value, row, index) {
-        var temp = '';
-        if (row.ContractStatus == 0) {
-            temp = '<a href="javascript:;" class="edit" onclick="edit_order_contract(' + index + ')">编辑</a>';
-            if (row.ContractType == 1) {
-                temp += '<a href="javascript:;" class="audit" onclick="audit_sale_contract(\'' + index + '\')">审核</a>';
-            }
-        }
-        if (row.ContractType == 1) {
-            temp += '<a href="javascript:;" class="bargain" onclick="add_sale_contract_bargain(\'' + index + '\')">还价</a>';
-        }
-        return temp;
-    }
-
-    function func_ContractType_formatter(value, row, index) {
-        var temp = '';
-        if (row.ContractType == 0) {
-            temp = '采购订单';
-        } else if (row.ContractType == 1) {
-            temp = '销售订单';
-        }
-        return temp;
-    }
-
-    function edit_order_contract(index) {
-        var row = get_datagrid_row_by_index(index);
-        if (row.ContractType == 0) {
-            parent.addMainTab('编辑采购合同', '/Orders/OrderContract/Edit?OrderContractKey=' + row.ContractKey);
-        } else if (row.ContractType == 1) {
-            if (row.OrderType == 0) {
-                parent.addMainTab('编辑期货销售合同', '/Sales/SalesByFutures/Edit?SaleContractKey=' + row.ContractKey);
-            } else if (row.OrderType == 1) {
-                parent.addMainTab('编辑现货销售合同', '/Sales/SalesByInventories/Edit?SaleContractKey=' + row.ContractKey);
-            }
-        }
-    }
-
-    function audit_sale_contract(index) {
-        var row = get_datagrid_row_by_index(index);
-        var controller = row.OrderType == 0 ? 'SalesByFutures' : 'SalesByInventories';
-        var tapName = row.OrderType == 0 ? '审核期货销售' : '审核现货销售';
-        parent.addMainTab(tapName, '/Sales/' + controller + '/Audit?SaleContractKey=' + row.ContractKey, true);
-    }
-
-    function add_sale_contract_bargain(index) {
-        var row = get_datagrid_row_by_index(index);
-        var controller = row.OrderType == 0 ? 'SalesByFutures' : 'SalesByInventories';
-        parent.addMainTab('还价', '/Sales/' + controller + '/AddSaleBargin?SaleContractKey=' + row.ContractKey, true);
-    }
-
-</script>
-
 <div class="ddgl clearf calculate" style="margin:15px;" id="cght">
     <table id="my_datagrid" class="" title=""
-           data-options="view:detailview,detailFormatter: productDetailFormatter,rownumbers:true,pagination:true,singleSelect:true,url:'/@ViewContext.RouteData.Values["Area"].ToString()/@ViewContext.RouteData.Values["Controller"].ToString()/Index',method:'post'">
-
+           data-options="fitColumns:true,view:detailview,detailFormatter: productDetailFormatterNew,rownumbers:true,pagination:true,singleSelect:true,url:'/@ViewContext.RouteData.Values["Area"].ToString()/@ViewContext.RouteData.Values["Controller"].ToString()/Index',method:'post'">
         <thead>
             <tr data-options="height:120">
                 <th data-options="field:'ContractKey',width:120,algin:'center'">@Html.DisplayNameFor(m => m.ContractKey)</th>
@@ -81,7 +27,7 @@
                 <th data-options="field:'ContractType',width:85,algin:'center',formatter:func_ContractType_formatter">@Html.DisplayNameFor(m => m.ContractType)</th>
                 <th data-options="field:'CTIME_STR',width:85,align:'center'">@Html.DisplayNameFor(m => m.CTIME_STR)</th>
                 @*<th data-options="field:'ETA_STR',width:150,align:'center'">@Html.DisplayNameFor(m => m.ETA_STR)</th>
-                <th data-options="field:'ETD_STR',width:150,align:'center'">@Html.DisplayNameFor(m => m.ETD_STR)</th>*@
+                    <th data-options="field:'ETD_STR',width:150,align:'center'">@Html.DisplayNameFor(m => m.ETD_STR)</th>*@
                 <th data-options="field:'ShipmentPeriod',width:100,align:'center'">@Html.DisplayNameFor(m => m.ShipmentPeriod)</th>
                 @*<th data-options="field:'ContainerSerial',width:120,align:'center'">@Html.DisplayNameFor(m => m.ContainerSerial)</th>*@
                 <th data-options="field:'DeliveryBillSerial',width:120,align:'center'">@Html.DisplayNameFor(m => m.DeliveryBillSerial)</th>
@@ -90,12 +36,12 @@
                 @*<th data-options="field:'Payment',width:120,align:'center'">@Html.DisplayNameFor(m => m.Payment)</th>*@
                 <th data-options="field:'PaymentTotal',width:80,align:'center'">@Html.DisplayNameFor(m => m.PaymentTotal)</th>
                 @*<th data-options="field:'ImportDeposite',width:120,align:'center'">@Html.DisplayNameFor(m => m.ImportDeposite)</th>
-                <th data-options="field:'ImportBalancedPayment',width:120,align:'center'">@Html.DisplayNameFor(m => m.ImportBalancedPayment)</th>*@
+                    <th data-options="field:'ImportBalancedPayment',width:120,align:'center'">@Html.DisplayNameFor(m => m.ImportBalancedPayment)</th>*@
                 <th data-options="field:'ContractStatus',width:80,align:'center',formatter:func_contractStatus_formatter">@Html.DisplayNameFor(m => m.ContractStatus)</th>
                 <th data-options="field:'Caozuo',width:80,align:'center',formatter:func_operation_formatter">操作</th>
-                </tr>
-            </thead>
-        </table>
+            </tr>
+        </thead>
+    </table>
     </div>
 
     @section scripts{
