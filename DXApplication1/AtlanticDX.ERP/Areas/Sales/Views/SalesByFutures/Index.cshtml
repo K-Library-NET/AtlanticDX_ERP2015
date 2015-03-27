@@ -13,8 +13,8 @@
         </div>
     </form>
     <button class="new_order mr15"><i></i>新增订单</button>
-    <button class="print mr15">打印</button>
-    <button class="export mr15">导出</button>
+    @*<button class="print mr15">打印</button>
+    <button class="export mr15">导出</button>*@
 </div>
 <script>
     function func_operation_formatter(value, row, index) {
@@ -47,15 +47,16 @@
            data-options="view:detailview,detailFormatter: saleProductDetailFormatter,rownumbers:true,pagination:true,singleSelect:true,url:'/@ViewContext.RouteData.Values["Area"].ToString()/@ViewContext.RouteData.Values["Controller"].ToString()/Index',method:'post'">
         <thead>
             <tr data-options="height:120">
-                <th data-options="field:'SaleContractId',width:150,algin:'center'">@Html.LabelFor(m => m.SaleContractId)</th>
+                <th data-options="field:'SaleContractId',width:150,algin:'center',hidden:true">@Html.LabelFor(m => m.SaleContractId)</th>
                 <th data-options="field:'SaleContractKey',width:100,algin:'center'">@Html.LabelFor(m => m.SaleContractKey)</th>
-                <th data-options="field:'OrderType',width:100,algin:'center',formatter:func_ordertype_formatter">@Html.LabelFor(m => m.OrderType)</th>
+                @*<th data-options="field:'OrderType',width:100,algin:'center',formatter:func_ordertype_formatter">@Html.LabelFor(m => m.OrderType)</th>*@
+                <th data-options="field:'SaleCreateTime',width:85,align:'center'">@Html.DisplayNameFor(m => m.SaleCreateTime)</th>
                 <th data-options="field:'SaleClientName',width:150,align:'center'">@Html.LabelFor(m => m.SaleClientName)</th>
-                <th data-options="field:'DiscountAmount',width:150,align:'center'">@Html.LabelFor(m => m.DiscountAmount)</th>
+                @*<th data-options="field:'DiscountAmount',width:150,align:'center'">@Html.LabelFor(m => m.DiscountAmount)</th>*@
                 <th data-options="field:'Total',width:150,align:'center'">@Html.LabelFor(m => m.Total)</th>
                 <th data-options="field:'TotalAfterDiscount',width:150,align:'center'">@Html.LabelFor(m => m.TotalAfterDiscount)</th>
-                <th data-options="field:'SaleDeposite',width:150,align:'center'">@Html.LabelFor(m => m.SaleDeposite)</th>
-                <th data-options="field:'SaleBalancedPayment',width:150,align:'center'">@Html.LabelFor(m => m.SaleBalancedPayment)</th>
+                @*<th data-options="field:'SaleDeposite',width:150,align:'center'">@Html.LabelFor(m => m.SaleDeposite)</th>
+                <th data-options="field:'SaleBalancedPayment',width:150,align:'center'">@Html.LabelFor(m => m.SaleBalancedPayment)</th>*@
                 <th data-options="field:'OperatorSysUser',width:150,align:'center'">@Html.LabelFor(m => m.OperatorSysUser)</th>
                 <th data-options="field:'Caozuo',width:300,align:'center',formatter:func_operation_formatter">操作</th>
             </tr>
