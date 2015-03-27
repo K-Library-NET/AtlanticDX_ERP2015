@@ -19,11 +19,11 @@
 <script>
     function func_operation_formatter(value, row, index) {
         var temp = '';
-        if (row.SaleContractStatus==0){
+        //if (row.SaleContractStatus==0){
             temp += '<a href="javascript:;" class="edit" onclick="edit_sale_contract(\'' + row.SaleContractId + '\')">编辑</a>';
             temp += '<a href="javascript:;" class="audit" onclick="audit_sale_contract(\'' + row.SaleContractId + '\')">审核</a>';
-        }
-        temp += '<a href="javascript:;" class="bargain" onclick="add_sale_contract_bargain(\'' + row.SaleContractId + '\')">还价</a>';
+        //}
+        //temp += '<a href="javascript:;" class="bargain" onclick="add_sale_contract_bargain(\'' + row.SaleContractId + '\')">还价</a>';
         return temp;
     }
 
@@ -44,7 +44,7 @@
 @*datagrid*@
 <div class="ddgl clearf calculate" style="margin:15px;" id="xhcg">
     <table id="my_datagrid" class="" style="width:1923px;" title=""
-           data-options="view:detailview,detailFormatter: saleProductDetailFormatter,rownumbers:true,pagination:true,singleSelect:true,url:'/@ViewContext.RouteData.Values["Area"].ToString()/@ViewContext.RouteData.Values["Controller"].ToString()/Index',method:'post'">
+           data-options="view:detailview,detailFormatter: saleProductDetailFormatterNew,rownumbers:true,pagination:true,singleSelect:true,url:'/@ViewContext.RouteData.Values["Area"].ToString()/@ViewContext.RouteData.Values["Controller"].ToString()/Index',method:'post'">
         <thead>
             <tr data-options="height:120">
                 <th data-options="field:'SaleContractId',width:150,algin:'center',hidden:true">@Html.LabelFor(m => m.SaleContractId)</th>
