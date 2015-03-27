@@ -784,8 +784,8 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Areas\Public\Models\AccountModels.cs" />
     <Compile Include="Migrations\CustomMigrationHelper.cs" />
-    <Compile Include="Migrations\Seeds\DebugSeed.cs" />
-    <Compile Include="Migrations\Seeds\ReleaseSeed.cs" />
+    <Compile Include="Migrations\Debugs\DebugSeed.cs" />
+    <Compile Include="Migrations\Releases\ReleaseSeed.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\SysConfigs\SysConfigViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -820,6 +820,8 @@
     <Folder Include="Areas\ResMgr\Views\Shared\" />
     <Folder Include="Areas\Sales\Views\Shared\" />
     <Folder Include="Areas\Stocks\Views\Shared\" />
+    <Folder Include="Migrations\DebugSeeds\" />
+    <Folder Include="Migrations\ReleaseSeeds\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201501310559404_InitDatabaseV20.resx">
