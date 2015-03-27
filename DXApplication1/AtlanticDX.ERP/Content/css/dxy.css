@@ -629,21 +629,22 @@ input::-ms-reveal{display: none;}
 
 
 
-#cght .datagrid-cell-c1-OrderContractKey { width:150px;}
-#cght .datagrid-cell-c1-OrderType { width:100px;}
-#cght .datagrid-cell-c1-OrderCreateTime { width:150px;}
-#cght .datagrid-cell-c1-ETA { width:150px;}
-#cght .datagrid-cell-c1-ETD { width:150px;}
-#cght .datagrid-cell-c1-ShipmentPeriod { width:150px;}
+#cght .datagrid-cell-c1-OrderContractKey { width:120px;}
+#cght .datagrid-cell-c1-OrderType { width:75px;}
+#cght .datagrid-cell-c1-OrderCreateTime { width:85px;}
+#cght .datagrid-cell-c1-CTIME_STR { width:85px;} 
+#cght .datagrid-cell-c1-ETA { width:90px;}
+#cght .datagrid-cell-c1-ETD { width:90px;}
+#cght .datagrid-cell-c1-ShipmentPeriod { width:90px;}
 #cght .datagrid-cell-c1-ContainerSerial { width:120px;}
-#cght .datagrid-cell-c1-DeliveryBillSerial { width:150px;}
+#cght .datagrid-cell-c1-DeliveryBillSerial { width:120px;}
 #cght .datagrid-cell-c1-DestinationHarborKey { width:250px;}
-#cght .datagrid-cell-c1-OrderSysUserKey { width:120px;}
-#cght .datagrid-cell-c1-ImportDeposite { width:120px;}
-#cght .datagrid-cell-c1-ImportBalancedPayment { width:120px;}
-#cght .datagrid-cell-c1-PaymentTotal { width:120px;}
-#cght .datagrid-cell-c1-xszdj { width:120px;}
-#cght .datagrid-cell-c1-Caozuo { width:120px;}
+#cght .datagrid-cell-c1-OrderSysUserKey { width:80px;}
+#cght .datagrid-cell-c1-ImportDeposite { width:80px;}
+#cght .datagrid-cell-c1-ImportBalancedPayment { width:80px;}
+#cght .datagrid-cell-c1-PaymentTotal { width:80px;}
+#cght .datagrid-cell-c1-xszdj { width:80px;}
+#cght .datagrid-cell-c1-Caozuo { width:80px;}
 
 
 #audit_ordercontract_dialog label { width:100px; height:50px; display:block; float:left;}
@@ -824,8 +825,8 @@ input::-ms-reveal{display: none;}
 
 .gkdl_list_bot { width:96%; line-height:30px; font-size:14px; overflow:hidden; padding:20px 2%; border-top:1px solid #999;}
 
-.gkdl_list_bot label { float:left; width:60px; text-align:right; padding-right:20px; height:30px; line-height:30px; margin-left:20px;}
-.gkdl_list_bot input { float:left; width:130px; text-align:left; text-indent:1em; height:26px; line-height:26px; }
+.gkdl_list_bot label { float:left; width:60px; text-align:right; padding-right:20px; height:30px; line-height:30px; margin-left:20px; margin-bottom:8px;}
+.gkdl_list_bot input { float:left; width:130px; text-align:left; text-indent:1em; height:28px; line-height:26px;  margin-bottom:8px;}
 
 .the_wuliu { background-color:#acc1ca; color:#fff;}
 .the_wuliu td { background-color:#fff; color:#666; text-align:center;}
