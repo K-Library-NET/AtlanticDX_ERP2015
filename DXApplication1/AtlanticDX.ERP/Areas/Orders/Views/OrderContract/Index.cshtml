@@ -14,8 +14,8 @@
         </div>
     </form>
     <button class="new_order"><i></i>新增采购合同</button>
-    <button class="new_order"><i></i>新建现货销售合同</button>
-    <button class="new_order"><i></i>新建期货销售合同</button>
+    @*<button class="new_order"><i></i>新建现货销售合同</button>
+        <button class="new_order"><i></i>新建期货销售合同</button>*@
 </div>
 <div class="ddgl clearf calculate" style="margin:15px;" id="cght">
     <table id="my_datagrid" class="" title=""
@@ -23,11 +23,11 @@
         <thead>
             <tr data-options="height:120">
                 <th data-options="field:'ContractKey',width:120,algin:'center'">@Html.DisplayNameFor(m => m.ContractKey)</th>
-                <th data-options="field:'OrderType',width:75,algin:'center',formatter:func_ordertype_formatter">@Html.DisplayNameFor(m => m.OrderType)</th>
+                @*<th data-options="field:'OrderType',width:75,algin:'center',formatter:func_ordertype_formatter">@Html.DisplayNameFor(m => m.OrderType)</th>*@
                 <th data-options="field:'ContractType',width:85,algin:'center',formatter:func_ContractType_formatter">@Html.DisplayNameFor(m => m.ContractType)</th>
                 <th data-options="field:'CTIME_STR',width:85,align:'center'">@Html.DisplayNameFor(m => m.CTIME_STR)</th>
-                @*<th data-options="field:'ETA_STR',width:150,align:'center'">@Html.DisplayNameFor(m => m.ETA_STR)</th>
-                    <th data-options="field:'ETD_STR',width:150,align:'center'">@Html.DisplayNameFor(m => m.ETD_STR)</th>*@
+                <th data-options="field:'ETA_STR',width:150,align:'center'">@Html.DisplayNameFor(m => m.ETA_STR)</th>
+                <th data-options="field:'ETD_STR',width:150,align:'center'">@Html.DisplayNameFor(m => m.ETD_STR)</th>
                 <th data-options="field:'ShipmentPeriod',width:100,align:'center'">@Html.DisplayNameFor(m => m.ShipmentPeriod)</th>
                 @*<th data-options="field:'ContainerSerial',width:120,align:'center'">@Html.DisplayNameFor(m => m.ContainerSerial)</th>*@
                 <th data-options="field:'DeliveryBillSerial',width:120,align:'center'">@Html.DisplayNameFor(m => m.DeliveryBillSerial)</th>
@@ -42,28 +42,28 @@
             </tr>
         </thead>
     </table>
-    </div>
+</div>
 
-    @section scripts{
-        <script type="text/javascript" src="~/Scripts/datagrid-detailview.js"></script>
-        <script>
-            $(function () {
-                $('button.new_order').eq(0).click(function () {
-                    parent.addMainTab($(this).text(), '/' + Area + '/' + Controller + '/Add', true);
-                });
+@section scripts{
+    <script type="text/javascript" src="~/Scripts/datagrid-detailview.js"></script>
+    <script>
+        $(function () {
+            $('button.new_order').eq(0).click(function () {
+                parent.addMainTab($(this).text(), '/' + Area + '/' + Controller + '/Add', true);
+            });
 
-                $('button.new_order').eq(1).click(function () {
-                    parent.addMainTab($(this).text(), '/Sales/SalesByInventories/Add', true);
-                });
+            $('button.new_order').eq(1).click(function () {
+                parent.addMainTab($(this).text(), '/Sales/SalesByInventories/Add', true);
+            });
 
-                $('button.new_order').eq(2).click(function () {
-                    parent.addMainTab($(this).text(), '/Sales/SalesByFutures/Add', true);
-                });
+            $('button.new_order').eq(2).click(function () {
+                parent.addMainTab($(this).text(), '/Sales/SalesByFutures/Add', true);
+            });
 
-                $('#theseach_but').click(function () {
-
-                });
+            $('#theseach_but').click(function () {
 
             });
-        </script>
-    }
+
+        });
+    </script>
+}

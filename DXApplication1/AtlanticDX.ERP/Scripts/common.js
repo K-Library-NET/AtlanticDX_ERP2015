@@ -559,7 +559,7 @@ function getVal(objStr) {
 
 /*采购产品模板行*/
 var productDetailFormatterNew = function (rowIndex, rowData) {   
-    return dataFormater.formatOrder(rowIndex, rowData);
+    return orderDataFormater.formatOrder(rowIndex, rowData);
 }
 /*采购产品交单模板行*/
 var orderSubmitProductDetailFormatterNew = function (rowIndex, rowData) {
@@ -638,7 +638,7 @@ var orderDataFormater = {
         arrayHtml.push('<tr class="the_title">');
         arrayHtml.push('<td>商品信息');
         //交单模板
-        if (isSubmit) {
+        if (this.isSubmit) {
             arrayHtml.push(' <input  type="submit" value="更新销售指导价" class="zdxsj" id="updateSale' + rowData.ContractKey + '">');
         }
         arrayHtml.push(' </td>');
@@ -693,7 +693,7 @@ var orderDataFormater = {
                     arrayHtml.push('  </tr>');
 
 
-                    if (isSubmit) {
+                    if (this.isSubmit) {
                         arrayHtml.push('<tr>');
                         arrayHtml.push('  <td class="the_left">销售指导价</td>');
                         arrayHtml.push('  <td>');
