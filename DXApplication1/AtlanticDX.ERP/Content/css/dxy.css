@@ -834,14 +834,14 @@ input::-ms-reveal{display: none;}
 .the_wuliu thead th { background-color:#acc1ca; color:#fff; font-size:14px;}
 .the_wuliu td input { border:1px solid #fff;}
 
-.tijiao_bar {width:90%; margin:30px auto 0; text-align:center; }
+.tijiao_bar {width:90%; margin:30px auto 0; text-align:center; padding-bottom:60px; }
 
 .the_bz { height:60px; background-color:#edf3f8; line-height:60px; font-size:16px; color:#fff; padding-left:20px; }
 .the_bz .new_order{float: left;line-height: 30px; height: 30px;font-size: 14px;border: 0;background-color: #f39c11;margin-top: 15px;padding: 0 10px;color: #fff; margin-right:15px;}
 .the_bz .new_order i{background: url(../images/right_content_top.png) -324px 6px no-repeat;height: 30px;width: 25px;float: left;}
 
 
-.mobanhang { width:90%; margin:30px auto; background-color:#666; position:relative;}
+.mobanhang { width:100%; margin:30px auto; background-color:#666; position:relative;}
 .mobanhang tr { height:28px;}
 .mobanhang tr td { background-color:#fff; padding-left:10px;}
 
@@ -858,7 +858,7 @@ input::-ms-reveal{display: none;}
 .mobanhang .zdxsj {position:absolute; right:20px; margin-top:5px; color:#fff; background-color:#35acdd; border:1px solid #176e92; height:28px; cursor:pointer; padding:0 10px;}
 
 
-
+#cght .datagrid-row-detail { height:350px; overflow:auto; }
 
 
 
