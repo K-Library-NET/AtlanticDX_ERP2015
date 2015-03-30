@@ -526,6 +526,7 @@
     <Content Include="Properties\PublishProfiles\ReleaseBeta.pubxml.user" />
     <Content Include="Properties\PublishProfiles\ReleaseV001.pubxml.user" />
     <Content Include="Scripts\add_edit_remove.js" />
+    <Content Include="Scripts\formatter.js" />
     <Content Include="Scripts\common.js" />
     <Content Include="Scripts\datagrid-detailview.js" />
     <Content Include="Scripts\dxy.js" />

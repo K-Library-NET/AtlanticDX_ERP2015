@@ -9,9 +9,9 @@
     <div class="orders_list">
         <div class="right_content_top bgc1" style="width:3080px;">
             <span class="default ml20">@Html.DisplayNameFor(m => m.SupplierId)</span>
-            <span class="default"> @Html.DropDownListFor(m => m.SupplierId, AtlanticDX.ERP.Helper.OrdersHelper.GetSuppliers(), new { @class = "date_select mr20" }) </span>
+            <span class="default"> @Html.DropDownListFor(m => m.SupplierId, AtlanticDX.ERP.Helper.OrdersHelper.GetSuppliers(), "--请选择--", new { @class = "date_select mr20" }) </span>
             <span class="default ml20">@Html.DisplayNameFor(m => m.CTIME)</span>
-            <span class="default">@Html.LabelFor(m => m.CTIME)</span>
+            <span class="eta_in">@Html.TextBoxFor(m => m.CTIME, new { @class = "easyui-datebox", @id = "thedate", @style = "width:98%;", @readonly = "true" })</span>
             <span class="default ml20">@Html.DisplayNameFor(m => m.ETA)</span>
             <span class="eta_in">@Html.EditorFor(m => m.ETA, new { htmlAttributes = new { @class = "easyui-datebox", @style = "width:98%;" } })</span>
             <span class="default ml20">@Html.DisplayNameFor(m => m.ETD)</span>

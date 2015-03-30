@@ -33,7 +33,6 @@
                         @Html.TextBoxFor(m => m.HarborAgent.Tariff)
                         @Html.LabelFor(m => m.HarborAgent.AntiDumpingTax)
                         @Html.TextBoxFor(m => m.HarborAgent.AntiDumpingTax)
-                        <br />
                         @Html.LabelFor(m => m.HarborAgent.OthersCost)
                         @Html.TextBoxFor(m => m.HarborAgent.OthersCost)
                         @Html.LabelFor(m => m.HarborAgent.Memo)
@@ -58,7 +57,9 @@
                             <thead class="">
                                 <tr>
                                     <th class="check w20" width="20"></th>
-                                    <th class="w200" style="width: 200px;">国家/厂号/货品名/品牌</th>
+                                    <th class="w200" style="width: 120px;">货品名/品牌</th>
+                                    <th class="w200" style="width: 100px;">国家</th>
+                                    <th class="w200" style="width: 100px;">厂号</th>
                                     <th class="w120" style="width: 120px;">
                                         @Html.LabelFor(m => m.HongkongLogistics.LogisItems.First().ContractQuantity)
                                     </th>
@@ -84,12 +85,11 @@
                                     <tr>
                                         <td class="check">@(i + 1)</td>
                                         <td>@Model.ContractItems.ElementAt(i).Product.ProductFullName
-
                                             <input type="hidden" name="HongkongLogistics.LogisItems[i].ProductItemId" value="@Model.ContractItems.ElementAt(i).ProductId" />
                                         </td>
-
+                                        <td>@Model.ContractItems.ElementAt(i).Product.ProductFullName</td>
+                                        <td>@Model.ContractItems.ElementAt(i).Product.ProductFullName</td>
                                         <td>
-
                                             <input name="HongkongLogistics.LogisItems[@i].ContractQuantity" type="text" class="HongkongLogistics" value="@Model.ContractItems.ElementAt(i).Quantity"/>
                                         </td>
                                         <td>
@@ -130,7 +130,9 @@
                             <thead class="">
                                 <tr>
                                     <th class="check w20" width="20"></th>
-                                    <th class="w200" style="width: 200px;">国家/厂号/货品名/品牌</th>
+                                    <th class="w200" style="width: 120px;">货品名/品牌</th>
+                                    <th class="w200" style="width: 100px;">国家</th>
+                                    <th class="w200" style="width: 100px;">厂号</th>
                                     <th class="w120" style="width: 120px;">
                                         @Html.LabelFor(m => m.MainlandLogistics.LogisItems.First().ContractQuantity)
                                     </th>
@@ -155,6 +157,8 @@
                                     {
                                     <tr>
                                         <td class="check">@(i + 1)</td>
+                                        <td>@Model.ContractItems.ElementAt(i).Product.ProductFullName</td>
+                                        <td>@Model.ContractItems.ElementAt(i).Product.ProductFullName</td>
                                         <td>@Model.ContractItems.ElementAt(i).Product.ProductFullName</td>
                                         <td>
                                             <input name="MainlandLogistics.LogisItems[@i].ContractQuantity" type="text"  value="@Model.ContractItems.ElementAt(i).Quantity"/>

@@ -14,7 +14,7 @@
         </div>
 
         <div class="right_content_top bgc1">
-            <span class="default red ml20">*</span><span class="default">@Html.DisplayNameFor(m => m.SupplierId)</span>
+            <span class="default red ml20"></span><span class="default">@Html.DisplayNameFor(m => m.SupplierId)</span>
             @Html.DropDownListFor(m => m.SupplierId, AtlanticDX.ERP.Helper.OrdersHelper.GetSuppliers(), "--请选择--", new { @class = "date_select mr20" })
             <span class="default red">*</span><span class="default">@Html.DisplayNameFor(m => m.CTIME)</span>
             <span class="eta_in">@Html.TextBoxFor(m => m.CTIME, new { @class = "easyui-datebox", @id = "thedate", @style = "width:98%;", @required = "required", @Value = DateTime.Now.ToString("yyyy-MM-dd") })</span>
@@ -31,7 +31,7 @@
                 <option value="1">现货</option>
             </select>
 
-            <span class="default red">*</span><span class="default">汇率</span>@Html.TextBoxFor(m => m.Comments, new { @class = "w50" })
+            <span class="default red">*</span><span class="default">汇率</span>@Html.TextBoxFor(m => m.Comments, new { @class = "w50",@Value=6.25 })
         </div>
         <div class="right_content_top bb1">
             <span class="default ml20">@Html.DisplayNameFor(m => m.ETA)</span><span class="eta_in">@Html.TextBoxFor(m => m.ETA, new { @class = "easyui-datebox", @style = "width:98%;" })</span>
@@ -86,7 +86,7 @@
                                 <input type="hidden" name="ContractItems[@i].ProductId" value="" />
                                 <input type="hidden" name="ContractItems[@i].ProductKey" value="" />
                                 <input type="hidden" name="ContractItems[@i].Units" value="" />
-                                <input name="ContractItems[@i].Quantity" type="text" style="width:50px;" />
+                                <input name="ContractItems[@i].Quantity" type="text"  style="width:50px;" />
                             </td>
                             <td style="width: 50px;">
                                 <input name="ContractItems[@i].NetWeight" class="num_compute" type="text" style="width:50px;" />
@@ -187,7 +187,7 @@
 
             //绑定合同编号变化事件
             $('#ContractKey').textbox({
-                validType: ['length[1,50]'],
+                validType:'isKey',
                 //转换为大写
                 onChange: function (newValue, oldValue) {
                     $('#ContractKey').textbox('setValue', newValue.toUpperCase());
@@ -204,6 +204,11 @@
                         $.messager.alert('提示', '合同编号不能为空!');
                         return isPass;
                     }
+                    //汇率验证
+                    //if ($('#ContractKey').val().trim() == '') {
+                    //    $.messager.alert('提示', '合同编号不能为空!');
+                    //    return isPass;
+                    //}
                     //检查已选商品列
                     if (picked_productkeys_ids.length == 0) {
                         $.messager.alert('提示', '未选择商品');
