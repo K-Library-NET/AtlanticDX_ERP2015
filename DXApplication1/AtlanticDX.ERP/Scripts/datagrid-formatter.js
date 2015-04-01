@@ -200,6 +200,22 @@ function func_operation_formatter(value, row, index) {
     return temp;
 }
 
+//交单操作
+function func_os_operation_formatter(value, row, index) {
+    var temp = '';
+    if (row.ContractStatus == 0) {
+        temp = '<a href="javascript:;" class="audit" onclick="audit_row(' + index + ')">审核</a>';
+    }
+    return temp;
+}
+
+
+//交单列表数据加载完成后
+function datagrid_onLoadSuccess(data) {
+    $('span.sum_mec').eq(0).text('数量小计:' + data.ProductsTotal);
+    $('span.sum_mec').eq(1).text('采购额小计:' + data.PaymentTotal);
+}
+
 function func_ContractType_formatter(value, row, index) {
     var temp = '';
     if (row.ContractType == 0) {
@@ -234,11 +250,6 @@ function add_sale_contract_bargain(index) {
     var row = get_datagrid_row_by_index(index);
     var controller = row.OrderType == 0 ? 'SalesByFutures' : 'SalesByInventories';
     parent.addMainTab('还价', '/Sales/' + controller + '/AddSaleBargin?SaleContractKey=' + row.ContractKey, true);
-}
-
-
-function getVal(objStr) {
-    return objStr == null || objStr == undefined ? '' : objStr;
 }
 
 
@@ -330,8 +341,11 @@ var orderDataFormater = {
         arrayHtml.push('</tr>');
 
         var rows = rowData.ContractType == 0 ? rowData.ContractItems : rowData.SaleProductItems;
+        if (this.isSubmit) {
+            rows = rowData.OrderProducts;
+        }
         if (rows != null && rows != undefined) {
-            var productitemrows = rowData.ContractItems;
+            var productitemrows = rows;
             //香港物流：根据for循环的i去写入
             var hklogisItems = rowData.HongkongLogistics == null || rowData.HongkongLogistics.IsEnable == false ? null : rowData.HongkongLogistics.LogisItems;
             hklogisItems = (hklogisItems == null || hklogisItems == undefined) ? new Array(rows.length) : hklogisItems;
@@ -483,7 +497,7 @@ var saleProductDetailFormatterNew = function (rowIndex, rowData) {
     return saleDataFormater.formatOrder(rowIndex, rowData);
 }
 /*销售交单产品模板行*/
-var orderSubmitProductDetailFormatterNew = function (rowIndex, rowData) {
+var saleSubmitProductDetailFormatterNew = function (rowIndex, rowData) {
     saleDataFormater.isSubmit = true;
     return saleDataFormater.formatOrder(rowIndex, rowData);
 }

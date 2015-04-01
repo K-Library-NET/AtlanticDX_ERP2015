@@ -59,7 +59,10 @@
         }
         //close tab
         function closeMainTab(title) {
-            $('#mainTabs').tabs('close',title);
+            title = title || $('#mainTabs').tabs('getSelected');//为空时关闭当前选项卡
+            if (title&&$('#mainTabs').tabs('exists',title)) {
+                $('#mainTabs').tabs('close', title);
+            }           
         }
     </script>
 }

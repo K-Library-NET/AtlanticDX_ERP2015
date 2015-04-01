@@ -1,6 +1,6 @@
 ﻿@model PrivilegeFramework.ContractInfo
 @{
-    ViewBag.Title = "采购与销售合同";
+    ViewBag.Title = "采购合同";
 }
 <div class="right_content_top">
     <form id="filter_form">
@@ -8,8 +8,8 @@
         <span class="eta ml20">ETA筛选</span><span class="eta_in"><input type="text" class="easyui-datebox" data-val-date="ETA 必须为日期" name="ETA" style="width:98%;"></span>
         <div class="search mr15">
             @*<form id="filter_form">*@
-                <input type="text" value="货品名/厂号/品牌/供应商" name="filterValue" onfocus="if (this.value == '货品名/厂号/品牌/供应商') this.value = '';" onblur="if (this.value == '') this.value = '货品名/厂号/品牌/供应商';" />
-                <button type="submit">查询</button>
+            <input type="text" value="货品名/厂号/品牌/供应商" name="filterValue" onfocus="if (this.value == '货品名/厂号/品牌/供应商') this.value = '';" onblur="if (this.value == '') this.value = '货品名/厂号/品牌/供应商';" />
+            <button type="submit">查询</button>
             @*嵌套一个id一样的Form？</form>*@
         </div>
     </form>
@@ -24,7 +24,7 @@
             <tr data-options="height:120">
                 <th data-options="field:'ContractKey',width:120,algin:'center'">@Html.DisplayNameFor(m => m.ContractKey)</th>
                 @*<th data-options="field:'OrderType',width:75,algin:'center',formatter:func_ordertype_formatter">@Html.DisplayNameFor(m => m.OrderType)</th>*@
-                <th data-options="field:'ContractType',width:85,algin:'center',formatter:func_ContractType_formatter">@Html.DisplayNameFor(m => m.ContractType)</th>
+                <th data-options="field:'ContractType',width:85,algin:'center',formatter:func_ContractType_formatter">@Html.DisplayNameFor(m => m.OrderType)</th>
                 <th data-options="field:'CTIME_STR',width:85,align:'center'">@Html.DisplayNameFor(m => m.CTIME_STR)</th>
                 @*<th data-options="field:'ETA_STR',width:150,align:'center'">@Html.DisplayNameFor(m => m.ETA_STR)</th>*@
                 @*<th data-options="field:'ETD_STR',width:150,align:'center'">@Html.DisplayNameFor(m => m.ETD_STR)</th>*@
@@ -45,8 +45,9 @@
 </div>
 
 @section scripts{
+
+    <script src="~/Scripts/datagrid-formatter.js"></script>
     <script type="text/javascript" src="~/Scripts/datagrid-detailview.js"></script>
-    <script src="~/Scripts/formatter.js"></script>
     <script>
         $(function () {
             $('button.new_order').eq(0).click(function () {

@@ -325,3 +325,10 @@ $.extend($.fn.validatebox.defaults.rules, {
         message: '以字母开头，只能包含字符、数字和下划线。'
     }
 });
+
+//获取非空值
+function getVal(objStr, defval) {
+    defval = defval || '';
+    objStr = objStr == null || objStr == undefined ? defval : objStr;
+    return objStr;
+}

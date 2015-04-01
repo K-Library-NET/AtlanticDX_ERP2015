@@ -1,4 +1,7 @@
 ﻿var picked_productkeys_ids = [];
+
+var isOrder = false; //是否采购订单页面
+
 $(document).ready(function () {
 
     //已选商品列表
@@ -76,6 +79,8 @@ $(document).ready(function () {
             $('.compute_all_subtotal').text(allTotal).val(allTotal).data('total', allTotal);
         }
     });
+
+
 
     function compute_all_subtotal() {
         var total = 0;
@@ -157,13 +162,94 @@ $(document).ready(function () {
                     if (row['ProductItemId'] != undefined) {
                         $(obj1).find('tbody tr:nth-child(' + (current_order_product_index + 1) + ') input[name$="ProductId"]').val(row['ProductItemId']);
                     }
-                    if (row['StockItemId']!=undefined){
+                    if (row['StockItemId'] != undefined) {
                         $(obj1).find('tbody tr:nth-child(' + (current_order_product_index + 1) + ') input[name$="StockItemId"]').val(row['StockItemId']);
                     }
                 });
 
                 picked_productkeys_ids.push(row[pick_product_id_name]);
                 $('#pick_product_dialog').dialog('close');
+                //如果是采购订单则添加相应的物流信息
+                if (isOrder) {
+                    var i = picked_productkeys_ids.length;
+                    var htmlArray = new Array();
+                    //添加香港物流信息tb_HongKong
+                    htmlArray.push('<tr> ');
+                    htmlArray.push('<td class="check">' + i + '</td>');
+                    htmlArray.push(' <td>');
+                    htmlArray.push(row['ProductFullName']);
+                    htmlArray.push('<input type="hidden" name="HongkongLogistics.LogisItems[' + i + ']" ');
+                    htmlArray.push(' value="' + row['ProductId'] + '" />');
+                    htmlArray.push(' </td>');
+                    htmlArray.push('<td>' + row['MadeInCountry'] + '</td>');
+                    htmlArray.push('<td>' + row['MadeInFactory'] + '</td>');
+                    htmlArray.push('<td>');
+                    htmlArray.push('<input name="HongkongLogistics.LogisItems[' + i + '].ContractQuantity" type="text" class="HongkongLogistics quantity" value="' + getVal(row['Quantity'], 0) + '" />');
+                    htmlArray.push(' </td>');
+                    htmlArray.push(' <td>');
+                    htmlArray.push(' <input name="HongkongLogistics.LogisItems[' + i + '].ContractWeight" type="text" class="num_compute" />');
+                    htmlArray.push(' </td>');
+                    htmlArray.push(' <td>');
+                    htmlArray.push(' <input name="HongkongLogistics.LogisItems[' + i + '].FreightCharges" type="text" class="num_compute" />');
+                    htmlArray.push(' </td>');
+                    htmlArray.push('  <td>');
+                    htmlArray.push('  <input name="HongkongLogistics.LogisItems[' + i + '].Insurance" type="text" class="num_compute" />');
+                    htmlArray.push('</td>');
+                    htmlArray.push('<td>');
+                    htmlArray.push('<input name="HongkongLogistics.LogisItems[' + i + '].SubTotal" type="text" readonly="readonly" />');
+                    htmlArray.push('</td>');
+                    htmlArray.push('</tr>');
+                    $("#tb_HongKong").prepend(htmlArray.join(''));
+                    //添加内地物流信息tb_MainLand   
+                    htmlArray = new Array();
+                    htmlArray.push('<tr> ');
+                    htmlArray.push('<td class="check">' + i + '</td>');
+                    htmlArray.push(' <td>');
+                    htmlArray.push(row['ProductFullName']);
+                    htmlArray.push('<input type="hidden" name="MainlandLogistics.LogisItems[' + i + ']" ');
+                    htmlArray.push(' value="' + row['ProductId'] + '" />');
+                    htmlArray.push(' </td>');
+                    htmlArray.push('<td>' + row['MadeInCountry'] + '</td>');
+                    htmlArray.push('<td>' + row['MadeInFactory'] + '</td>');
+                    htmlArray.push('<td>');
+                    htmlArray.push('<input name="MainlandLogistics.LogisItems[' + i + '].ContractQuantity" type="text" class="MainlandLogistics quantity"  value="' + getVal(row['Quantity'], 0) + '" />');
+                    htmlArray.push(' </td>');
+                    htmlArray.push(' <td>');
+                    htmlArray.push(' <input name="MainlandLogistics.LogisItems[' + i + '].ContractWeight" type="text" class="num_compute" />');
+                    htmlArray.push(' </td>');
+                    htmlArray.push(' <td>');
+                    htmlArray.push(' <input name="MainlandLogistics.LogisItems[' + i + '].FreightCharges" type="text" class="num_compute" />');
+                    htmlArray.push(' </td>');
+                    htmlArray.push('  <td>');
+                    htmlArray.push('  <input name="MainlandLogistics.LogisItems[' + i + '].Insurance" type="text" class="num_compute" />');
+                    htmlArray.push('</td>');
+                    htmlArray.push('<td>');
+                    htmlArray.push('<input name="MainlandLogistics.LogisItems[' + i + '].SubTotal" type="text" readonly="readonly" />');
+                    htmlArray.push('</td>');
+                    htmlArray.push('</tr>');
+                    $("#tb_MainLand").prepend(htmlArray.join(''));
+
+                }
+            }
+        }
+    });
+
+    //商品件数
+    $('#picked_products_table tbody,table.related_product_table').on('keyup','.quantity', function () {
+        if (isNaN(parseInt($(this).val()))) {
+            $(this).val('').focus();
+        } else {
+            // 如果是采购订单(更新对应物流信息)
+            if (isOrder) {
+                var name = $(this).attr("name");
+                //订单商品信息
+                if (name.indexOf('ContractItems') == 0) {
+                    var index = $('.quantity').index(this);
+                    var count = $(this).val();
+                    $('.quantity').eq($('.quantity').length / 3 + index).val(count);
+                    $('.quantity').eq($('.quantity').length *2/ 3 + index).val(count);
+                }              
+
             }
         }
     });
