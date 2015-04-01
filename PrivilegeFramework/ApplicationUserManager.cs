@@ -25,18 +25,36 @@ namespace PrivilegeFramework
             ExtendedIdentityDbContext db)
             : base(store)
         {
+            if (db == null)
+                db = new ExtendedIdentityDbContext(
+                    PrivilegeFramework.ExtendedIdentityDbContext.GetNameOrConnectionByConfig());
+            if (db.Database.Connection.State == System.Data.ConnectionState.Closed)
+                db = new ExtendedIdentityDbContext(
+                    PrivilegeFramework.ExtendedIdentityDbContext.GetNameOrConnectionByConfig());
             this.DbContext = db;
+            this.DbContext.Configuration.ProxyCreationEnabled = false;
+            this.DbContext.Configuration.LazyLoadingEnabled = false;
         }
 
         public static ApplicationUserManager Create(
             IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context)
         {
             var db = context.Get<PrivilegeFramework.ExtendedIdentityDbContext>();
+            if (db.Database.Connection.State == System.Data.ConnectionState.Closed)
+            {
+                db = new ExtendedIdentityDbContext(
+                     PrivilegeFramework.ExtendedIdentityDbContext.GetNameOrConnectionByConfig());
+            }
+
+            db.Configuration.ProxyCreationEnabled = false;
+            db.Configuration.LazyLoadingEnabled = false;
+
             var manager = new ApplicationUserManager(
                 new UserStore<YuShang.ERP.Entities.Privileges.SysUser, SysRole,
                     int, SysUserLogin, SysUserRole, SysUserClaim>(
                     db), db);
-            //context.Get<ApplicationDbContext>()));
+
+            (db as IObjectContextAdapter).ObjectContext.AcceptAllChanges();
 
             // 配置用户名的验证逻辑
             manager.UserValidator = new UserValidator<SysUser, int>(manager)

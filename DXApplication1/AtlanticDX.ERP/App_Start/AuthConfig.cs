@@ -35,19 +35,33 @@ namespace AtlanticDX.ERP
         public IdentityManager()
         {
             this._db = new AtlanticDXContext();
+
+            this._db.Configuration.ProxyCreationEnabled = false;
+            this._db.Configuration.LazyLoadingEnabled = false;
+
+            (this._db as System.Data.Entity.Infrastructure.IObjectContextAdapter)
+                .ObjectContext.AcceptAllChanges();
+
             this._userManager =
                 new ApplicationUserManager(
                     new UserStore<YuShang.ERP.Entities.Privileges.SysUser, SysRole,
                             int, SysUserLogin, SysUserRole, SysUserClaim>(
-                            new AtlanticDXContext()), new AtlanticDXContext());
+                            this._db), this._db);
+
             this._roleManager =
-                new ApplicationRoleManager(
-                    new AtlanticDXContext());
+                new ApplicationRoleManager(this._db);
+                    //new AtlanticDXContext());
         }
 
         public IdentityManager(PrivilegeFramework.ExtendedIdentityDbContext db)
         {
             this._db = db;
+            this._db.Configuration.ProxyCreationEnabled = false;
+            this._db.Configuration.LazyLoadingEnabled = false;
+
+            (this._db as System.Data.Entity.Infrastructure.IObjectContextAdapter)
+                .ObjectContext.AcceptAllChanges();
+
             this._userManager =
                 new ApplicationUserManager(
                     new UserStore<YuShang.ERP.Entities.Privileges.SysUser, SysRole,
@@ -65,6 +79,9 @@ namespace AtlanticDX.ERP
 
         public bool RoleExists(string name)
         {
+            (this._db as System.Data.Entity.Infrastructure.IObjectContextAdapter)
+                .ObjectContext.AcceptAllChanges();
+
             return _roleManager.RoleExists(name);
         }
 
@@ -86,6 +103,8 @@ namespace AtlanticDX.ERP
 
         public bool CreateRole(string name, int parentId = 0, int privilegeLevel = 50)
         {
+            (this._db as System.Data.Entity.Infrastructure.IObjectContextAdapter)
+                .ObjectContext.AcceptAllChanges();
             // Swap ApplicationRole for IdentityRole:
             var idResult = _roleManager.Create(new SysRole()
             {
@@ -99,14 +118,22 @@ namespace AtlanticDX.ERP
 
         public bool CreateUser(SysUser user, string password)
         {
+            (this._db as System.Data.Entity.Infrastructure.IObjectContextAdapter)
+               .ObjectContext.AcceptAllChanges();
             var idResult = _userManager.Create(user, password);
+            (this._db as System.Data.Entity.Infrastructure.IObjectContextAdapter)
+                  .ObjectContext.AcceptAllChanges();
             return idResult.Succeeded;
         }
 
 
         public bool AddUserToRole(int userId, string roleName)
         {
-            var idResult = _userManager.AddToRole(userId, roleName);
+            (this._db as System.Data.Entity.Infrastructure.IObjectContextAdapter)
+                  .ObjectContext.AcceptAllChanges();
+            var idResult = _userManager.AddToRole(userId, roleName); 
+            (this._db as System.Data.Entity.Infrastructure.IObjectContextAdapter)
+                .ObjectContext.AcceptAllChanges();
             return idResult.Succeeded;
         }
 
@@ -115,13 +142,16 @@ namespace AtlanticDX.ERP
         {
             var user = _userManager.FindById(userId);
             var currentRoles = new List<SysUserRole>();
-
+            (this._db as System.Data.Entity.Infrastructure.IObjectContextAdapter)
+               .ObjectContext.AcceptAllChanges();
             currentRoles.AddRange(user.Roles);
             foreach (var role in currentRoles)
             {
                 _userManager.RemoveFromRole(userId,
                     _roleManager.FindById(role.RoleId).Name);
             }
+            (this._db as System.Data.Entity.Infrastructure.IObjectContextAdapter)
+               .ObjectContext.AcceptAllChanges();
         }
     }
 }
