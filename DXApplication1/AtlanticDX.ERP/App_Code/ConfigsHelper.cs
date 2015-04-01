@@ -17,7 +17,8 @@ namespace AtlanticDX.ERP.Helper
         {
             PrivilegeFramework.ApplicationRoleManager roleMgr =
                 new PrivilegeFramework.ApplicationRoleManager(
-                    new PrivilegeFramework.ExtendedIdentityDbContext());
+                    new PrivilegeFramework.ExtendedIdentityDbContext(
+                    PrivilegeFramework.ExtendedIdentityDbContext.GetNameOrConnectionByConfig()));
 
             var dbroles = roleMgr.Roles.ToList();
 

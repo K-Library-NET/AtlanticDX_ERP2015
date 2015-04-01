@@ -1,4 +1,6 @@
-﻿@model YuShang.ERP.Entities.Sale.SaleContract
+﻿@model PrivilegeFramework.ContractInfo
+@*20150331修改：改用ViewModel展示*@
+
 @{
     ViewBag.Title = "期货销售";
 }
@@ -28,11 +30,11 @@
     }
 
     function edit_sale_contract(SaleContractId) {
-        parent.addMainTab('编辑现货订单', '/' + Area + '/' + Controller + '/Edit?SaleContractId=' + SaleContractId);
+        parent.addMainTab('编辑期货订单', '/' + Area + '/' + Controller + '/Edit?SaleContractId=' + SaleContractId);
     } 
 
     function audit_sale_contract(SaleContractId) {
-        parent.addMainTab('审核现货销售', '/' + Area + '/' + Controller + '/Audit?SaleContractId=' + SaleContractId, true);
+        parent.addMainTab('审核期货销售', '/' + Area + '/' + Controller + '/Audit?SaleContractId=' + SaleContractId, true);
     }
 
     function add_sale_contract_bargain(SaleContractId) {

@@ -7,10 +7,10 @@
         @*<span class="order">订单总数：@ViewBag.OrdersPaymentTotal 元</span><span class="earnest mr100">已付总定金：@ViewBag.PaidDepositTotal 元</span>*@
         <span class="eta ml20">ETA筛选</span><span class="eta_in"><input type="text" class="easyui-datebox" data-val-date="ETA 必须为日期" name="ETA" style="width:98%;"></span>
         <div class="search mr15">
-            <form id="filter_form">
+            @*<form id="filter_form">*@
                 <input type="text" value="货品名/厂号/品牌/供应商" name="filterValue" onfocus="if (this.value == '货品名/厂号/品牌/供应商') this.value = '';" onblur="if (this.value == '') this.value = '货品名/厂号/品牌/供应商';" />
                 <button type="submit">查询</button>
-            </form>
+            @*嵌套一个id一样的Form？</form>*@
         </div>
     </form>
     <button class="new_order"><i></i>新增采购合同</button>
