@@ -57,16 +57,31 @@ namespace AtlanticDX.ERP.Areas.Sales.Controllers
 
             int total = 0;
             if (viewModels != null && viewModels.IsEnable.GetValueOrDefault())
-            {
-                if (viewModels.Aggregations != null &&
-                    viewModels.Aggregations.IsEnable.GetValueOrDefault())
-                    total = viewModels.Aggregations.Count.GetValueOrDefault();
-                return Json(new { total = total, rows = viewModels.ContractItems });
+            { 
+                IEnumerable<ContractInfo> list = viewModels.ContractItems;
+
+                return Json(new
+                {
+                    total = viewModels.Aggregations.Count.GetValueOrDefault(),
+                    rows = list
+                });
+                //if (viewModels.Aggregations != null &&
+                //    viewModels.Aggregations.IsEnable.GetValueOrDefault())
+                //    total = viewModels.Aggregations.Count.GetValueOrDefault();
+                //return Json(new { total = total, rows = viewModels.ContractItems });
             }
             else if (viewModels != null && !string.IsNullOrEmpty(viewModels.ErrorMessage))
             {
                 ModelState.AddModelError(string.Empty, viewModels.ErrorMessage);
             }
+
+            IEnumerable<ContractInfo> list2 = viewModels.ContractItems;
+
+            return Json(new
+            {
+                total = viewModels.Aggregations.Count.GetValueOrDefault(),
+                rows = list2
+            });
 
             //IQueryable<SaleContract> saleContractQuery =
             //    AppBusinessManager.Instance.GetIndexListSaleContract(dxContext, 1, //现货销售
@@ -75,8 +90,8 @@ namespace AtlanticDX.ERP.Areas.Sales.Controllers
             //IEnumerable<SaleContract> list = saleContractQuery.AsParallel()
             //   .OrderByDescending(m => m.SaleCreateTime).Skip((page - 1) * rows).Take(rows).ToList();
 
-            //FIXED  获取现货销售列表
-            return Json(new { total = total, rows = new ContractInfo[] { } });
+            ////FIXED  获取现货销售列表
+            //return Json(new { total = total, rows = new ContractInfo[] { } });
         }
 
         public ActionResult Add()

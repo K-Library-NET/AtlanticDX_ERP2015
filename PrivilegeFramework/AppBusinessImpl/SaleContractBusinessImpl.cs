@@ -512,7 +512,7 @@ namespace PrivilegeFramework.AppBusinessImpl
 
                 if (condition.OrderType.HasValue)
                 {
-                    contractsQuery = contractsQuery.Where(m => m.OrderType == condition.OrderType.GetValueOrDefault()
+                    contractsQuery = contractsQuery.Where(m => m.OrderType == condition.OrderType.Value
                         && m.ContractStatus != ContractStatus.Closed);
                 }
                 if ((condition.ListInclude & ContractListInclude.WithContractStatusClosed)

@@ -59,9 +59,12 @@ namespace PrivilegeFramework
             ExtendedIdentityDbContext db, IOwinContext context,
             ContractListCondition condition)
         {
-            IQueryable<OrderContract> orderContractQuery = null;
-            IQueryable<SaleContract> saleContractQuery = null; 
             int count = 0;
+            IQueryable<ContractConcatHelper> dbQuery = null;
+            IQueryable<OrderContract> orderContractQuery = null;
+            IQueryable<SaleContract> saleContractQuery = null;
+
+            #region handling differences
             ContractListInclude include = condition.ListInclude & ContractListInclude.OrderContractOnly;
             if (include == ContractListInclude.OrderContractOnly)
             {
@@ -76,32 +79,73 @@ namespace PrivilegeFramework
                     context, db, condition);
                 // db, condition.OrderType, null, null, string.Empty, condition.UserName, out ot2);
             }
+
             if (orderContractQuery == null)
                 orderContractQuery = db.OrderContracts;
 
-            var dbQuery = orderContractQuery.Select(m => new
-              {
-                  ContractId = m.OrderContractId,
-                  ContractKey = m.OrderContractKey,
-                  ContractType = ContractViewModelType.OrderContract,
-                  CTIME = m.OrderCreateTime,
-                  OrderContract = m,
-                  SaleContract = default(SaleContract),
-              }); 
-            if ((condition.ListInclude & ContractListInclude.SaleContractOnly)
-                == ContractListInclude.SaleContractOnly)
+            if ((condition.ListInclude & ContractListInclude.OrderContractOnly) == ContractListInclude.OrderContractOnly
+                && (condition.ListInclude & ContractListInclude.SaleContractOnly) != ContractListInclude.SaleContractOnly)
             {
-                dbQuery.Concat(saleContractQuery.Select(n => new
-               {
-                   ContractId = n.SaleContractId,
-                   ContractKey = n.SaleContractKey,
-                   ContractType = ContractViewModelType.SaleContract,
-                   CTIME = n.SaleCreateTime,
-                   OrderContract = default(OrderContract),
-                   SaleContract = n,
-               }));
+                dbQuery = orderContractQuery.Select(m => new
+                 ContractConcatHelper()
+                {
+                    ContractId = m.OrderContractId,
+                    ContractKey = m.OrderContractKey,
+                    ContractType = ContractViewModelType.OrderContract,
+                    CTIME = m.OrderCreateTime,
+                    OrderContract = m,
+                    SaleContract = null,//default(SaleContract),
+                });
             }
+            else if ((condition.ListInclude & ContractListInclude.OrderContractOnly) != ContractListInclude.OrderContractOnly
+                && (condition.ListInclude & ContractListInclude.SaleContractOnly) == ContractListInclude.SaleContractOnly)
+            {
+                dbQuery = saleContractQuery.Select(n => new
+                ContractConcatHelper()
+                {
+                    ContractId = n.SaleContractId,
+                    ContractKey = n.SaleContractKey,
+                    ContractType = ContractViewModelType.SaleContract,
+                    CTIME = n.SaleCreateTime,
+                    OrderContract = null,//default(OrderContract),
+                    SaleContract = n,
+                });
+            }
+            else
+            {//Both:
+                dbQuery = orderContractQuery.Select(m => new ContractConcatHelper()
+                  {
+                      ContractId = m.OrderContractId,
+                      ContractKey = m.OrderContractKey,
+                      ContractType = ContractViewModelType.OrderContract,
+                      CTIME = m.OrderCreateTime,
+                      OrderContract = m,
+                      SaleContract = null,//default(SaleContract),
+                  });
+                if ((condition.ListInclude & ContractListInclude.SaleContractOnly)
+                    == ContractListInclude.SaleContractOnly)
+                {
+                    dbQuery.Concat(saleContractQuery.Select(n => new ContractConcatHelper()
+                    {
+                        ContractId = n.SaleContractId,
+                        ContractKey = n.SaleContractKey,
+                        ContractType = ContractViewModelType.SaleContract,
+                        CTIME = n.SaleCreateTime,
+                        OrderContract = null,//default(OrderContract),
+                        SaleContract = n,
+                    }));
+                }
+            }
+            #endregion
 
+            ContractViewModel resultModel = CreateResultModelInternal(
+                    condition, ref count, ref dbQuery);
+
+            return resultModel;
+        }
+
+        private static ContractViewModel CreateResultModelInternal(ContractListCondition condition, ref int count, ref IQueryable<ContractConcatHelper> dbQuery)
+        {
             if ((condition.ListInclude & ContractListInclude.WithAggregations)
                 == ContractListInclude.WithAggregations)
             {
@@ -153,12 +197,7 @@ namespace PrivilegeFramework
                     Count = count,
                 }
             };
-
             return resultModel;
-
-
-            //return GetIndexListContractsBothOrderAndSale(db, context, condition,
-            //    orderContractQuery, saleContractQuery);
         }
 
         private ContractViewModel GetIndexListContractsBothOrderAndSale(
@@ -637,5 +676,26 @@ namespace PrivilegeFramework
                 SaleProductItems = result,
             };
         }
+    }
+
+    internal class ContractConcatHelper : IContractConcatHelper
+    {
+
+        public int ContractId { get; set; }
+        public string ContractKey { get; set; }
+        public ContractViewModelType ContractType { get; set; }
+        public DateTime CTIME { get; set; }
+        public OrderContract OrderContract { get; set; }
+        public SaleContract SaleContract { get; set; }
+    }
+
+    internal interface IContractConcatHelper
+    {
+        int ContractId { get; set; }
+        string ContractKey { get; set; }
+        ContractViewModelType ContractType { get; set; }
+        DateTime CTIME { get; set; }
+        OrderContract OrderContract { get; set; }
+        SaleContract SaleContract { get; set; }
     }
 }
