@@ -14,18 +14,18 @@
             <button type="submit">查询</button>
         </div>
     </form>
-    <button class="new_order mr15"><i></i>新增订单</button>
-    <button class="print mr15">打印</button>
-    <button class="export mr15">导出</button>
+    <button class="new_order mr15"><i></i>新建期货销售合同</button>
+    @*<button class="print mr15">打印</button>
+    <button class="export mr15">导出</button>*@
 </div>
 <script>
-    function func_operation_formatter(value, row, index) {
+    function fun_operation_formatter(value, row, index) {
         var temp = '';
         if (row.SaleContractStatus == 0) {
             temp += '<a href="javascript:;" class="edit" onclick="edit_sale_contract(\'' + row.SaleContractId + '\')">编辑</a>';
-            temp += '<a href="javascript:;" class="audit" onclick="audit_sale_contract(\'' + row.SaleContractId + '\')">审核</a>';
+            //temp += '<a href="javascript:;" class="audit" onclick="audit_sale_contract(\'' + row.SaleContractId + '\')">审核</a>';
         }
-        temp += '<a href="javascript:;" class="bargain" onclick="add_sale_contract_bargain(\'' + row.SaleContractId + '\')">还价</a>';
+       // temp += '<a href="javascript:;" class="bargain" onclick="add_sale_contract_bargain(\'' + row.SaleContractId + '\')">还价</a>';
         return temp;
     }
 
@@ -45,7 +45,7 @@
 
 @*datagrid*@
 <div class="ddgl clearf calculate" style="margin:15px;" id="xhcg">
-    <table id="my_datagrid" class="" style="width:1923px;" title=""
+    <table id="my_datagrid" class="" title=""
            data-options="view:detailview,detailFormatter: saleProductDetailFormatter,rownumbers:true,pagination:true,singleSelect:true,url:'/@ViewContext.RouteData.Values["Area"].ToString()/@ViewContext.RouteData.Values["Controller"].ToString()/Index',method:'post'">
         <thead>
             <tr data-options="height:120">
@@ -57,7 +57,7 @@
                 <th data-options="field:'SaleDeposite',width:80,align:'center'">@Html.LabelFor(m => m.SaleDeposite)</th>
                 <th data-options="field:'SaleBalancedPayment',width:80,align:'center'">@Html.LabelFor(m => m.SaleBalancedPayment)</th>
                 <th data-options="field:'OperatorPersonName',width:80,align:'center'">@Html.LabelFor(m => m.OperatorPersonName)</th>
-                <th data-options="field:'Caozuo',width:80,align:'center',formatter:func_operation_formatter">操作</th>
+                <th data-options="field:'Caozuo',width:80,align:'center',formatter:fun_operation_formatter">操作</th>
             </tr>
         </thead>
     </table>
@@ -69,7 +69,7 @@
     <script>
         $(function () {
             $('button.new_order').click(function () {
-                parent.addMainTab('新建期货销售', '/Sales/' + Controller + '/Add', true);
+                parent.addMainTab('新建期货销售合同', '/Sales/' + Controller + '/Add', true);
             });
 
         });
