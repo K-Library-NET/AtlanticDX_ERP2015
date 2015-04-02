@@ -248,10 +248,10 @@ input::-ms-reveal{display: none;}
 
 #userm .datagrid-toolbar .l-btn-plain .icon-add {background: url(../images/right_content_top.png) -319px 6px no-repeat;height: 30px;width: 25px; top:0; margin:0;}
 #userm .datagrid-cell-c2-Caozuo { width:150px;}
-.datagrid-cell-c2-Caozuo a {  color: #666666;font-weight: 400;margin: 0 20px;}
+.datagrid-cell-c2-Caozuo a {  color: #666666;font-weight: 400;margin: 0 5px;}
 
 #userm .datagrid-cell-c1-Caozuo { width:150px;}
-.datagrid-cell-c1-Caozuo a {  color: #666666;font-weight: 400;margin: 0 20px;}
+.datagrid-cell-c1-Caozuo a {  color: #666666;font-weight: 400;margin: 0 5px;}
 
 
 .datagrid-header {background:#acc1ca; }
@@ -712,18 +712,18 @@ input::-ms-reveal{display: none;}
 #xhcg .datagrid-cell-c2-Caozuo { width:200px;}
 
 
-
+#xhcg .datagrid-cell-c1-ContractKey { width:120px;}
 #xhcg .datagrid-cell-c1-SaleContractId { width:150px;}
 #xhcg .datagrid-cell-c1-SaleContractKey { width:100px;}
-#xhcg .datagrid-cell-c1-OrderType { width:100px;}
-#xhcg .datagrid-cell-c1-SaleClientName { width:150px;}
-#xhcg .datagrid-cell-c1-DiscountAmount { width:150px;}
-#xhcg .datagrid-cell-c1-Total { width:150px;}
-#xhcg .datagrid-cell-c1-TotalAfterDiscount { width:150px;}
-#xhcg .datagrid-cell-c1-SaleDeposite { width:150px;}
-#xhcg .datagrid-cell-c1-SaleBalancedPayment { width:150px;}
-#xhcg .datagrid-cell-c1-OperatorSysUser { width:150px;}
-#xhcg .datagrid-cell-c1-Caozuo { width:200px;}
+#xhcg .datagrid-cell-c1-OrderType { width:75px;}
+#xhcg .datagrid-cell-c1-SaleClientName { width:80px;}
+#xhcg .datagrid-cell-c1-DiscountAmount { width:80px;}
+#xhcg .datagrid-cell-c1-Total { width:80px;}
+#xhcg .datagrid-cell-c1-TotalAfterDiscount { width:80px;}
+#xhcg .datagrid-cell-c1-SaleDeposite { width:80px;}
+#xhcg .datagrid-cell-c1-SaleBalancedPayment { width:80px;}
+#xhcg .datagrid-cell-c1-OperatorSysUser { width:80px;}
+#xhcg .datagrid-cell-c1-Caozuo { width:80px;}
 
 
 .xszdj { cursor:pointer; border:none; background-color:#35acdd; padding:10px 15px; color:#fff; font-size:16px;}
