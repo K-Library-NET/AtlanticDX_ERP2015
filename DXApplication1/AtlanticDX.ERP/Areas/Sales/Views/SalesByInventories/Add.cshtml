@@ -52,6 +52,8 @@
                             <td name="Quantity"></td>
                             <td>
                                 <input type="hidden" name="SaleProductItems[@i].StockItemId" value="" />
+                                <input name="SaleProductItems[@i].Productd" type="hidden" value="" />
+                                <input name="SaleProductItems[@i].ProductItemId" type="hidden" value="" />
                                 <input name="SaleProductItems[@i].Quantity" type="text" value="" />
                             </td>
                             <td>
@@ -245,6 +247,11 @@
                 rules: validateOptions.rules,
                 messages: validateOptions.messages,
                 submitHandler: function (form) {
+                    var isPass = false;
+                    if ($('#ContractKey').val().trim() == '') {
+                        $.messager.alert('提示', '合同编号不能为空!');
+                        return isPass;
+                    }
                     //检查已选商品列
                     if (picked_productkeys_ids.length == 0) {
                         $.messager.alert('提示', '未选择商品');

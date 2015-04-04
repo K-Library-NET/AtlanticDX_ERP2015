@@ -21,24 +21,24 @@
 <script>
     function fun_operation_formatter(value, row, index) {
         var temp = '';
-        if (row.SaleContractStatus == 0) {
-            temp += '<a href="javascript:;" class="edit" onclick="edit_sale_contract(\'' + row.SaleContractId + '\')">编辑</a>';
+        //if (row.SaleContractStatus == 0) {
+        temp += '<a href="javascript:;" class="edit" onclick="edit_sale_contract(\'' + row.ContractKey + '\')">编辑</a>';
             //temp += '<a href="javascript:;" class="audit" onclick="audit_sale_contract(\'' + row.SaleContractId + '\')">审核</a>';
-        }
+        //}
        // temp += '<a href="javascript:;" class="bargain" onclick="add_sale_contract_bargain(\'' + row.SaleContractId + '\')">还价</a>';
         return temp;
     }
 
     function edit_sale_contract(SaleContractId) {
-        parent.addMainTab('编辑期货订单', '/' + Area + '/' + Controller + '/Edit?SaleContractId=' + SaleContractId);
+        parent.addMainTab('编辑期货订单', '/' + Area + '/' + Controller + '/Edit?SaleContractKey=' + SaleContractId);
     }
 
     function audit_sale_contract(SaleContractId) {
-        parent.addMainTab('审核期货销售', '/' + Area + '/' + Controller + '/Audit?SaleContractId=' + SaleContractId, true);
+        parent.addMainTab('审核期货销售', '/' + Area + '/' + Controller + '/Audit?SaleContractKey=' + SaleContractId, true);
     }
 
     function add_sale_contract_bargain(SaleContractId) {
-        parent.addMainTab('还价', '/' + Area + '/' + Controller + '/AddSaleBargin?SaleContractId=' + SaleContractId, true);
+        parent.addMainTab('还价', '/' + Area + '/' + Controller + '/AddSaleBargin?SaleContractKey=' + SaleContractId, true);
     }
 
 </script>

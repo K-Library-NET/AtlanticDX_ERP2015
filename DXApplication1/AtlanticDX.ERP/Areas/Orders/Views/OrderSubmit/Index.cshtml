@@ -98,7 +98,7 @@
                     <th data-options="field:'ImportBalancedPayment',width:120,align:'center'">@Html.DisplayNameFor(m => m.ImportBalancedPayment)</th>
                     <th data-options="field:'PaymentTotal',width:120,align:'center'">@Html.DisplayNameFor(m => m.PaymentTotal)</th>
                     <th data-options="field:'ContractStatus',width:100,align:'center',formatter:func_contractStatus_formatter">@Html.DisplayNameFor(m => m.ContractStatus)</th>
-                    <th data-options="field:'Caozuo',width:120,align:'center',formatter:func_operation_formatter">操作</th>
+                    <th data-options="field:'Caozuo',width:120,align:'center',formatter:func_os_operation_formatter">操作</th>
                 </tr>
             </thead>
         </table>
@@ -143,6 +143,12 @@
             $('#audit_ordercontract_dialog form :hidden[name="OrderContractId"]').val(row.OrderContractId);
             $('#audit_ordercontract_dialog').dialog('open').dialog('setTitle', '审核');
         }
+
+        //操作按钮
+        function fun_operation_formatter() {
+
+        }
+
         //提交销售指导价
         function submit_order_submit_product_detail_form(obj) {
             $.ajax({

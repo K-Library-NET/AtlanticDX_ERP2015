@@ -480,6 +480,7 @@ namespace PrivilegeFramework
 
         public static void AssignValues(ContractInfo source, SaleContract target)
         {
+            target.SaleClientId = Convert.ToInt32(source.SaleClientId); //客户信息
             target.SaleContractKey = source.ContractKey;
             target.OrderType = source.OrderType.GetValueOrDefault();
             target.SaleCreateTime = source.CTIME.GetValueOrDefault();

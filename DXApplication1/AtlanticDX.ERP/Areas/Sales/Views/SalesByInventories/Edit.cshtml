@@ -3,11 +3,12 @@
     ViewBag.Title = "编辑现货销售合同";
 }
 
-<form id="add_order_form" method="post" action="/@ViewContext.RouteData.Values["Area"].ToString()/@ViewContext.RouteData.Values["Controller"].ToString()/Add">
+<form id="add_order_form" method="post" action="/@ViewContext.RouteData.Values["Area"].ToString()/@ViewContext.RouteData.Values["Controller"].ToString()/Edit">
     <input type="hidden" name="ContractType" value="1" />
     <input type="hidden" name="OrderType" value="1" />
+    @Html.HiddenFor(m=>m.ContractId)
     <div class="orders_list">
-        <div class="right_content_top bgc1" style="width:1780px;">
+        <div class="right_content_top bgc1">
             <span class="default red ml20">*</span>
             <span class="default">选择客户</span>
             <input type="text" name="SaleClientCompanyName" value="@Model.SaleClient.CompanyName" class="w120" readonly="readonly" />
@@ -43,16 +44,19 @@
                     @if (Model.SaleProductItems != null)
                     {
                         for (int i = 0; i < Model.SaleProductItems.Count; i++)
-                        {
+                        {                           
                             <tr>
-                                <td class="check" style="width:20px;">@(i + 1)</td>
+                                <td class="check" style="width:20px;">@(i + 1)  
+                                </td>
                                 <td name="ProductKey" >@Model.SaleProductItems.ElementAt(i).ProductKey</td>
                                 <td name="ProductName" style="width:200px;">@Model.SaleProductItems.ElementAt(i).ProductName</td>
                                 <td name="ProductItem.Product.Specification" style="width:50px;">@*@Model.SaleProductItems.ElementAt(i).ProductItem.Product.Specification*@</td>
                                 <td name="ProductItem.Product.Packing" style="width:50px;">@*@Model.SaleProductItems.ElementAt(i).ProductItem.Product.Packing*@</td>
                                 <td name="Quantity" style="width:50px;">@*@Model.SaleProductItems.ElementAt(i).ProductItem.Quantity*@</td>
                                 <td >
-                                    <input type="hidden" name="SaleProductItems[@i].StockItemId" value="" />
+                                    <input type="hidden" name="SaleProductItems[@i].StockItemId" value="@Model.SaleProductItems.ElementAt(i).StockItemId" />
+                                    <input name="SaleProductItems[@i].ProductId" type="hidden" value="@Model.SaleProductItems.ElementAt(i).ProductItem.ProductId" />
+                                    <input name="SaleProductItems[@i].ProductItemId" type="hidden" value="@Model.SaleProductItems.ElementAt(i).ProductItemId" />
                                     <input name="SaleProductItems[@i].Quantity" type="text"  value="@Model.SaleProductItems.ElementAt(i).Quantity" />
                                 </td>
                                 <td >
@@ -294,5 +298,12 @@
                 }
             });
         });
+        //初始化商品信息
+        $("#picked_products_table [name='ProductKey']").each(function () {
+            var key = $(this).text();
+            if (key) {
+                picked_productkeys_ids.push(key);
+            }
+        });       
     </script>
 }
