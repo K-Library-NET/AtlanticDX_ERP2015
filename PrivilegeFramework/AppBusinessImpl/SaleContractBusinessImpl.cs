@@ -447,7 +447,7 @@ namespace PrivilegeFramework.AppBusinessImpl
             record.SaleBargin = saleItem;
             record.PrevTotal = bargain.Total;
             record.CurrentTotal = saleItem.Total;
-            record.Comments = string.Format("{3}修改还价，还价从 {1} 调整为：{0}。",
+            record.Comments = string.Format("{2}修改还价，还价从 {1} 调整为：{0}。",
                 saleItem.Total, bargain.Total, record.CTIME.ToString("yyyyMMdd HH:mm:ss"));
             dbContext.SaleBargainChangeRecords.Add(record);
         }

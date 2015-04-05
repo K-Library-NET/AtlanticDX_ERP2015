@@ -69,8 +69,8 @@
         </div>
         @*条件筛选dialog end*@
     </span><button class="tjsx" onclick="$('#filter_form').submit();"><i></i></button>
-    <button class="print mr15 ml100">打印</button>
-    <button class="export mr15">导出</button>
+    @*<button class="print mr15 ml100">打印</button>
+        <button class="export mr15">导出</button>*@
 </div>
 <div class="ddgl clearf calculate">
     @*<div class="svs_table_title">
@@ -85,20 +85,20 @@
             <thead>
                 <tr data-options="height:120">
                     <th data-options="field:'OrderContractKey',width:150,algin:'center'">@Html.Label("OrderContractKey")</th>
-                    <th data-options="field:'OrderType',width:100,algin:'center',formatter:func_ordertype_formatter">@Html.DisplayNameFor(m => m.OrderType)</th>
+                    <th data-options="field:'OrderType',width:70,algin:'center',formatter:func_ordertype_formatter">@Html.DisplayNameFor(m => m.OrderType)</th>
                     <th data-options="field:'OrderCreateTime',width:150,align:'center'">@Html.DisplayNameFor(m => m.OrderCreateTime)</th>
                     @*<th data-options="field:'ETA',width:150,align:'center'">@Html.DisplayNameFor(m => m.ETA)</th>
-        <th data-options="field:'ETD',width:150,align:'center'">@Html.DisplayNameFor(m => m.ETD)</th>
-        <th data-options="field:'ShipmentPeriod',width:120,align:'center'">@Html.DisplayNameFor(m => m.ShipmentPeriod)</th>
-        <th data-options="field:'ContainerSerial',width:120,align:'center'">@Html.DisplayNameFor(m => m.ContainerSerial)</th>
-        <th data-options="field:'DeliveryBillSerial',width:150,align:'center'">@Html.DisplayNameFor(m => m.DeliveryBillSerial)</th>
-    <th data-options="field:'DestinationHarborKey',width:250,align:'center'">@Html.DisplayNameFor(m => m.DestinationHarborKey)</th>*@
-                    <th data-options="field:'OrderSysUserKey',width:120,align:'center'">@Html.DisplayNameFor(m => m.OrderSysUserKey)</th>
-                    <th data-options="field:'ImportDeposite',width:120,align:'center'">@Html.DisplayNameFor(m => m.ImportDeposite)</th>
-                    <th data-options="field:'ImportBalancedPayment',width:120,align:'center'">@Html.DisplayNameFor(m => m.ImportBalancedPayment)</th>
-                    <th data-options="field:'PaymentTotal',width:120,align:'center'">@Html.DisplayNameFor(m => m.PaymentTotal)</th>
+                            <th data-options="field:'ETD',width:150,align:'center'">@Html.DisplayNameFor(m => m.ETD)</th>
+                            <th data-options="field:'ShipmentPeriod',width:120,align:'center'">@Html.DisplayNameFor(m => m.ShipmentPeriod)</th>
+                            <th data-options="field:'ContainerSerial',width:120,align:'center'">@Html.DisplayNameFor(m => m.ContainerSerial)</th>
+                            <th data-options="field:'DeliveryBillSerial',width:150,align:'center'">@Html.DisplayNameFor(m => m.DeliveryBillSerial)</th>
+                        <th data-options="field:'DestinationHarborKey',width:250,align:'center'">@Html.DisplayNameFor(m => m.DestinationHarborKey)</th>*@
+                    <th data-options="field:'OrderSysUserKey',width:80,align:'center'">@Html.DisplayNameFor(m => m.OrderSysUserKey)</th>
+                    <th data-options="field:'ImportDeposite',width:90,align:'center'">@Html.DisplayNameFor(m => m.ImportDeposite)</th>
+                    <th data-options="field:'ImportBalancedPayment',width:90,align:'center'">@Html.DisplayNameFor(m => m.ImportBalancedPayment)</th>
+                    <th data-options="field:'PaymentTotal',width:90,align:'center'">@Html.DisplayNameFor(m => m.PaymentTotal)</th>
                     <th data-options="field:'ContractStatus',width:100,align:'center',formatter:func_contractStatus_formatter">@Html.DisplayNameFor(m => m.ContractStatus)</th>
-                    <th data-options="field:'Caozuo',width:120,align:'center',formatter:func_os_operation_formatter">操作</th>
+                    <th data-options="field:'Caozuo',width:80,align:'center',formatter:func_os_operation_formatter">操作</th>
                 </tr>
             </thead>
         </table>
@@ -114,6 +114,7 @@
         <div style="padding:10px 0px;">
             <form id="auditOrderContractForm">
                 <input type="hidden" name="OrderContractId" />
+                <input type="hidden" name="isNoValue" value="0" />
                 <p>
                     @Html.LabelFor(m => m.ContractStatus)
                     <select name="ContractStatus">
@@ -129,7 +130,7 @@
         </div>
     </div>
     <div id="audit_ordercontract__bottons">
-        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="javascript: $('#auditOrderContractForm').submit();">确定</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="javascript: submitPrice();">确定</a>
         <a href="javascript:void(0)" class="easyui-linkbutton" onclick="javascript: closeDialog('#audit_ordercontract_dialog');">取消</a>
     </div>
 </div>
@@ -139,7 +140,19 @@
     <script>
         function audit_row(index) {
             var row = get_datagrid_row_by_index(index);
-            $('#audit_ordercontract_dialog form').form('reset')
+            $('#audit_ordercontract_dialog form').form('reset');
+            //判断是否填写销售指导价
+            var rows = row.OrderProducts;
+            var isNoValue = false;
+            if (rows && rows.length > 0) {
+                for (var i = 0; i < rows.length; i++) {
+                    var SalesGuidePrice = parseFloat(rows[i].SalesGuidePrice);
+                    if (isNaN(SalesGuidePrice) || SalesGuidePrice <= 0) {
+                        isNoValue = true;
+                    }
+                }
+            }
+            $('#audit_ordercontract_dialog form :hidden[name="isNoValue"]').val(isNoValue ? 1 : 0);
             $('#audit_ordercontract_dialog form :hidden[name="OrderContractId"]').val(row.OrderContractId);
             $('#audit_ordercontract_dialog').dialog('open').dialog('setTitle', '审核');
         }
@@ -221,8 +234,20 @@
             $('#filter_trigger').focus(function () {
                 $('#filter_dialog').show();
             });
-
+            $(".zdxsj").on("click", function (index) {
+                add_sale_contract_bargain(index);
+            });
 
         });
+        function submitPrice() {
+            //审核校验
+            var status = $('#auditOrderContractForm [name="ContractStatus"]').val();
+            var isNoValue = $('#auditOrderContractForm input[name="isNoValue"]').val();
+            if (status == "AuditPassed" && isNoValue == "1") {
+                $.messager.alert('提示', '请完善指导价格');
+                return false;
+            }
+            $('#auditOrderContractForm').submit();
+        } 
     </script>
 }

@@ -590,6 +590,8 @@
     <Content Include="Areas\Sales\Views\SalesByFutures\Audit.cshtml" />
     <Content Include="Areas\Sales\Views\SalesByFutures\Edit.cshtml" />
     <Content Include="Areas\Orders\Views\OrderContract\AddBgwl.cshtml" />
+    <Content Include="Areas\Sales\Views\SalesByFutures\SubmitIndex.cshtml" />
+    <Content Include="Areas\Sales\Views\SalesByInventories\SubmitIndex.cshtml" />
     <None Include="Properties\PublishProfiles\ReleaseBeta.pubxml" />
     <None Include="Properties\PublishProfiles\ReleaseV001.pubxml" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
@@ -821,6 +823,7 @@
     <Folder Include="Areas\ResMgr\Views\Shared\" />
     <Folder Include="Areas\Sales\Views\Shared\" />
     <Folder Include="Areas\Stocks\Views\Shared\" />
+    <Folder Include="Scripts\Sales\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201501310559404_InitDatabaseV20.resx">

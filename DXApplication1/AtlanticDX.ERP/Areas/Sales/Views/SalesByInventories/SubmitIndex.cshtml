@@ -1,8 +1,7 @@
 ﻿@model PrivilegeFramework.ContractInfo
 @*20150331修改：改用ViewModel展示*@
-
 @{
-    ViewBag.Title = "期货销售";
+    ViewBag.Title = "现货销售合同交单";
 }
 <div class="right_content_top">
     <form id="filter_form">
@@ -14,31 +13,29 @@
             <button type="submit">查询</button>
         </div>
     </form>
-    <button class="new_order mr15"><i></i>新建期货销售合同</button>
     @*<button class="print mr15">打印</button>
-    <button class="export mr15">导出</button>*@
+        <button class="export mr15">导出</button>*@
 </div>
 <script>
     function fun_operation_formatter(value, row, index) {
         var temp = '';
-        //if (row.SaleContractStatus == 0) {
-        temp += '<a href="javascript:;" class="edit" onclick="edit_sale_contract(\'' + row.ContractKey + '\')">编辑</a>';
-            //temp += '<a href="javascript:;" class="audit" onclick="audit_sale_contract(\'' + row.SaleContractId + '\')">审核</a>';
+        if (row.ContractStatus == 0) { // 现货销售，未审核订单才出现以下两个操作           
+            temp += '<a href="javascript:;" class="audit" onclick="audit_sale_contract_self(\'' + row.ContractKey + '\')">审核</a>';
+        }
+        //if (row.ContractStatus != 1 && row.ContractStatus != -1) { //现货销售不是已经审核（已经选定了还价人）、已经结单（Closed），都可以“还价”
+        //    temp += '<a href="javascript:;" class="bargain" onclick="add_sale_contract_bargain(\'' + row.ContractKey + '\')">还价</a>';
         //}
-       // temp += '<a href="javascript:;" class="bargain" onclick="add_sale_contract_bargain(\'' + row.SaleContractId + '\')">还价</a>';
         return temp;
     }
 
-    function edit_sale_contract(SaleContractId) {
-        parent.addMainTab('编辑期货订单', '/' + Area + '/' + Controller + '/Edit?SaleContractKey=' + SaleContractId,true,true);
+    function audit_sale_contract_self(SaleContractKey) {
+        parent.addMainTab('审核现货销售', '/' + Area + '/' + Controller + '/Audit?SaleContractKey=' + SaleContractKey, true, true);
     }
 
-    function audit_sale_contract(SaleContractId) {
-        parent.addMainTab('审核期货销售', '/' + Area + '/' + Controller + '/Audit?SaleContractKey=' + SaleContractId, true);
-    }
+    function add_sale_contract_bargain(SaleContractKey) {
+        parent.addMainTab('还价', '/' + Area + '/' + Controller + '/AddSaleBargin?SaleContractKey=' + SaleContractKey, true);
 
-    function add_sale_contract_bargain(SaleContractId) {
-        parent.addMainTab('还价', '/' + Area + '/' + Controller + '/AddSaleBargin?SaleContractKey=' + SaleContractId, true);
+
     }
 
 
@@ -78,33 +75,24 @@
 @*datagrid*@
 <div class="ddgl clearf calculate" style="margin:15px;" id="xhcg">
     <table id="my_datagrid" class="" title=""
-           data-options="view:detailview,detailFormatter: saleProductDetailFormatterNew,rownumbers:true,pagination:true,singleSelect:true,url:'/@ViewContext.RouteData.Values["Area"].ToString()/@ViewContext.RouteData.Values["Controller"].ToString()/Index',method:'post'">
+           data-options="view:detailview,detailFormatter: saleSubmitProductDetailFormatterNew,rownumbers:true,pagination:true,singleSelect:true,url:'/@ViewContext.RouteData.Values["Area"].ToString()/@ViewContext.RouteData.Values["Controller"].ToString()/Index',method:'post'">
         <thead>
             <tr data-options="height:120">
                 <th data-options="field:'ContractKey',width:120,algin:'center'">@Html.DisplayNameFor(m => m.ContractKey)</th>
                 <th data-options="field:'OrderType',width:75,algin:'center',formatter:func_ordertype_formatter">@Html.DisplayNameFor(m => m.OrderType)</th>
                 <th data-options="field:'SaleClient.CompanyName',width:85,align:'center'">@Html.DisplayNameFor(m => m.SaleClient.CompanyName)</th>
-                <th data-options="field:'DiscountAmount',width:80,align:'center'">@Html.DisplayNameFor(m => m.DiscountAmount)</th>
-                <th data-options="field:'TotalAfterDiscount',width:80,align:'center'">@Html.LabelFor(m => m.TotalAfterDiscount)</th>
-                <th data-options="field:'SaleDeposite',width:80,align:'center'">@Html.LabelFor(m => m.SaleDeposite)</th>
-                <th data-options="field:'SaleBalancedPayment',width:80,align:'center'">@Html.LabelFor(m => m.SaleBalancedPayment)</th>
-                <th data-options="field:'OperatorPersonName',width:80,align:'center'">@Html.LabelFor(m => m.OperatorPersonName)</th>
+                <th data-options="field:'DiscountAmount',width:100,align:'center'">@Html.DisplayNameFor(m => m.DiscountAmount)</th>
+                <th data-options="field:'TotalAfterDiscount',width:150,align:'center'">@Html.LabelFor(m => m.TotalAfterDiscount)</th>
+                <th data-options="field:'SaleDeposite',width:150,align:'center'">@Html.LabelFor(m => m.SaleDeposite)</th>
+                <th data-options="field:'SaleBalancedPayment',width:150,align:'center'">@Html.LabelFor(m => m.SaleBalancedPayment)</th>
+                <th data-options="field:'OperatorPersonName',width:150,align:'center'">@Html.LabelFor(m => m.OperatorPersonName)</th>
                 <th data-options="field:'ContractStatus',width:100,align:'center',formatter:func_contractStatus_formatter">@Html.DisplayNameFor(m => m.ContractStatus)</th>
                 <th data-options="field:'Caozuo',width:80,align:'center',formatter:fun_operation_formatter">操作</th>
             </tr>
         </thead>
     </table>
 </div>
-
 @section scripts{
     <script type="text/javascript" src="~/Scripts/datagrid-detailview.js"></script>
-    <script src="~/Scripts/datagrid-formatter.js"></script>
-    <script>
-        $(function () {
-            $('button.new_order').click(function () {
-                parent.addMainTab('新建期货销售合同', '/Sales/' + Controller + '/Add', true);
-            });
-
-        });
-    </script>
+    <script src="~/Scripts/datagrid-formatter.js"></script>   
 }

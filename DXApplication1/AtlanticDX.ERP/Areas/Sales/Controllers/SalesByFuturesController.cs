@@ -35,7 +35,7 @@ namespace AtlanticDX.ERP.Areas.Sales.Controllers
         /// <returns></returns>
         [HttpPost]
         public JsonResult Index(int page = 1, int rows = 10, DateTime? DateFrom = null, DateTime? DateTo = null,
-            string filterValue = "")
+            string filterValue = "",bool isSubmit=false)
         {
             ContractListCondition condition = new ContractListCondition()
             {
@@ -44,11 +44,13 @@ namespace AtlanticDX.ERP.Areas.Sales.Controllers
                 | ContractListInclude.WithAggregations
                | ContractListInclude.WithProductStock,
                 OrderType = 0,
-                OrderField = ContractOrderField.CTIME_ASC,
+                OrderField = ContractOrderField.CTIME_DESC,
                 Page = page,
                 Rows = rows,
-                ProductFullNameFilterValue = filterValue,
-                UserName = HttpContext.User.Identity.Name
+                SerialOrSupplierFilterValue = filterValue,
+                UserName = HttpContext.User.Identity.Name,
+                CTIMEFrom = DateFrom,
+                CTIMETimeTo = DateTo
             };
 
             var viewModels = ContractManager.Instance.GetIndexListContracts(HttpContext.GetOwinContext(),
@@ -229,6 +231,16 @@ namespace AtlanticDX.ERP.Areas.Sales.Controllers
                 //FIXED 添加销售还价逻辑
             }
             return Json(ModelState.GetModelStateErrors());
+        }
+
+
+        /// <summary>
+        /// 现货销售合同交单
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult SubmitIndex()
+        {
+            return View();
         }
 
         protected override void Dispose(bool disposing)

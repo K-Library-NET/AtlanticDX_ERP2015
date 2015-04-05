@@ -138,8 +138,8 @@
                                 $.messager.alert('提示', messages.join('<br/>'));
                             } else {
                                 $.messager.alert('提示', '保存成功', 'info', function () {
-                                    parent.closeMainTab();
                                     parent.updateMainTab('采购合同', '采购合同', '/Orders/OrderContract/Index');
+                                    parent.closeMainTab(url.indexOf('Edit')>0?'编辑采购合同': '新增采购合同');                                    
                                 });
 
                             }

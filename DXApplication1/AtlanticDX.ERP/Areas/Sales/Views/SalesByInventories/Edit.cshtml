@@ -33,7 +33,7 @@
                         <th class="w80" >件数</th>
                         <th class="w80">销售数量</th>
                         <th class="w80">销售吨重</th>
-                        <th class="w80">销售单价</th>
+                        <th class="w80">销售单价(/千克)</th>
                         <th class="w100" >货币</th>
                         <th class="w100" >货款小计</th>
                         <th class="operation w150">操作</th>
@@ -257,7 +257,7 @@
                                     exit = true;
                                     var labelObj = $('#picked_products_table thead th:nth-child(' + ($inputs.eq(i).parent().index() + 1) + ')');
                                     var labelText = labelObj.find('label').size() == 1 ? $.trim(labelObj.find('label').text()) : labelObj.text()
-                                    alert('请正确填写' + labelText);
+                                    $.messager.alert('请正确填写' + labelText);
                                     $inputs.eq(i).focus();
                                     return false;
                                 }
@@ -290,7 +290,7 @@
                             } else {                               
                                 $.messager.alert('提示', '操作成功', null, function () {
                                     parent.closeMainTab('编辑现货销售合同');
-                                    parent.addMainTab('现货销售合同', '/' + Area + '/' + Controller + '/Index');
+                                   // parent.addMainTab('现货销售合同', '/' + Area + '/' + Controller + '/Index');
                                 });
                             }
                         }

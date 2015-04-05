@@ -14,9 +14,9 @@ function func_contractStatus_formatter(value, row, index) {
     var temp = '';
     if (value == 0) {
         temp = '未审核';
-    } else if (value == 2) {
-        temp = '审核通过';
     } else if (value == 1) {
+        temp = '审核通过';
+    } else if (value == 2) {
         temp = '审核不通过';
     } else if (value == 3) {
         temp = '已结单';
@@ -229,12 +229,12 @@ function func_ContractType_formatter(value, row, index) {
 function edit_order_contract(index) {
     var row = get_datagrid_row_by_index(index);
     if (row.ContractType == 0) {
-        parent.addMainTab('编辑采购合同', '/Orders/OrderContract/Edit?OrderContractKey=' + row.ContractKey);
+        parent.addMainTab('编辑采购合同', '/Orders/OrderContract/Edit?OrderContractKey=' + row.ContractKey, true, true);
     } else if (row.ContractType == 1) {
         if (row.OrderType == 0) {
-            parent.addMainTab('编辑期货销售合同', '/Sales/SalesByFutures/Edit?SaleContractKey=' + row.ContractKey);
+            parent.addMainTab('编辑期货销售合同', '/Sales/SalesByFutures/Edit?SaleContractKey=' + row.ContractKey,true,true);
         } else if (row.OrderType == 1) {
-            parent.addMainTab('编辑现货销售合同', '/Sales/SalesByInventories/Edit?SaleContractKey=' + row.ContractKey);
+            parent.addMainTab('编辑现货销售合同', '/Sales/SalesByInventories/Edit?SaleContractKey=' + row.ContractKey,true,true);
         }
     }
 }
@@ -243,18 +243,18 @@ function audit_sale_contract(index) {
     var row = get_datagrid_row_by_index(index);
     var controller = row.OrderType == 0 ? 'SalesByFutures' : 'SalesByInventories';
     var tapName = row.OrderType == 0 ? '审核期货销售' : '审核现货销售';
-    parent.addMainTab(tapName, '/Sales/' + controller + '/Audit?SaleContractKey=' + row.ContractKey, true);
+    parent.addMainTab(tapName, '/Sales/' + controller + '/Audit?SaleContractKey=' + row.ContractKey,true,true);
 }
 
 function add_sale_contract_bargain(index) {
     var row = get_datagrid_row_by_index(index);
     var controller = row.OrderType == 0 ? 'SalesByFutures' : 'SalesByInventories';
-    parent.addMainTab('还价', '/Sales/' + controller + '/AddSaleBargin?SaleContractKey=' + row.ContractKey, true);
+    parent.addMainTab('还价', '/Sales/' + controller + '/AddSaleBargin?SaleContractKey=' + row.ContractKey, true, true);
 }
 
 
 /*采购产品模板行*/
-var productDetailFormatterNew = function (rowIndex, rowData) {   
+var productDetailFormatterNew = function (rowIndex, rowData) {
     return orderDataFormater.formatOrder(rowIndex, rowData);
 }
 /*采购产品交单模板行*/
@@ -268,9 +268,12 @@ var orderSubmitProductDetailFormatterNew = function (rowIndex, rowData) {
 //采购模版
 var orderDataFormater = {
     //是否交单类型
-    isSubmit: false,    
+    isSubmit: false,
     formatOrder: function (rowIndex, rowData) {
         var arrayHtml = new Array();
+        if (this.isSubmit) {
+            arrayHtml.push('<form onsubmit="return submit_order_submit_product_detail_form(this)">');
+        }
         arrayHtml.push('<table class="mobanhang" border="0" cellspacing="1" cellpadding="0">');
         arrayHtml.push('<tr class="the_title">');
         arrayHtml.push('  <td>订单信息</td>');
@@ -280,7 +283,7 @@ var orderDataFormater = {
         arrayHtml.push('<table border="0" cellspacing="1" cellpadding="0" style="background-color:#666; width:100%;">');
         arrayHtml.push('  <tr>');
         arrayHtml.push('	<td class="the_left">合同编号</td>');
-        arrayHtml.push('	<td>' + rowData.ContractKey + '</td>');
+        arrayHtml.push('	<td>' + (this.isSubmit ? rowData.OrderContractKey : rowData.ContractKey) + '</td>');
         arrayHtml.push('	<td class="the_left">货品类型</td>');
         arrayHtml.push('	<td>' + func_ContractType_formatter(rowData.OrderType, rowData, rowIndex) + '</td>');
         arrayHtml.push('	<td class="the_left">合同类型</td>');
@@ -348,9 +351,15 @@ var orderDataFormater = {
             var productitemrows = rows;
             //香港物流：根据for循环的i去写入
             var hklogisItems = rowData.HongkongLogistics == null || rowData.HongkongLogistics.IsEnable == false ? null : rowData.HongkongLogistics.LogisItems;
+            if (this.isSubmit) {
+                hklogisItems = rowData.HongKongLogistics == null ? null : rowData.HongKongLogistics.HongKongLogisticsItems;
+            }
             hklogisItems = (hklogisItems == null || hklogisItems == undefined) ? new Array(rows.length) : hklogisItems;
             //内地物流：根据for循环的i去写入
             var mllogisItems = rowData.MainlandLogistics == null || rowData.MainlandLogistics.IsEnable == false ? null : rowData.MainlandLogistics.LogisItems;
+            if (this.isSubmit) {
+                mllogisItems = rowData.MainlandLogistics == null ? null : rowData.MainlandLogistics.MainlandLogisticsItems;
+            }
             mllogisItems = (mllogisItems == null || mllogisItems == undefined) ? new Array(rows.length) : mllogisItems;
             //var rows = rowData.OrderType == 0 ? rowData.ContractItems : rowData.SaleProductItems;
 
@@ -397,7 +406,7 @@ var orderDataFormater = {
                         arrayHtml.push('  <td class="the_left">销售指导价</td>');
                         arrayHtml.push('  <td>');
                         arrayHtml.push('<input type="hidden" name="[' + i + '].ProductItemId" value="' + getVal(productitemrows[i].ProductItemId) + '" />');
-                        arrayHtml.push('<input class="gai" style="width:49px;" type="text" name="[' + i + '].SalesGuidePrice" value="' + getVal(productitemrows[i].UnitPrice) + '"></td>');
+                        arrayHtml.push('<input class="gai" style="width:49px;" type="text" name="[' + i + '].SalesGuidePrice" value="' + getVal(productitemrows[i].SalesGuidePrice) + '"></td>');
                         arrayHtml.push('  <td class="the_left"></td>');
                         arrayHtml.push('  <td></td>');
                         arrayHtml.push('  <td class="the_left"></td>');
@@ -423,13 +432,10 @@ var orderDataFormater = {
                         arrayHtml.push(getVal(hklogisItems[i].ContractWeight));
                         arrayHtml.push('</td>');
                         arrayHtml.push('	<td class="the_left">运费/吨</td>');
-                        arrayHtml.push('	<td>');
                         arrayHtml.push('	<td>' + getVal(hklogisItems[i].FreightCharges) + '</td>');
                         arrayHtml.push('	<td class="the_left">保险</td>');
-                        arrayHtml.push('	<td>');
                         arrayHtml.push('	<td>' + getVal(hklogisItems[i].Insurance) + '</td>');
                         arrayHtml.push('	<td class="the_left">运费小计</td>');
-                        arrayHtml.push('	<td>');
                         arrayHtml.push('	<td>' + getVal(hklogisItems[i].SubTotal) + '</td>');
                     }
                     else {
@@ -487,6 +493,9 @@ var orderDataFormater = {
             arrayHtml.push('</tr>  ');
         }
         arrayHtml.push('</table>');
+        if (this.isSubmit) {
+            arrayHtml.push('</form>');
+        }
         return arrayHtml.join('');
     }
 }
@@ -501,12 +510,16 @@ var saleSubmitProductDetailFormatterNew = function (rowIndex, rowData) {
     saleDataFormater.isSubmit = true;
     return saleDataFormater.formatOrder(rowIndex, rowData);
 }
-//采购模版
+//销售模版
 var saleDataFormater = {
     //是否交单类型
     isSubmit: false,
     formatOrder: function (rowIndex, rowData) {
         var arrayHtml = new Array();
+        //还价信息
+        if (!this.isSubmit) {
+            arrayHtml.push('<form onsubmit="return submit_sale_bargain_form(this)">');            
+        }
         arrayHtml.push('<table class="mobanhang" border="0" cellspacing="1" cellpadding="0">');
         arrayHtml.push('<tr class="the_title">');
         arrayHtml.push('  <td>订单信息</td>');
@@ -533,7 +546,7 @@ var saleDataFormater = {
         arrayHtml.push('	<td>' + getVal(rowData.ETD) + '</td>');
         arrayHtml.push('	<td class="the_left">操作人</td>');
         arrayHtml.push('	<td>' + getVal(rowData.OperatorPersonName) + '</td>');
-        arrayHtml.push('  </tr>');       
+        arrayHtml.push('  </tr>');
         arrayHtml.push('  <tr>');
         arrayHtml.push('	<td class="the_left">折扣率</td>');
         arrayHtml.push('	<td>' + getVal(rowData.Payment) + '</td>');
@@ -567,8 +580,10 @@ var saleDataFormater = {
         arrayHtml.push('</tr>');
 
         var rows = rowData.ContractType == 0 ? rowData.ContractItems : rowData.SaleProductItems;
+        //合同信息
+        arrayHtml.push('<input type="hidden" name="SaleContractId" value="' + rowData.ContractId + '"/>');
         if (rows != null && rows != undefined) {
-            var productitemrows = rowData.ContractItems;
+            var productitemrows = rows;
             //香港物流：根据for循环的i去写入
             var hklogisItems = rowData.HongkongLogistics == null || rowData.HongkongLogistics.IsEnable == false ? null : rowData.HongkongLogistics.LogisItems;
             hklogisItems = (hklogisItems == null || hklogisItems == undefined) ? new Array(rows.length) : hklogisItems;
@@ -595,11 +610,25 @@ var saleDataFormater = {
                     arrayHtml.push('	<td class="the_left">货品名</td>');
                     arrayHtml.push('	<td>' + rows[i].ProductName + '</td>');
                     arrayHtml.push('	<td class="the_left">国家</td>');
-                    arrayHtml.push('	<td>' + getVal(productitemrows[i].Product.MadeInCountry) + '</td>');
+                    arrayHtml.push('	<td>');
+
+                    var haveProduct = productitemrows[i].ProductItem && productitemrows[i].ProductItem.Product;
+                    if (haveProduct) {
+                        arrayHtml.push(getVal(productitemrows[i].ProductItem.Product.MadeInCountry));
+                    }
+                    arrayHtml.push('    </td>');
                     arrayHtml.push('	<td class="the_left">厂号</td>');
-                    arrayHtml.push('	<td>' + getVal(productitemrows[i].Product.MadeInFactory) + '</td>');
+                    arrayHtml.push('	<td>');                   
+                    if (haveProduct) {
+                        arrayHtml.push(getVal(productitemrows[i].ProductItem.Product.MadeInFactory));
+                    }
+                    arrayHtml.push('    </td>');
                     arrayHtml.push('	<td class="the_left">品牌</td>');
-                    arrayHtml.push('	<td>' + getVal(productitemrows[i].Product.Brand) + '</td>');
+                    arrayHtml.push('	<td>');
+                    if (haveProduct) {
+                        arrayHtml.push(getVal(productitemrows[i].ProductItem.Product.Brand));
+                    }
+                    arrayHtml.push('    </td>');
                     arrayHtml.push('  </tr>');
                     arrayHtml.push('  <tr>');
                     arrayHtml.push('	<td class="the_left">件数</td>');
@@ -615,16 +644,19 @@ var saleDataFormater = {
                     arrayHtml.push('  </tr>');
                     arrayHtml.push('  <tr>');
                     arrayHtml.push('	<td class="the_left">还价情况</td>');
-                    arrayHtml.push('	<td colspan="10">' + getVal(productitemrows[i].Quantity) + '</td>');
+                    arrayHtml.push('	<td colspan="10">' + getVal(productitemrows[i].Quantity) + '<span class="blue3">2</span></td>');
                     arrayHtml.push('  </tr>');
 
-                    if (!this.isSubmit) {                      
+                    if (!this.isSubmit) {
 
                         arrayHtml.push('<tr>');
                         arrayHtml.push('  <td class="the_left">我要还价</td>');
                         arrayHtml.push('  <td>');
-                        arrayHtml.push('<input type="hidden" name="[' + i + '].ProductItemId" value="' + getVal(productitemrows[i].ProductItemId) + '" />');
-                        arrayHtml.push('<input class="gai" style="width:49px;" type="text" name="[' + i + '].SalesGuidePrice" value="' + getVal(productitemrows[i].UnitPrice) + '"></td>');
+                     
+                        //商品信息
+                        arrayHtml.push('<input type="hidden" name="BargainItems[' + i + '].SaleProductItemId" value="' + getVal(productitemrows[i].ProductItemId) + '" />');
+                        //价格信息
+                        arrayHtml.push('<input class="gai" style="width:49px;" type="text" name="BargainItems[' + i + '].BargainUnitPrice" value="' + getVal(productitemrows[i].SubTotal) + '"></td>');
                         arrayHtml.push('  <td class="the_left"></td>');
                         arrayHtml.push('  <td></td>');
                         arrayHtml.push('  <td class="the_left"></td>');
@@ -635,85 +667,16 @@ var saleDataFormater = {
                         arrayHtml.push('  <td></td>');
                         arrayHtml.push(' </tr>');
                     }
-
-                    arrayHtml.push('  <tr>');
-                    arrayHtml.push('	<td colspan="10" class="the_wuliu">香港物流</td>');
-                    arrayHtml.push('  </tr>');
-                    arrayHtml.push('  <tr>');
-                    arrayHtml.push('	<td class="the_left">收单件数</td>');
-
-                    if (hklogisItems[i] != undefined) {
-                        arrayHtml.push('	<td>');
-                        arrayHtml.push(getVal(hklogisItems[i].ContractQuantity));
-                        arrayHtml.push('	</td><td class="the_left">收单顿重</td>');
-                        arrayHtml.push('	<td>');
-                        arrayHtml.push(getVal(hklogisItems[i].ContractWeight));
-                        arrayHtml.push('</td>');
-                        arrayHtml.push('	<td class="the_left">运费/吨</td>');
-                        arrayHtml.push('	<td>');
-                        arrayHtml.push('	<td>' + getVal(hklogisItems[i].FreightCharges) + '</td>');
-                        arrayHtml.push('	<td class="the_left">保险</td>');
-                        arrayHtml.push('	<td>');
-                        arrayHtml.push('	<td>' + getVal(hklogisItems[i].Insurance) + '</td>');
-                        arrayHtml.push('	<td class="the_left">运费小计</td>');
-                        arrayHtml.push('	<td>');
-                        arrayHtml.push('	<td>' + getVal(hklogisItems[i].SubTotal) + '</td>');
-                    }
-                    else {
-                        arrayHtml.push('	<td></td>');
-                        arrayHtml.push('	<td class="the_left">收单顿重</td>');
-                        arrayHtml.push('	<td></td>');
-                        arrayHtml.push('	<td class="the_left">运费/吨</td>');
-                        arrayHtml.push('	<td></td>');
-                        arrayHtml.push('	<td class="the_left">保险</td>');
-                        arrayHtml.push('	<td></td>');
-                        arrayHtml.push('	<td class="the_left">运费小计</td>');
-                        arrayHtml.push('	<td></td>');
-                    }
-                    arrayHtml.push('  </tr>');
-
-                    if (mllogisItems) {
-                        arrayHtml.push('  <tr>');
-                        arrayHtml.push('	<td colspan="10" class="the_wuliu">内地物流</td>');
-                        arrayHtml.push('  </tr>');
-                        arrayHtml.push('  <tr>');
-                        arrayHtml.push('	<td class="the_left">收单件数</td>');
-                        if (mllogisItems[i] != undefined) {
-                            arrayHtml.push('	<td>' + getVal(mllogisItems[i].ContractQuantity) + '</td>');
-                            arrayHtml.push('	<td class="the_left">收单顿重</td>');
-                            arrayHtml.push('	<td>' + getVal(mllogisItems[i].ContractWeight) + '</td>');
-                            arrayHtml.push('	<td class="the_left">运费/吨</td>');
-                            arrayHtml.push('	<td>' + getVal(mllogisItems[i].FreightCharges) + '</td>');
-                            arrayHtml.push('	<td class="the_left">保险</td>');
-                            arrayHtml.push('	<td>' + getVal(mllogisItems[i].Insurance) + '</td>');
-                            arrayHtml.push('	<td class="the_left">运费小计</td>');
-                            arrayHtml.push('	<td>' + getVal(mllogisItems[i].SubTotal) + '</td>');
-                        }
-                        else {
-                            arrayHtml.push('	<td></td>');
-                            arrayHtml.push('	<td class="the_left">收单顿重</td>');
-                            arrayHtml.push('	<td></td>');
-                            arrayHtml.push('	<td class="the_left">运费/吨</td>');
-                            arrayHtml.push('	<td></td>');
-                            arrayHtml.push('	<td class="the_left">保险</td>');
-                            arrayHtml.push('	<td></td>');
-                            arrayHtml.push('	<td class="the_left">运费小计</td>');
-                            arrayHtml.push('	<td></td>');
-                        }
-                        arrayHtml.push('  </tr>');
-                    }
-                    //arrayHtml.push('  <tr class="the_fenge">');
-                    //arrayHtml.push('	<td colspan="10"></td>');
-                    //arrayHtml.push('  </tr>');
-
                 }
             }
-
             arrayHtml.push('</table>');
             arrayHtml.push('</td>');
             arrayHtml.push('</tr>  ');
         }
         arrayHtml.push('</table>');
+        if (!this.isSubmit) {
+            arrayHtml.push('</form>');
+        }
         return arrayHtml.join('');
     }
 

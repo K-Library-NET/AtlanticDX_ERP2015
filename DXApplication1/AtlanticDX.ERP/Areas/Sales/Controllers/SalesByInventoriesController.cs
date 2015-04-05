@@ -42,14 +42,16 @@ namespace AtlanticDX.ERP.Areas.Sales.Controllers
             {
                 IsEnable = true,
                 ListInclude = ContractListInclude.SaleContractOnly
-                | ContractListInclude.WithAggregations
+                | ContractListInclude.WithAggregations               
                | ContractListInclude.WithProductStock,
                 OrderType = 1,
-                OrderField = ContractOrderField.CTIME_ASC,
+                OrderField = ContractOrderField.CTIME_DESC,
                 Page = page,
                 Rows = rows,
-                ProductFullNameFilterValue = filterValue,
-                UserName = HttpContext.User.Identity.Name
+                SerialOrSupplierFilterValue = filterValue,
+                UserName = HttpContext.User.Identity.Name,
+                CTIMEFrom=DateFrom,
+                CTIMETimeTo=DateTo
             };
 
             var viewModels = ContractManager.Instance.GetIndexListContracts(HttpContext.GetOwinContext(),
@@ -221,7 +223,14 @@ namespace AtlanticDX.ERP.Areas.Sales.Controllers
             return Json(ModelState.GetModelStateErrors());
         }
 
-
+        /// <summary>
+        /// 期货销售合同交单
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult SubmitIndex()
+        {
+            return View();
+        }
 
         protected override void Dispose(bool disposing)
         {

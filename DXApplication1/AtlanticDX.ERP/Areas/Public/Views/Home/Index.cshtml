@@ -26,9 +26,21 @@
     <script type="text/javascript">
         $('#mainTabs').tabs({ tabHeight: 43 });
         //添加Tab
-        function addMainTab(title, url, closable) {
+        /*
+        title:tab标题,
+        url:链接地址,
+        closable:是否带关闭按钮,
+        isRresh:是否刷新页面内容
+        */
+        function addMainTab(title, url, closable, isRresh) {
+            isRresh = false || isRresh;
             if ($('#mainTabs').tabs('exists', title)) {
-                $('#mainTabs').tabs('select', title);
+                if (isRresh) {
+                    updateMainTab(title, title, url);
+                }
+                else {
+                    $('#mainTabs').tabs('select', title);
+                }
             } else {
                 if (closable == undefined) { closable = true; }
                 $('#mainTabs').tabs('add', {
@@ -47,7 +59,11 @@
             addMainTab('首页', '/Public/Home/Main', false);
         });
         //修改tab
-        function updateMainTab(title,newTitle,url) {
+        function updateMainTab(title, newTitle, url) {
+            //选中指定选项卡
+            if ($('#mainTabs').tabs('exists', title)) {
+                $('#mainTabs').tabs('select', title);
+            }
             var tab = $('#mainTabs').tabs('getSelected');
             $('#mainTabs').tabs('update', {
                 tab: tab,
@@ -57,9 +73,11 @@
                 }
             });
         }
-        //close tab
+        //close tab(如果有指定选项卡,关闭指定选项卡,如果没有关闭当前选项卡)
         function closeMainTab(title) {
-            title = title || $('#mainTabs').tabs('getSelected');//为空时关闭当前选项卡
+            var tab= $('#mainTabs').tabs('getSelected');
+            var index = $('#mainTabs').tabs('getTabIndex', tab);
+            title = title || index;//为空时关闭当前选项卡
             if (title&&$('#mainTabs').tabs('exists',title)) {
                 $('#mainTabs').tabs('close', title);
             }           

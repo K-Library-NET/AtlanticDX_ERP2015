@@ -6,8 +6,8 @@
 <div class="right_content_top">
     <form id="filter_form">
         <span class="eta ml20">日期</span>
-        <span class="eta_in"><input type="text" class="easyui-datebox" name="TimeFrom" /></span>
-        <span class="eta_in"><input type="text" class="easyui-datebox" name="TimeTo" /></span>
+        <span class="eta_in"><input type="text" class="easyui-datebox" name="DateFrom" /></span>
+        <span class="eta_in"><input type="text" class="easyui-datebox" name="DateTo" /></span>
         <div class="search mr15">
             <input type="text" value="请输入单据号或供应商" name="filterValue" onfocus="if (this.value == '请输入单据号或供应商') this.value = '';" onblur="    if (this.value == '') this.value = '请输入单据号或供应商';" />
             <button type="submit">查询</button>
@@ -34,7 +34,7 @@
     }
 
     function edit_sale_contract(SaleContractKey) {
-        parent.addMainTab('编辑现货销售合同', '/' + Area + '/' + Controller + '/Edit?SaleContractKey=' + SaleContractKey);
+        parent.addMainTab('编辑现货销售合同', '/' + Area + '/' + Controller + '/Edit?SaleContractKey=' + SaleContractKey, true, true);
     }
 
     function audit_sale_contract(SaleContractKey) {
@@ -43,6 +43,40 @@
 
     function add_sale_contract_bargain(SaleContractKey) {
         parent.addMainTab('还价', '/' + Area + '/' + Controller + '/AddSaleBargin?SaleContractKey=' + SaleContractKey, true);
+
+
+    }
+
+
+    //提交还价信息
+    function submit_sale_bargain_form(obj) {
+        $.ajax({
+            url: '/' + Area + '/' + Controller + '/AddSaleBargin',
+            type: 'post',
+            data: $(obj).serialize(),
+            dataType: 'json',
+            beforeSend: function () {
+                $.messager.progress({
+                    title: '',
+                    msg: '处理中...'
+                });
+            },
+            success: function (resp) {
+                $.messager.progress('close');
+                var messages = [];
+                for (i = 0; i < resp.length; i++) {
+                    for (j = 0; j < resp[i]['Messages'].length; j++) {
+                        messages.push(resp[i]['Messages'][j]);
+                    }
+                }
+                if (messages.length > 0) {
+                    $.messager.alert('提示', messages.join('\n'));
+                } else {
+                    $.messager.alert('提示', '更新还价成功');
+                }
+            }
+        });
+        return false;
     }
 
 </script>
@@ -52,7 +86,7 @@
     <table id="my_datagrid" class=""  title=""
            data-options="view:detailview,detailFormatter: saleProductDetailFormatterNew,rownumbers:true,pagination:true,singleSelect:true,url:'/@ViewContext.RouteData.Values["Area"].ToString()/@ViewContext.RouteData.Values["Controller"].ToString()/Index',method:'post'">
         <thead>
-            <tr data-options="height:120">
+            <tr data-options="height:120">             
                 <th data-options="field:'ContractKey',width:120,algin:'center'">@Html.DisplayNameFor(m => m.ContractKey)</th>
                 <th data-options="field:'OrderType',width:75,algin:'center',formatter:func_ordertype_formatter">@Html.DisplayNameFor(m => m.OrderType)</th>
                 <th data-options="field:'SaleClient.CompanyName',width:85,align:'center'">@Html.DisplayNameFor(m => m.SaleClient.CompanyName)</th>
@@ -61,6 +95,7 @@
                 <th data-options="field:'SaleDeposite',width:150,align:'center'">@Html.LabelFor(m => m.SaleDeposite)</th>
                 <th data-options="field:'SaleBalancedPayment',width:150,align:'center'">@Html.LabelFor(m => m.SaleBalancedPayment)</th>
                 <th data-options="field:'OperatorPersonName',width:150,align:'center'">@Html.LabelFor(m => m.OperatorPersonName)</th>
+                <th data-options="field:'ContractStatus',width:100,align:'center',formatter:func_contractStatus_formatter">@Html.DisplayNameFor(m => m.ContractStatus)</th>
                 <th data-options="field:'Caozuo',width:80,align:'center',formatter:fun_operation_formatter">操作</th>
 
                 @*20150331注释掉

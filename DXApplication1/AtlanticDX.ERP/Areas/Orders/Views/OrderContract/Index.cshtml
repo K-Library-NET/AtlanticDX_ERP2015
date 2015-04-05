@@ -22,7 +22,7 @@
            data-options="view:detailview,detailFormatter: productDetailFormatterNew,rownumbers:true,pagination:true,singleSelect:true,url:'/@ViewContext.RouteData.Values["Area"].ToString()/@ViewContext.RouteData.Values["Controller"].ToString()/Index',method:'post'">
         <thead>
             <tr data-options="height:120">
-                <th data-options="field:'ContractKey',width:120,algin:'center'">@Html.DisplayNameFor(m => m.ContractKey)</th>
+                <th data-options="field:'ContractKey',width:130,algin:'center'">@Html.DisplayNameFor(m => m.ContractKey)</th>
                 @*<th data-options="field:'OrderType',width:75,algin:'center',formatter:func_ordertype_formatter">@Html.DisplayNameFor(m => m.OrderType)</th>*@
                 <th data-options="field:'ContractType',width:85,algin:'center',formatter:func_ContractType_formatter">@Html.DisplayNameFor(m => m.OrderType)</th>
                 <th data-options="field:'CTIME_STR',width:85,align:'center'">@Html.DisplayNameFor(m => m.CTIME_STR)</th>

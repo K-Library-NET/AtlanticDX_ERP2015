@@ -67,7 +67,7 @@
                     @for (int i = 0; i <= 0; i++)
                     {
                         <tr>
-                            <td class="check" style="width: 20px;">@(i + 1)</td>
+                            <td class="check">@(i + 1)</td>
                             @*<td name="ProductKey" style="width:150px;"></td>*@
                             <td name="ProductFullName" style="width: 100px;"></td>
                             <td name="MadeInCountry" style="width: 100px;"></td>
@@ -152,28 +152,27 @@
                         <table cellspacing="1" cellpadding="0" class="the_wuliu" align="center">
                             <thead class="">
                                 <tr>
-                                    <th class="check w20" width="20"></th>
-                                    <th class="w200" style="width: 120px;">货品名/品牌</th>
-                                    <th class="w200" style="width: 100px;">国家</th>
-                                    <th class="w200" style="width: 100px;">厂号</th>
-                                    <th class="w120" style="width: 120px;">
+                                    <th class="check w20"></th>
+                                    <th class="w200">货品名/品牌/国家/厂号</th>
+                                    <th class="w120">
                                         @Html.LabelFor(m => m.HongkongLogistics.LogisItems.First().ContractQuantity)
                                     </th>
-                                    <th class="w120" style="width: 120px;">
+                                    <th class="w120">
                                         @Html.LabelFor(m => m.HongkongLogistics.LogisItems.First().ContractWeight)
                                     </th>
-                                    <th class="w120" style="width: 120px;">
+                                    <th class="w120">
                                         @Html.LabelFor(m => m.HongkongLogistics.LogisItems.First().FreightCharges)
                                     </th>
-                                    <th class="w120" style="width: 120px;">
+                                    <th class="w120">
                                         @Html.LabelFor(m => m.HongkongLogistics.LogisItems.First().Insurance)
                                     </th>
-                                    <th class="w120" style="width: 120px;">
+                                    <th class="w120">
                                         @Html.LabelFor(m => m.HongkongLogistics.LogisItems.First().SubTotal)
                                     </th>
                                 </tr>
                             </thead>
-                            <tbody id="tb_HongKong"></tbody>
+                            <tbody id="tb_HongKong">                               
+                            </tbody>
                         </table>
                     </div>
                 </div>
@@ -194,23 +193,21 @@
                         <table cellspacing="1" cellpadding="0" class="the_wuliu" align="center">
                             <thead class="">
                                 <tr>
-                                    <th class="check w20" width="20"></th>
-                                    <th class="w200" style="width: 120px;">货品名/品牌</th>
-                                    <th class="w200" style="width: 100px;">国家</th>
-                                    <th class="w200" style="width: 100px;">厂号</th>
-                                    <th class="w120" style="width: 120px;">
+                                    <th class="check w20"></th>
+                                    <th class="w200">货品名/品牌/国家/厂号</th>
+                                    <th class="w120">
                                         @Html.LabelFor(m => m.MainlandLogistics.LogisItems.First().ContractQuantity)
                                     </th>
-                                    <th class="w120" style="width: 120px;">
+                                    <th class="w120">
                                         @Html.LabelFor(m => m.MainlandLogistics.LogisItems.First().ContractWeight)
                                     </th>
-                                    <th class="w120" style="width: 120px;">
+                                    <th class="w120">
                                         @Html.LabelFor(m => m.MainlandLogistics.LogisItems.First().FreightCharges)
                                     </th>
-                                    <th class="w120" style="width: 120px;">
+                                    <th class="w120">
                                         @Html.LabelFor(m => m.MainlandLogistics.LogisItems.First().Insurance)
                                     </th>
-                                    <th class="w120" style="width: 120px;">
+                                    <th class="w120">
                                         @Html.LabelFor(m => m.MainlandLogistics.LogisItems.First().SubTotal)
                                     </th>
                                 </tr>
@@ -279,5 +276,5 @@
 @section scripts{
     <script type="text/javascript" src="~/Scripts/pick_product.js"></script>
     <script src="~/Scripts/Order/bgwl.js"></script>
-   
+
 }
