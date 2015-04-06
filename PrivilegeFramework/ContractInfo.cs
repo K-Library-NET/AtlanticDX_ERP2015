@@ -377,7 +377,7 @@ namespace PrivilegeFramework
         [Display(Name = "付款方式")]
         public string Payment { get; set; }
 
-        [Display(Name = "货款总计")]
+        [Display(Name = "货款总计")]    
         public double? PaymentTotal { get; set; }
 
         /// <summary>
@@ -465,6 +465,7 @@ namespace PrivilegeFramework
             target.SaleClientId = source.SaleClientId;
             target.DiscountAmount = source.DiscountAmount;
             target.ContractKey = source.SaleContractKey;
+            target.ContractId = source.SaleContractId; //增加id
             target.OrderType = source.OrderType;
             target.CTIME = source.SaleCreateTime;
             target.ContractType = ContractViewModelType.SaleContract;
@@ -480,7 +481,9 @@ namespace PrivilegeFramework
 
         public static void AssignValues(ContractInfo source, SaleContract target)
         {
+            target.SaleClientId = Convert.ToInt32(source.SaleClientId); //客户信息
             target.SaleContractKey = source.ContractKey;
+            target.SaleContractId = source.ContractId.GetValueOrDefault();
             target.OrderType = source.OrderType.GetValueOrDefault();
             target.SaleCreateTime = source.CTIME.GetValueOrDefault();
             //target.ContractType = ContractViewModelType.SaleContract;
@@ -495,6 +498,7 @@ namespace PrivilegeFramework
         {
             target.ContractType = ContractViewModelType.OrderContract;
             target.ContractKey = source.OrderContractKey;
+            target.ContractId = source.OrderContractId;
             target.CTIME = source.OrderCreateTime;
             target.ContractStatus = source.ContractStatus;
             target.Comments = source.Comments;
@@ -522,6 +526,7 @@ namespace PrivilegeFramework
         public static void AssignValues(ContractInfo source, OrderContract target)
         {
             target.OrderContractKey = source.ContractKey;
+            target.OrderContractId = source.ContractId.GetValueOrDefault();
             target.OrderSysUserKey = source.CreateSysUserKey;
             target.OrderType = source.OrderType.GetValueOrDefault();
             target.Payment = source.Payment;
@@ -538,6 +543,7 @@ namespace PrivilegeFramework
             target.ContainerSerial = source.ContainerSerial;
             target.ContractStatus = source.ContractStatus;
             target.Comments = source.Comments;
+            //target.ContractId = source.ContractId;
         }
 
         public int? SaleClientId { get; set; }

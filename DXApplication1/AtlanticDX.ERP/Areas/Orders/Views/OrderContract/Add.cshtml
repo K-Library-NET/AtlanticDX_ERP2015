@@ -6,24 +6,24 @@
     <input type="hidden" name="ContractType" value="0" />
     <div class="orders_list">
 
-        <div class="the_bz">
-            <button class="new_order"><i></i>采购订单基础信息编辑</button>
-            <button class="new_order"><i></i>采购订单物流和报关信息编辑</button>
-            <button class="new_order"><i></i>该采购订单所对应的销售订单</button>
+        @*<div class="the_bz">
+                <button class="new_order"><i></i>采购订单基础信息编辑</button>
+                <button class="new_order"><i></i>采购订单物流和报关信息编辑</button>
+                <button class="new_order"><i></i>该采购订单所对应的销售订单</button>
 
-        </div>
+            </div>*@
 
         <div class="right_content_top bgc1">
-            <span class="default red ml20">*</span><span class="default">@Html.DisplayNameFor(m => m.SupplierId)</span>
+            <span class="default red ml20"></span><span class="default">@Html.DisplayNameFor(m => m.SupplierId)</span>
             @Html.DropDownListFor(m => m.SupplierId, AtlanticDX.ERP.Helper.OrdersHelper.GetSuppliers(), "--请选择--", new { @class = "date_select mr20" })
             <span class="default red">*</span><span class="default">@Html.DisplayNameFor(m => m.CTIME)</span>
             <span class="eta_in">@Html.TextBoxFor(m => m.CTIME, new { @class = "easyui-datebox", @id = "thedate", @style = "width:98%;", @required = "required", @Value = DateTime.Now.ToString("yyyy-MM-dd") })</span>
             @*
-            
-    <span class="default">@Html.DisplayNameFor(m => m.HarborId)</span>@Html.DropDownListFor(m => m.HarborId, AtlanticDX.ERP.Helper.OrdersHelper.GetHarbors(), "--请选择--", new { @class = "date_select mr20" })*@
+
+                <span class="default">@Html.DisplayNameFor(m => m.HarborId)</span>@Html.DropDownListFor(m => m.HarborId, AtlanticDX.ERP.Helper.OrdersHelper.GetHarbors(), "--请选择--", new { @class = "date_select mr20" })*@
             <span class="default red">*</span><span class="default">@Html.DisplayNameFor(m => m.ContractKey)</span>
             <span class="eta_in">
-                @Html.TextBoxFor(m => m.ContractKey, new { @class = "easyui-textbox w120"})
+                @Html.TextBoxFor(m => m.ContractKey, new { @class = "easyui-textbox w120" })
             </span>
             <span class="default red">*</span><span class="default">@Html.DisplayNameFor(m => m.OrderType)</span>
             <select name="OrderType" class="date_select date_select_r mr20">
@@ -31,7 +31,7 @@
                 <option value="1">现货</option>
             </select>
 
-            <span class="default red">*</span><span class="default">汇率</span>@Html.TextBoxFor(m => m.Comments, new { @class = "w50" })
+            <span class="default red">*</span><span class="default">汇率</span>@Html.TextBoxFor(m => m.Comments, new { @class = "w50", @Value = 6.25 })
         </div>
         <div class="right_content_top bb1">
             <span class="default ml20">@Html.DisplayNameFor(m => m.ETA)</span><span class="eta_in">@Html.TextBoxFor(m => m.ETA, new { @class = "easyui-datebox", @style = "width:98%;" })</span>
@@ -48,7 +48,6 @@
                 <thead class="">
                     <tr>
                         <th class="check w20" width="20"></th>
-                        @*<th class="w150" style="width:150px;">货品出厂编号</th>*@
                         <th class="w100" style="width: 100px;">货品名/品牌</th>
                         <th class="w100" style="width: 100px;">国家</th>
                         <th class="w100" style="width: 100px;">厂号</th>
@@ -68,11 +67,11 @@
                     @for (int i = 0; i <= 0; i++)
                     {
                         <tr>
-                            <td class="check" style="width: 20px;">@(i + 1)</td>
+                            <td class="check">@(i + 1)</td>
                             @*<td name="ProductKey" style="width:150px;"></td>*@
                             <td name="ProductFullName" style="width: 100px;"></td>
-                            <td name="ProductFullName" style="width: 100px;"></td>
-                            <td name="ProductFullName" style="width: 100px;"></td>
+                            <td name="MadeInCountry" style="width: 100px;"></td>
+                            <td name="MadeInFactory" style="width: 100px;"></td>
                             <td name="Specification" style="width: 80px;"></td>
                             <td name="Packing" style="width: 80px;"></td>
                             <td>
@@ -86,7 +85,7 @@
                                 <input type="hidden" name="ContractItems[@i].ProductId" value="" />
                                 <input type="hidden" name="ContractItems[@i].ProductKey" value="" />
                                 <input type="hidden" name="ContractItems[@i].Units" value="" />
-                                <input name="ContractItems[@i].Quantity" type="text" style="width:50px;" />
+                                <input name="ContractItems[@i].Quantity" class="quantity" type="text" style="width:50px;" />
                             </td>
                             <td style="width: 50px;">
                                 <input name="ContractItems[@i].NetWeight" class="num_compute" type="text" style="width:50px;" />
@@ -113,12 +112,118 @@
                 </tbody>
             </table>
 
+            <div class="gkdl">
+
+                <div class="title">港口代理</div>
+                <div class="gkdl_list">
+                    <div class="gkdl_list_top">
+                        <span class="default">港口代理代理商</span>
+                        @Html.DropDownListFor(m => m.HarborAgent.DeclarationCompanyId, AtlanticDX.ERP.Helper.OrdersHelper.GetHarborAgents(), new { @class = "date_select mr20" })
+                    </div>
+                    <div class="gkdl_list_bot">
+                        @Html.LabelFor(m => m.HarborAgent.HarborCost)
+                        @Html.TextBoxFor(m => m.HarborAgent.HarborCost)
+                        @Html.LabelFor(m => m.HarborAgent.AgentCost)
+                        @Html.TextBoxFor(m => m.HarborAgent.AgentCost)
+                        @Html.LabelFor(m => m.HarborAgent.Tariff)
+                        @Html.TextBoxFor(m => m.HarborAgent.Tariff)
+                        @Html.LabelFor(m => m.HarborAgent.AntiDumpingTax)
+                        @Html.TextBoxFor(m => m.HarborAgent.AntiDumpingTax)
+                        @Html.LabelFor(m => m.HarborAgent.OthersCost)
+                        @Html.TextBoxFor(m => m.HarborAgent.OthersCost)
+                        @Html.LabelFor(m => m.HarborAgent.Memo)
+                        @Html.TextBoxFor(m => m.HarborAgent.Memo)
+                        @Html.LabelFor(m => m.HarborAgent.Total)
+                        @Html.TextBoxFor(m => m.HarborAgent.Total)
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="gkdl">
+                <div class="title">香港物流</div>
+                <div class="gkdl_list">
+                    <div class="gkdl_list_top">
+                        <span class="default">香港物流公司</span>
+                        @Html.DropDownListFor(m => m.HongkongLogistics.HongKongLogisticsCompanyId, AtlanticDX.ERP.Helper.OrdersHelper.GetHongkongLogisticsCompanies(), new { @class = "date_select mr20" })
+                    </div>
+
+                    <div class="gkdl_list_bot">
+                        <table cellspacing="1" cellpadding="0" class="the_wuliu" align="center">
+                            <thead class="">
+                                <tr>
+                                    <th class="check w20"></th>
+                                    <th class="w200">货品名/品牌/国家/厂号</th>
+                                    <th class="w120">
+                                        @Html.LabelFor(m => m.HongkongLogistics.LogisItems.First().ContractQuantity)
+                                    </th>
+                                    <th class="w120">
+                                        @Html.LabelFor(m => m.HongkongLogistics.LogisItems.First().ContractWeight)
+                                    </th>
+                                    <th class="w120">
+                                        @Html.LabelFor(m => m.HongkongLogistics.LogisItems.First().FreightCharges)
+                                    </th>
+                                    <th class="w120">
+                                        @Html.LabelFor(m => m.HongkongLogistics.LogisItems.First().Insurance)
+                                    </th>
+                                    <th class="w120">
+                                        @Html.LabelFor(m => m.HongkongLogistics.LogisItems.First().SubTotal)
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody id="tb_HongKong">                               
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="gkdl">
+
+                <div class="title">内地物流</div>
+
+                <div class="gkdl_list">
+
+                    <div class="gkdl_list_top">
+                        <span class="default">内地物流公司</span>
+                        @Html.DropDownListFor(m => m.MainlandLogistics.MainlandLogisticsCompanyId, AtlanticDX.ERP.Helper.OrdersHelper.GetMainlandLogisticsCompanies(), new { @class = "date_select mr20" })
+                    </div>
+
+                    <div class="gkdl_list_bot">
+                        <table cellspacing="1" cellpadding="0" class="the_wuliu" align="center">
+                            <thead class="">
+                                <tr>
+                                    <th class="check w20"></th>
+                                    <th class="w200">货品名/品牌/国家/厂号</th>
+                                    <th class="w120">
+                                        @Html.LabelFor(m => m.MainlandLogistics.LogisItems.First().ContractQuantity)
+                                    </th>
+                                    <th class="w120">
+                                        @Html.LabelFor(m => m.MainlandLogistics.LogisItems.First().ContractWeight)
+                                    </th>
+                                    <th class="w120">
+                                        @Html.LabelFor(m => m.MainlandLogistics.LogisItems.First().FreightCharges)
+                                    </th>
+                                    <th class="w120">
+                                        @Html.LabelFor(m => m.MainlandLogistics.LogisItems.First().Insurance)
+                                    </th>
+                                    <th class="w120">
+                                        @Html.LabelFor(m => m.MainlandLogistics.LogisItems.First().SubTotal)
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody id="tb_MainLand"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
             <div class="table_info mt10">
                 <p class="clearf ml20">
                     <span class="default red">*</span><span class="default">@Html.DisplayNameFor(m => m.Payment)</span><span class="default">@Html.TextBoxFor(m => m.Payment, new { @class = "w300" })</span>
                     <span class="default red">*</span>
-                    <span class="default">@Html.DisplayNameFor(m => m.PaymentTotal)</span> <span class="default">@Html.TextBoxFor(m => m.PaymentTotal, new { @class = "w115 compute_all_subtotal" ,@Value="0.00"})</span>
-                    <span class="default">@Html.DisplayNameFor(m => m.ImportDeposite)</span> <span class="default ">@Html.TextBoxFor(m => m.ImportDeposite, new { @class = "w115",@Value="0.00" })</span>
+                    <span class="default">@Html.DisplayNameFor(m => m.PaymentTotal)</span> <span class="default">@Html.TextBoxFor(m => m.PaymentTotal, new { @class = "w115 compute_all_subtotal", @Value = "0.00" })</span>
+                    <span class="default">@Html.DisplayNameFor(m => m.ImportDeposite)</span> <span class="default ">@Html.TextBoxFor(m => m.ImportDeposite, new { @class = "w115", @Value = "0.00" })</span>
                     <span class="default red">*</span>
                     <span class="default">@Html.DisplayNameFor(m => m.ImportBalancedPayment)</span> <span class="default eta_in">@Html.TextBoxFor(m => m.ImportBalancedPayment, new { @class = "w115 compute_all_subtotal", @Value = "0.00" })</span>
                 </p>
@@ -127,7 +232,7 @@
                 </p>
             </div>
             <div class="submit">
-                <button class="default" type="submit">下一步</button>
+                <button class="default" type="submit">保存</button>
                 <button class="default" type="reset">取消</button>
             </div>
         </div>
@@ -158,6 +263,9 @@
                 <th data-options="field:'Units',width:50,algin:'center'">单位</th>
                 <th data-options="field:'Units',width:50,algin:'center'">付款方式</th>
     </table>
+
+
+
 </div>
 <div id="pick_product_dialog_bottons">
     <a href="javascript:void(0)" class="easyui-linkbutton" onclick="javascript: ;" data-id-name="ProductKey">选中</a>
@@ -167,120 +275,6 @@
 @Html.Partial("ProductDetailDialog")
 @section scripts{
     <script type="text/javascript" src="~/Scripts/pick_product.js"></script>
-    <script>
+    <script src="~/Scripts/Order/bgwl.js"></script>
 
-        $(function () {
-            //绑定自动计算           
-            $('#PaymentTotal').on('change', compute_ImportBalancedPayment);
-            $('#ImportDeposite').on('change', compute_ImportBalancedPayment);
-
-            //计算采购尾款默认值
-            function compute_ImportBalancedPayment() {
-                var balancedPayment = 0;
-                var total = parseFloat($('#PaymentTotal').val());
-                var deposite = parseFloat($('#ImportDeposite').val());
-                if ($.isNumeric(total) && $.isNumeric(deposite) && (total - deposite) > 0) {
-                    balancedPayment = (total - deposite).toFixed(2);
-                }
-                $('#ImportBalancedPayment').val(balancedPayment);
-            }
-
-            //绑定合同编号变化事件
-            $('#ContractKey').textbox({
-                validType: ['length[1,50]'],
-                //转换为大写
-                onChange: function (newValue, oldValue) {
-                    $('#ContractKey').textbox('setValue', newValue.toUpperCase());
-                }
-            });
-            //提交
-            var validateOptions = get_validate_rules_messages('#add_order_form');
-            $('#add_order_form').validate({
-                rules: validateOptions.rules,
-                messages: validateOptions.messages,
-                submitHandler: function (form) {
-                    var isPass = false;
-                    if ($('#ContractKey').val().trim() == '') {
-                        $.messager.alert('提示', '合同编号不能为空!');
-                        return isPass;
-                    }
-                    //检查已选商品列
-                    if (picked_productkeys_ids.length == 0) {
-                        $.messager.alert('提示', '未选择商品');
-                    }
-                    else {
-                        $('#picked_products_table tbody tr').each(function (index, obj) {
-                            if ($(obj).find('td').eq(1).text() == '') {
-                                $.messager.alert('提示', '已选商品列表存在空行');
-                            } else {
-                                $inputs = $(obj).find(':text');
-                                for (i = 0; i < $inputs.length; i++) {
-                                    var isHkLogistics = $inputs.eq(i).prop('name').indexOf('HongkongLogistics') >= 0;
-                                    var isMlLogistics = $inputs.eq(i).prop('name').indexOf('MainlandLogistics') >= 0;
-                                    var needHkLogistics = $('#add_order_form select[name="HongkongLogistics.HongKongLogisticsCompanyId"]').val() != '';
-                                    var needMlLogistics = $('#add_order_form select[name="MainlandLogistics.MainlandLogisticsCompanyId"]').val() != '';
-                                    if (isHkLogistics && !needHkLogistics) {
-
-                                    } else if (isMlLogistics && !needMlLogistics) {
-
-                                    }
-                                    else if ($inputs.eq(i).val() == '' || isNaN($inputs.eq(i).val())) {
-                                        var labelObj = $('#picked_products_table thead th:nth-child(' + ($inputs.eq(i).parent().index() + 1) + ')');
-                                        var labelText = labelObj.find('label').size() == 1 ? $.trim(labelObj.find('label').text()) : labelObj.text()
-                                        $.messager.alert('提示', '请正确填写' + labelText);
-                                        $inputs.eq(i).focus();
-                                        return false;
-                                    }
-                                }
-                                isPass = true;
-                            }
-                        });
-                        if (isPass && $("#Payment").val().trim() == '') {
-                            isPass = false;
-                            $.messager.alert('提示', '请正确填写付款方式');
-                        }
-                        if (!isPass) {
-                            return isPass;
-                        }
-                        //发送请求
-                        $.ajax({
-                            url: $('#add_order_form').prop('action'),
-                            data: $(form).serialize(),
-                            type: 'post',
-                            cache: false,
-                            beforeSend: function () {
-                                $.messager.progress({
-                                    title: '',
-                                    msg: '处理中...'
-                                });
-                            },
-                            success: function (resp) {
-                                $.messager.progress('close');
-                                var messages = GetModelStateErrors(resp);
-                                if (messages.length > 0) {
-                                    $.messager.alert('提示', messages.join('<br/>'));
-                                } else {
-                                    $.messager.alert('提示', '添加成功', 'info', function () { parent.updateMainTab('新建采购合同', '报关与物流', '/Orders/OrderContract/AddBgwl?OrderContractKey=' + $("#ContractKey").val()) });
-
-                                }
-                            }
-                        });
-                    }
-                }
-            });
-        });
-
-        $(function () {
-            $('select[name="HarborAgent.HarborAgentId"]').change(function () {
-
-            });
-            $('select[name="HongkongLogistics.HongKongLogisticsCompanyId"]').change(function () {
-
-            });
-            $('select[name="MainlandLogistics.MainlandLogisticsCompanyId"]').change(function () {
-
-            });
-        });
-
-    </script>
 }

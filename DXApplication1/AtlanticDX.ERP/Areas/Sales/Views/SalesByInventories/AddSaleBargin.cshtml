@@ -4,7 +4,7 @@
 }
 <form id="add_sale_bargin_form" method="post" action="/@ViewContext.RouteData.Values["Area"].ToString()/@ViewContext.RouteData.Values["Controller"].ToString()/@ViewContext.RouteData.Values["Action"].ToString()">
     <div class="orders_list">
-        <div class="right_content_top bgc1" style="width:1780px;">
+        <div class="right_content_top bgc1">
             <span class="default ml20">客户</span>@Html.TextBoxFor(m => m.SaleClientName, new { @readonly = "readonly", @class = "w120" })
             <span class="default">@Html.Label("SaleContractKey")</span>@Html.TextBoxFor(m => m.SaleContractKey, new { @readonly = "readonly", @class = "w120" })
             <span class="default">@Html.Label("SaleCreateTime")</span>
@@ -13,7 +13,7 @@
         </div>
         <div class="ddgl clearf calculate">
 
-            <table id="picked_products_table" class="svs_table ml20 mr20" style="width:1730px;">
+            <table id="picked_products_table" class="svs_table ml20 mr20" >
                 <thead class="">
                     <tr>
                         <th class="check w20" width="20"></th>
@@ -64,7 +64,7 @@
                     }
                 </tbody>
             </table>
-            <div style="width: 1780px;" class="table_info mt10">
+            <div  class="table_info mt10">
                 <p class="clearf ml20">
                     @*<span class="default">折扣率</span>
                         <input class="w115" name="DiscountRate" value="100" data-val-min="0" data-val-max="100" type="text" />
@@ -79,7 +79,7 @@
                     <span class="default mr100">@Html.Label("OperatorSysUser")： @Model.OperatorSysUser</span>
                 </p>
             </div>
-            <div style="width: 1780px;" class="submit">
+            <div  class="submit">
                 <button class="default" type="submit">保存</button>
                 <button class="default" type="reset">取消</button>
             </div>

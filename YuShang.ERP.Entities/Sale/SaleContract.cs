@@ -32,6 +32,7 @@ namespace YuShang.ERP.Entities.Sale
         [Required]
         [MaxLength(100)]
         [Index(IsUnique = true)]
+        [Display(Name = "销售订单号")]
         public string SaleContractKey
         {
             get;
@@ -93,7 +94,7 @@ namespace YuShang.ERP.Entities.Sale
         {
             get;
             set;
-        } 
+        }
 
         /// <summary>
         /// 期货销售、现货销售（0是期货销售，1是现货销售）
@@ -139,6 +140,7 @@ namespace YuShang.ERP.Entities.Sale
         /// <summary>
         /// 销售订单创建时间
         /// </summary> 
+        [Display(Name = "订单创建时间")]
         public DateTime SaleCreateTime { get; set; }
 
         /// <summary>

@@ -13,32 +13,32 @@
             <span class="default red ml20">*</span>
             <span class="default">@Html.LabelFor(m => m.ContractKey)</span>
             <span class="eta_in">
-                @Html.TextBoxFor(m => m.ContractKey, new { @class = "w120" })
-                </span>
+                @Html.TextBoxFor(m => m.ContractKey)
+            </span>
             <span class="default red ml20">*</span>
             <span class="default">@Html.LabelFor(m => m.CTIME)</span>
             <span class="eta_in">@Html.TextBoxFor(m => m.CTIME, new { @class = "easyui-datebox", @id = "thedate", @style = "width:98%;", @required = "required", @Value = DateTime.Now.ToString("yyyy-MM-dd") })</span>
             <input type="hidden" name="OrderType" value="1" />
 
             <span class="default red">*</span><span class="default">汇率</span>@Html.TextBoxFor(m => m.Comments, new { @class = "w50" })
-</div>
+        </div>
         <div class="ddgl clearf calculate">
+
             <table id="picked_products_table" class="svs_table ml20 mr20">
                 <thead class="">
                     <tr>
                         <th class="check w20" width="20"></th>
-                        @*<th class="w150" style="width:150px;">货品出厂编号</th>*@
-                        <th style="width:100px;">货品名/品牌</th>
-                        <th style="width:50px;">规格</th>
-                        <th style="width:80px;">包装</th>
-                        <th style="width:80px;">件数</th>
-                        <th style="width:80px;">入仓吨数</th>
-                        <th style="width:80px;">销售数量</th>
-                        <th style="width:80px;">销售吨重</th>
-                        <th style="width:50px;">单价</th>
-                        <th style="width:50px;">货币</th>
-                        <th style="width:80px;">货款小计</th>
-                        <th class="operation" style="width:80px;">操作</th>
+                        <th class="w150">货品出厂编号</th>
+                        <th class="w200">国家/厂号/货品名/品牌</th>
+                        <th class="w150">规格</th>
+                        <th class="w100" >包装</th>
+                        <th class="w100" >件数</th>
+                        <th class="w100" >销售数量</th>
+                        <th class="w100" >销售吨重</th>
+                        <th class="w100" >销售单价(/千克)</th>
+                        <th class="w100" >货币</th>
+                        <th class="w100" >货款小计</th>
+                        <th class="operation w150">操作</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -47,63 +47,61 @@
                     {
                         <tr>
                             <td class="check" style="width:20px;">@(i + 1)</td>
-                            @*<td name="ProductKey" style="width:100px;"></td>*@
-                                <td name="ProductName" style="width:100px;"></td>
-                                <td name="Product.Specification" style="width:50px;"></td>
-                                <td name="Product.Packing" style="width:80px;"></td>
-                                <td name="Quantity" style="width:80px;"></td>
-                                <td name="" style="width:80px;"></td>
-                                <td style="width:80px;">
-                                    <input type="hidden" name="SaleProductItems[@i].ProductItemId" value="" />
-                                    <input name="SaleProductItems[@i].Quantity" type="text" style="width:80px;" />
-                                </td>
-                                <td style="width:80px;">
-                                    <input name="SaleProductItems[@i].Weight" class="num_compute" type="text" style="width:80px;" />
-                                </td>
-                                <td style="width:50px;">
-                                    <input name="SaleProductItems[@i].UnitPrice" class="num_compute" type="text" style="width:80px;" />
-                                </td>
-                                <td style="width:50px;">
-                                    <select name="SaleProductItems[@i].Currency" style="width:50px;">
-                                        <option>美元</option>
-                                        <option>港元</option>
-                                        <option>人民币</option>
-                                    </select>
-                                </td>
-                                <td name="SaleProductItems.SubTotal" style="width:80px;"></td>
-                                <td class="operation" style="width:80px;">
-                                    <a href="javascript:;" class="add">新增</a>
-                                    <span>|</span>
-                                    <a href="javascript:;" class="del">删除</a>
-                                </td>
-
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-                <div class="table_info mt10">
-                    <p class="clearf ml20">
-                        <span class="default">折扣率</span>
-                        <input class="w115" name="DiscountRate" value="100" data-val-min="0" data-val-max="100" type="text" />
-                        <span class="default">折扣额</span>
-                        <input class="w115" name="DiscountAmount2" value="0" type="text" readonly="readonly">
-                        <span class="default">折扣金额</span>
-                        <input class="w115 compute_all_subtotal" name="DiscountAmount" readonly="readonly" value="0" type="text">
-                        <span class="default">固定定金</span>
-                        <input class="w115" name="SaleDepositeStatic" value="0" type="text" readonly="readonly">
-                    </p>
-                    <p class="clearf ml20">
-                        <span class="default mr100">@Html.LabelFor(m => m.CreateSysUserKey)： @ViewBag.CurrentUser.Name (@ViewBag.CurrentUser.UserName)</span>
-                    </p>
-                </div>
-                <div class="submit">
-                    <button class="default" type="submit">保存</button>
-                    <button class="default" type="reset">取消</button>
-                </div>
+                            <td name="ProductKey" ></td>
+                            <td name="ProductName"></td>
+                            <td name="ProductItem.Product.Specification" style="width:50px;"></td>
+                            <td name="ProductItem.Product.Packing" style="width:50px;"></td>
+                            <td name="Quantity" style="width:50px;"></td>
+                            <td >
+                                <input type="hidden" name="SaleProductItems[@i].ProductItemId" value="" />
+                                <input name="SaleProductItems[@i].Quantity" type="text"  value="" />
+                            </td>
+                            <td >
+                                <input name="SaleProductItems[@i].Weight" class="num_compute" type="text"  value="" />
+                            </td>
+                            <td >
+                                <input name="SaleProductItems[@i].UnitPrice" class="num_compute" type="text"   />
+                            </td>
+                            <td >
+                                <select name="SaleProductItems[@i].Currency" >
+                                    <option>美元</option>
+                                    <option>港元</option>
+                                    <option>人民币</option>
+                                </select>
+                            </td>
+                            <td name="SaleProductItems.SubTotal" ></td>
+                            <td class="operation">
+                                <a href="javascript:;" class="add">新增</a>
+                                <span>|</span>
+                                <a href="javascript:;" class="del">删除</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <div class="table_info mt10">
+                <p class="clearf ml20">
+                    <span class="default">折扣率</span>
+                    <input class="w115" name="DiscountRate" value="100" data-val-min="0" data-val-max="100" type="text" />
+                    <span class="default">折扣额</span>
+                    <input class="w115" name="DiscountAmount2" value="0" type="text" readonly="readonly">
+                    <span class="default">折扣金额</span>
+                    <input class="w115 compute_all_subtotal" name="DiscountAmount" readonly="readonly" value="0" type="text">
+                    <span class="default">固定定金</span>
+                    <input class="w115" name="SaleDepositeStatic" value="0" type="text" readonly="readonly">
+                </p>
+                <p class="clearf ml20">
+                    <span class="default mr100">@Html.LabelFor(m => m.CreateSysUserKey)： @ViewBag.CurrentUser.Name (@ViewBag.CurrentUser.UserName)</span>
+                </p>
+            </div>
+            <div class="submit">
+                <button class="default" type="submit">保存</button>
+                <button class="default" type="reset">取消</button>
             </div>
         </div>
-    </form>
-    @*选择商品弹出层*@
+    </div>
+</form>
+@*选择商品弹出层*@
 <div id="pick_product_dialog" class="easyui-dialog" style="width:680px;height:500px;  padding:10px 20px;" data-options="modal:true,closed:true" buttons="#pick_product_dialog_bottons">
     <div style="padding:10px 0px;">
         <input type="text" name="filterValue" value="请输入商品编号或名称或规格" style="width:200px;height:28px; text-indent:1em; float:left;" />
@@ -119,14 +117,14 @@
         <thead>
             <tr data-options="height:120">
                 <th data-options="field:'CaoZuo',width:40,algin:'center',formatter:pick_product_operation_formatter">操作</th>
-                <th data-options="field:'Product.ProductKey',width:100,algin:'center',formatter:easyui_field_formatter">货品出厂编号</th>
-                <th data-options="field:'Product.ProductFullName',width:200,algin:'center',formatter:easyui_field_formatter">国家/厂号/货品名/品牌</th>
-                <th data-options="field:'Product.Specification',width:50,algin:'center',formatter:easyui_field_formatter">规格</th>
-                <th data-options="field:'Product.Packing',width:100,algin:'center',formatter:easyui_field_formatter">包装</th>
-                <th data-options="field:'Product.Units',width:50,algin:'center',formatter:easyui_field_formatter">单位</th>
-                <th data-options="field:'Quantity',width:50,algin:'center',formatter:easyui_field_formatter">件数</th>
-                <th data-options="field:'NetWeight',width:100,algin:'center',formatter:easyui_field_formatter">净重</th>
-                <th data-options="field:'ReceiveTime',width:150,algin:'center',formatter:easyui_field_formatter">收货时间</th>
+                <th data-options="field:'Product.ProductKey',width:100,algin:'center'">货品出厂编号</th>
+                <th data-options="field:'Product.ProductFullName',width:200,algin:'center'">国家/厂号/货品名/品牌</th>
+                <th data-options="field:'Product.Specification',width:50,algin:'center'">规格</th>
+                <th data-options="field:'Product.Packing',width:100,algin:'center'">包装</th>
+                <th data-options="field:'Product.Units',width:50,algin:'center'">单位</th>
+                <th data-options="field:'Quantity',width:50,algin:'center'">件数</th>
+                <th data-options="field:'NetWeight',width:100,algin:'center'">净重</th>
+                <th data-options="field:'ReceiveTime',width:150,algin:'center'">收货时间</th>
             </tr>
     </table>
 </div>
@@ -276,7 +274,7 @@
                     if (exit) {
                         return false;
                     }
-                    
+
                     //发送请求
                     $.ajax({
                         url: $('#add_order_form').prop('action'),
@@ -295,7 +293,7 @@
                             if (messages.length > 0) {
                                 $.messager.alert('提示', messages.join('<br/>'));
                             } else {
-                                $.messager.alert('提示', '新建成功',null, function () {
+                                $.messager.alert('提示', '新建成功', null, function () {
                                     parent.closeMainTab('新建期货销售合同');
                                     parent.addMainTab('采购与销售合同', 'Orders/OrderContract/Index');
                                 });

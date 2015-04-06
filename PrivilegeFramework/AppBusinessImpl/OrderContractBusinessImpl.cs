@@ -210,36 +210,36 @@ namespace PrivilegeFramework.AppBusinessImpl
                 HongkongLogisticsViewModel.AssignValues(model.HongkongLogistics,
                     contract.HongKongLogistics);
                 dbContext.HongKongLogisticsTable.Add(contract.HongKongLogistics);
-                //contract.HongKongLogistics.HongKongLogisticsCompanyId =
-                //   model.HongkongLogistics.HongKongLogisticsCompanyId.GetValueOrDefault();
+                contract.HongKongLogistics.HongKongLogisticsCompanyId =
+                   model.HongkongLogistics.HongKongLogisticsCompanyId.GetValueOrDefault();
 
-                //contract.HongKongLogistics.HongKongLogisticsItems =
-                //    new List<HKLogisItem>();
-                //foreach (var i in model.ContractItems)
-                //{
-                //    contract.HongKongLogistics.HongKongLogisticsItems.Add(
-                //        new HKLogisItem() { ProductItemId = i.ProductItemId.GetValueOrDefault() });
-                //}
-                //if (model.HongkongLogistics.LogisItems != null)
-                //{
-                //    int cnt = Math.Min(model.HongkongLogistics.LogisItems.Count,
-                //        contract.HongKongLogistics.HongKongLogisticsItems.Count);
-                //    for (int j = 0; j < cnt; j++)
-                //    {
-                //        var item = contract.HongKongLogistics.HongKongLogisticsItems.ElementAt(j);
-                //        var item2 = model.HongkongLogistics.LogisItems.ElementAt(j);
-                //        if (item != null && item2 != null)
-                //        {
-                //            item.ContractQuantity = item2.ContractQuantity;
-                //            item.ContractWeight = item2.ContractWeight;
-                //            item.FreightCharges = item2.FreightCharges;
-                //            item.Insurance = item2.Insurance;
-                //            item.ReceivingQuantity = item2.ReceivingQuantity;
-                //            item.ReceivingTime = item2.ReceivingTime;
-                //            item.ReceivingWeight = item2.ReceivingWeight;
-                //        }
-                //    }
-                //}
+                contract.HongKongLogistics.HongKongLogisticsItems =
+                    new List<HKLogisItem>();
+                foreach (var i in model.ContractItems)
+                {
+                    contract.HongKongLogistics.HongKongLogisticsItems.Add(
+                        new HKLogisItem() { ProductItemId = i.ProductItemId.GetValueOrDefault() });
+                }
+                if (model.HongkongLogistics.LogisItems != null)
+                {
+                    int cnt = Math.Min(model.HongkongLogistics.LogisItems.Count,
+                        contract.HongKongLogistics.HongKongLogisticsItems.Count);
+                    for (int j = 0; j < cnt; j++)
+                    {
+                        var item = contract.HongKongLogistics.HongKongLogisticsItems.ElementAt(j);
+                        var item2 = model.HongkongLogistics.LogisItems.ElementAt(j);
+                        if (item != null && item2 != null)
+                        {
+                            item.ContractQuantity = item2.ContractQuantity;
+                            item.ContractWeight = item2.ContractWeight;
+                            item.FreightCharges = item2.FreightCharges;
+                            item.Insurance = item2.Insurance;
+                            item.ReceivingQuantity = item2.ReceivingQuantity;
+                            item.ReceivingTime = item2.ReceivingTime;
+                            item.ReceivingWeight = item2.ReceivingWeight;
+                        }
+                    }
+                }
             }
             if (model.MainlandLogistics != null && model.MainlandLogistics.MainlandLogisticsCompanyId.HasValue
                 && model.MainlandLogistics.MainlandLogisticsCompanyId.Value > 0)
@@ -250,35 +250,35 @@ namespace PrivilegeFramework.AppBusinessImpl
                 MainlandLogisticsViewModel.AssignValues(model.MainlandLogistics, contract.MainlandLogistics);
                 dbContext.MainlandLogisticsTable.Add(mllogis);
 
-                //contract.MainlandLogistics.MainlandLogisticsCompanyId =
-                //     model.MainlandLogistics.MainlandLogisticsCompanyId.GetValueOrDefault();
-                //contract.MainlandLogistics.MainlandLogisticsItems =
-                //        new List<MLLogisItem>();
-                //foreach (var i in model.ContractItems)
-                //{
-                //    contract.MainlandLogistics.MainlandLogisticsItems.Add(
-                //        new MLLogisItem() { ProductItemId = i.ProductItemId.GetValueOrDefault() });
-                //}
-                //if (model.MainlandLogistics.LogisItems != null)
-                //{
-                //    int cnt = Math.Min(model.MainlandLogistics.LogisItems.Count,
-                //        contract.MainlandLogistics.MainlandLogisticsItems.Count);
-                //    for (int j = 0; j < cnt; j++)
-                //    {
-                //        var item = contract.MainlandLogistics.MainlandLogisticsItems.ElementAt(j);
-                //        var item2 = model.MainlandLogistics.LogisItems.ElementAt(j);
-                //        if (item != null && item2 != null)
-                //        {
-                //            item.ContractQuantity = item2.ContractQuantity;
-                //            item.ContractWeight = item2.ContractWeight;
-                //            item.FreightCharges = item2.FreightCharges;
-                //            item.Insurance = item2.Insurance;
-                //            item.ReceivingQuantity = item2.ReceivingQuantity;
-                //            item.ReceivingTime = item2.ReceivingTime;
-                //            item.ReceivingWeight = item2.ReceivingWeight;
-                //        }
-                //    }
-                //}
+                contract.MainlandLogistics.MainlandLogisticsCompanyId =
+                     model.MainlandLogistics.MainlandLogisticsCompanyId.GetValueOrDefault();
+                contract.MainlandLogistics.MainlandLogisticsItems =
+                        new List<MLLogisItem>();
+                foreach (var i in model.ContractItems)
+                {
+                    contract.MainlandLogistics.MainlandLogisticsItems.Add(
+                        new MLLogisItem() { ProductItemId = i.ProductItemId.GetValueOrDefault() });
+                }
+                if (model.MainlandLogistics.LogisItems != null)
+                {
+                    int cnt = Math.Min(model.MainlandLogistics.LogisItems.Count,
+                        contract.MainlandLogistics.MainlandLogisticsItems.Count);
+                    for (int j = 0; j < cnt; j++)
+                    {
+                        var item = contract.MainlandLogistics.MainlandLogisticsItems.ElementAt(j);
+                        var item2 = model.MainlandLogistics.LogisItems.ElementAt(j);
+                        if (item != null && item2 != null)
+                        {
+                            item.ContractQuantity = item2.ContractQuantity;
+                            item.ContractWeight = item2.ContractWeight;
+                            item.FreightCharges = item2.FreightCharges;
+                            item.Insurance = item2.Insurance;
+                            item.ReceivingQuantity = item2.ReceivingQuantity;
+                            item.ReceivingTime = item2.ReceivingTime;
+                            item.ReceivingWeight = item2.ReceivingWeight;
+                        }
+                    }
+                }
             }
         }
 

@@ -426,10 +426,10 @@ namespace YuShang.ERP.Entities.Orders
 
     public enum ContractStatus
     {
-        NotAudited,
-        AuditNoPass,
-        AuditPassed,
-        Closed,
+        NotAudited = 0,
+        AuditNoPass = 2,
+        AuditPassed = 1,
+        Closed = -1,
     }
 
 }

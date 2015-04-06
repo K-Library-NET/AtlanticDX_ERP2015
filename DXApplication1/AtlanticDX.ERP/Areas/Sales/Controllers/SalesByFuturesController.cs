@@ -35,7 +35,7 @@ namespace AtlanticDX.ERP.Areas.Sales.Controllers
         /// <returns></returns>
         [HttpPost]
         public JsonResult Index(int page = 1, int rows = 10, DateTime? DateFrom = null, DateTime? DateTo = null,
-            string filterValue = "")
+            string filterValue = "",bool isSubmit=false)
         {
             ContractListCondition condition = new ContractListCondition()
             {
@@ -44,11 +44,13 @@ namespace AtlanticDX.ERP.Areas.Sales.Controllers
                 | ContractListInclude.WithAggregations
                | ContractListInclude.WithProductStock,
                 OrderType = 0,
-                OrderField = ContractOrderField.CTIME_ASC,
+                OrderField = ContractOrderField.CTIME_DESC,
                 Page = page,
                 Rows = rows,
-                ProductFullNameFilterValue = filterValue,
-                UserName = HttpContext.User.Identity.Name
+                SerialOrSupplierFilterValue = filterValue,
+                UserName = HttpContext.User.Identity.Name,
+                CTIMEFrom = DateFrom,
+                CTIMETimeTo = DateTo
             };
 
             var viewModels = ContractManager.Instance.GetIndexListContracts(HttpContext.GetOwinContext(),
@@ -57,15 +59,44 @@ namespace AtlanticDX.ERP.Areas.Sales.Controllers
             int total = 0;
             if (viewModels != null && viewModels.IsEnable.GetValueOrDefault())
             {
-                if (viewModels.Aggregations != null &&
-                    viewModels.Aggregations.IsEnable.GetValueOrDefault())
-                    total = viewModels.Aggregations.Count.GetValueOrDefault();
-                return Json(new { total = total, rows = viewModels.ContractItems });
+                IEnumerable<ContractInfo> list = viewModels.ContractItems;
+
+                return Json(new
+                {
+                    total = viewModels.Aggregations.Count.GetValueOrDefault(),
+                    rows = list
+                });
+                //if (viewModels.Aggregations != null &&
+                //    viewModels.Aggregations.IsEnable.GetValueOrDefault())
+                //    total = viewModels.Aggregations.Count.GetValueOrDefault();
+                //return Json(new { total = total, rows = viewModels.ContractItems });
             }
             else if (viewModels != null && !string.IsNullOrEmpty(viewModels.ErrorMessage))
             {
                 ModelState.AddModelError(string.Empty, viewModels.ErrorMessage);
             }
+
+            IEnumerable<ContractInfo> list2 = viewModels.ContractItems;
+
+            return Json(new
+           {
+               total = viewModels.Aggregations.Count.GetValueOrDefault(),
+               rows = list2
+           });
+
+            /*
+             * <th data-options="field:'ContractKey',width:120,algin:'center'">@Html.DisplayNameFor(m => m.ContractKey)</th>
+                <th data-options="field:'OrderType',width:75,algin:'center',formatter:func_ordertype_formatter">@Html.DisplayNameFor(m => m.OrderType)</th>
+                <th data-options="field:'SaleClient.CompanyName',width:85,align:'center'">@Html.DisplayNameFor(m => m.SaleClient.CompanyName)</th>
+                <th data-options="field:'DiscountAmount',width:100,align:'center'">@Html.DisplayNameFor(m => m.DiscountAmount)</th>
+                <th data-options="field:'TotalAfterDiscount',width:150,align:'center'">@Html.LabelFor(m => m.TotalAfterDiscount)</th>
+                <th data-options="field:'SaleDeposite',width:150,align:'center'">@Html.LabelFor(m => m.SaleDeposite)</th>
+                <th data-options="field:'SaleBalancedPayment',width:150,align:'center'">@Html.LabelFor(m => m.SaleBalancedPayment)</th>
+                <th data-options="field:'OperatorPersonName',width:150,align:'center'">@Html.LabelFor(m => m.OperatorPersonName)</th>
+                <th data-options="field:'Caozuo',width:300,align:'center',formatter:func_operation_formatter">操作</th>
+            
+             */
+
             //int total = 0;
             //IQueryable<SaleContract> saleContractQuery =
             //    AppBusinessManager.Instance.GetIndexListSaleContract(dxContext, 0, //期货销售
@@ -74,8 +105,8 @@ namespace AtlanticDX.ERP.Areas.Sales.Controllers
             //IEnumerable<SaleContract> list = saleContractQuery.AsParallel()
             //   .OrderByDescending(m => m.SaleCreateTime).Skip((page - 1) * rows).Take(rows).ToList();
 
-            //FIXED  获取期货销售列表
-            return Json(new { total = total, rows = new ContractInfo[] { } });
+            ////FIXED  获取期货销售列表
+            //return Json(new { total = total, rows = new ContractInfo[] { } });
         }
 
         public ActionResult Add()
@@ -200,6 +231,16 @@ namespace AtlanticDX.ERP.Areas.Sales.Controllers
                 //FIXED 添加销售还价逻辑
             }
             return Json(ModelState.GetModelStateErrors());
+        }
+
+
+        /// <summary>
+        /// 现货销售合同交单
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult SubmitIndex()
+        {
+            return View();
         }
 
         protected override void Dispose(bool disposing)

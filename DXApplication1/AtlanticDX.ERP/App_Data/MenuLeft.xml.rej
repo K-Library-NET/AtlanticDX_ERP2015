@@ -1,9 +1,0 @@
-diff a/DXApplication1/AtlanticDX.ERP/App_Data/MenuLeft.xml b/DXApplication1/AtlanticDX.ERP/App_Data/MenuLeft.xml	(rejected hunks)
-@@ -54,7 +54,6 @@
-     <item Text="应收账款汇总表" Area="hk_delivery" StyleClass=""  />
-   </item>
-   <item Text="系统设置" Area="Configs" StyleClass="se">
--    <item Text="系统参数配置" Area="SysConfig" StyleClass="" />
-     <item Text="系统参数配置" Area="Configs" Controller="SysConfig" Action="Index" StyleClass="" />
-     <item Text="角色管理" Area="Configs" Controller="RoleMgmt" Action="Index" StyleClass="" />
-     <item Text="用户管理" Area="Configs" Controller="UserMgmt" Action="Index" StyleClass="" />

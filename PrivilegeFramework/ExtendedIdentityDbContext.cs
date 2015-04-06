@@ -17,7 +17,7 @@ namespace PrivilegeFramework
         : Microsoft.AspNet.Identity.EntityFramework.IdentityDbContext<SysUser,
         SysRole, int, SysUserLogin, SysUserRole, SysUserClaim>
     {
-        public ExtendedIdentityDbContext()
+        internal ExtendedIdentityDbContext()
             : base(DEFAULT_NAME_OR_CONNECTION)
         {
             this.DebugOutput(

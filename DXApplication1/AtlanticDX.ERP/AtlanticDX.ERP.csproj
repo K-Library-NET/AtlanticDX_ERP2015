@@ -526,6 +526,7 @@
     <Content Include="Properties\PublishProfiles\ReleaseBeta.pubxml.user" />
     <Content Include="Properties\PublishProfiles\ReleaseV001.pubxml.user" />
     <Content Include="Scripts\add_edit_remove.js" />
+    <Content Include="Scripts\datagrid-formatter.js" />
     <Content Include="Scripts\common.js" />
     <Content Include="Scripts\datagrid-detailview.js" />
     <Content Include="Scripts\dxy.js" />
@@ -589,6 +590,8 @@
     <Content Include="Areas\Sales\Views\SalesByFutures\Audit.cshtml" />
     <Content Include="Areas\Sales\Views\SalesByFutures\Edit.cshtml" />
     <Content Include="Areas\Orders\Views\OrderContract\AddBgwl.cshtml" />
+    <Content Include="Areas\Sales\Views\SalesByFutures\SubmitIndex.cshtml" />
+    <Content Include="Areas\Sales\Views\SalesByInventories\SubmitIndex.cshtml" />
     <None Include="Properties\PublishProfiles\ReleaseBeta.pubxml" />
     <None Include="Properties\PublishProfiles\ReleaseV001.pubxml" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
@@ -627,7 +630,7 @@
     <Content Include="Areas\Public\Views\web.config" />
     <Content Include="Areas\Public\Views\Account\Login.cshtml" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
-    <Content Include="Scripts\Order\AddBjwl.js" />
+    <Content Include="Scripts\Order\bgwl.js" />
     <Content Include="Scripts\pick_product.js" />
     <Content Include="Scripts\PNG.js" />
     <Content Include="Scripts\reports\adapters\standalone-framework.js" />
@@ -820,6 +823,7 @@
     <Folder Include="Areas\ResMgr\Views\Shared\" />
     <Folder Include="Areas\Sales\Views\Shared\" />
     <Folder Include="Areas\Stocks\Views\Shared\" />
+    <Folder Include="Scripts\Sales\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201501310559404_InitDatabaseV20.resx">
