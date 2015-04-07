@@ -28,24 +28,24 @@
                 <thead class="">
                     <tr>
                         <th class="check w20"></th>
-                        <th class="w150">货品出厂编号</th>
-                        <th class="w200">国家/厂号/货品名/品牌</th>
-                        <th class="w80">规格</th>
-                        <th class="w100">包装</th>
+                        @*<th class="w150">货品出厂编号</th>*@
+                        <th class="w100">货品名/品牌</th>
+                        <th class="w50">规格</th>
+                        <th class="w80">包装</th>
                         <th class="w80">件数</th>
                         <th class="w80">销售数量</th>
                         <th class="w80">销售吨重</th>
-                        <th class="w80">销售单价(/千克)</th>
-                        <th class="w100">货币</th>
-                        <th class="w100">货款小计</th>
-                        <th class="operation w150">操作</th>
+                        <th class="w50">单价</th>
+                        <th class="w50">货币</th>
+                        <th class="w80">货款小计</th>
+                        <th class="operation w80">操作</th>
                 </thead>
                 <tbody>
                     @for (int i = 0; i <= 0; i++)
                     {
                         <tr>
                             <td class="check">@(i + 1)</td>
-                            <td name="ProductKey"></td>
+                            @*<td name="ProductKey"></td>*@
                             <td name="ProductName"></td>
                             <td name="ProductItem.Product.Specification"></td>
                             <td name="ProductItem.Product.Packing"></td>
@@ -54,16 +54,16 @@
                                 <input type="hidden" name="SaleProductItems[@i].StockItemId" value="" />
                                 <input name="SaleProductItems[@i].Productd" type="hidden" value="" />
                                 <input name="SaleProductItems[@i].ProductItemId" type="hidden" value="" />
-                                <input name="SaleProductItems[@i].Quantity" type="text" value="" />
+                                <input name="SaleProductItems[@i].Quantity" type="text" value="" style="width:80px;" />
                             </td>
                             <td>
-                                <input name="SaleProductItems[@i].Weight" class="num_compute" type="text" value="" />
+                                <input name="SaleProductItems[@i].Weight" class="num_compute" type="text" value="" style="width:80px;" />
                             </td>
                             <td>
-                                <input name="SaleProductItems[@i].UnitPrice" class="num_compute" type="text" value="" />
+                                <input name="SaleProductItems[@i].UnitPrice" class="num_compute" type="text" value="" style="width:50px;" />
                             </td>
                             <td>
-                                <select name="SaleProductItems[@i].Currency">
+                                <select name="SaleProductItems[@i].Currency" style="width:50px;">
                                     <option>美元</option>
                                     <option>港元</option>
                                     <option>人民币</option>
@@ -76,33 +76,33 @@
                                 <a href="javascript:;" class="del">删除</a>
                             </td>
                         </tr>
-                    }
-                </tbody>
-            </table>
-            <div class="table_info mt10">
-                <p class="clearf ml20">
-                    <span class="default">折扣率</span>
-                    <input class="w115" name="DiscountRate" value="100" data-val-min="0" data-val-max="100" type="text" />
-                    <span class="default">折扣额</span>
-                    <input class="w115" name="DiscountAmount2" value="0" type="text" readonly="readonly">
-                    <span class="default">折扣金额</span>
-                    <input class="w115 compute_all_subtotal" name="DiscountAmount" readonly="readonly" value="0" type="text">
-                    <span class="default">固定定金</span>
-                    <input class="w115" name="SaleDepositeStatic" value="0" type="text" readonly="readonly">
-                </p>
-                <p class="clearf ml20">
-                    <span class="default mr100">@Html.DisplayNameFor(m => m.CreateSysUserKey)： @ViewBag.CurrentUser.Name (@ViewBag.CurrentUser.UserName)</span>
-                </p>
-            </div>
-            <div class="submit">
-                <button class="default" type="submit">保存</button>
-                <button class="default" type="reset">取消</button>
+                        }
+                    </tbody>
+                </table>
+                <div class="table_info mt10">
+                    <p class="clearf ml20">
+                        <span class="default">折扣率</span>
+                        <input class="w115" name="DiscountRate" value="100" data-val-min="0" data-val-max="100" type="text" />
+                        <span class="default">折扣额</span>
+                        <input class="w115" name="DiscountAmount2" value="0" type="text" readonly="readonly">
+                        <span class="default">折扣金额</span>
+                        <input class="w115 compute_all_subtotal" name="DiscountAmount" readonly="readonly" value="0" type="text">
+                        <span class="default">固定定金</span>
+                        <input class="w115" name="SaleDepositeStatic" value="0" type="text" readonly="readonly">
+                    </p>
+                    <p class="clearf ml20">
+                        <span class="default mr100">@Html.DisplayNameFor(m => m.CreateSysUserKey)： @ViewBag.CurrentUser.Name (@ViewBag.CurrentUser.UserName)</span>
+                    </p>
+                </div>
+                <div class="submit">
+                    <button class="default" type="submit">保存</button>
+                    <button class="default" type="reset">取消</button>
+                </div>
             </div>
         </div>
-    </div>
-</form>
+    </form>
 
-@*选择商品弹出层*@
+    @*选择商品弹出层*@
 <div id="pick_product_dialog" class="easyui-dialog" style="width:680px;min-height:240px;max-height:500px; height:50%;  padding:10px 20px;" data-options="modal:true,closed:true" buttons="#pick_product_dialog_bottons">
     <div style="padding:10px 0px;">
         <input type="text" name="filterValue" value="请输入商品编号或名称或规格" style="width:200px;height:28px; text-indent:1em; float:left;" />

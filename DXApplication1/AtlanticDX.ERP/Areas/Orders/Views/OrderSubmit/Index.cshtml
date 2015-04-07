@@ -84,9 +84,9 @@
                data-options="view:detailview,detailFormatter: orderSubmitProductDetailFormatterNew,rownumbers:true,pagination:true,singleSelect:true,onLoadSuccess:datagrid_onLoadSuccess,url:'/@ViewContext.RouteData.Values["Area"].ToString()/@ViewContext.RouteData.Values["Controller"].ToString()/Index',method:'post'">
             <thead>
                 <tr data-options="height:120">
-                    <th data-options="field:'OrderContractKey',width:150,algin:'center'">@Html.Label("OrderContractKey")</th>
-                    <th data-options="field:'OrderType',width:70,algin:'center',formatter:func_ordertype_formatter">@Html.DisplayNameFor(m => m.OrderType)</th>
-                    <th data-options="field:'OrderCreateTime',width:150,align:'center'">@Html.DisplayNameFor(m => m.OrderCreateTime)</th>
+                    <th data-options="field:'OrderContractKey',width:120,algin:'center'">@Html.Label("OrderContractKey")</th>
+                    <th data-options="field:'OrderType',width:50,algin:'center',formatter:func_ordertype_formatter">@Html.DisplayNameFor(m => m.OrderType)</th>
+                    <th data-options="field:'OrderCreateTime',width:90,align:'center'">@Html.DisplayNameFor(m => m.OrderCreateTime)</th>
                     @*<th data-options="field:'ETA',width:150,align:'center'">@Html.DisplayNameFor(m => m.ETA)</th>
                             <th data-options="field:'ETD',width:150,align:'center'">@Html.DisplayNameFor(m => m.ETD)</th>
                             <th data-options="field:'ShipmentPeriod',width:120,align:'center'">@Html.DisplayNameFor(m => m.ShipmentPeriod)</th>

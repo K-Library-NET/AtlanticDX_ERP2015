@@ -611,21 +611,21 @@ input::-ms-reveal{display: none;}
 #cgjdgz .datagrid-cell-c2-Caozuo { width:120px;}
 
 
-#cgjdgz .datagrid-cell-c1-OrderContractKey { width:150px;}
-#cgjdgz .datagrid-cell-c1-OrderType { width:100px;}
-#cgjdgz .datagrid-cell-c1-OrderCreateTime { width:150px;}
+#cgjdgz .datagrid-cell-c1-OrderContractKey { width:120px;}
+#cgjdgz .datagrid-cell-c1-OrderType { width:50px;}
+#cgjdgz .datagrid-cell-c1-OrderCreateTime { width:80px;}
 #cgjdgz .datagrid-cell-c1-ETA { width:150px;}
 #cgjdgz .datagrid-cell-c1-ETD { width:150px;}
 #cgjdgz .datagrid-cell-c1-ShipmentPeriod { width:150px;}
 #cgjdgz .datagrid-cell-c1-ContainerSerial { width:120px;}
 #cgjdgz .datagrid-cell-c1-DeliveryBillSerial { width:150px;}
 #cgjdgz .datagrid-cell-c1-DestinationHarborKey { width:250px;}
-#cgjdgz .datagrid-cell-c1-OrderSysUserKey { width:120px;}
-#cgjdgz .datagrid-cell-c1-ImportDeposite { width:120px;}
-#cgjdgz .datagrid-cell-c1-ImportBalancedPayment { width:120px;}
-#cgjdgz .datagrid-cell-c1-PaymentTotal { width:120px;}
-#cgjdgz .datagrid-cell-c1-xszdj { width:120px;}
-#cgjdgz .datagrid-cell-c1-Caozuo { width:120px;}
+#cgjdgz .datagrid-cell-c1-OrderSysUserKey { width:80px;}
+#cgjdgz .datagrid-cell-c1-ImportDeposite { width:85px;}
+#cgjdgz .datagrid-cell-c1-ImportBalancedPayment { width:85px;}
+#cgjdgz .datagrid-cell-c1-PaymentTotal { width:85px;}
+#cgjdgz .datagrid-cell-c1-xszdj { width:100px;}
+#cgjdgz .datagrid-cell-c1-Caozuo { width:60px;}
 
 
 
@@ -644,7 +644,7 @@ input::-ms-reveal{display: none;}
 #cght .datagrid-cell-c1-ImportBalancedPayment { width:80px;}
 #cght .datagrid-cell-c1-PaymentTotal { width:80px;}
 #cght .datagrid-cell-c1-xszdj { width:80px;}
-#cght .datagrid-cell-c1-Caozuo { width:80px;}
+#cght .datagrid-cell-c1-Caozuo { width:60px;}
 
 
 #audit_ordercontract_dialog label { width:100px; height:50px; display:block; float:left;}
@@ -722,8 +722,9 @@ input::-ms-reveal{display: none;}
 #xhcg .datagrid-cell-c1-TotalAfterDiscount { width:80px;}
 #xhcg .datagrid-cell-c1-SaleDeposite { width:80px;}
 #xhcg .datagrid-cell-c1-SaleBalancedPayment { width:80px;}
+#xhcg .datagrid-cell-c1-OperatorPersonName { width:80px;}
 #xhcg .datagrid-cell-c1-OperatorSysUser { width:80px;}
-#xhcg .datagrid-cell-c1-Caozuo { width:80px;}
+#xhcg .datagrid-cell-c1-Caozuo { width:60px;}
 
 
 .xszdj { cursor:pointer; border:none; background-color:#35acdd; padding:10px 15px; color:#fff; font-size:16px;}
@@ -858,7 +859,7 @@ input::-ms-reveal{display: none;}
 .mobanhang .zdxsj {position:absolute; right:20px; margin-top:5px; color:#fff; background-color:#35acdd; border:1px solid #176e92; height:28px; cursor:pointer; padding:0 10px;}
 
 
-#cght .datagrid-row-detail { height:350px; overflow:auto; }
+.datagrid-row-detail { height:350px; overflow:auto; }
 
 
 
