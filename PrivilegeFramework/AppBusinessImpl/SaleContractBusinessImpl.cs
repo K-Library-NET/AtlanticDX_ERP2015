@@ -188,7 +188,7 @@ namespace PrivilegeFramework.AppBusinessImpl
                 return string.Empty;
 
             StockItem stockItem = dbContext.StockItems.FirstOrDefault(
-                p => p.StockItemId == saleItem.SaleProductItemId && p.IsAllSold == false);
+                p => saleItem.StockItemId.HasValue && p.StockItemId == saleItem.StockItemId.Value && p.IsAllSold == false);
 
             if (stockItem == null)
                 return "找不到对应的库存商品项，或者对应的商品项已经被销售完毕。";
@@ -326,12 +326,58 @@ namespace PrivilegeFramework.AppBusinessImpl
             //contract.OperatorSysUser = userName;
             StringBuilder builder = new StringBuilder();
 
+            //需要删除的：contract里面有，但是model里面没有的，这一点应该先做
+            List<SaleProductItem> tobeDeleted = new List<SaleProductItem>();
+
+            System.Diagnostics.Debug.Assert(model.OrderType == contract.OrderType);
+            if (model.OrderType == 0)
+            {
+                var lookup0 = model.SaleProductItems.ToLookup<SaleProductItemInfo, int>(
+                                   sp => sp.ProductItemId.HasValue ? sp.ProductItemId.Value : 0);
+                var result0 = from one in contract.SaleProducts
+                              where one.ProductItemId.HasValue && !lookup0.Contains(one.ProductItemId.Value)
+                              select one;
+                if (result0 != null && result0.Count() > 0)
+                {
+                    dbContext.SaleProductItems.RemoveRange(result0);
+                    tobeDeleted.AddRange(result0);
+                }
+            }
+            else if (model.OrderType == 1)
+            {
+                var lookup1 = model.SaleProductItems.ToLookup<SaleProductItemInfo, int>(
+                                   sp => sp.ProductItemId.HasValue ? sp.ProductItemId.Value : 0);
+                var result1 = from one in contract.SaleProducts
+                              where one.StockItem != null && !lookup1.Contains(one.StockItem.ProductItemId)
+                              select one;
+                if (result1 != null && result1.Count() > 0)
+                {
+                    dbContext.SaleProductItems.RemoveRange(result1);
+                    tobeDeleted.AddRange(result1);
+                }
+            }
+
+            var toDeleteIds = tobeDeleted.ToLookup<SaleProductItem, int>(
+                                   sp => sp.SaleProductItemId);
+
             foreach (var item in model.SaleProductItems)
             {
                 if (item != null)
                 {
-                    SaleProductItem saleItem = contract.SaleProducts.FirstOrDefault(
-                        s => s.SaleProductItemId == item.ProductItemId);
+                    SaleProductItem saleItem = null;
+                    if (model.OrderType == 0)
+                    {
+                        saleItem = contract.SaleProducts.FirstOrDefault(
+                            s => (s.ProductItemId.HasValue && item.ProductItemId.HasValue &&
+                                s.ProductItemId.Value == item.ProductItemId.Value));
+                    }
+                    else if (model.OrderType == 1)
+                    {
+                        saleItem = contract.SaleProducts.FirstOrDefault(
+                            s => (item.ProductItemId.HasValue && s.StockItem != null
+                                && s.StockItem.ProductItemId == item.ProductItemId.Value));
+                    }
+
                     if (saleItem == null)
                     {
                         saleItem = dbContext.SaleProductItems.Create();
@@ -340,27 +386,45 @@ namespace PrivilegeFramework.AppBusinessImpl
                     SaleProductItemInfo.AssignValues(item, saleItem);
                     saleItem.SaleContract = contract;
 
-                    string errMsg = this.HandleStockItemMove(dbContext, contract, saleItem, userName);
+                    string errMsg = string.Empty;
+                    if (contract.OrderType == 1)
+                    {//现货
+                        errMsg = this.HandleStockItemMove(dbContext, contract, saleItem, userName);
+                    }
                     if (!string.IsNullOrWhiteSpace(errMsg))
                         builder.AppendLine(errMsg);
                     //dbContext.SaleProductItems.Add(saleItem);
                 }
             }
 
-            var tp = from it in contract.SaleProducts
-                     where !model.SaleProductItems.Any(
-                        m => m.ProductItemId == it.SaleProductItemId)
-                     select it;
+            //var tp = from it in contract.SaleProducts
+            //         where model.SaleProductItems.Any(s =>
+            //         (s.SaleProductItemId != it.ProductItemId && contract.OrderType == 0)
+            //         || (s.SaleProductItemId != it.SaleProductItemId && contract.OrderType == 1))
+            //         // m => m.ProductItemId == it.SaleProductItemId)
+            //         select it;
 
-            if (tp != null && tp.Count() > 0)
-            {
-                foreach (var i in tp)
-                {
-                    contract.SaleProducts.Remove(i);
-                }
-                dbContext.SaleProductItems.RemoveRange(tp);
-            }
+            //if (tp != null && tp.Count() > 0)
+            //{
+            //    foreach (var i in tp)
+            //    {
+            //        contract.SaleProducts.Remove(i);
+            //    }
+            //    dbContext.SaleProductItems.RemoveRange(tp);
+            //}
             //dbContext.SaleContracts.Add(contract);
+
+            if (tobeDeleted != null && tobeDeleted.Count() > 0)
+            {
+                for (int k = contract.SaleProducts.Count - 1; k >= 0; k--)
+                {
+                    var tempk = contract.SaleProducts.ElementAt(k);
+                    if (toDeleteIds.Contains(tempk.ProductItemId.GetValueOrDefault()))
+                    {
+                        contract.SaleProducts.Remove(tempk);
+                    }
+                }
+            }
 
             string temp = builder.ToString();
             if (!string.IsNullOrWhiteSpace(temp))
@@ -525,7 +589,7 @@ namespace PrivilegeFramework.AppBusinessImpl
             }
             catch (Exception ee)
             {
-                LogHelper.Error("获取SaleContract列表失败。", ee); 
+                LogHelper.Error("获取SaleContract列表失败。", ee);
                 return null;
             }
         }
@@ -533,7 +597,7 @@ namespace PrivilegeFramework.AppBusinessImpl
         private string GetUserName(ContractListCondition condition,
             Microsoft.Owin.IOwinContext owinContext)
         {
-            return AppBusinessManager.GetUserName(condition, owinContext); 
+            return AppBusinessManager.GetUserName(condition, owinContext);
         }
     }
 }

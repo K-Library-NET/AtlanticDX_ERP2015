@@ -183,3 +183,5 @@ UpgradeLog*.htm
 FakesAssemblies/
 DXApplication1/AtlanticDX.ERP/App_Data/elmah/
 DXApplication1/AtlanticDX.ERP/App_Data/log4net/
+*.vssettings
+Windows Azure Subscriptions.xml
