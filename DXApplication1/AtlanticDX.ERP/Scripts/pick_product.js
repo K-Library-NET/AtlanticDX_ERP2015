@@ -13,6 +13,8 @@ $(document).ready(function () {
     });
     //已选商品列表-添加删除行
     var newOrderedProductsRowHtml = '<tr>' + $('#picked_products_table tbody tr').last().html() + '</tr>';
+    var newHhRowHtml = $('#tb_HongKong tr').last().parent().html();
+    var newMlRowHtml = $('#tb_MainLand tr').last().parent().html();
     $('#picked_products_table tbody').on('click', 'a.add,a.del', function () {
         if ($(this).hasClass('add')) {
             $('#picked_products_table tbody tr').last().after(newOrderedProductsRowHtml);
@@ -28,6 +30,31 @@ $(document).ready(function () {
                 $(obj).find('tbody tr').last().after('<tr>' + $(obj).find('tbody tr').last().html() + '</tr>');
                 $(obj).find('tbody tr').last().find('input').val('')
             });
+            //如果是采购订单则添加相应的物流信息
+            if (isOrder) {
+                //香港物流
+                $('#tb_HongKong tr').last().after(newHhRowHtml);
+                $('#tb_HongKong tr').each(function (i, obj) {
+                    $(obj).find('td:first').text(i + 1);
+                });
+                $('#tb_HongKong  tr').last().find('td').each(function (k) {
+                    if ($(this).attr('name') != undefined) {
+                        $(this).text('');
+                    }
+                });
+                $('#tb_MainLand tr').last().find('input').val('');
+                //内地物流
+                $('#tb_MainLand tr').last().after(newMlRowHtml);
+                $('#tb_MainLand tr').each(function (i, obj) {
+                    $(obj).find('td:first').text(i + 1);
+                });
+                $('#tb_MainLand  tr').last().find('td').each(function (k) {
+                    if ($(this).attr('name') != undefined) {
+                        $(this).text('');
+                    }
+                });
+                $('#tb_HongKong tr').last().find('input').val('');
+            }
         } else if ($(this).hasClass('del')) {
             if ($('#picked_products_table tbody tr').size() == 1) {
                 $.messager.alert('提示', '不能删除');
@@ -44,6 +71,14 @@ $(document).ready(function () {
                 $('table.related_product_table').each(function (i, obj1) {
                     $(obj1).find('tbody tr').eq(tr_index).remove();
                 });
+
+                //如果是采购订单则添加相应的物流信息
+                if (isOrder) {
+                    //香港物流
+                    $('#tb_HongKong tr').eq(tr_index).remove();                   
+                    //内地物流
+                    $('#tb_MainLand tr').eq(tr_index).remove();
+                }
 
             }
         }
@@ -131,32 +166,7 @@ $(document).ready(function () {
                 $.messager.alert('提示', '该商品已选择');
             } else {
                 var tr = $('#picked_products_table tbody tr:nth-child(' + (current_order_product_index + 1) + ')');
-                for (var key in row) {
-                    if ($.type(row[key]) == 'object') {
-                        for (var key2 in row[key]) {
-                            if ($.type(row[key][key2]) == 'object') {
-                                for (var key3 in row[key][key2]) {
-                                    if ($.type(row[key][key2][key3]) != 'object') {
-                                        tr.find('td[name="' + key + '.' + key2 + '.' + key3 + '"]').text(row[key][key2][key3]);
-                                    }
-                                }
-                            } else {
-                                tr.find('td[name="' + key + '.' + key2 + '"]').text(row[key][key2]);
-                            }
-                        }
-                    } else {
-                        tr.find('td[name="' + key + '"]').text(row[key]);
-                    }
-                }
-                tr.find('input[type!="hidden"]').val('');//清掉已经填写数据
-                tr.find('input[name$="ProductKey"]').val(row['ProductKey']);
-                tr.find('input[name$="ProductId"]').val(row['ProductId']);
-                tr.find('input[name$="' + pick_product_id_name + '"]').val(row[pick_product_id_name]);
-                tr.find('td[name$="SubTotal"]').text('');
-                tr.find('select').each(function (index, obj) {
-                    $(obj).val($(obj).find('option:first').val());
-                });
-
+                setTrContent(tr, row, pick_product_id_name);
                 $('table.related_product_table').each(function (i, obj1) {
                     $(obj1).find('tbody tr:nth-child(' + (current_order_product_index + 1) + ') td[name="ProductFullName"]').text(row['ProductFullName']);
                     if (row['ProductId'] != undefined) {
@@ -169,68 +179,16 @@ $(document).ready(function () {
                         $(obj1).find('tbody tr:nth-child(' + (current_order_product_index + 1) + ') input[name$="StockItemId"]').val(row['StockItemId']);
                     }
                 });
-
                 picked_productkeys_ids.push(row[pick_product_id_name]);
                 $('#pick_product_dialog').dialog('close');
                 //如果是采购订单则添加相应的物流信息
                 if (isOrder) {
-                    var i = picked_productkeys_ids.length;
-                    var htmlArray = new Array();
-                    //添加香港物流信息tb_HongKong
-                    htmlArray.push('<tr> ');
-                    htmlArray.push('<td class="check">' + i + '</td>');
-                    htmlArray.push(' <td>');
-                    htmlArray.push(row['ProductFullName']);
-                    htmlArray.push('<input type="hidden" name="HongkongLogistics.LogisItems[' + i + '].ProductItemId" ');
-                    htmlArray.push(' value="' + row['ProductItemId'] + '" />');
-                    htmlArray.push(' </td>');
-                    //htmlArray.push('<td>' + row['MadeInCountry'] + '</td>');
-                    //htmlArray.push('<td>' + row['MadeInFactory'] + '</td>');
-                    htmlArray.push('<td>');
-                    htmlArray.push('<input name="HongkongLogistics.LogisItems[' + i + '].ContractQuantity" type="text" class="HongkongLogistics quantity" value="' + getVal(row['Quantity'], 0) + '" />');
-                    htmlArray.push(' </td>');
-                    htmlArray.push(' <td>');
-                    htmlArray.push(' <input name="HongkongLogistics.LogisItems[' + i + '].ContractWeight" type="text" class="num_compute" />');
-                    htmlArray.push(' </td>');
-                    htmlArray.push(' <td>');
-                    htmlArray.push(' <input name="HongkongLogistics.LogisItems[' + i + '].FreightCharges" type="text" class="num_compute" />');
-                    htmlArray.push(' </td>');
-                    htmlArray.push('  <td>');
-                    htmlArray.push('  <input name="HongkongLogistics.LogisItems[' + i + '].Insurance" type="text" class="num_compute" />');
-                    htmlArray.push('</td>');
-                    htmlArray.push('<td>');
-                    htmlArray.push('<input name="HongkongLogistics.LogisItems[' + i + '].SubTotal" type="text" readonly="readonly" />');
-                    htmlArray.push('</td>');
-                    htmlArray.push('</tr>');
-                    $("#tb_HongKong").append(htmlArray.join(''));
-                    //添加内地物流信息tb_MainLand   
-                    htmlArray = new Array();
-                    htmlArray.push('<tr> ');
-                    htmlArray.push('<td class="check">' + i + '</td>');
-                    htmlArray.push(' <td>');
-                    htmlArray.push(row['ProductFullName']);
-                    htmlArray.push('<input type="hidden" name="MainlandLogistics.LogisItems[' + i + '].ProductItemId" ');
-                    htmlArray.push(' value="' + row['ProductItemId'] + '" />');
-                    htmlArray.push(' </td>');
-                    //htmlArray.push('<td>' + row['MadeInCountry'] + '</td>');
-                    //htmlArray.push('<td>' + row['MadeInFactory'] + '</td>');
-                    htmlArray.push('<td>');
-                    htmlArray.push('<input name="MainlandLogistics.LogisItems[' + i + '].ContractQuantity" type="text" class="MainlandLogistics quantity"  value="' + getVal(row['Quantity'], 0) + '" />');
-                    htmlArray.push(' </td>');
-                    htmlArray.push(' <td>');
-                    htmlArray.push(' <input name="MainlandLogistics.LogisItems[' + i + '].ContractWeight" type="text" class="num_compute" />');
-                    htmlArray.push(' </td>');
-                    htmlArray.push(' <td>');
-                    htmlArray.push(' <input name="MainlandLogistics.LogisItems[' + i + '].FreightCharges" type="text" class="num_compute" />');
-                    htmlArray.push(' </td>');
-                    htmlArray.push('  <td>');
-                    htmlArray.push('  <input name="MainlandLogistics.LogisItems[' + i + '].Insurance" type="text" class="num_compute" />');
-                    htmlArray.push('</td>');
-                    htmlArray.push('<td>');
-                    htmlArray.push('<input name="MainlandLogistics.LogisItems[' + i + '].SubTotal" type="text" readonly="readonly" />');
-                    htmlArray.push('</td>');
-                    htmlArray.push('</tr>');
-                    $("#tb_MainLand").append(htmlArray.join(''));
+                    //香港物流
+                    var trH = $('#tb_HongKong tr:nth-child(' + (current_order_product_index + 1) + ')');
+                    setTrContent(trH, row, pick_product_id_name);
+                    //内地物流
+                    var trM = $('#tb_MainLand tr:nth-child(' + (current_order_product_index + 1) + ')');
+                    setTrContent(trM, row, pick_product_id_name);                  
 
                 }
             }
@@ -258,3 +216,38 @@ $(document).ready(function () {
     });
 
 });
+
+//设置行信息
+/*
+tr:显示行
+row:数据源
+pick_product_id_name:商品信息
+*/
+function setTrContent(tr, row, pick_product_id_name) {
+    for (var key in row) {
+        if ($.type(row[key]) == 'object') {
+            for (var key2 in row[key]) {
+                if ($.type(row[key][key2]) == 'object') {
+                    for (var key3 in row[key][key2]) {
+                        if ($.type(row[key][key2][key3]) != 'object') {
+                            tr.find('td[name="' + key + '.' + key2 + '.' + key3 + '"]').text(row[key][key2][key3]);
+                        }
+                    }
+                } else {
+                    tr.find('td[name="' + key + '.' + key2 + '"]').text(row[key][key2]);
+                }
+            }
+        } else {
+            tr.find('td[name="' + key + '"]').text(row[key]);
+        }
+    }
+    tr.find('input[type!="hidden"]').val('');//清掉已经填写数据
+    tr.find('input[name$="ProductKey"]').val(row['ProductKey']);
+    tr.find('input[name$="ProductId"]').val(row['ProductId']);
+    tr.find('input[name$="ProductItemId"]').val(row['ProductItemId']);
+    tr.find('input[name$="' + pick_product_id_name + '"]').val(row[pick_product_id_name]);
+    tr.find('td[name$="SubTotal"]').text('');
+    tr.find('select').each(function (index, obj) {
+        $(obj).val($(obj).find('option:first').val());
+    });
+}

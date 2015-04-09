@@ -119,6 +119,7 @@ namespace PrivilegeFramework
             target.OthersCost = source.OthersCost;
             target.Tariff = source.Tariff;
             target.ValueAddedTax = source.ValueAddedTax;
+            target.Total = source.Total; //综合费用
         }
 
         public static void AssignValues(YuShang.ERP.Entities.Orders.HarborAgent source,

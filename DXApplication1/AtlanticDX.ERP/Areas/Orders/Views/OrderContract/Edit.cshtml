@@ -243,6 +243,7 @@
                                                    @Model.ContractItems.ElementAt(i).ProductFullName
                                                 </td>
                                                 <td>
+                                                    <input type="hidden" name="MainlandLogistics.LogisItems[@i].ProductItemId" value="@Model.MainlandLogistics.LogisItems.ElementAt(i)" />
                                                     <input type="hidden" name="MainlandLogistics.LogisItems[@i].ProductItemId" value="@Model.MainlandLogistics.LogisItems.ElementAt(i).ProductItemId" />
                                                     <input name="MainlandLogistics.LogisItems[@i].ContractQuantity" class="quantity" type="text" value="@Model.MainlandLogistics.LogisItems.ElementAt(i).ContractQuantity" />
                                                 </td>

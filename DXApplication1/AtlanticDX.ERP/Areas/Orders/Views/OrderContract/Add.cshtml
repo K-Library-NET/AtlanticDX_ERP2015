@@ -171,7 +171,30 @@
                                     </th>
                                 </tr>
                             </thead>
-                            <tbody id="tb_HongKong">                               
+                            <tbody id="tb_HongKong">
+                                @for (int i = 0; i <= 0; i++)
+                                {
+                                    <tr>
+                                        <td class="check">@(i + 1)</td>
+                                        <td name="ProductFullName"></td>
+                                        <td>
+                                            <input type="hidden" name="HongkongLogistics.LogisItems[@i].ProductItemId" value="" />
+                                            <input name="HongkongLogistics.LogisItems[@i].ContractQuantity" class="quantity" type="text" value="" />
+                                        </td>
+                                        <td>
+                                            <input name="HongkongLogistics.LogisItems[@i].ContractWeight" type="text" class="num_compute" value="" />
+                                        </td>
+                                        <td>
+                                            <input name="HongkongLogistics.LogisItems[@i].FreightCharges" type="text" class="num_compute" value="" />
+                                        </td>
+                                        <td>
+                                            <input name="HongkongLogistics.LogisItems[@i].Insurance" type="text" value="" />
+                                        </td>
+                                        <td>
+                                            <input name="HongkongLogistics.LogisItems.SubTotal" type="text" value="" />
+                                        </td>
+                                    </tr>
+                                }
                             </tbody>
                         </table>
                     </div>
@@ -212,7 +235,32 @@
                                     </th>
                                 </tr>
                             </thead>
-                            <tbody id="tb_MainLand"></tbody>
+                            <tbody id="tb_MainLand">
+
+                                @for (int i = 0; i <= 0; i++)
+                                {
+                                    <tr>
+                                        <td class="check">@(i + 1)</td>
+                                        <td name="ProductFullName"></td>
+                                        <td>
+                                            <input type="hidden" name="MainlandLogistics.LogisItems[@i].ProductItemId" value="" />
+                                            <input name="MainlandLogistics.LogisItems[@i].ContractQuantity" class="quantity" type="text" value="" />
+                                        </td>
+                                        <td>
+                                            <input name="MainlandLogistics.LogisItems[@i].ContractWeight" type="text" class="num_compute" value="" />
+                                        </td>
+                                        <td>
+                                            <input name="MainlandLogistics.LogisItems[@i].FreightCharges" type="text" class="num_compute" value="" />
+                                        </td>
+                                        <td>
+                                            <input name="MainlandLogistics.LogisItems[@i].Insurance" type="text" value="" />
+                                        </td>
+                                        <td>
+                                            <input name="MainlandLogistics.LogisItems.SubTotal" type="text" value="" />
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
                         </table>
                     </div>
                 </div>
