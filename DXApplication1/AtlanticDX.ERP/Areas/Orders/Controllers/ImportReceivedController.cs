@@ -62,7 +62,7 @@ namespace AtlanticDX.ERP.Areas.Orders.Controllers
                     Compensation = model.Compensation,
                     CompensationHappenedType = model.CompensationHappenedType,
                     CompensationReason = model.CompensationReason,
-                    Currency = model.Currency,
+                    //Currency = model.Currency,
                     ProductItemId = model.ProductItemId
                 };
                 string errorMessage = AppBusinessManager.Instance.AddOrUpdateOrderCompensationItem(

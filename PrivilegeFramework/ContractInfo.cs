@@ -113,7 +113,7 @@ namespace PrivilegeFramework
             {
                 foreach (var it in this.orderContract.OrderProducts)
                 {
-                    this.ContractItems.Add(new ProductItemInfo(it));
+                    this.ContractItems.Add(new ProductItemInfo(it) { Currency = this.orderContract.Currency });
                 }
             }
         }
@@ -377,7 +377,7 @@ namespace PrivilegeFramework
         [Display(Name = "付款方式")]
         public string Payment { get; set; }
 
-        [Display(Name = "货款总计")]    
+        [Display(Name = "货款总计")]
         public double? PaymentTotal { get; set; }
 
         /// <summary>

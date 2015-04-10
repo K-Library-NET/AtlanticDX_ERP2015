@@ -73,16 +73,16 @@ namespace YuShang.ERP.Entities.Orders
             set;
         }
 
-        /// <summary>
-        /// 索赔币种
-        /// </summary>
-        [Display(Name = "索赔币种")]
-        [MaxLength(100)]
-        public string Currency
-        {
-            get;
-            set;
-        }
+        ///// <summary>
+        ///// 索赔币种
+        ///// </summary>
+        //[Display(Name = "索赔币种")]
+        //[MaxLength(100)]
+        //public string Currency
+        //{
+        //    get;
+        //    set;
+        //}
 
         /// <summary>
         /// 索赔金额

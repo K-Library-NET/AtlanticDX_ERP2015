@@ -784,6 +784,14 @@
     <Compile Include="Migrations\201502010244408_InitDatabaseV201.Designer.cs">
       <DependentUpon>201502010244408_InitDatabaseV201.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201504100226132_InitDatabaseV22_01.cs" />
+    <Compile Include="Migrations\201504100226132_InitDatabaseV22_01.Designer.cs">
+      <DependentUpon>201504100226132_InitDatabaseV22_01.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201504100317350_InitDatabaseV22_02.cs" />
+    <Compile Include="Migrations\201504100317350_InitDatabaseV22_02.Designer.cs">
+      <DependentUpon>201504100317350_InitDatabaseV22_02.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Areas\Public\Models\AccountModels.cs" />
     <Compile Include="Migrations\CustomMigrationHelper.cs" />
@@ -831,6 +839,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201502010244408_InitDatabaseV201.resx">
       <DependentUpon>201502010244408_InitDatabaseV201.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201504100226132_InitDatabaseV22_01.resx">
+      <DependentUpon>201504100226132_InitDatabaseV22_01.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201504100317350_InitDatabaseV22_02.resx">
+      <DependentUpon>201504100317350_InitDatabaseV22_02.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

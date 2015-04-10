@@ -157,20 +157,20 @@ namespace YuShang.ERP.Entities.Orders
             set;
         }
 
-        /// <summary>
-        /// 货币。这里如果不是CNY，则后面可能需要把所有的都转变成CNY计算
-        /// </summary>
-        [Display(Name = "货币")]
-        [MaxLength(100)]
-        public string Currency
-        {
-            get;
-            set;
-        }
+        ///// <summary>
+        ///// 货币。这里如果不是CNY，则后面可能需要把所有的都转变成CNY计算
+        ///// </summary>
+        //[Display(Name = "货币")]
+        //[MaxLength(100)]
+        //public string Currency
+        //{
+        //    get;
+        //    set;
+        //}
 
-        //[Required]
-        [Display(Name = "指导销售价")]
-        public double? SalesGuidePrice { get; set; }
+        ////[Required]
+        //[Display(Name = "指导销售价")]
+        //public double? SalesGuidePrice { get; set; }
 
         /// <summary>
         /// 状态

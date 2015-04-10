@@ -21,6 +21,16 @@ namespace YuShang.ERP.Entities.Finances
         }
 
         /// <summary>
+        /// 应收账款的实际财务记录
+        /// </summary>
+        [Display(Name = "应收账款的实际财务记录")]
+        public virtual ICollection<AccountsRecord> Records
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
         /// 关联的销售合同ID
         /// </summary>
         public int? SaleContractId
@@ -86,6 +96,29 @@ namespace YuShang.ERP.Entities.Finances
             set;
         }
 
+        /// <summary>
+        /// 实际收款金额，每次变动的时候更新
+        /// </summary>
+        [Required]
+        [Display(Name = "实收账款金额")]
+        public double ReceiveAmount
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// 应收金额的币种
+        /// </summary>
+        [Required]
+        [MaxLength(100)]
+        [Display(Name = "应收金额的币种")]
+        public string Currency
+        {
+            get;
+            set;
+        }
+
         [Display(Name = "记录创建时间")]
         [Required]
         public DateTime CTIME
@@ -94,10 +127,24 @@ namespace YuShang.ERP.Entities.Finances
             set;
         }
 
-        //public virtual ICollection<AccountsReceiveRecord> AccountsReceiveRecords
-        //{
-        //    get;
-        //    set;
-        //}
+        /// <summary>
+        /// 记录更新时间
+        /// </summary>
+        [Display(Name = "记录更新时间")]
+        public DateTime UTIME
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// 备注
+        /// </summary>
+        [Display(Name = "备注")]
+        public string Memo
+        {
+            get;
+            set;
+        }
     }
 }

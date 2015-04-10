@@ -13,7 +13,7 @@ namespace YuShang.ERP.Entities.Privileges
         int, SysUserLogin, SysUserRole, SysUserClaim>,
         IUser<int>, IContactPersonInfo
     {
-        [System.ComponentModel.DataAnnotations.ConcurrencyCheck]
+        //[System.ComponentModel.DataAnnotations.ConcurrencyCheck]
         [Display(Name = "头像")]
         public string Photo
         {
@@ -21,7 +21,7 @@ namespace YuShang.ERP.Entities.Privileges
             set;
         }
 
-        [System.ComponentModel.DataAnnotations.ConcurrencyCheck]
+        //[System.ComponentModel.DataAnnotations.ConcurrencyCheck]
         [Display(Name = "手机号")]
         [MaxLength(15)]
         public string MobilePhone
@@ -30,7 +30,7 @@ namespace YuShang.ERP.Entities.Privileges
             set;
         }
 
-        [System.ComponentModel.DataAnnotations.ConcurrencyCheck]
+        //[System.ComponentModel.DataAnnotations.ConcurrencyCheck]
         [Display(Name = "地址")]
         public string Address
         {
@@ -38,7 +38,7 @@ namespace YuShang.ERP.Entities.Privileges
             set;
         }
 
-        [System.ComponentModel.DataAnnotations.ConcurrencyCheck]
+        //[System.ComponentModel.DataAnnotations.ConcurrencyCheck]
         [MaxLength(100)]
         public string QQ_or_WeChat
         {
@@ -46,7 +46,7 @@ namespace YuShang.ERP.Entities.Privileges
             set;
         }
 
-        [System.ComponentModel.DataAnnotations.ConcurrencyCheck]
+        //[System.ComponentModel.DataAnnotations.ConcurrencyCheck]
         /// <summary>
         /// 姓名
         /// </summary>
@@ -57,7 +57,7 @@ namespace YuShang.ERP.Entities.Privileges
             set;
         }
 
-        [System.ComponentModel.DataAnnotations.ConcurrencyCheck]
+        //[System.ComponentModel.DataAnnotations.ConcurrencyCheck]
         [Display(Name = "创建时间")]
         public DateTime CTIME
         {
@@ -69,7 +69,7 @@ namespace YuShang.ERP.Entities.Privileges
         /// 创建人SysUser.Name
         /// </summary>
         [Display(Name = "创建人")]
-        [System.ComponentModel.DataAnnotations.ConcurrencyCheck]
+        //[System.ComponentModel.DataAnnotations.ConcurrencyCheck]
         public string CreatorUserName
         {
             get;

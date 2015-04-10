@@ -27,10 +27,46 @@ namespace YuShang.ERP.Entities.Finances
         [Display(Name = "财务记录类型")]
         public FinancialRecordType RecordType { get; set; }
 
+        ///// <summary>
+        ///// 与业务对象的关联关系
+        ///// </summary>
+        //public virtual ICollection<AccountsRecordRelation> RecordRelations
+        //{
+        //    get;
+        //    set;
+        //}
+
         /// <summary>
-        /// 与业务对象的关联关系
+        /// 对应的应付账款ID
         /// </summary>
-        public virtual ICollection<AccountsRecordRelation> RecordRelations
+        public int? AccountsPayableId
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// 对应的应收账款ID
+        /// </summary>
+        public int? AccountsReceivableId
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// 对应的应付账款
+        /// </summary>
+        public virtual AccountsPayable AccountsPayable
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// 对应的应收账款
+        /// </summary>
+        public virtual AccountsReceivable AccountsReceivable
         {
             get;
             set;
@@ -63,6 +99,29 @@ namespace YuShang.ERP.Entities.Finances
         [Display(Name = "金额")]
         [Required]
         public double Amount
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// 财务记录的币种
+        /// </summary>
+        [Display(Name = "币种")]
+        [Required]
+        [MaxLength(100)]
+        public string Currency
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// 财务记录产生或修改时刻的汇率，目前都是转到人民币
+        /// </summary>
+        [Display(Name = "汇率")]
+        [Required]
+        public double CurrencyExchangeRate
         {
             get;
             set;

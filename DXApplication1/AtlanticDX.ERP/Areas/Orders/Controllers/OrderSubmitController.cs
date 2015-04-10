@@ -98,6 +98,12 @@ namespace AtlanticDX.ERP.Areas.Orders.Controllers
             return Json(ModelState.GetModelStateErrors());
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="list"></param>
+        /// <returns></returns>
+        [Obsolete("批量添加销售指导价这个功能，调整为直接在资源管理对商品")]
         [HttpPost]
         public JsonResult AddProductItemSalesGuidePrice(
             IEnumerable<AddSalesGuidePriceViewModel> list)
@@ -117,13 +123,13 @@ namespace AtlanticDX.ERP.Areas.Orders.Controllers
                     }
                     if (orderContract != null)
                     {
-                        foreach (var i in orderContract.OrderProducts)
-                        {
-                            var j = list.FirstOrDefault(
-                                m => m.ProductItemId == i.ProductItemId);
-                            if (j != null)
-                                i.SalesGuidePrice = j.SalesGuidePrice;
-                        }
+                        //foreach (var i in orderContract.OrderProducts)
+                        //{
+                        //    var j = list.FirstOrDefault(
+                        //        m => m.ProductItemId == i.ProductItemId);
+                        //    if (j != null)
+                        //        i.SalesGuidePrice = j.SalesGuidePrice;
+                        //}
 
                         dxContext.SaveChanges();
                     }

@@ -13,7 +13,7 @@ namespace YuShang.ERP.Entities.Privileges
         {
         }
 
-        [System.ComponentModel.DataAnnotations.ConcurrencyCheck]
+        //[System.ComponentModel.DataAnnotations.ConcurrencyCheck]
         public override int RoleId
         {
             get
@@ -26,7 +26,7 @@ namespace YuShang.ERP.Entities.Privileges
             }
         }
 
-        [System.ComponentModel.DataAnnotations.ConcurrencyCheck]
+        //[System.ComponentModel.DataAnnotations.ConcurrencyCheck]
         public override int UserId
         {
             get

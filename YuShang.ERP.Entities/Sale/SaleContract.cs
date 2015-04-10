@@ -204,6 +204,28 @@ namespace YuShang.ERP.Entities.Sale
             }
         }
 
+        //20150409 added: 
+        /// <summary>
+        /// 币种，默认人民币，但是是通过全局配置的
+        /// </summary>
+        [Display(Name = "币种")]
+        [MaxLength(100)]
+        public string Currency
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// 汇率，指从当前币种转换到默认币种的比率
+        /// </summary>
+        public double CurrencyExchangeRate
+        {
+            get;
+            set;
+        }
+        //20150409 added
+
         /// <summary>
         /// 用于权限过滤的属性
         /// </summary>

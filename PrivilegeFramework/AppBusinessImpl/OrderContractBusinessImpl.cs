@@ -301,7 +301,7 @@ namespace PrivilegeFramework.AppBusinessImpl
                 {
                     var product = dbContext.ProductItems.Create();
                     product.ProductId = item.ProductId.GetValueOrDefault();
-                    product.Currency = item.Currency;
+                    //product.Currency = item.Currency;
                     product.NetWeight = item.NetWeight;
                     product.OrderContract = contract;
                     product.Quantity = item.Quantity;
@@ -1094,7 +1094,7 @@ namespace PrivilegeFramework.AppBusinessImpl
                     productItem.OrderClaimCompensationItem.Compensation = item.Compensation;
                     productItem.OrderClaimCompensationItem.CompensationHappenedType = item.CompensationHappenedType;
                     productItem.OrderClaimCompensationItem.CompensationReason = item.CompensationReason;
-                    productItem.OrderClaimCompensationItem.Currency = item.Currency;
+                    //productItem.OrderClaimCompensationItem.Currency = item.Currency;
                     productItem.OrderClaimCompensationItem.ProductItemId = item.ProductItemId;
                     dbContext.OrderClaimCompensationItems.Add(newItem);
                 }
@@ -1103,7 +1103,7 @@ namespace PrivilegeFramework.AppBusinessImpl
                     productItem.OrderClaimCompensationItem.Compensation = item.Compensation;
                     productItem.OrderClaimCompensationItem.CompensationHappenedType = item.CompensationHappenedType;
                     productItem.OrderClaimCompensationItem.CompensationReason = item.CompensationReason;
-                    productItem.OrderClaimCompensationItem.Currency = item.Currency;
+                    //productItem.OrderClaimCompensationItem.Currency = item.Currency;
                     productItem.OrderClaimCompensationItem.ProductItemId = item.ProductItemId;
                 }
 

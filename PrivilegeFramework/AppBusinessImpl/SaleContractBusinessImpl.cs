@@ -2,6 +2,8 @@
 using PrivilegeFramework.PrivilegeFilters;
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity.Core.Objects;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -268,8 +270,9 @@ namespace PrivilegeFramework.AppBusinessImpl
         {
             IQueryable<SaleContract> contractQuery = builder.BuildQueryable(dbContext,
                 dbContext.SaleContracts.Include("SaleProducts.OrderProductItem.Product")
+                    .Include("SaleBargins.BargainItems")
                 .AsNoTracking());
-
+            
             return contractQuery;
         }
 

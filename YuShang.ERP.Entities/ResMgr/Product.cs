@@ -13,7 +13,7 @@ namespace YuShang.ERP.Entities.ResMgr
     /// </summary>
     public class Product
     {
-        [Display(Name="货品")]
+        [Display(Name = "货品")]
         public int ProductId
         {
             get;
@@ -179,5 +179,11 @@ namespace YuShang.ERP.Entities.ResMgr
         [Display(Name = "备注")]
         [MaxLength(200)]
         public string Comments { get; set; }
+
+        /// <summary>
+        /// 销售指导价
+        /// </summary>
+        [Display(Name = "销售指导价")]
+        public double GuidingPrice { get; set; }
     }
 }

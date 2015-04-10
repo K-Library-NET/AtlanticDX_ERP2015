@@ -23,6 +23,7 @@ namespace PrivilegeFramework
             this.DebugOutput(
                 "DbContext Inited:" + this.GetHashCode().ToString()
                 + " nameOrConnection: " + DEFAULT_NAME_OR_CONNECTION);
+            this.DebugToConsole();
         }
 
         private void DebugOutput(string output)
@@ -37,6 +38,18 @@ namespace PrivilegeFramework
                 "DbContext Inited:" + this.GetHashCode().ToString()
                 + " nameOrConnection: " + (string.IsNullOrEmpty(nameOrConnection)
                 ? DEFAULT_NAME_OR_CONNECTION : nameOrConnection));
+
+            this.DebugToConsole();
+        }
+
+        private void DebugToConsole()
+        {
+#if DEBUG
+            this.Database.Log = (string x) =>
+            {
+                System.Diagnostics.Debug.Write(x);
+            };
+#endif
         }
 
 #if DEBUG

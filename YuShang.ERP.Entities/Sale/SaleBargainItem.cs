@@ -61,7 +61,7 @@ namespace YuShang.ERP.Entities.Sale
         /// 还价单价
         /// </summary>
         [Display(Name = "还价单价")]
-        public double BargainUnitPrice { get; set; }
+        public double BargainUnitPrice { get; set; } 
 
         /// <summary>
         /// 销售还价对象自增ID

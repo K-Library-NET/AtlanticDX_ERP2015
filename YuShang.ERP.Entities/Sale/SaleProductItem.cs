@@ -180,16 +180,16 @@ namespace YuShang.ERP.Entities.Sale
             set;
         }
 
-        /// <summary>
-        /// 货币，空值则是CNY人民币。
-        /// 这里如果不是CNY，则后面可能需要把所有的都转变成CNY计算
-        /// </summary>
-        [Display(Name = "货币")]
-        public string Currency
-        {
-            get;
-            set;
-        }
+        ///// <summary>
+        ///// 货币，空值则是CNY人民币。
+        ///// 这里如果不是CNY，则后面可能需要把所有的都转变成CNY计算
+        ///// </summary>
+        //[Display(Name = "货币")]
+        //public string Currency
+        //{
+        //    get;
+        //    set;
+        //}
 
         /// <summary>
         /// 发货状态

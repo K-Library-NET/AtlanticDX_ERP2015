@@ -191,7 +191,7 @@ namespace AtlanticDX.ERP.Migrations.Debugs
             item.NetWeight = 0.15;
             item.Units = "吨";
             item.Comments = "DEMO_PRODUCT_COMMENT_" + p;
-            item.SalesGuidePrice = 1000;
+            //item.SalesGuidePrice = 1000;
             items.Add(item);
             context.ProductItems.Add(item);
 
@@ -202,7 +202,7 @@ namespace AtlanticDX.ERP.Migrations.Debugs
             item.NetWeight = 0.15;
             item.Units = "吨";
             item.Comments = "DEMO_PRODUCT_COMMENT_" + p;
-            item.SalesGuidePrice = 1000;
+            //item.SalesGuidePrice = 1000;
             items.Add(item);
             context.ProductItems.Add(item);
 
@@ -213,7 +213,7 @@ namespace AtlanticDX.ERP.Migrations.Debugs
             item.NetWeight = 0.15;
             item.Units = "吨";
             item.Comments = "DEMO_PRODUCT_COMMENT_" + p;
-            item.SalesGuidePrice = 1000;
+            //item.SalesGuidePrice = 1000;
             items.Add(item);
             context.ProductItems.Add(item);
 
@@ -224,7 +224,7 @@ namespace AtlanticDX.ERP.Migrations.Debugs
             item.NetWeight = 0.15;
             item.Units = "吨";
             item.Comments = "DEMO_PRODUCT_COMMENT_" + p;
-            item.SalesGuidePrice = 1000;
+            //item.SalesGuidePrice = 1000;
             items.Add(item);
             context.ProductItems.Add(item);
 

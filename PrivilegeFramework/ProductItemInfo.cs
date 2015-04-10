@@ -32,7 +32,7 @@ namespace PrivilegeFramework
 
         public static void AssignValues(ProductItem source, ProductItemInfo target)
         {
-            target.Currency = source.Currency;
+            //target.Currency = source.Currency;
             target.Comments = source.Comments;
             target.ImportStatus = source.Status;
             target.NetWeight = source.NetWeight.GetValueOrDefault();
@@ -44,7 +44,8 @@ namespace PrivilegeFramework
             target.ProductKey = source.ProductKey;
             target.Quantity = source.Quantity;
             target.ReceiveTime = source.ReceiveTime;
-            target.SalesGuidePrice = source.SalesGuidePrice.GetValueOrDefault();
+            target.SalesGuidePrice = (source.Product != null) ?
+                (new Nullable<double>(source.Product.GuidingPrice)) : null;//source.SalesGuidePrice.GetValueOrDefault();
             target.UnitPrice = source.UnitPrice;
             target.Units = source.Units;
 
@@ -202,11 +203,11 @@ namespace PrivilegeFramework
         public static void AssignValues(ProductItemInfo source, ProductItem target)
         {
             target.ProductId = source.ProductId.GetValueOrDefault();
-            target.Currency = source.Currency;
+            //target.Currency = source.Currency;
             target.NetWeight = source.NetWeight;
             target.Comments = source.Comments;
             target.ReceiveTime = source.ReceiveTime;
-            target.SalesGuidePrice = source.SalesGuidePrice;
+            //target.SalesGuidePrice = source.SalesGuidePrice;
             target.Status = source.ImportStatus.GetValueOrDefault();//.Status;
             target.Quantity = source.Quantity;
             target.UnitPrice = source.UnitPrice;

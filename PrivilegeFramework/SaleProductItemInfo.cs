@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using YuShang.ERP.Entities.Configs;
 
 namespace PrivilegeFramework
 {
@@ -23,7 +24,8 @@ namespace PrivilegeFramework
             {
                 this.IsEnable = true;
                 this.Comments = item.Comments;
-                this.Currency = item.Currency;
+                this.Currency = item.SaleContract != null ? item.SaleContract.Currency
+                    : CurrencyConfigs.SALE_DEFAULT_CURRENCY_VALUE;//.Currency; 
                 this.OrderContractKey = item.OrderContractKey;
                 this.ProductItemId = item.ProductItemId;
                 this.SaleProductItemId = item.SaleProductItemId;
@@ -53,7 +55,8 @@ namespace PrivilegeFramework
                     this.ProductItem = new ProductItemInfo(pitem);
                     this.ProductName = pitem.ProductName;
                     this.ProductItemId = pitem.ProductItemId;
-                    this.SalesGuidePrice = pitem.SalesGuidePrice;
+                    this.SalesGuidePrice = (pitem.Product != null) ?
+                       (new Nullable<double>(pitem.Product.GuidingPrice)) : null;//.SalesGuidePrice;
                     this.Units = pitem.Units;
                     this.Quantity = pitem.Quantity; //暂时这样
                 }
@@ -237,7 +240,7 @@ namespace PrivilegeFramework
         {
             target.Comments = source.Comments;
             target.ShipmentStatus = source.ShipmentStatus;
-            target.Currency = source.Currency;
+            //target.Currency = source.Currency;
             target.ProductItemId = source.ProductItemId;
             target.Quantity = source.Quantity;
             target.SaleContractId = source.SaleContractId.GetValueOrDefault();

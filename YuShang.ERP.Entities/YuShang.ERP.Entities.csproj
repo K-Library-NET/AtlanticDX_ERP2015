@@ -60,6 +60,7 @@
   <ItemGroup>
     <Compile Include="Configs\ConfigType.cs" />
     <Compile Include="Configs\CoreConfig.cs" />
+    <Compile Include="Configs\CurrencyConfigs.cs" />
     <Compile Include="Configs\OperationLog.cs" />
     <Compile Include="ContactPersonInfo.cs" />
     <Compile Include="Finances\AccountingEventType.cs" />
@@ -104,6 +105,7 @@
     <Compile Include="Sale\SaleBargain.cs" />
     <Compile Include="Sale\SaleBargainChangeRecord.cs" />
     <Compile Include="Sale\SaleBargainItem.cs" />
+    <Compile Include="Sale\SaleBargainItemChangeRecord.cs" />
     <Compile Include="Sale\SaleClaimCompensation.cs" />
     <Compile Include="Sale\SaleClaimCompensationItem.cs" />
     <Compile Include="Sale\SaleContract.cs" />
