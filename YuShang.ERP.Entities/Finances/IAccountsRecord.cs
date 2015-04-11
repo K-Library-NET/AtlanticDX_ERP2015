@@ -54,5 +54,39 @@ namespace YuShang.ERP.Entities.Finances
         /// 是否已经删除
         /// </summary>
         bool IsDeleted { get; set; }
+
+
+        int? AccountsPayableId
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// 对应的应收账款ID
+        /// </summary>
+        int? AccountsReceivableId
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// 对应的应付账款
+        /// </summary>
+        AccountsPayable AccountsPayable
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// 对应的应收账款
+        /// </summary>
+        AccountsReceivable AccountsReceivable
+        {
+            get;
+            set;
+        }
     }
 }

@@ -35,7 +35,7 @@ namespace AtlanticDX.ERP.Areas.Sales.Controllers
         /// <returns></returns>
         [HttpPost]
         public JsonResult Index(int page = 1, int rows = 10, DateTime? DateFrom = null, DateTime? DateTo = null,
-            string filterValue = "",bool isSubmit=false)
+            string filterValue = "", bool isSubmit = false)
         {
             ContractListCondition condition = new ContractListCondition()
             {
@@ -173,9 +173,11 @@ namespace AtlanticDX.ERP.Areas.Sales.Controllers
                     new SaleContractWithBargainsViewModel()
                     {
                         SaleContract = temp,
-                        SaleBargainsCount = temp.SaleBargins.Count,
-                        SaleBargains = temp.SaleBargins.OrderByDescending(p => p.Total).Take(10).ToArray(),//返回头10个
+                        #region obsolete 改变还价的方法
+                        //SaleBargainsCount = temp.SaleBargins.Count,
+                        //SaleBargains = temp.SaleBargins.OrderByDescending(p => p.Total).Take(10).ToArray(),//返回头10个
                         SelectedSaleBargainId = temp.SelectedSaleBargainId
+                        #endregion
                     }
                     //, JsonRequestBehavior.AllowGet);
                 );
@@ -210,6 +212,7 @@ namespace AtlanticDX.ERP.Areas.Sales.Controllers
             return View(sale);
         }
 
+        [Obsolete("改变还价的方法")]
         [HttpPost]
         public JsonResult AddSaleBargin(AddSaleBarginViewModel model)
         {
@@ -219,12 +222,13 @@ namespace AtlanticDX.ERP.Areas.Sales.Controllers
                 SaleBargain bargain = new SaleBargain()
                 {
                     BargainItems = model.BargainItems,
-                    BargainSysUserKey = userName,
+                    //BargainSysUserKey = userName,
                     SaleContractId = model.SaleContractId
                 };
 
-                string errorMsg = AppBusinessManager.Instance.AddOrUpdateSaleBargain(
-                   this.dxContext as ExtendedIdentityDbContext, bargain);
+                string errorMsg = string.Empty;
+                   // AppBusinessManager.Instance.AddOrUpdateSaleBargain(
+                   //this.dxContext as ExtendedIdentityDbContext, bargain);
 
                 if (!string.IsNullOrEmpty(errorMsg))
                     ModelState.AddModelError(string.Empty, errorMsg);

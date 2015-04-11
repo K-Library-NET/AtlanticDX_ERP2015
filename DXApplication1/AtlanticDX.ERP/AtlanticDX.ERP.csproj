@@ -523,8 +523,6 @@
     <Content Include="Content\images\left_nav.png" />
     <Content Include="Content\images\right_content_top.png" />
     <Content Include="Global.asax" />
-    <Content Include="Properties\PublishProfiles\ReleaseBeta.pubxml.user" />
-    <Content Include="Properties\PublishProfiles\ReleaseV001.pubxml.user" />
     <Content Include="Scripts\add_edit_remove.js" />
     <Content Include="Scripts\datagrid-formatter.js" />
     <Content Include="Scripts\common.js" />
@@ -592,8 +590,8 @@
     <Content Include="Areas\Orders\Views\OrderContract\AddBgwl.cshtml" />
     <Content Include="Areas\Sales\Views\SalesByFutures\SubmitIndex.cshtml" />
     <Content Include="Areas\Sales\Views\SalesByInventories\SubmitIndex.cshtml" />
-    <None Include="Properties\PublishProfiles\ReleaseBeta.pubxml" />
-    <None Include="Properties\PublishProfiles\ReleaseV001.pubxml" />
+    <None Include="Properties\PublishProfiles\Debug.pubxml" />
+    <None Include="Properties\PublishProfiles\Release_V0.23.pubxml" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\jquery-1.9.1.js" />
     <Content Include="Scripts\jquery-1.9.1.min.js" />
@@ -728,6 +726,8 @@
     <Compile Include="Areas\Reports\ReportsAreaRegistration.cs" />
     <Compile Include="Areas\ResMgr\ResMgrAreaRegistration.cs" />
     <Compile Include="Areas\Sales\Models\SaleContractWithBargainsViewModel.cs" />
+    <Compile Include="Areas\Sales\Models\SaleProductItemBargainItemViewModel.cs" />
+    <Compile Include="Areas\Sales\Models\SaleProductItemBargainsViewModel.cs" />
     <Compile Include="Areas\Sales\SalesAreaRegistration.cs" />
     <Compile Include="Areas\Stocks\Controllers\StockInsController.cs" />
     <Compile Include="Areas\Stocks\Controllers\StockItemsController.cs" />
@@ -776,21 +776,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201501310559404_InitDatabaseV20.cs" />
-    <Compile Include="Migrations\201501310559404_InitDatabaseV20.Designer.cs">
-      <DependentUpon>201501310559404_InitDatabaseV20.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201502010244408_InitDatabaseV201.cs" />
-    <Compile Include="Migrations\201502010244408_InitDatabaseV201.Designer.cs">
-      <DependentUpon>201502010244408_InitDatabaseV201.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201504100226132_InitDatabaseV22_01.cs" />
-    <Compile Include="Migrations\201504100226132_InitDatabaseV22_01.Designer.cs">
-      <DependentUpon>201504100226132_InitDatabaseV22_01.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201504100317350_InitDatabaseV22_02.cs" />
-    <Compile Include="Migrations\201504100317350_InitDatabaseV22_02.Designer.cs">
-      <DependentUpon>201504100317350_InitDatabaseV22_02.cs</DependentUpon>
+    <Compile Include="Migrations\201504110652082_InitDatabaseV23.cs" />
+    <Compile Include="Migrations\201504110652082_InitDatabaseV23.Designer.cs">
+      <DependentUpon>201504110652082_InitDatabaseV23.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Areas\Public\Models\AccountModels.cs" />
@@ -834,17 +822,8 @@
     <Folder Include="Scripts\Sales\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201501310559404_InitDatabaseV20.resx">
-      <DependentUpon>201501310559404_InitDatabaseV20.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201502010244408_InitDatabaseV201.resx">
-      <DependentUpon>201502010244408_InitDatabaseV201.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201504100226132_InitDatabaseV22_01.resx">
-      <DependentUpon>201504100226132_InitDatabaseV22_01.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201504100317350_InitDatabaseV22_02.resx">
-      <DependentUpon>201504100317350_InitDatabaseV22_02.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201504110652082_InitDatabaseV23.resx">
+      <DependentUpon>201504110652082_InitDatabaseV23.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

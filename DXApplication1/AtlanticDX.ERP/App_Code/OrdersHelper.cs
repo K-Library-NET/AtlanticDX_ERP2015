@@ -1,4 +1,5 @@
-﻿using PrivilegeFramework;
+﻿using AtlanticDX.ERP.Areas.Sales.Models;
+using PrivilegeFramework;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -123,7 +124,7 @@ namespace AtlanticDX.ERP.Helper
             return new SelectListItem[] { };
         }
 
-        #endregion 
+        #endregion
 
         #region salecontract
 
@@ -144,6 +145,67 @@ namespace AtlanticDX.ERP.Helper
             }
 
             return new SelectListItem[] { };
+        }
+
+        /// <summary>
+        /// 根据SaleProductItemId获取还价
+        /// </summary>
+        /// <param name="saleProductItemId"></param>
+        /// <returns></returns>
+        public static SaleProductItemBargainsViewModel GetBargainsItemBySaleProductItemId(
+            int saleProductItemId)
+        {
+            using (AtlanticDXContext context = new AtlanticDXContext())
+            {
+                var salebargainItems = context.SaleBargainItems.Where(
+                    m => m.SaleProductItemId == saleProductItemId);
+                if (salebargainItems != null && salebargainItems.Count() > 0)
+                {
+                    var resultItem = from one in salebargainItems
+                                     select new SaleProductItemBargainItemViewModel(one);
+
+                    return new SaleProductItemBargainsViewModel(resultItem);
+                }
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// 传入销售人员ID、销售合同ID，数据库操作Context
+        /// 返回创建或更新一个选择还价
+        /// </summary>
+        /// <param name="saleContractId"></param>
+        /// <param name="salesmanId"></param>
+        /// <param name="db"></param>
+        /// <returns></returns>
+        public static YuShang.ERP.Entities.Sale.SaleBargain
+            SelectAndCreateSaleBargain(int saleContractId, int salesmanId,
+            AtlanticDXContext db)
+        {
+            var contract = db.SaleContracts.Find(saleContractId);
+            if (contract != null)
+            {
+                YuShang.ERP.Entities.Sale.SaleBargain bargain = db.SaleBargains.Create();
+                if (contract.SelectedSaleBargain != null)
+                {
+                    bargain = contract.SelectedSaleBargain;
+                }
+                else
+                {
+                    db.SaleBargains.Add(bargain);
+                }
+
+                var items = db.SaleBargainItems.Where(item => item.SalesmanId == salesmanId
+                     && item.SaleProductItem.SaleContractId == saleContractId);
+                bargain.BargainItems = items.ToList();
+                bargain.BargainSalesmanId = salesmanId;
+                bargain.SaleContractId = saleContractId;
+                contract.SelectedSaleBargain = bargain;
+                return bargain;
+            }
+
+            return null;
         }
 
         #endregion

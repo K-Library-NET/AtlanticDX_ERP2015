@@ -480,11 +480,11 @@ namespace PrivilegeFramework
                 model, userName);
         }
 
-        public string AddOrUpdateSaleBargain(ExtendedIdentityDbContext
-            dbContext, SaleBargain bargain)
-        {
-            return m_saleContractImpl.AddOrUpdateSaleContractBargainCore(dbContext, bargain);
-        }
+        //public string AddOrUpdateSaleBargain(ExtendedIdentityDbContext
+        //    dbContext, SaleBargain bargain)
+        //{
+        //    return m_saleContractImpl.AddOrUpdateSaleContractBargainCore(dbContext, bargain);
+        //}
 
         public string UpdateSaleContractStatusCore(ExtendedIdentityDbContext dbContext,
             SaleContract contract, ContractStatus contractStatus, string userName)

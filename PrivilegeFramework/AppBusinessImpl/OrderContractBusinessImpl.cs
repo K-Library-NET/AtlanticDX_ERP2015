@@ -168,8 +168,8 @@ namespace PrivilegeFramework.AppBusinessImpl
         {
             try
             {
-                OrderContract contract = dbContext.OrderContracts.Create();               
-                AddOrderContractRelatedObjs(dbContext, model, userName, contract); 
+                OrderContract contract = dbContext.OrderContracts.Create();
+                AddOrderContractRelatedObjs(dbContext, model, userName, contract);
                 int effectedRows = dbContext.SaveChanges();
                 if (effectedRows < 1)
                 {
@@ -621,14 +621,17 @@ namespace PrivilegeFramework.AppBusinessImpl
             {
                 pay1.Amount = contract.ImportDeposite;
 
-                double accountRecordSum1 = dbContext.FinancialRecordRelations.Include("AccountsRecord")
-                     .Where(m1 => m1.AccountsRecord.IsDeleted == false &&
-                         (m1.RelatedObjectId == contract.OrderContractId
-                         && m1.RelatedObjectId == pay1.AccountsPayableId
-                     && m1.RelatedObjectType == FinancialRelatedObjectType.AccountsPayRecord_To_OrderContract) //与此订单关联
-                      && (m1.RelatedObjectId == pay1.Amount &&  //于此应付账款记录关联
-                      m1.RelatedObjectType == FinancialRelatedObjectType.AccountsPayRecord_To_AccountsPayable))
-                      .Select(m1 => m1.AccountsRecord).Distinct().Sum(m1 => m1.Amount);
+                double accountRecordSum1 = dbContext.FinancialRecords
+                      .Where(m1 => m1.RecordType == FinancialRecordType.AccountsPayable
+                          && m1.AccountsPayableId == pay1.AccountsPayableId).Sum(m2 => m2.Amount);
+                //.FinancialRecordRelations.Include("AccountsRecord")
+                // .Where(m1 => m1.AccountsRecord.IsDeleted == false &&
+                //     (m1.RelatedObjectId == contract.OrderContractId
+                //     && m1.RelatedObjectId == pay1.AccountsPayableId
+                // && m1.RelatedObjectType == FinancialRelatedObjectType.AccountsPayRecord_To_OrderContract) //与此订单关联
+                //  && (m1.RelatedObjectId == pay1.Amount &&  //于此应付账款记录关联
+                //  m1.RelatedObjectType == FinancialRelatedObjectType.AccountsPayRecord_To_AccountsPayable))
+                //  .Select(m1 => m1.AccountsRecord).Distinct().Sum(m1 => m1.Amount);
 
                 ////如果应付账款已经付款超过数字，则状态变为“已结清” 
 
@@ -650,14 +653,18 @@ namespace PrivilegeFramework.AppBusinessImpl
             {
                 pay2.Amount = contract.ImportBalancedPayment;
 
-                double accountRecordSum2 = dbContext.FinancialRecordRelations.Include("AccountsRecord")
-                     .Where(m1 => m1.AccountsRecord.IsDeleted == false &&
-                         (m1.RelatedObjectId == contract.OrderContractId
-                         && m1.RelatedObjectId == pay2.AccountsPayableId
-                     && m1.RelatedObjectType == FinancialRelatedObjectType.AccountsPayRecord_To_OrderContract) //与此订单关联
-                      && (m1.RelatedObjectId == pay2.Amount &&  //于此应付账款记录关联
-                      m1.RelatedObjectType == FinancialRelatedObjectType.AccountsPayRecord_To_AccountsPayable))
-                      .Select(m1 => m1.AccountsRecord).Distinct().Sum(m1 => m1.Amount);
+                double accountRecordSum2 = dbContext.FinancialRecords
+                      .Where(m1 => m1.RecordType == FinancialRecordType.AccountsPayable
+                          && m1.AccountsPayableId == pay2.AccountsPayableId).Sum(m2 => m2.Amount);
+
+                //.FinancialRecordRelations.Include("AccountsRecord")
+                // .Where(m1 => m1.AccountsRecord.IsDeleted == false &&
+                //     (m1.RelatedObjectId == contract.OrderContractId
+                //     && m1.RelatedObjectId == pay2.AccountsPayableId
+                // && m1.RelatedObjectType == FinancialRelatedObjectType.AccountsPayRecord_To_OrderContract) //与此订单关联
+                //  && (m1.RelatedObjectId == pay2.Amount &&  //于此应付账款记录关联
+                //  m1.RelatedObjectType == FinancialRelatedObjectType.AccountsPayRecord_To_AccountsPayable))
+                //  .Select(m1 => m1.AccountsRecord).Distinct().Sum(m1 => m1.Amount);
 
                 //如果应付账款已经付款超过数字，则状态变为“已结清” 
 
@@ -723,14 +730,17 @@ namespace PrivilegeFramework.AppBusinessImpl
 
                 pay1.Amount = harborAgent.Total.GetValueOrDefault();
 
-                double accountRecordSum = dbContext.FinancialRecordRelations.Include("AccountsRecord")
-                     .Where(m1 => m1.AccountsRecord.IsDeleted == false &&
-                         (m1.RelatedObjectId == contract.OrderContractId
-                         && m1.RelatedObjectId == pay1.AccountsPayableId
-                     && m1.RelatedObjectType == FinancialRelatedObjectType.AccountsPayRecord_To_OrderContract) //与此订单关联
-                      && (m1.RelatedObjectId == pay1.Amount &&  //于此应付账款记录关联
-                      m1.RelatedObjectType == FinancialRelatedObjectType.AccountsPayRecord_To_AccountsPayable))
-                      .Select(m1 => m1.AccountsRecord).Distinct().Sum(m1 => m1.Amount);
+                double accountRecordSum = dbContext.FinancialRecords
+                      .Where(m1 => m1.RecordType == FinancialRecordType.AccountsPayable
+                          && m1.AccountsPayableId == pay1.AccountsPayableId).Sum(m2 => m2.Amount);
+                //FinancialRecordRelations.Include("AccountsRecord")
+                // .Where(m1 => m1.AccountsRecord.IsDeleted == false &&
+                //     (m1.RelatedObjectId == contract.OrderContractId
+                //     && m1.RelatedObjectId == pay1.AccountsPayableId
+                // && m1.RelatedObjectType == FinancialRelatedObjectType.AccountsPayRecord_To_OrderContract) //与此订单关联
+                //  && (m1.RelatedObjectId == pay1.Amount &&  //于此应付账款记录关联
+                //  m1.RelatedObjectType == FinancialRelatedObjectType.AccountsPayRecord_To_AccountsPayable))
+                //  .Select(m1 => m1.AccountsRecord).Distinct().Sum(m1 => m1.Amount);
 
                 //如果应付账款已经付款超过数字，则状态变为“已结清” 
 
@@ -768,14 +778,17 @@ namespace PrivilegeFramework.AppBusinessImpl
 
                 pay1.Amount = hklogis.Total;
 
-                double accountRecordSum = dbContext.FinancialRecordRelations.Include("AccountsRecord")
-                     .Where(m1 => m1.AccountsRecord.IsDeleted == false &&
-                         (m1.RelatedObjectId == contract.OrderContractId
-                         && m1.RelatedObjectId == pay1.AccountsPayableId
-                     && m1.RelatedObjectType == FinancialRelatedObjectType.AccountsPayRecord_To_OrderContract) //与此订单关联
-                      && (m1.RelatedObjectId == pay1.Amount &&  //于此应付账款记录关联
-                      m1.RelatedObjectType == FinancialRelatedObjectType.AccountsPayRecord_To_AccountsPayable))
-                      .Select(m1 => m1.AccountsRecord).Distinct().Sum(m1 => m1.Amount);
+                double accountRecordSum = dbContext.FinancialRecords
+                      .Where(m1 => m1.RecordType == FinancialRecordType.AccountsPayable
+                          && m1.AccountsPayableId == pay1.AccountsPayableId).Sum(m2 => m2.Amount);
+                //FinancialRecordRelations.Include("AccountsRecord")
+                // .Where(m1 => m1.AccountsRecord.IsDeleted == false &&
+                //     (m1.RelatedObjectId == contract.OrderContractId
+                //     && m1.RelatedObjectId == pay1.AccountsPayableId
+                // && m1.RelatedObjectType == FinancialRelatedObjectType.AccountsPayRecord_To_OrderContract) //与此订单关联
+                //  && (m1.RelatedObjectId == pay1.Amount &&  //于此应付账款记录关联
+                //  m1.RelatedObjectType == FinancialRelatedObjectType.AccountsPayRecord_To_AccountsPayable))
+                //  .Select(m1 => m1.AccountsRecord).Distinct().Sum(m1 => m1.Amount);
 
                 //如果应付账款已经付款超过数字，则状态变为“已结清”  
                 if (accountRecordSum >= pay1.Amount)
@@ -1038,14 +1051,18 @@ namespace PrivilegeFramework.AppBusinessImpl
                 }
 
                 pay1.Amount = hklogis.Total;
-                double accountRecordSum = dbContext.FinancialRecordRelations.Include("AccountsRecord")
-                     .Where(m1 => m1.AccountsRecord.IsDeleted == false &&
-                         (m1.RelatedObjectId == contract.OrderContractId
-                         && m1.RelatedObjectId == pay1.AccountsPayableId
-                     && m1.RelatedObjectType == FinancialRelatedObjectType.AccountsPayRecord_To_OrderContract) //与此订单关联
-                      && (m1.RelatedObjectId == pay1.Amount &&  //于此应付账款记录关联
-                      m1.RelatedObjectType == FinancialRelatedObjectType.AccountsPayRecord_To_AccountsPayable))
-                      .Select(m1 => m1.AccountsRecord).Distinct().Sum(m1 => m1.Amount);
+                double accountRecordSum = dbContext.FinancialRecords
+                      .Where(m1 => m1.RecordType == FinancialRecordType.AccountsPayable
+                          && m1.AccountsPayableId == pay1.AccountsPayableId).Sum(m2 => m2.Amount);
+
+                //.
+                //.FinancialRecordRelations.Include("AccountsRecord")
+                // .Where(m1 => m1.AccountsRecord.IsDeleted == false &&
+                //     (m1.RelatedObjectId == contract.OrderContractId
+                //     && m1.RelatedObjectId == pay1.AccountsPayableId
+                // && m1.RelatedObjectType == FinancialRelatedObjectType.AccountsPayRecord_To_OrderContract) //与此订单关联
+                //  && (m1.RelatedObjectId == pay1.Amount &&  //于此应付账款记录关联
+                //  m1.RelatedObjectType == FinancialRelatedObjectType.AccountsPayRecord_To_AccountsPayable))
 
                 //如果应付账款已经付款超过数字，则状态变为“已结清”  
                 if (accountRecordSum >= pay1.Amount)

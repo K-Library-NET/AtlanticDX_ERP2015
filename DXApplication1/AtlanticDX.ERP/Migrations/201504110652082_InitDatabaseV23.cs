@@ -3,7 +3,7 @@ namespace AtlanticDX.ERP.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class InitDatabaseV20 : DbMigration
+    public partial class InitDatabaseV23 : DbMigration
     {
         public override void Up()
         {
@@ -16,7 +16,11 @@ namespace AtlanticDX.ERP.Migrations
                         EventType = c.Int(nullable: false),
                         PayStatus = c.Int(nullable: false),
                         Amount = c.Double(nullable: false),
+                        PaidAmount = c.Double(nullable: false),
+                        Currency = c.String(nullable: false, maxLength: 100),
                         CTIME = c.DateTime(nullable: false, precision: 0),
+                        UTIME = c.DateTime(nullable: false, precision: 0),
+                        Memo = c.String(),
                     })
                 .PrimaryKey(t => t.AccountsPayableId)
                 .ForeignKey("dbo.OrderContracts", t => t.OrderContractId)
@@ -39,6 +43,8 @@ namespace AtlanticDX.ERP.Migrations
                         Payment = c.String(),
                         OrderSysUserKey = c.String(maxLength: 128),
                         ImportDeposite = c.Double(nullable: false),
+                        Currency = c.String(maxLength: 100),
+                        CurrencyExchangeRate = c.Double(nullable: false),
                         ImportBalancedPayment = c.Double(nullable: false),
                         Comments = c.String(),
                         SupplierId = c.Int(nullable: false),
@@ -85,7 +91,6 @@ namespace AtlanticDX.ERP.Migrations
                         OrderClaimCompensationItemId = c.Int(nullable: false, identity: true),
                         ProductItemId = c.Int(nullable: false),
                         CompensationHappenedType = c.Int(),
-                        Currency = c.String(maxLength: 100),
                         Compensation = c.Double(),
                         CompensationReason = c.String(maxLength: 200),
                         OrderClaimCompensation_OrderClaimCompensationId = c.Int(),
@@ -208,8 +213,6 @@ namespace AtlanticDX.ERP.Migrations
                         NetWeight = c.Double(),
                         UnitPrice = c.Double(),
                         Units = c.String(maxLength: 100),
-                        Currency = c.String(maxLength: 100),
-                        SalesGuidePrice = c.Double(),
                         Status = c.Int(nullable: false),
                         ReceiveTime = c.DateTime(precision: 0),
                         Comments = c.String(),
@@ -234,14 +237,15 @@ namespace AtlanticDX.ERP.Migrations
                         ProductNameENG = c.String(maxLength: 100),
                         ProductType = c.String(maxLength: 100),
                         Units = c.String(maxLength: 100),
-                        MadeInCountry = c.String(nullable: false),
-                        MadeInFactory = c.String(nullable: false),
+                        MadeInCountry = c.String(maxLength: 100),
+                        MadeInFactory = c.String(maxLength: 100),
                         Brand = c.String(maxLength: 100),
                         Grade = c.String(maxLength: 100),
                         Specification = c.String(maxLength: 100),
                         Packing = c.String(maxLength: 100),
                         UnitsPerMonth = c.String(maxLength: 100),
                         Comments = c.String(maxLength: 200),
+                        GuidingPrice = c.Double(nullable: false),
                     })
                 .PrimaryKey(t => t.ProductId)
                 .Index(t => t.ProductKey, unique: true);
@@ -320,6 +324,33 @@ namespace AtlanticDX.ERP.Migrations
                 .PrimaryKey(t => t.SupplierId);
             
             CreateTable(
+                "dbo.AccountsRecords",
+                c => new
+                    {
+                        AccountsRecordId = c.Int(nullable: false, identity: true),
+                        RecordType = c.Int(nullable: false),
+                        AccountsPayableId = c.Int(),
+                        AccountsReceivableId = c.Int(),
+                        CTIME = c.DateTime(nullable: false, precision: 0),
+                        UTIME = c.DateTime(precision: 0),
+                        Amount = c.Double(nullable: false),
+                        Currency = c.String(nullable: false, maxLength: 100),
+                        CurrencyExchangeRate = c.Double(nullable: false),
+                        Year = c.Int(nullable: false),
+                        Month = c.Int(nullable: false),
+                        Day = c.Int(nullable: false),
+                        OperatorSysUserName = c.String(nullable: false, maxLength: 128),
+                        Comments = c.String(maxLength: 256),
+                        IsDeleted = c.Boolean(nullable: false),
+                    })
+                .PrimaryKey(t => t.AccountsRecordId)
+                .ForeignKey("dbo.AccountsPayables", t => t.AccountsPayableId)
+                .ForeignKey("dbo.AccountsReceivables", t => t.AccountsReceivableId)
+                .Index(t => t.RecordType)
+                .Index(t => t.AccountsPayableId)
+                .Index(t => t.AccountsReceivableId);
+            
+            CreateTable(
                 "dbo.AccountsReceivables",
                 c => new
                     {
@@ -328,7 +359,11 @@ namespace AtlanticDX.ERP.Migrations
                         EventType = c.Int(nullable: false),
                         PayStatus = c.Int(nullable: false),
                         Amount = c.Double(nullable: false),
+                        ReceiveAmount = c.Double(nullable: false),
+                        Currency = c.String(nullable: false, maxLength: 100),
                         CTIME = c.DateTime(nullable: false, precision: 0),
+                        UTIME = c.DateTime(nullable: false, precision: 0),
+                        Memo = c.String(),
                     })
                 .PrimaryKey(t => t.AccountsReceivableId)
                 .ForeignKey("dbo.SaleContracts", t => t.SaleContractId)
@@ -351,16 +386,21 @@ namespace AtlanticDX.ERP.Migrations
                         DiscountAmount = c.Double(nullable: false),
                         TotalAfterDiscount = c.Double(nullable: false),
                         SaleDeposite = c.Double(nullable: false),
+                        Currency = c.String(maxLength: 100),
+                        CurrencyExchangeRate = c.Double(nullable: false),
                         EntityPrivLevRequired = c.Int(nullable: false),
+                        SelectedSaleBargain_SaleBargainId = c.Int(),
                     })
                 .PrimaryKey(t => t.SaleContractId)
                 .ForeignKey("dbo.SaleClaimCompensations", t => t.SaleClaimCompensationId)
                 .ForeignKey("dbo.SaleClients", t => t.SaleClientId, cascadeDelete: true)
+                .ForeignKey("dbo.SaleBargains", t => t.SelectedSaleBargain_SaleBargainId)
                 .Index(t => t.SaleContractKey, unique: true)
                 .Index(t => t.SaleClientId)
                 .Index(t => t.SaleContractStatus)
                 .Index(t => t.OrderType)
-                .Index(t => t.SaleClaimCompensationId);
+                .Index(t => t.SaleClaimCompensationId)
+                .Index(t => t.SelectedSaleBargain_SaleBargainId);
             
             CreateTable(
                 "dbo.SaleClaimCompensations",
@@ -387,33 +427,26 @@ namespace AtlanticDX.ERP.Migrations
                 .Index(t => t.SaleClaimCompensationId);
             
             CreateTable(
-                "dbo.SaleBargains",
+                "dbo.SaleClients",
                 c => new
                     {
-                        SaleBargainId = c.Int(nullable: false, identity: true),
-                        BargainSysUserKey = c.String(maxLength: 100),
-                        OperationState = c.Int(nullable: false),
-                        SaleContractId = c.Int(nullable: false),
+                        SaleClientId = c.Int(nullable: false, identity: true),
+                        IsDeleted = c.Boolean(nullable: false),
+                        SaleClientType = c.String(maxLength: 100),
+                        CompanyName = c.String(nullable: false, maxLength: 200),
+                        Telephone = c.String(maxLength: 20),
+                        FAX = c.String(maxLength: 100),
+                        Address = c.String(maxLength: 200),
+                        Email = c.String(maxLength: 200),
+                        MobilePhone = c.String(maxLength: 20),
+                        Name = c.String(maxLength: 100),
+                        QQ_or_WeChat = c.String(maxLength: 100),
+                        SaleDepositeStatic = c.String(maxLength: 100),
+                        SaleDepositeRate = c.Double(nullable: false),
+                        SaleClientsMoney = c.String(maxLength: 100),
+                        SaleClientPayment = c.String(maxLength: 100),
                     })
-                .PrimaryKey(t => t.SaleBargainId)
-                .ForeignKey("dbo.SaleContracts", t => t.SaleContractId, cascadeDelete: true)
-                .Index(t => t.BargainSysUserKey)
-                .Index(t => t.SaleContractId);
-            
-            CreateTable(
-                "dbo.SaleBargainItems",
-                c => new
-                    {
-                        SaleBargainItemId = c.Int(nullable: false, identity: true),
-                        SaleProductItemId = c.Int(nullable: false),
-                        BargainUnitPrice = c.Double(nullable: false),
-                        SaleBargainId = c.Int(nullable: false),
-                    })
-                .PrimaryKey(t => t.SaleBargainItemId)
-                .ForeignKey("dbo.SaleBargains", t => t.SaleBargainId, cascadeDelete: true)
-                .ForeignKey("dbo.SaleProductItems", t => t.SaleProductItemId, cascadeDelete: true)
-                .Index(t => t.SaleProductItemId)
-                .Index(t => t.SaleBargainId);
+                .PrimaryKey(t => t.SaleClientId);
             
             CreateTable(
                 "dbo.SaleProductItems",
@@ -426,7 +459,6 @@ namespace AtlanticDX.ERP.Migrations
                         Quantity = c.Double(),
                         Weight = c.Double(),
                         UnitPrice = c.Double(),
-                        Currency = c.String(),
                         ShipmentStatus = c.Int(nullable: false),
                         SaleClaimCompensationItemId = c.Int(),
                         Comments = c.String(),
@@ -502,152 +534,37 @@ namespace AtlanticDX.ERP.Migrations
                 .PrimaryKey(t => t.StoreHouseId);
             
             CreateTable(
-                "dbo.SaleClients",
+                "dbo.SaleBargains",
                 c => new
                     {
-                        SaleClientId = c.Int(nullable: false, identity: true),
-                        IsDeleted = c.Boolean(nullable: false),
-                        SaleClientType = c.String(maxLength: 100),
-                        CompanyName = c.String(nullable: false, maxLength: 200),
-                        Telephone = c.String(maxLength: 20),
-                        FAX = c.String(maxLength: 100),
-                        Address = c.String(maxLength: 200),
-                        Email = c.String(maxLength: 200),
-                        MobilePhone = c.String(maxLength: 20),
-                        Name = c.String(maxLength: 100),
-                        QQ_or_WeChat = c.String(maxLength: 100),
-                        SaleDepositeStatic = c.String(maxLength: 100),
-                        SaleDepositeRate = c.Double(nullable: false),
-                        SaleClientsMoney = c.String(maxLength: 100),
-                        SaleClientPayment = c.String(maxLength: 100),
+                        SaleBargainId = c.Int(nullable: false, identity: true),
+                        BargainSysUserKey = c.String(maxLength: 100),
+                        BargainSalesmanId = c.Int(nullable: false),
+                        OperationState = c.Int(nullable: false),
+                        SaleContractId = c.Int(nullable: false),
                     })
-                .PrimaryKey(t => t.SaleClientId);
+                .PrimaryKey(t => t.SaleBargainId)
+                .ForeignKey("dbo.AspNetUsers", t => t.BargainSalesmanId, cascadeDelete: true)
+                .Index(t => t.BargainSysUserKey)
+                .Index(t => t.BargainSalesmanId);
             
             CreateTable(
-                "dbo.CoreConfigs",
+                "dbo.SaleBargainItems",
                 c => new
                     {
-                        CoreConfigId = c.Int(nullable: false, identity: true),
-                        ConfigTypeKey = c.String(nullable: false),
-                        ConfigKey = c.String(nullable: false),
-                        ConfigName = c.String(nullable: false),
-                        ConfigValue = c.String(nullable: false),
-                    })
-                .PrimaryKey(t => t.CoreConfigId);
-            
-            CreateTable(
-                "dbo.AccountsRecordRelations",
-                c => new
-                    {
-                        AccountsRecordId = c.Int(nullable: false),
-                        RelatedObjectId = c.Int(nullable: false),
-                        RelatedObjectType = c.Int(nullable: false),
-                    })
-                .PrimaryKey(t => new { t.AccountsRecordId, t.RelatedObjectId })
-                .ForeignKey("dbo.AccountsRecords", t => t.AccountsRecordId, cascadeDelete: true)
-                .Index(t => t.AccountsRecordId);
-            
-            CreateTable(
-                "dbo.AccountsRecords",
-                c => new
-                    {
-                        AccountsRecordId = c.Int(nullable: false, identity: true),
-                        RecordType = c.Int(nullable: false),
-                        CTIME = c.DateTime(nullable: false, precision: 0),
-                        UTIME = c.DateTime(precision: 0),
-                        Amount = c.Double(nullable: false),
-                        Year = c.Int(nullable: false),
-                        Month = c.Int(nullable: false),
-                        Day = c.Int(nullable: false),
-                        OperatorSysUserName = c.String(nullable: false, maxLength: 128),
-                        Comments = c.String(maxLength: 256),
-                        IsDeleted = c.Boolean(nullable: false),
-                    })
-                .PrimaryKey(t => t.AccountsRecordId)
-                .Index(t => t.RecordType);
-            
-            CreateTable(
-                "dbo.InheritedPrivilegeLevelRelations",
-                c => new
-                    {
-                        InheritedPrivilegeLevelRelationId = c.Int(nullable: false, identity: true),
-                        LevelRequired = c.Int(nullable: false),
-                        RoleId = c.Int(),
-                        Area = c.String(maxLength: 100),
-                        Controller = c.String(maxLength: 100),
-                        Action = c.String(maxLength: 100),
-                    })
-                .PrimaryKey(t => t.InheritedPrivilegeLevelRelationId)
-                .Index(t => new { t.Area, t.Controller, t.Action }, name: "IX_Relation_CompFunction");
-            
-            CreateTable(
-                "dbo.OperationLogs",
-                c => new
-                    {
-                        OperationLogId = c.Int(nullable: false, identity: true),
-                        OperationName = c.String(),
-                        SysUserId = c.String(maxLength: 100),
-                        Description = c.String(),
-                        CTIME = c.DateTime(nullable: false, precision: 0),
-                    })
-                .PrimaryKey(t => t.OperationLogId);
-            
-            CreateTable(
-                "dbo.AspNetRoles",
-                c => new
-                    {
-                        Id = c.Int(nullable: false, identity: true),
-                        ParentId = c.Int(nullable: false),
-                        PrivilegeLevel = c.Int(nullable: false),
-                        IsSystemRole = c.Boolean(nullable: false),
-                        Name = c.String(nullable: false, maxLength: 100),
-                    })
-                .PrimaryKey(t => t.Id)
-                .Index(t => t.Name, unique: true, name: "RoleNameIndex");
-            
-            CreateTable(
-                "dbo.AspNetUserRoles",
-                c => new
-                    {
-                        UserId = c.Int(nullable: false),
-                        RoleId = c.Int(nullable: false),
-                    })
-                .PrimaryKey(t => new { t.UserId, t.RoleId })
-                .ForeignKey("dbo.AspNetRoles", t => t.RoleId, cascadeDelete: true)
-                .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
-                .Index(t => t.UserId)
-                .Index(t => t.RoleId);
-            
-            CreateTable(
-                "dbo.SaleBargainChangeRecords",
-                c => new
-                    {
-                        SaleBargainChangeRecordId = c.Int(nullable: false, identity: true),
+                        SaleBargainItemId = c.Int(nullable: false, identity: true),
+                        SaleProductItemId = c.Int(nullable: false),
+                        BargainUnitPrice = c.Double(nullable: false),
+                        SalesmanId = c.Int(nullable: false),
                         SaleBargainId = c.Int(nullable: false),
-                        CTIME = c.DateTime(nullable: false, precision: 0),
-                        PrevTotal = c.Double(),
-                        CurrentTotal = c.Double(),
-                        Comments = c.String(),
                     })
-                .PrimaryKey(t => t.SaleBargainChangeRecordId)
+                .PrimaryKey(t => t.SaleBargainItemId)
                 .ForeignKey("dbo.SaleBargains", t => t.SaleBargainId, cascadeDelete: true)
+                .ForeignKey("dbo.SaleProductItems", t => t.SaleProductItemId, cascadeDelete: true)
+                .ForeignKey("dbo.AspNetUsers", t => t.SalesmanId, cascadeDelete: true)
+                .Index(t => t.SaleProductItemId)
+                .Index(t => t.SalesmanId)
                 .Index(t => t.SaleBargainId);
-            
-            CreateTable(
-                "dbo.SysMenus",
-                c => new
-                    {
-                        SysMenuId = c.Int(nullable: false, identity: true),
-                        MenuName = c.String(nullable: false, maxLength: 100),
-                        ParentId = c.Int(nullable: false),
-                        IsShowInNavTree = c.Int(nullable: false),
-                        Area = c.String(maxLength: 100),
-                        Controller = c.String(maxLength: 100),
-                        Action = c.String(maxLength: 100),
-                        StyleClass = c.String(maxLength: 200),
-                    })
-                .PrimaryKey(t => t.SysMenuId)
-                .Index(t => new { t.Area, t.Controller, t.Action }, name: "IX_Menu_CompFunction");
             
             CreateTable(
                 "dbo.AspNetUsers",
@@ -701,20 +618,116 @@ namespace AtlanticDX.ERP.Migrations
                 .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
                 .Index(t => t.UserId);
             
+            CreateTable(
+                "dbo.AspNetUserRoles",
+                c => new
+                    {
+                        UserId = c.Int(nullable: false),
+                        RoleId = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => new { t.UserId, t.RoleId })
+                .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
+                .ForeignKey("dbo.AspNetRoles", t => t.RoleId, cascadeDelete: true)
+                .Index(t => t.UserId)
+                .Index(t => t.RoleId);
+            
+            CreateTable(
+                "dbo.CoreConfigs",
+                c => new
+                    {
+                        CoreConfigId = c.Int(nullable: false, identity: true),
+                        ConfigTypeKey = c.String(nullable: false),
+                        ConfigKey = c.String(nullable: false),
+                        ConfigName = c.String(nullable: false),
+                        ConfigValue = c.String(nullable: false),
+                    })
+                .PrimaryKey(t => t.CoreConfigId);
+            
+            CreateTable(
+                "dbo.InheritedPrivilegeLevelRelations",
+                c => new
+                    {
+                        InheritedPrivilegeLevelRelationId = c.Int(nullable: false, identity: true),
+                        LevelRequired = c.Int(nullable: false),
+                        RoleId = c.Int(),
+                        Area = c.String(maxLength: 100),
+                        Controller = c.String(maxLength: 100),
+                        Action = c.String(maxLength: 100),
+                    })
+                .PrimaryKey(t => t.InheritedPrivilegeLevelRelationId)
+                .Index(t => new { t.Area, t.Controller, t.Action }, name: "IX_Relation_CompFunction");
+            
+            CreateTable(
+                "dbo.OperationLogs",
+                c => new
+                    {
+                        OperationLogId = c.Int(nullable: false, identity: true),
+                        OperationName = c.String(),
+                        SysUserId = c.String(maxLength: 100),
+                        Description = c.String(),
+                        CTIME = c.DateTime(nullable: false, precision: 0),
+                    })
+                .PrimaryKey(t => t.OperationLogId);
+            
+            CreateTable(
+                "dbo.AspNetRoles",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        ParentId = c.Int(nullable: false),
+                        PrivilegeLevel = c.Int(nullable: false),
+                        IsSystemRole = c.Boolean(nullable: false),
+                        Name = c.String(nullable: false, maxLength: 100),
+                    })
+                .PrimaryKey(t => t.Id)
+                .Index(t => t.Name, unique: true, name: "RoleNameIndex");
+            
+            CreateTable(
+                "dbo.SaleBargainChangeRecords",
+                c => new
+                    {
+                        SaleBargainChangeRecordId = c.Int(nullable: false, identity: true),
+                        SaleBargainId = c.Int(nullable: false),
+                        CTIME = c.DateTime(nullable: false, precision: 0),
+                        PrevTotal = c.Double(),
+                        CurrentTotal = c.Double(),
+                        Comments = c.String(),
+                    })
+                .PrimaryKey(t => t.SaleBargainChangeRecordId)
+                .ForeignKey("dbo.SaleBargains", t => t.SaleBargainId, cascadeDelete: true)
+                .Index(t => t.SaleBargainId);
+            
+            CreateTable(
+                "dbo.SysMenus",
+                c => new
+                    {
+                        SysMenuId = c.Int(nullable: false, identity: true),
+                        MenuName = c.String(nullable: false, maxLength: 100),
+                        ParentId = c.Int(nullable: false),
+                        IsShowInNavTree = c.Int(nullable: false),
+                        Area = c.String(maxLength: 100),
+                        Controller = c.String(maxLength: 100),
+                        Action = c.String(maxLength: 100),
+                        StyleClass = c.String(maxLength: 200),
+                    })
+                .PrimaryKey(t => t.SysMenuId)
+                .Index(t => new { t.Area, t.Controller, t.Action }, name: "IX_Menu_CompFunction");
+            
         }
         
         public override void Down()
         {
+            DropForeignKey("dbo.SaleBargainChangeRecords", "SaleBargainId", "dbo.SaleBargains");
+            DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
+            DropForeignKey("dbo.AccountsReceivables", "SaleContractId", "dbo.SaleContracts");
+            DropForeignKey("dbo.SaleContracts", "SelectedSaleBargain_SaleBargainId", "dbo.SaleBargains");
+            DropForeignKey("dbo.SaleBargains", "BargainSalesmanId", "dbo.AspNetUsers");
+            DropForeignKey("dbo.SaleBargainItems", "SalesmanId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
-            DropForeignKey("dbo.SaleBargainChangeRecords", "SaleBargainId", "dbo.SaleBargains");
-            DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
-            DropForeignKey("dbo.AccountsRecordRelations", "AccountsRecordId", "dbo.AccountsRecords");
-            DropForeignKey("dbo.AccountsReceivables", "SaleContractId", "dbo.SaleContracts");
-            DropForeignKey("dbo.SaleContracts", "SaleClientId", "dbo.SaleClients");
-            DropForeignKey("dbo.SaleBargains", "SaleContractId", "dbo.SaleContracts");
             DropForeignKey("dbo.SaleBargainItems", "SaleProductItemId", "dbo.SaleProductItems");
+            DropForeignKey("dbo.SaleBargainItems", "SaleBargainId", "dbo.SaleBargains");
             DropForeignKey("dbo.SaleProductItems", "StockItemId", "dbo.StockItems");
             DropForeignKey("dbo.StockItems", "StoreHouseId", "dbo.StoreHouses");
             DropForeignKey("dbo.StockOutRecords", "StockItemId", "dbo.StockItems");
@@ -723,9 +736,11 @@ namespace AtlanticDX.ERP.Migrations
             DropForeignKey("dbo.SaleProductItems", "SaleContractId", "dbo.SaleContracts");
             DropForeignKey("dbo.SaleProductItems", "SaleClaimCompensationItemId", "dbo.SaleClaimCompensationItems");
             DropForeignKey("dbo.SaleProductItems", "ProductItemId", "dbo.ProductItems");
-            DropForeignKey("dbo.SaleBargainItems", "SaleBargainId", "dbo.SaleBargains");
+            DropForeignKey("dbo.SaleContracts", "SaleClientId", "dbo.SaleClients");
             DropForeignKey("dbo.SaleContracts", "SaleClaimCompensationId", "dbo.SaleClaimCompensations");
             DropForeignKey("dbo.SaleClaimCompensationItems", "SaleClaimCompensationId", "dbo.SaleClaimCompensations");
+            DropForeignKey("dbo.AccountsRecords", "AccountsReceivableId", "dbo.AccountsReceivables");
+            DropForeignKey("dbo.AccountsRecords", "AccountsPayableId", "dbo.AccountsPayables");
             DropForeignKey("dbo.AccountsPayables", "OrderContractId", "dbo.OrderContracts");
             DropForeignKey("dbo.OrderContracts", "SupplierId", "dbo.Suppliers");
             DropForeignKey("dbo.OrderContracts", "MLLogisId", "dbo.MLLogis");
@@ -744,17 +759,20 @@ namespace AtlanticDX.ERP.Migrations
             DropForeignKey("dbo.OrderContracts", "HarborId", "dbo.Harbors");
             DropForeignKey("dbo.OrderContracts", "OrderClaimCompensationId", "dbo.OrderClaimCompensations");
             DropForeignKey("dbo.OrderClaimCompensationItems", "OrderClaimCompensation_OrderClaimCompensationId", "dbo.OrderClaimCompensations");
+            DropIndex("dbo.SysMenus", "IX_Menu_CompFunction");
+            DropIndex("dbo.SaleBargainChangeRecords", new[] { "SaleBargainId" });
+            DropIndex("dbo.AspNetRoles", "RoleNameIndex");
+            DropIndex("dbo.InheritedPrivilegeLevelRelations", "IX_Relation_CompFunction");
+            DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
+            DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
             DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
             DropIndex("dbo.AspNetUsers", "UserNameIndex");
-            DropIndex("dbo.SysMenus", "IX_Menu_CompFunction");
-            DropIndex("dbo.SaleBargainChangeRecords", new[] { "SaleBargainId" });
-            DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
-            DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
-            DropIndex("dbo.AspNetRoles", "RoleNameIndex");
-            DropIndex("dbo.InheritedPrivilegeLevelRelations", "IX_Relation_CompFunction");
-            DropIndex("dbo.AccountsRecords", new[] { "RecordType" });
-            DropIndex("dbo.AccountsRecordRelations", new[] { "AccountsRecordId" });
+            DropIndex("dbo.SaleBargainItems", new[] { "SaleBargainId" });
+            DropIndex("dbo.SaleBargainItems", new[] { "SalesmanId" });
+            DropIndex("dbo.SaleBargainItems", new[] { "SaleProductItemId" });
+            DropIndex("dbo.SaleBargains", new[] { "BargainSalesmanId" });
+            DropIndex("dbo.SaleBargains", new[] { "BargainSysUserKey" });
             DropIndex("dbo.StockOutRecords", new[] { "SaleContractId" });
             DropIndex("dbo.StockOutRecords", new[] { "StockItemId" });
             DropIndex("dbo.StockItems", new[] { "IsAllSold" });
@@ -764,17 +782,17 @@ namespace AtlanticDX.ERP.Migrations
             DropIndex("dbo.SaleProductItems", new[] { "ProductItemId" });
             DropIndex("dbo.SaleProductItems", new[] { "StockItemId" });
             DropIndex("dbo.SaleProductItems", new[] { "SaleContractId" });
-            DropIndex("dbo.SaleBargainItems", new[] { "SaleBargainId" });
-            DropIndex("dbo.SaleBargainItems", new[] { "SaleProductItemId" });
-            DropIndex("dbo.SaleBargains", new[] { "SaleContractId" });
-            DropIndex("dbo.SaleBargains", new[] { "BargainSysUserKey" });
             DropIndex("dbo.SaleClaimCompensationItems", new[] { "SaleClaimCompensationId" });
+            DropIndex("dbo.SaleContracts", new[] { "SelectedSaleBargain_SaleBargainId" });
             DropIndex("dbo.SaleContracts", new[] { "SaleClaimCompensationId" });
             DropIndex("dbo.SaleContracts", new[] { "OrderType" });
             DropIndex("dbo.SaleContracts", new[] { "SaleContractStatus" });
             DropIndex("dbo.SaleContracts", new[] { "SaleClientId" });
             DropIndex("dbo.SaleContracts", new[] { "SaleContractKey" });
             DropIndex("dbo.AccountsReceivables", new[] { "SaleContractId" });
+            DropIndex("dbo.AccountsRecords", new[] { "AccountsReceivableId" });
+            DropIndex("dbo.AccountsRecords", new[] { "AccountsPayableId" });
+            DropIndex("dbo.AccountsRecords", new[] { "RecordType" });
             DropIndex("dbo.MainlandLogisticsCompanies", new[] { "CompanyName" });
             DropIndex("dbo.MLLogisItems", new[] { "ProductItemId" });
             DropIndex("dbo.MLLogisItems", new[] { "MLLogisId" });
@@ -801,29 +819,28 @@ namespace AtlanticDX.ERP.Migrations
             DropIndex("dbo.OrderContracts", new[] { "ContractStatus" });
             DropIndex("dbo.OrderContracts", new[] { "OrderContractKey" });
             DropIndex("dbo.AccountsPayables", new[] { "OrderContractId" });
-            DropTable("dbo.AspNetUserLogins");
-            DropTable("dbo.AspNetUserClaims");
-            DropTable("dbo.AspNetUsers");
             DropTable("dbo.SysMenus");
             DropTable("dbo.SaleBargainChangeRecords");
-            DropTable("dbo.AspNetUserRoles");
             DropTable("dbo.AspNetRoles");
             DropTable("dbo.OperationLogs");
             DropTable("dbo.InheritedPrivilegeLevelRelations");
-            DropTable("dbo.AccountsRecords");
-            DropTable("dbo.AccountsRecordRelations");
             DropTable("dbo.CoreConfigs");
-            DropTable("dbo.SaleClients");
+            DropTable("dbo.AspNetUserRoles");
+            DropTable("dbo.AspNetUserLogins");
+            DropTable("dbo.AspNetUserClaims");
+            DropTable("dbo.AspNetUsers");
+            DropTable("dbo.SaleBargainItems");
+            DropTable("dbo.SaleBargains");
             DropTable("dbo.StoreHouses");
             DropTable("dbo.StockOutRecords");
             DropTable("dbo.StockItems");
             DropTable("dbo.SaleProductItems");
-            DropTable("dbo.SaleBargainItems");
-            DropTable("dbo.SaleBargains");
+            DropTable("dbo.SaleClients");
             DropTable("dbo.SaleClaimCompensationItems");
             DropTable("dbo.SaleClaimCompensations");
             DropTable("dbo.SaleContracts");
             DropTable("dbo.AccountsReceivables");
+            DropTable("dbo.AccountsRecords");
             DropTable("dbo.Suppliers");
             DropTable("dbo.MainlandLogisticsCompanies");
             DropTable("dbo.MLLogisItems");

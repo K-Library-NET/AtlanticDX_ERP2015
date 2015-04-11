@@ -28,5 +28,7 @@ namespace YuShang.ERP.Entities.Configs
         public static readonly string CurrencyExchangeRate_prefix = "CurrencyExchangeRate";
 
         public const string FINANCIAL_RECORD_DEFAULT_CURRENCY_VALUE = "CNY";
+
+        public const double SALE_DEFAULT_CURRENCY_EXCHANGE_RATE = 1.0;
     }
 }

@@ -10,6 +10,7 @@ namespace YuShang.ERP.Entities.Sale
     /// <summary>
     /// 每次销售员添加或修改还价的记录
     /// </summary>
+    [Obsolete("不再记录整个大的订单对象")]
     public class SaleBargainChangeRecord
     {
         public int SaleBargainChangeRecordId

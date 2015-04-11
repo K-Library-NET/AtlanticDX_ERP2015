@@ -299,10 +299,10 @@ namespace PrivilegeFramework
         /// </summary>
         public DbSet<AccountsRecord> FinancialRecords { get; set; }
 
-        /// <summary>
-        /// 财务记录与业务对象的关联关系
-        /// </summary>
-        public DbSet<AccountsRecordRelation> FinancialRecordRelations { get; set; }
+        ///// <summary>
+        ///// 财务记录与业务对象的关联关系
+        ///// </summary>
+        //public DbSet<AccountsRecordRelation> FinancialRecordRelations { get; set; }
 
         ///// <summary>
         ///// （对外）付款记录

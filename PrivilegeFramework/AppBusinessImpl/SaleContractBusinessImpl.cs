@@ -272,7 +272,7 @@ namespace PrivilegeFramework.AppBusinessImpl
                 dbContext.SaleContracts.Include("SaleProducts.OrderProductItem.Product")
                     .Include("SaleBargins.BargainItems")
                 .AsNoTracking());
-            
+
             return contractQuery;
         }
 
@@ -436,6 +436,8 @@ namespace PrivilegeFramework.AppBusinessImpl
             return string.Empty;
         }
 
+        #region 调整还价
+        /*
         internal string AddOrUpdateSaleContractBargainCore(ExtendedIdentityDbContext dbContext,
             SaleBargain bargain)
         {
@@ -493,7 +495,7 @@ namespace PrivilegeFramework.AppBusinessImpl
             dbContext.SaleBargains.Add(saleItem);
             return saleItem;
         }
-
+         
         private void UpdateSaleContractBargainCore(ExtendedIdentityDbContext dbContext,
             SaleBargain bargain, SaleBargain saleItem)
         {
@@ -517,7 +519,8 @@ namespace PrivilegeFramework.AppBusinessImpl
             record.Comments = string.Format("{2}修改还价，还价从 {1} 调整为：{0}。",
                 saleItem.Total, bargain.Total, record.CTIME.ToString("yyyyMMdd HH:mm:ss"));
             dbContext.SaleBargainChangeRecords.Add(record);
-        }
+        }*/
+        #endregion
 
         private SaleBargainItem CreateNewOne(
             ExtendedIdentityDbContext dbContext, SaleBargainItem one)

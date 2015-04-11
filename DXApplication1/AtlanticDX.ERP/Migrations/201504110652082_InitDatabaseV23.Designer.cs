@@ -7,13 +7,13 @@ namespace AtlanticDX.ERP.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.2-31219")]
-    public sealed partial class InitDatabaseV201 : IMigrationMetadata
+    public sealed partial class InitDatabaseV23 : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(InitDatabaseV201));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(InitDatabaseV23));
         
         string IMigrationMetadata.Id
         {
-            get { return "201502010244408_InitDatabaseV201"; }
+            get { return "201504110652082_InitDatabaseV23"; }
         }
         
         string IMigrationMetadata.Source

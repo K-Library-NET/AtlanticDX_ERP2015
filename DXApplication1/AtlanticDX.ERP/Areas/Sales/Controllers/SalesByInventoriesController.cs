@@ -42,7 +42,7 @@ namespace AtlanticDX.ERP.Areas.Sales.Controllers
             {
                 IsEnable = true,
                 ListInclude = ContractListInclude.SaleContractOnly
-                | ContractListInclude.WithAggregations               
+                | ContractListInclude.WithAggregations
                | ContractListInclude.WithProductStock,
                 OrderType = 1,
                 OrderField = ContractOrderField.CTIME_DESC,
@@ -50,8 +50,8 @@ namespace AtlanticDX.ERP.Areas.Sales.Controllers
                 Rows = rows,
                 SerialOrSupplierFilterValue = filterValue,
                 UserName = HttpContext.User.Identity.Name,
-                CTIMEFrom=DateFrom,
-                CTIMETimeTo=DateTo
+                CTIMEFrom = DateFrom,
+                CTIMETimeTo = DateTo
             };
 
             var viewModels = ContractManager.Instance.GetIndexListContracts(HttpContext.GetOwinContext(),
@@ -59,7 +59,7 @@ namespace AtlanticDX.ERP.Areas.Sales.Controllers
 
             int total = 0;
             if (viewModels != null && viewModels.IsEnable.GetValueOrDefault())
-            { 
+            {
                 IEnumerable<ContractInfo> list = viewModels.ContractItems;
 
                 return Json(new
@@ -163,9 +163,11 @@ namespace AtlanticDX.ERP.Areas.Sales.Controllers
                     new SaleContractWithBargainsViewModel()
                 {
                     SaleContract = temp,
-                    SaleBargainsCount = temp.SaleBargins.Count,
-                    SaleBargains = temp.SaleBargins.OrderByDescending(p => p.Total).Take(10).ToArray(),//返回头10个
+                    #region obsoleted 改变还价的方法
+                    //SaleBargainsCount = temp.SaleBargins.Count,
+                    //SaleBargains = temp.SaleBargins.OrderByDescending(p => p.Total).Take(10).ToArray(),//返回头10个
                     SelectedSaleBargainId = temp.SelectedSaleBargainId
+                    #endregion
                 }
                     //, JsonRequestBehavior.AllowGet);
                 );
@@ -200,6 +202,7 @@ namespace AtlanticDX.ERP.Areas.Sales.Controllers
             return View(sale);
         }
 
+        [Obsolete("改变还价的方法")]
         [HttpPost]
         public JsonResult AddSaleBargin(AddSaleBarginViewModel model)
         {
@@ -209,12 +212,13 @@ namespace AtlanticDX.ERP.Areas.Sales.Controllers
                 SaleBargain bargain = new SaleBargain()
                 {
                     BargainItems = model.BargainItems,
-                    BargainSysUserKey = userName,
+                    //BargainSysUserKey = userName,
                     SaleContractId = model.SaleContractId
                 };
 
-                string errorMsg = AppBusinessManager.Instance.AddOrUpdateSaleBargain(
-                   this.dxContext as ExtendedIdentityDbContext, bargain);
+                string errorMsg = string.Empty;
+                //AppBusinessManager.Instance.AddOrUpdateSaleBargain(
+                //   this.dxContext as ExtendedIdentityDbContext, bargain);
 
                 if (!string.IsNullOrEmpty(errorMsg))
                     ModelState.AddModelError(string.Empty, errorMsg);

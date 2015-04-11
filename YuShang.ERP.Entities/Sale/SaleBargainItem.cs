@@ -6,6 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using YuShang.ERP.Entities.Privileges;
 
 namespace YuShang.ERP.Entities.Sale
 {
@@ -61,10 +62,33 @@ namespace YuShang.ERP.Entities.Sale
         /// 还价单价
         /// </summary>
         [Display(Name = "还价单价")]
-        public double BargainUnitPrice { get; set; } 
+        public double BargainUnitPrice { get; set; }
+
+        /// <summary>
+        /// 销售人员ID
+        /// </summary>
+        [Display(Name = "销售人员ID")]
+        public int SalesmanId
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// 销售人员
+        /// </summary>
+        [Display(Name = "销售人员")]
+        public virtual SysUser Salesman
+        {
+            get;
+            set;
+        }
 
         /// <summary>
         /// 销售还价对象自增ID
+        /// 
+        /// 这个对象未必有，因为销售员未必被选中出单
+        /// 
         /// used by Navigation Property
         /// </summary>
         public int SaleBargainId

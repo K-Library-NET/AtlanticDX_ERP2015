@@ -89,8 +89,22 @@ namespace YuShang.ERP.Entities.Sale
             set;
         }
 
+        /// <summary>
+        /// 销售合同审核通过的还价
+        /// </summary>
         [Display(Name = "销售合同审核通过的还价ID")]
         public int? SelectedSaleBargainId
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// 销售合同审核通过的整体还价
+        /// </summary>
+        [Display(Name = "销售合同审核通过的整体还价")]
+        [JsonIgnore]
+        public virtual SaleBargain SelectedSaleBargain
         {
             get;
             set;
@@ -115,12 +129,12 @@ namespace YuShang.ERP.Entities.Sale
         }
 
         //[Display(Name="销售还价")]
-        [JsonIgnore]
-        public virtual ICollection<SaleBargain> SaleBargins
-        {
-            get;
-            set;
-        }
+        //[JsonIgnore]
+        //public virtual ICollection<SaleBargain> SaleBargins
+        //{
+        //    get;
+        //    set;
+        //}
 
         public int? SaleClaimCompensationId
         {
@@ -219,6 +233,7 @@ namespace YuShang.ERP.Entities.Sale
         /// <summary>
         /// 汇率，指从当前币种转换到默认币种的比率
         /// </summary>
+        [Display(Name = "汇率")]
         public double CurrencyExchangeRate
         {
             get;

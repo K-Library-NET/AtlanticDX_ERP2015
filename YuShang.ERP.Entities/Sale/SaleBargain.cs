@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using YuShang.ERP.Entities.Privileges;
 
 namespace YuShang.ERP.Entities.Sale
 {
@@ -19,13 +20,30 @@ namespace YuShang.ERP.Entities.Sale
             set;
         }
 
+        [Obsolete("for compatability")]
+        [MaxLength(100)]
+        [Index]
+        public string BargainSysUserKey { get; set; }
+
         /// <summary>
         /// 还价的销售员的ID
         /// </summary>
         //[Required]
-        [MaxLength(100)]
-        [Index]
-        public string BargainSysUserKey { get; set; }
+        //[MaxLength(100)]
+        //[Index]
+        public int BargainSalesmanId { get; set; }
+
+        /// <summary>
+        /// 还价的销售员
+        /// </summary>
+        //[Required]
+        //[MaxLength(100)]
+        [Display(Name = "还价的销售员")]
+        public virtual SysUser BargainSalesman
+        {
+            get;
+            set;
+        }
 
         /// <summary>
         /// 销售订单号（人工编写，默认全部大写字母加数字）
@@ -33,18 +51,18 @@ namespace YuShang.ERP.Entities.Sale
         //[Required]
         //[MaxLength(100)]
         //[Index(IsUnique = false)]
-        [Display(Name = "销售订单号")]
-        [NotMapped]
-        public string SaleContractKey
-        {
-            get
-            {
-                if (this.SaleContract != null)
-                    return this.SaleContract.SaleContractKey;
+        //[Display(Name = "销售订单号")]
+        //[NotMapped]
+        //public string SaleContractKey
+        //{
+        //    get
+        //    {
+        //        if (this.SaleContract != null)
+        //            return this.SaleContract.SaleContractKey;
 
-                return string.Empty;
-            }
-        }
+        //        return string.Empty;
+        //    }
+        //}
 
         /// <summary>
         /// 操作状态（成交/取消还盘）
@@ -62,11 +80,11 @@ namespace YuShang.ERP.Entities.Sale
             set;
         }
 
-        public virtual SaleContract SaleContract
-        {
-            get;
-            set;
-        }
+        //public virtual SaleContract SaleContract
+        //{
+        //    get;
+        //    set;
+        //}
 
         /// <summary>
         /// 还价商品项

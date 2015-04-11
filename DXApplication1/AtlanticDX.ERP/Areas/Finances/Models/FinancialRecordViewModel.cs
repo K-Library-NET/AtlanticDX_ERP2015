@@ -11,9 +11,8 @@ namespace AtlanticDX.ERP.Areas.Finances.Models
     public class FinancialRecordViewModel : YuShang.ERP.Entities.Finances.IAccountsRecord
     {
         private YuShang.ERP.Entities.Finances.IAccountsRecord m_record;
-        private IEnumerable<AccountsRecordRelation> relations;
+        //private IEnumerable<AccountsRecordRelation> relations;
         private YuShang.ERP.Entities.Privileges.SysUser sysUser;
-        private AtlanticDXContext db;
 
         //public FinancialRecordViewModel(YuShang.ERP.Entities.Finances.IAccountsRecord record,
         //    PrivilegeFramework.ExtendedIdentityDbContext db)
@@ -21,39 +20,38 @@ namespace AtlanticDX.ERP.Areas.Finances.Models
         //    this.m_record = record;
         //}
 
-        public FinancialRecordViewModel(IAccountsRecord accountsRecord, IEnumerable<AccountsRecordRelation> relations,
-            YuShang.ERP.Entities.Privileges.SysUser sysUser, AtlanticDXContext db)
+        public FinancialRecordViewModel(IAccountsRecord accountsRecord, //IEnumerable<AccountsRecordRelation> relations,
+            YuShang.ERP.Entities.Privileges.SysUser sysUser)
         {
             this.m_record = accountsRecord;
-            this.relations = relations;
+            //this.relations = relations;
             this.sysUser = sysUser;
-            this.db = db;
 
-            if (this.relations == null || relations.Count() < 1)
-            {
-                this.EventType = AccountingEventType.Others;
-            }
-            else
-            {
-                var tmp = from one in this.relations
-                          where one.RelatedObjectType == FinancialRelatedObjectType.AccountsPayRecord_To_AccountsPayable
-                          || one.RelatedObjectType == FinancialRelatedObjectType.AccountsReceiveRecord_To_AccountsReceivable
-                          select one;
-                if (tmp == null || tmp.Count() < 1)
-                    this.EventType = AccountingEventType.Others;
-                else
-                {
-                    var tmp2 = tmp.First();
+            //if (this.relations == null || relations.Count() < 1)
+            //{
+            //    this.EventType = AccountingEventType.Others;
+            //}
+            //else
+            //{
+            //    var tmp = from one in this.relations
+            //              where one.RelatedObjectType == FinancialRelatedObjectType.AccountsPayRecord_To_AccountsPayable
+            //              || one.RelatedObjectType == FinancialRelatedObjectType.AccountsReceiveRecord_To_AccountsReceivable
+            //              select one;
+            //    if (tmp == null || tmp.Count() < 1)
+            //        this.EventType = AccountingEventType.Others;
+            //    else
+            //    {
+            //        var tmp2 = tmp.First();
 
-                    if (tmp2.RelatedObjectType == FinancialRelatedObjectType.AccountsPayRecord_To_AccountsPayable)
-                        this.EventType = db.AccountsPayables.Find(tmp2.RelatedObjectId).EventType;
-                    else if (tmp2.RelatedObjectType == FinancialRelatedObjectType.AccountsReceiveRecord_To_AccountsReceivable)
-                    {
-                        this.EventType = db.AccountsReceivables.Find(tmp2.RelatedObjectId).EventType;
-                    }
-                    else this.EventType = AccountingEventType.Others;
-                }
-            }
+            //        if (tmp2.RelatedObjectType == FinancialRelatedObjectType.AccountsPayRecord_To_AccountsPayable)
+            //            this.EventType = db.AccountsPayables.Find(tmp2.RelatedObjectId).EventType;
+            //        else if (tmp2.RelatedObjectType == FinancialRelatedObjectType.AccountsReceiveRecord_To_AccountsReceivable)
+            //        {
+            //            this.EventType = db.AccountsReceivables.Find(tmp2.RelatedObjectId).EventType;
+            //        }
+            //        else this.EventType = AccountingEventType.Others;
+            //    }
+            //}
         }
 
         [Display(Name = "时间")]
@@ -68,8 +66,29 @@ namespace AtlanticDX.ERP.Areas.Finances.Models
         [Display(Name = "财务费用产生的类型")]
         public AccountingEventType EventType
         {
-            get;
-            set;
+            get
+            {
+                if (this.m_record.AccountsPayableId.HasValue && this.m_record.AccountsPayable != null)
+                    return this.m_record.AccountsPayable.EventType;
+                else if (this.m_record.AccountsReceivableId.HasValue && this.m_record.AccountsReceivable != null)
+                    return this.m_record.AccountsReceivable.EventType;
+                else return AccountingEventType.Others;
+            }
+        }
+
+        [Display(Name = "实收/实付")]
+        public string RecordTypeStr
+        {
+            get
+            {
+                return this.RecordType.GetDisplayName();
+
+                //if (this.m_record.RecordType == FinancialRecordType.AccountsPayable)
+                //    return "实付账款";
+                //if (this.m_record.RecordType == FinancialRecordType.AccountsReceivable)
+                //    return "实收账款";
+                //return this.RecordType.ToString();
+            }
         }
 
         public string EventTypeStr
@@ -105,21 +124,6 @@ namespace AtlanticDX.ERP.Areas.Finances.Models
             }
             set
             {
-            }
-        }
-
-        [Display(Name = "会计科目")]
-        public string RecordTypeStr
-        {
-            get
-            {
-                return this.m_record.RecordType.GetDisplayName();
-
-                //if (this.m_record.RecordType == FinancialRecordType.AccountsPayable)
-                //    return "实付账款";
-                //if (this.m_record.RecordType == FinancialRecordType.AccountsReceivable)
-                //    return "实收账款";
-                //return this.RecordType.ToString();
             }
         }
 
@@ -232,5 +236,56 @@ namespace AtlanticDX.ERP.Areas.Finances.Models
             {
             }
         }
+
+        #region interfaces 暂时不用实现都可以
+
+        public int? AccountsPayableId
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public int? AccountsReceivableId
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public AccountsPayable AccountsPayable
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public AccountsReceivable AccountsReceivable
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+        #endregion
     }
 }

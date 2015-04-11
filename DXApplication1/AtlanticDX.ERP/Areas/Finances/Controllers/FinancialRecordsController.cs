@@ -27,31 +27,34 @@ namespace AtlanticDX.ERP.Areas.Finances.Controllers
         [HttpPost]
         public JsonResult Index(FinancialRecordFilterViewModel filter, int page = 1, int rows = 10)
         {
-            var list3 = db.FinancialRecords.GroupJoin(db.FinancialRecordRelations,
-                f => f.AccountsRecordId, rec => rec.AccountsRecordId,
-                (FinancialRecord, Relations) => new { FinancialRecord, Relations })
-                .Join(db.Users, A => A.FinancialRecord.OperatorSysUserName, U => U.UserName,
+            var list3 = db.FinancialRecords
+                //.GroupJoin(db.FinancialRecordRelations,
+                //f => f.AccountsRecordId, rec => rec.AccountsRecordId,
+                //(FinancialRecord, Relations) => new { FinancialRecord, Relations })
+                .Join(db.Users, A => A.OperatorSysUserName, U => U.UserName,
                 (FinancialRecordView, User) => new
                 {
-                    FinancialRecordView.FinancialRecord,
-                    FinancialRecordView.Relations,
+                    FinancialRecordView,
                     User,
-                    FinancialRecordView.FinancialRecord.CTIME
+                    FinancialRecordView.CTIME
                 });
 
             var list1 = list3.OrderByDescending(m => m.CTIME)
                 .Skip((page - 1) * rows).Take(rows).ToList();
 
             var list = from one in list1
-                       select new FinancialRecordViewModel(one.FinancialRecord, one.Relations, one.User, db);
+                       select new FinancialRecordViewModel(one.FinancialRecordView,
+                           one.User);
 
             return Json(new { total = list3.Count(), rows = list });
         }
 
         [HttpPost]
-        public JsonResult Add(FinancialRecordViewModel model){
-            if(ModelState.IsValid){
-                    //TODO 添加财务记录
+        public JsonResult Add(FinancialRecordViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                //TODO 添加财务记录
             }
             return Json(ModelState.GetModelStateErrors());
         }
