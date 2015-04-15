@@ -31,7 +31,8 @@
                 <option value="1">现货</option>
             </select>
 
-            <span class="default red">*</span><span class="default">汇率</span>@Html.TextBoxFor(m => m.Comments, new { @class = "w50", @Value = 6.25 })
+            <span class="default red">*</span><span class="default">汇率</span>         
+            @Html.TextBoxFor(m => m.ShipmentPeriod, new { @class = "w50", @Value = YuShang.ERP.Entities.Configs.CurrencyConfigs.DefaultCurrencyExchangeRateUSDtoCNY })
         </div>
         <div class="right_content_top bb1">
             <span class="default ml20">@Html.DisplayNameFor(m => m.ETA)</span><span class="eta_in">@Html.TextBoxFor(m => m.ETA, new { @class = "easyui-datebox", @style = "width:98%;" })</span>

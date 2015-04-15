@@ -72,6 +72,25 @@ namespace YuShang.ERP.Entities.Finances
         }
 
         /// <summary>
+        /// 财务记录的币种
+        /// </summary>       
+        string Currency
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// 财务记录产生或修改时刻的汇率，目前都是转到人民币
+        /// </summary>       
+        double CurrencyExchangeRate
+        {
+            get;
+            set;
+        }
+
+
+        /// <summary>
         /// 对应的应付账款
         /// </summary>
         AccountsPayable AccountsPayable
@@ -88,5 +107,7 @@ namespace YuShang.ERP.Entities.Finances
             get;
             set;
         }
+
+
     }
 }

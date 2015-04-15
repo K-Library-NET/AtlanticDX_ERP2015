@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using YuShang.ERP.Entities.Finances;
+using UtilityFramework;  //获取枚举display[name]值
 
 namespace AtlanticDX.ERP.Areas.Finances.Models
 {
@@ -27,7 +28,7 @@ namespace AtlanticDX.ERP.Areas.Finances.Models
             }
         }
 
-        [Display(Name = "时间")]
+        [Display(Name = "创建时间")]
         public string CTIME_Str
         {
             get
@@ -36,12 +37,13 @@ namespace AtlanticDX.ERP.Areas.Finances.Models
             }
         }
 
-        [Display(Name = "会计科目")]
+        [Display(Name = "费用类别")]
         public string EventType_Str
         {
-            get;
-            set;
+            get { return this.m.EventType.GetDisplayName(); }
         }
+
+        
 
         [Display(Name = "金额")]
         public double Amount_Round
@@ -49,6 +51,15 @@ namespace AtlanticDX.ERP.Areas.Finances.Models
             get
             {
                 return Math.Round(this.m.Amount, 2);
+            }
+        }
+
+        [Display(Name = "实际付款金额")]
+        public double Paid_Amount_Round
+        {
+            get
+            {
+                return Math.Round(this.m.PaidAmount, 2);
             }
         }
 
@@ -131,7 +142,7 @@ namespace AtlanticDX.ERP.Areas.Finances.Models
             this.m = m;
             this.db = db;
         }
-
+        [Display(Name = "备注")]
         public int AccountsReceivableId
         {
             get
@@ -140,6 +151,7 @@ namespace AtlanticDX.ERP.Areas.Finances.Models
             }
         }
 
+        [Display(Name = "创建时间")]
         public string CTIME_Str
         {
             get
@@ -148,12 +160,13 @@ namespace AtlanticDX.ERP.Areas.Finances.Models
             }
         }
 
+        [Display(Name = "费用类别")]
         public string EventType_Str
         {
-            get;
-            set;
+            get { return this.m.EventType.GetDisplayName(); }
         }
 
+        [Display(Name = "金额")]
         public double Amount_Round
         {
             get
@@ -162,12 +175,23 @@ namespace AtlanticDX.ERP.Areas.Finances.Models
             }
         }
 
+        [Display(Name = "实际收款金额")]
+        public double Receive_Amount_Round
+        {
+            get
+            {
+                return Math.Round(this.m.ReceiveAmount, 2);
+            }
+        }
+
+        [Display(Name = "记录类型")]
         public string RecordTypeStr
         {
             get;
             set;
         }
 
+        [Display(Name = "支付状态")]
         public string PayStatus_Str
         {
             get
@@ -176,6 +200,7 @@ namespace AtlanticDX.ERP.Areas.Finances.Models
             }
         }
 
+        [Display(Name = "合同编号")]
         public string SaleContractKey
         {
             get
@@ -184,24 +209,27 @@ namespace AtlanticDX.ERP.Areas.Finances.Models
             }
         }
 
+        [Display(Name = "已付账款")]
         public double HasReceivedAmount
         {
             get;
-            set;
+            set;        
         }
 
+        [Display(Name = "未付账款")]
         public double ToBeReceivedAmount
         {
             get;
             set;
         }
-
+        [Display(Name = "操作人")]
         public string OperateSysUser_PersonName
         {
             get;
             set;
         }
 
+        [Display(Name = "备注")]
         public string Comments
         {
             get;
@@ -224,6 +252,7 @@ namespace AtlanticDX.ERP.Areas.Finances.Models
             this.m_receivable = obj;
         }
 
+        [Display(Name = "创建时间")]
         public DateTime CTIME
         {
             get

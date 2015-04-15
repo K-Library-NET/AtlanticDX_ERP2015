@@ -21,7 +21,7 @@
                 <a href="javascript:;" class="easyui-linkbutton" id="btn_financial_record_filter" onclick="$('#filter_form').submit();">查找</a>
             </div>
         </form>
-        <button class="add_some mt10" onclick="add_row()"><i></i>新建</button>
+        <button class="add_some mt10" onclick="add_row()"><i></i>添加 </button>
         <div class="clear"></div>
     </div>
     <div class="clear"></div>
@@ -43,12 +43,46 @@
     </table>
 </div>
 @*add dialog*@
-<div id="add_dialog" class="easyui-dialog" style="width:500px;height:500px;padding:20px 35px;" data-options="modal:true,closed:true" buttons="#add_dialog_buttons">
+<div id="add_dialog" class="easyui-dialog" style="width:510px;height:500px;padding:10px 20px;" data-options="modal:true,closed:true" buttons="#add_dialog_buttons">
     <form method="post" class="dlg-form">
         <input type="hidden" name="ProductItemId" value="" />
         <div class="form-item">
-
+            <label>
+                <samp style="color:red;">*</samp>@Html.DisplayNameFor(m => m.RecordType)
+            </label>
+            @Html.EnumDropDownListFor(m => m.RecordType, new { @class = "date_select mr20" })
         </div>
+        <div class="form-item">
+            <label>
+                <samp style="color:red;">*</samp>@Html.DisplayNameFor(m => m.EventType)
+            </label>
+            @Html.EnumDropDownListFor(m => m.EventType)
+        </div>
+        <div class="form-item">
+            <label>
+                <samp style="color:red;">*</samp>@Html.DisplayNameFor(m => m.Amount_Round)
+            </label>
+            @Html.TextBoxFor(m => m.Amount)
+        </div>
+        <div class="form-item">
+            <label>
+                <samp style="color:red;">*</samp>@Html.DisplayNameFor(m => m.Currency)
+            </label>
+            @Html.TextBoxFor(m => m.Currency, new { @class = "required" })
+        </div>
+        <div class="form-item">
+            <label>
+                <samp style="color:red;">*</samp>@Html.DisplayNameFor(m => m.CurrencyExchangeRate)
+            </label>
+            @Html.TextBoxFor(m => m.CurrencyExchangeRate, new { @class = "required", @Value = YuShang.ERP.Entities.Configs.CurrencyConfigs.DefaultCurrencyExchangeRateUSDtoCNY })
+        </div>
+        <div class="form-item">
+            <label>@Html.DisplayNameFor(m => m.Comments):</label>
+
+            @Html.TextBoxFor(m => m.Comments)
+            @Html.HiddenFor(m => m.OperatorSysUserName, new  { @Value="0"})
+        </div>
+        
     </form>
 </div>
 <div id="add_dialog_buttons">

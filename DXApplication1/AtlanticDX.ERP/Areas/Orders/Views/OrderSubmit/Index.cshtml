@@ -243,10 +243,10 @@
             //审核校验
             var status = $('#auditOrderContractForm [name="ContractStatus"]').val();
             var isNoValue = $('#auditOrderContractForm input[name="isNoValue"]').val();
-            if (status == "AuditPassed" && isNoValue == "1") {
-                $.messager.alert('提示', '请完善指导价格');
-                return false;
-            }
+            //if (status == "AuditPassed" && isNoValue == "1") {
+            //    $.messager.alert('提示', '请完善指导价格');
+            //    return false;
+            //}
             $('#auditOrderContractForm').submit();
         } 
     </script>

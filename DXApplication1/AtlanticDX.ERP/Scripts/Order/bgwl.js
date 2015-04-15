@@ -1,4 +1,4 @@
-﻿$(function () {   
+﻿$(function () {
     //绑定香港物流公司数据验证(界面选择空值后则不可修改下面对应的表格)
     $(".gkdl").on('focus', 'input.num_compute', function () {
         var typename = $(this).attr("name"); //获取当前文本框名称
@@ -52,7 +52,7 @@
             var total = parseFloat($('#PaymentTotal').val());
             var deposite = parseFloat($('#ImportDeposite').val());
             if ($.isNumeric(total) && $.isNumeric(deposite) && (total - deposite) > 0) {
-                balancedPayment = (total - deposite).toFixed(2);
+                balancedPayment = (total - deposite).toFixed(4);
             }
             $('#ImportBalancedPayment').val(balancedPayment);
         }
@@ -138,8 +138,8 @@
                                 $.messager.alert('提示', messages.join('<br/>'));
                             } else {
                                 $.messager.alert('提示', '保存成功', 'info', function () {
-                                    parent.updateMainTab('采购合同', '采购合同', '/Orders/OrderContract/Index');
-                                    parent.closeMainTab(url.indexOf('Edit')>0?'编辑采购合同': '新增采购合同');                                    
+                                    //parent.updateMainTab('采购合同', '采购合同', '/Orders/OrderContract/Index');
+                                    parent.closeMainTab(($('#add_order_form').prop('action').indexOf('Edit') > 0 ? '编辑采购合同' : '新增采购合同'));
                                 });
 
                             }
@@ -159,6 +159,24 @@
         });
         $('select[name="MainlandLogistics.MainlandLogisticsCompanyId"]').change(function () {
 
+        });
+        //初始化供应商信息
+        $('#SupplierId').change(function () {
+            var id = $(this).val();
+            if (id > 0) {
+                $.post('/ResMgr/Suppliers/Get', { 'SupplierId': id }, function (data) {
+                    //付款方式信息
+                    $('#Payment').val(data.SupplierPayment);
+                    //采购订金比率 data.DepositeRates
+                    //采购固定订金SaleDepositeStatic
+                    //var SaleDepositeStatic = data.SaleDepositeStatic;
+                    //if (!SaleDepositeStatic && data.DepositeRates) {
+
+                    //}
+                    $('#ImportDeposite').val(data.SaleDepositeStatic ? data.SaleDepositeStatic : 0);
+                    compute_ImportBalancedPayment();
+                });
+            }
         });
     });
 });

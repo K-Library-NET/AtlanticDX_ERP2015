@@ -21,56 +21,56 @@ namespace YuShang.ERP.Entities.Finances
         /// 采购订金
         /// </summary>
         [Display(Name = "采购订金")]
-        ImportDeposite,
+        ImportDeposite=1,
         /// <summary>
         /// 采购固定订金
         /// </summary>
         [Display(Name = "采购固定订金")]
-        ImportDepositeStatic,
+        ImportDepositeStatic=2,
         /// <summary>
         /// 采购尾款
         /// </summary>
         [Display(Name = "采购尾款")]
-        ImportBalancedPayment,
+        ImportBalancedPayment=3,
         /// <summary>
         /// 港口代理费
         /// </summary>
         [Display(Name = "港口代理费")]
-        HarborAgentFee,
+        HarborAgentFee=4,
         /// <summary>
         /// 香港物流费
         /// </summary>
         [Display(Name = "香港物流费")]
-        HKLogisticsFee,
+        HKLogisticsFee=5,
         /// <summary>
         /// 内地物流费
         /// </summary>
         [Display(Name = "内地物流费")]
-        MainlandLogisticsFee,
+        MainlandLogisticsFee=6,
         /// <summary>
         /// 仓租
         /// </summary>
         [Display(Name = "仓租")]
-        InventoriesRentingFee,
+        InventoriesRentingFee=7,
         /// <summary>
         /// 销售订金
         /// </summary>
         [Display(Name = "销售订金")]
-        SalesDeposite,
+        SalesDeposite=8,
         /// <summary>
         /// 销售尾款
         /// </summary>
         [Display(Name = "销售尾款")]
-        SalesBalancedPayment,
+        SalesBalancedPayment=9,
         /// <summary>
         /// 员工工资
         /// </summary>
         [Display(Name = "员工工资")]
-        EmploymentSalary,
+        EmploymentSalary=10,
         /// <summary>
         /// 销售固定订金
         /// </summary>
         [Display(Name = "销售固定订金")]
-        SaleDepositeStatic,
+        SaleDepositeStatic=11,
     }
 }

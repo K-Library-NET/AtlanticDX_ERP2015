@@ -3,32 +3,33 @@
     ViewBag.Title = "应付账款";
 }
 @*datagrid*@
-<div style="margin:15px;" id="declaration">
-    <div class="topbar right_content_top">
-        <form id="filter_form">
-            <input type="text" name="filterValue" value="请输入查找信息" style="width:200px;height:28px; text-indent:1em; margin-top:10px; float:left;" />
-            <a href="javascript:;" class="easyui-linkbutton" id="btn_accounts_payable_filter"
-               onclick="$('#filter_form').submit();">查找</a>
-        </form>
-        <div class="clear"></div>
-    </div>
-    <div class="clear"></div>
-
+<div class="right_content_top">
+    <form id="filter_form">
+        <div class="search ml20">
+            @*<form id="filter_form">*@
+            <input type="text" value="请输入查找信息" name="filterValue" onfocus="if (this.value == '请输入查找信息') this.value = '';" onblur="    if (this.value == '') this.value = '请输入查找信息';" />
+            <button type="submit">查询</button>
+            @*嵌套一个id一样的Form？</form>*@
+        </div>
+    </form>
+</div>
+<div class="ddgl clearf calculate" style="margin:15px;" id="cght">   
     <table id="my_datagrid" class="easyui-datagrid"
-           style="width:1200px;height:auto;"
-           data-options="rownumbers:true,pagination:true,singleSelect:true,url:'/@ViewContext.RouteData.Values["Area"].ToString()/@ViewContext.RouteData.Values["Controller"].ToString()/Index',method:'post'">
+           style=""
+           data-options="rownumbers:true,pagination:true,singleSelect:true,fitcolumns:true,url:'/@ViewContext.RouteData.Values["Area"].ToString()/@ViewContext.RouteData.Values["Controller"].ToString()/Index',method:'post'">
         <thead>
             <tr>
-                <th data-options="field:'CTIME_Str',width:'150',editor:'text'">@Html.DisplayFor(a => a.CTIME_Str)</th>
-                <th data-options="field:'EventType_Str',width:'150',editor:'text'">@Html.DisplayFor(a => a.EventType_Str)</th>
-                <th data-options="field:'Amount_Round',width:'150',editor:'text'">@Html.DisplayFor(a => a.Amount_Round)</th>
-                <th data-options="field:'RecordTypeStr',width:'150',editor:'text'">@Html.DisplayFor(a => a.RecordTypeStr)</th>
-                <th data-options="field:'PayStatus_Str',width:'150',editor:'text'">@Html.DisplayFor(a => a.PayStatus_Str)</th>
-                <th data-options="field:'OrderContractKey',width:'150',editor:'text'">@Html.DisplayFor(a => a.OrderContractKey)</th>
-                <th data-options="field:'HasPaidAmount',width:'150',editor:'text'">@Html.DisplayFor(a => a.HasPaidAmount)</th>
-                <th data-options="field:'ToBePaidAmount',width:'150',editor:'text'">@Html.DisplayFor(a => a.ToBePaidAmount)</th>
-                <th data-options="field:'OperateSysUser_PersonName',width:'150',editor:'text'">@Html.DisplayFor(a => a.OperateSysUser_PersonName)</th>
-                <th data-options="field:'Comments',width:'150',editor:'text'">@Html.DisplayFor(a => a.Comments)</th>
+                <th data-options="field:'CTIME_Str',editor:'text'">@Html.DisplayNameFor(a => a.CTIME_Str)</th>
+                <th data-options="field:'OrderContractKey',editor:'text'">合同编号</th>
+                @*<th data-options="field:'EventType_Str',editor:'text'">@Html.DisplayNameFor(a => a.EventType_Str)</th>*@
+                <th data-options="field:'Amount_Round',editor:'text'">@Html.DisplayNameFor(a => a.Amount_Round)</th>
+                <th data-options="field:'EventType_Str',editor:'text'">@Html.DisplayNameFor(a => a.EventType_Str)</th>
+                <th data-options="field:'PayStatus_Str',editor:'text'">@Html.DisplayNameFor(a => a.PayStatus_Str)</th>
+                <th data-options="field:'HasPaidAmount',editor:'text'">@Html.DisplayNameFor(a => a.HasPaidAmount)</th>
+                <th data-options="field:'ToBePaidAmount',editor:'text'">@Html.DisplayNameFor(a => a.ToBePaidAmount)</th>
+                <th data-options="field:'Paid_Amount_Round',editor:'text'">@Html.DisplayNameFor(a => a.Paid_Amount_Round)</th>               
+                @*<th data-options="field:'OperateSysUser_PersonName',editor:'text'">@Html.DisplayNameFor(a => a.OperateSysUser_PersonName)</th>*@
+                <th data-options="field:'Caozuo',width:60,align:'center'">操作</th>
             </tr>
         </thead>
     </table>

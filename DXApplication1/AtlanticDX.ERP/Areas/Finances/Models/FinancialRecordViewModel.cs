@@ -63,7 +63,7 @@ namespace AtlanticDX.ERP.Areas.Finances.Models
             }
         }
 
-        [Display(Name = "财务费用产生的类型")]
+        [Display(Name = "费用类型")]
         public AccountingEventType EventType
         {
             get
@@ -91,6 +91,7 @@ namespace AtlanticDX.ERP.Areas.Finances.Models
             }
         }
 
+       [Display(Name = "费用类型")]
         public string EventTypeStr
         {
             get
@@ -115,7 +116,7 @@ namespace AtlanticDX.ERP.Areas.Finances.Models
         /// <summary>
         /// 
         /// </summary>
-        [Display(Name = "实付账款/实收账款")]
+        [Display(Name = "实付账款")]
         public YuShang.ERP.Entities.Finances.FinancialRecordType RecordType
         {
             get
@@ -220,6 +221,37 @@ namespace AtlanticDX.ERP.Areas.Finances.Models
             get
             {
                 return m_record.UTIME;
+            }
+            set
+            {
+            }
+        }
+
+
+        /// <summary>
+        /// 财务记录的币种
+        /// </summary>
+        [Display(Name = "币种")]       
+        public string Currency
+        {
+            get
+            {
+                return m_record.Currency;
+            }
+            set
+            {
+            }
+        }
+
+        /// <summary>
+        /// 财务记录产生或修改时刻的汇率，目前都是转到人民币
+        /// </summary>
+        [Display(Name = "汇率")]
+        public double CurrencyExchangeRate
+        {
+            get
+            {
+                return m_record.CurrencyExchangeRate;
             }
             set
             {

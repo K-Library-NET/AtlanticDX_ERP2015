@@ -243,6 +243,13 @@ namespace AtlanticDX.ERP.Areas.ResMgr.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpPost]
+        public JsonResult Get(int SupplierId)
+        {
+            Supplier supplier = db.Suppliers.Find(SupplierId);
+            return Json(supplier);
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
