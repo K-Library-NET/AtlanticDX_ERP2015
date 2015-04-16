@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using YuShang.ERP.Entities.Configs;
 using YuShang.ERP.Entities.Orders;
 using YuShang.ERP.Entities.Sale;
 
@@ -429,6 +430,27 @@ namespace PrivilegeFramework
         [Display(Name = "销售订金")]
         public double? SaleDeposite { get; set; }
 
+        //20150409 added: 
+        /// <summary>
+        /// 币种，默认人民币，但是是通过全局配置的
+        /// </summary>
+        [Display(Name = "币种")]
+        [MaxLength(100)]
+        public string Currency
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// 汇率，指从当前币种转换到默认币种的比率
+        /// </summary>
+        public double? CurrencyExchangeRate
+        {
+            get;
+            set;
+        }
+        //20150409 added
 
         /// <summary>
         /// 折扣金额。前端界面可以用折扣率乘以总价得出，存到数据库只存折扣额
@@ -475,6 +497,13 @@ namespace PrivilegeFramework
             target.SaleDeposite = source.SaleDeposite;
             target.TotalAfterDiscount = source.TotalAfterDiscount;
             target.CreateSysUserKey = source.OperatorSysUser;
+
+            target.Currency = string.IsNullOrEmpty(source.Currency) ?
+                CurrencyConfigs.SALE_DEFAULT_CURRENCY_VALUE : source.Currency;
+            target.CurrencyExchangeRate = source.CurrencyExchangeRate > 0 ?
+                source.CurrencyExchangeRate : CurrencyConfigs.GetDefaultCurrency(
+                target.Currency, (int)target.ContractType);
+
             target.InitSaleClient();
             target.InitSaleItems();
         }
@@ -492,6 +521,11 @@ namespace PrivilegeFramework
             //target.SaleBalancedPayment = source.SaleBalancedPayment.GetValueOrDefault();
             target.SaleDeposite = source.SaleDeposite.GetValueOrDefault();
             target.OperatorSysUser = source.CreateSysUserKey;
+
+            target.CurrencyExchangeRate = source.CurrencyExchangeRate.HasValue ?
+                source.CurrencyExchangeRate.Value : CurrencyConfigs.GetDefaultCurrency(
+                source.Currency, (int)source.ContractType);
+            target.Currency = source.Currency;
         }
 
         public static void AssignValues(OrderContract source, ContractInfo target)
@@ -517,6 +551,13 @@ namespace PrivilegeFramework
             target.Payment = source.Payment;
             target.PaymentTotal = source.PaymentTotal;
             target.ShipmentPeriod = source.ShipmentPeriod;
+
+            target.Currency = string.IsNullOrEmpty(source.Currency) ?
+                CurrencyConfigs.ORDER_DEFAULT_CURRENCY_VALUE : source.Currency; 
+            target.CurrencyExchangeRate = source.CurrencyExchangeRate > 0 ?
+                source.CurrencyExchangeRate : CurrencyConfigs.GetDefaultCurrency(
+                target.Currency, (int)target.ContractType);
+
             target.InitOrderItems();
             target.InitHarborAgent();
             target.InitHkLogistics();
@@ -543,6 +584,11 @@ namespace PrivilegeFramework
             target.ContainerSerial = source.ContainerSerial;
             target.ContractStatus = source.ContractStatus;
             target.Comments = source.Comments;
+
+            target.CurrencyExchangeRate = source.CurrencyExchangeRate.HasValue ?
+                source.CurrencyExchangeRate.Value : CurrencyConfigs.GetDefaultCurrency(
+                source.Currency, (int)source.ContractType);
+            target.Currency = source.Currency;
             //target.ContractId = source.ContractId;
         }
 
@@ -620,6 +666,6 @@ namespace PrivilegeFramework
     public enum ContractViewModelType
     {
         OrderContract = 0,
-        SaleContract,
+        SaleContract = 1,
     }
 }

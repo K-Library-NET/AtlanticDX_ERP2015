@@ -620,6 +620,7 @@ namespace PrivilegeFramework.AppBusinessImpl
             if (pay1 != null)
             {
                 pay1.Amount = contract.ImportDeposite;
+                pay1.Currency = contract.Currency;
 
                 double accountRecordSum1 = dbContext.FinancialRecords
                       .Where(m1 => m1.RecordType == FinancialRecordType.AccountsPayable
@@ -643,6 +644,7 @@ namespace PrivilegeFramework.AppBusinessImpl
             {
                 pay1 = dbContext.AccountsPayables.Create();
                 pay1.Amount = contract.ImportDeposite;
+                pay1.Currency = contract.Currency;
                 pay1.EventType = AccountingEventType.ImportDeposite;
                 pay1.CTIME = DateTime.Now;
                 pay1.OrderContract = contract;
@@ -652,6 +654,7 @@ namespace PrivilegeFramework.AppBusinessImpl
             if (pay2 != null)
             {
                 pay2.Amount = contract.ImportBalancedPayment;
+                pay2.Currency = contract.Currency;
 
                 double accountRecordSum2 = dbContext.FinancialRecords
                       .Where(m1 => m1.RecordType == FinancialRecordType.AccountsPayable
@@ -676,6 +679,7 @@ namespace PrivilegeFramework.AppBusinessImpl
             {
                 pay2 = dbContext.AccountsPayables.Create();
                 pay2.Amount = contract.ImportBalancedPayment;
+                pay2.Currency = contract.Currency;
                 pay2.EventType = AccountingEventType.ImportBalancedPayment;
                 pay2.CTIME = DateTime.Now;
                 pay2.OrderContractId = contract.OrderContractId;
@@ -713,23 +717,30 @@ namespace PrivilegeFramework.AppBusinessImpl
 
             if (pay1 == null)
             {
-                pay1 = dbContext.AccountsPayables.Create();
-                pay1.CTIME = DateTime.Now;
-                pay1.EventType = AccountingEventType.HarborAgentFee;
-                pay1.OrderContractId = contract.OrderContractId;
-                pay1.PayStatus = 0;
-                dbContext.AccountsPayables.Add(pay1);
+                if (harborAgent != null && dbContext.Entry(harborAgent).State != EntityState.Detached
+                    && dbContext.Entry(harborAgent).State != EntityState.Deleted)
+                {
+                    pay1 = dbContext.AccountsPayables.Create();
+                    pay1.Amount = harborAgent.Total.GetValueOrDefault();
+                    pay1.Currency = contract.Currency;
+                    pay1.CTIME = DateTime.Now;
+                    pay1.EventType = AccountingEventType.HarborAgentFee;
+                    pay1.OrderContractId = contract.OrderContractId;
+                    pay1.PayStatus = 0;
+                    dbContext.AccountsPayables.Add(pay1);
+                }
             }
             else
             {
-                if (harborAgent == null)
+                if (harborAgent == null || dbContext.Entry(harborAgent).State == EntityState.Detached
+                    || dbContext.Entry(harborAgent).State == EntityState.Deleted)
                 {
                     dbContext.AccountsPayables.Remove(pay1);
                     return;
                 }
 
                 pay1.Amount = harborAgent.Total.GetValueOrDefault();
-
+                pay1.Currency = contract.Currency;
                 double accountRecordSum = dbContext.FinancialRecords
                       .Where(m1 => m1.RecordType == FinancialRecordType.AccountsPayable
                           && m1.AccountsPayableId == pay1.AccountsPayableId).Sum(m2 => m2.Amount);
@@ -741,9 +752,9 @@ namespace PrivilegeFramework.AppBusinessImpl
                 //  && (m1.RelatedObjectId == pay1.Amount &&  //于此应付账款记录关联
                 //  m1.RelatedObjectType == FinancialRelatedObjectType.AccountsPayRecord_To_AccountsPayable))
                 //  .Select(m1 => m1.AccountsRecord).Distinct().Sum(m1 => m1.Amount);
-
-                //如果应付账款已经付款超过数字，则状态变为“已结清” 
-
+                 
+                pay1.PaidAmount = accountRecordSum;
+                //如果应付账款已经付款超过数字，则状态变为“已结清”
                 if (accountRecordSum //amountSum1 
                     >= pay1.Amount)
                     pay1.PayStatus = 1;
@@ -759,9 +770,12 @@ namespace PrivilegeFramework.AppBusinessImpl
                 m => m.OrderContractId == contract.OrderContractId
                     && m.EventType == AccountingEventType.HKLogisticsFee);
 
-            if (pay1 == null)
+            if (pay1 == null && dbContext.Entry(hklogis).State != EntityState.Detached
+                    && dbContext.Entry(hklogis).State != EntityState.Deleted) 
             {
                 pay1 = dbContext.AccountsPayables.Create();
+                pay1.Amount = hklogis.Total;
+                pay1.Currency = contract.Currency;
                 pay1.CTIME = DateTime.Now;
                 pay1.EventType = AccountingEventType.HKLogisticsFee;
                 pay1.OrderContract = contract;
@@ -770,13 +784,15 @@ namespace PrivilegeFramework.AppBusinessImpl
             }
             else
             {
-                if (hklogis == null)
+                if (hklogis == null || dbContext.Entry(hklogis).State == EntityState.Detached
+                    || dbContext.Entry(hklogis).State == EntityState.Deleted)
                 {
                     dbContext.AccountsPayables.Remove(pay1);
                     return;
                 }
 
-                pay1.Amount = hklogis.Total;
+                pay1.Amount = hklogis.Total; 
+                pay1.Currency = contract.Currency;
 
                 double accountRecordSum = dbContext.FinancialRecords
                       .Where(m1 => m1.RecordType == FinancialRecordType.AccountsPayable
@@ -790,6 +806,7 @@ namespace PrivilegeFramework.AppBusinessImpl
                 //  m1.RelatedObjectType == FinancialRelatedObjectType.AccountsPayRecord_To_AccountsPayable))
                 //  .Select(m1 => m1.AccountsRecord).Distinct().Sum(m1 => m1.Amount);
 
+                pay1.PaidAmount = accountRecordSum;
                 //如果应付账款已经付款超过数字，则状态变为“已结清”  
                 if (accountRecordSum >= pay1.Amount)
                     pay1.PayStatus = 1;
@@ -1033,9 +1050,12 @@ namespace PrivilegeFramework.AppBusinessImpl
                 m => m.OrderContractId == contract.OrderContractId
                     && m.EventType == AccountingEventType.MainlandLogisticsFee);
 
-            if (pay1 == null)
+            if (pay1 == null && dbContext.Entry(hklogis).State != EntityState.Detached
+                    && dbContext.Entry(hklogis).State != EntityState.Deleted) 
             {
                 pay1 = dbContext.AccountsPayables.Create();
+                pay1.Amount = hklogis.Total;
+                pay1.Currency = contract.Currency;
                 pay1.CTIME = DateTime.Now;
                 pay1.EventType = AccountingEventType.MainlandLogisticsFee;
                 pay1.OrderContract = contract;
@@ -1044,13 +1064,16 @@ namespace PrivilegeFramework.AppBusinessImpl
             }
             else
             {
-                if (hklogis == null)
+                if (hklogis == null || dbContext.Entry(hklogis).State == EntityState.Detached
+                    || dbContext.Entry(hklogis).State == EntityState.Deleted)
                 {
                     dbContext.AccountsPayables.Remove(pay1);
                     return;
                 }
 
-                pay1.Amount = hklogis.Total;
+                pay1.Amount = hklogis.Total; 
+                pay1.Currency = contract.Currency;
+
                 double accountRecordSum = dbContext.FinancialRecords
                       .Where(m1 => m1.RecordType == FinancialRecordType.AccountsPayable
                           && m1.AccountsPayableId == pay1.AccountsPayableId).Sum(m2 => m2.Amount);
@@ -1064,6 +1087,7 @@ namespace PrivilegeFramework.AppBusinessImpl
                 //  && (m1.RelatedObjectId == pay1.Amount &&  //于此应付账款记录关联
                 //  m1.RelatedObjectType == FinancialRelatedObjectType.AccountsPayRecord_To_AccountsPayable))
 
+                pay1.PaidAmount = accountRecordSum;
                 //如果应付账款已经付款超过数字，则状态变为“已结清”  
                 if (accountRecordSum >= pay1.Amount)
                     pay1.PayStatus = 1;

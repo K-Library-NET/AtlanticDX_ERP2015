@@ -706,6 +706,8 @@
     <Compile Include="Areas\Finances\Models\FinancialRecordFilterViewModel.cs" />
     <Compile Include="Areas\Finances\Models\FinancialRecordViewModel.cs" />
     <Compile Include="Areas\Finances\Models\FinancialViewModel.cs" />
+    <Compile Include="Areas\Orders\Controllers\OrderContractControllerBgwl.cs" />
+    <Compile Include="Areas\Orders\Controllers\OrderController.cs" />
     <Compile Include="Areas\Orders\Models\AddCompensateViewModel.cs" />
     <Compile Include="Areas\Orders\Models\AddSaleBarginViewModel.cs" />
     <Compile Include="Areas\Orders\Models\AddSalesGuidePriceViewModel.cs" />

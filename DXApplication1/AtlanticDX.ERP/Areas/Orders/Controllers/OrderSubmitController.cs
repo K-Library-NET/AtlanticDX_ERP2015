@@ -81,10 +81,15 @@ namespace AtlanticDX.ERP.Areas.Orders.Controllers
                 }
                 else
                 {
-                    orderContract.Comments = model.Comments;
-                    orderContract.ContractStatus = model.ContractStatus;
+                    ContractInfo info = new ContractInfo(orderContract);
+                    info.Comments = model.Comments;
+                    info.ContractStatus = model.ContractStatus;
+                    //orderContract.Comments = model.Comments;
+                    //orderContract.ContractStatus = model.ContractStatus;
                     try
                     {
+                        AppBusinessManager.Instance.UpdateOrderContractCore(
+                            dxContext, info, HttpContext.User.Identity.Name);
                         dxContext.SaveChanges();
                     }
                     catch (Exception e)
