@@ -21,6 +21,8 @@ namespace AtlanticDX.ERP.Areas.Finances.Controllers
         // GET: FinancialRecords
         public ActionResult Index()
         {
+            //当前用户
+            ViewBag.CurrentUser = db.Users.Where(m => m.UserName == HttpContext.User.Identity.Name).SingleOrDefault();
             return View();
         }
 
@@ -48,13 +50,31 @@ namespace AtlanticDX.ERP.Areas.Finances.Controllers
 
             return Json(new { total = list3.Count(), rows = list });
         }
+       
 
         [HttpPost]
-        public JsonResult Add(FinancialRecordViewModel model)
+        public JsonResult Add(AccountsRecord model)
         {
             if (ModelState.IsValid)
             {
                 //TODO 添加财务记录
+                try
+                {
+                    model.CTIME = DateTime.Now;
+                    model.UTIME = DateTime.Now;
+                    model.Year = model.CTIME.Year;
+                    model.Month = model.CTIME.Month;
+                    model.Day = model.CTIME.Day;
+                    model.IsDeleted = false;
+                    model.OperatorSysUserName = db.Users.Where(m => m.UserName == HttpContext.User.Identity.Name).SingleOrDefault().UserName;
+                    db.FinancialRecords.Add(model);
+                    db.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    LogHelper.Error("添加财务记录", e);
+                    ModelState.AddModelError("", e.Message);
+                }                
             }
             return Json(ModelState.GetModelStateErrors());
         }

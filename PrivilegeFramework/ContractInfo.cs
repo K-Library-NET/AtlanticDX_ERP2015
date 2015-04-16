@@ -445,6 +445,7 @@ namespace PrivilegeFramework
         /// <summary>
         /// 汇率，指从当前币种转换到默认币种的比率
         /// </summary>
+        [Display(Name = "汇率")]
         public double? CurrencyExchangeRate
         {
             get;
@@ -668,4 +669,5 @@ namespace PrivilegeFramework
         OrderContract = 0,
         SaleContract = 1,
     }
+
 }

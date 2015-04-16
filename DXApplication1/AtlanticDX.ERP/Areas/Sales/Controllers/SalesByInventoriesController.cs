@@ -126,7 +126,8 @@ namespace AtlanticDX.ERP.Areas.Sales.Controllers
             var sale = dxContext.SaleContracts.Include(
                 "SaleProducts.OrderProductItem.Product")
                 .Include("SaleProducts.StockItem.StoreHouse")
-                .Include("SaleClient").Include("SaleBargins")
+                .Include("SaleClient")
+                //.Include("SaleBargins")
                 .First(m => m.SaleContractKey == SaleContractKey);
             if (sale == null)
                 return View(sale);

@@ -75,7 +75,7 @@ namespace PrivilegeFramework.AppBusinessImpl
             ExtendedIdentityDbContext db, //SaleContract model,
             string userName, SaleContract contract)
         {
-            if (contract.SaleContractStatus == ContractStatus.AuditPassed)//已经审核
+            if (contract.ContractStatus == ContractStatus.AuditPassed)//已经审核
             {
                 if (contract.SaleContractId < 1)
                 {//Add

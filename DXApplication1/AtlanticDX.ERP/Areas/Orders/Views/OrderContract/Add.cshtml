@@ -30,9 +30,10 @@
                 <option value="0">期货</option>
                 <option value="1">现货</option>
             </select>
-
-            <span class="default red">*</span><span class="default">汇率</span>         
-            @Html.TextBoxFor(m => m.ShipmentPeriod, new { @class = "w50", @Value = YuShang.ERP.Entities.Configs.CurrencyConfigs.DefaultCurrencyExchangeRateUSDtoCNY })
+            <span class="default red">*</span><span class="default">@Html.DisplayNameFor(m => m.Currency)</span>
+            @Html.TextBoxFor(m => m.Currency, new { @class = "w50", @Value = YuShang.ERP.Entities.Configs.CurrencyConfigs.ORDER_DEFAULT_CURRENCY_VALUE, @readonly = "readonly" })
+            <span class="default red">*</span><span class="default">@Html.DisplayNameFor(m => m.CurrencyExchangeRate)</span>
+            @Html.TextBoxFor(m => m.CurrencyExchangeRate, new { @class = "w50", @Value = YuShang.ERP.Entities.Configs.CurrencyConfigs.ORDER_DEFAULT_CURRENCY_EXCHANGE_RATE })
         </div>
         <div class="right_content_top bb1">
             <span class="default ml20">@Html.DisplayNameFor(m => m.ETA)</span><span class="eta_in">@Html.TextBoxFor(m => m.ETA, new { @class = "easyui-datebox", @style = "width:98%;" })</span>

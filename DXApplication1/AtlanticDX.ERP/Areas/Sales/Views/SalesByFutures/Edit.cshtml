@@ -18,7 +18,10 @@
             <span class="default red">*</span>
             <span class="default">@Html.DisplayNameFor(m => m.CTIME)</span>
             <span class="eta_in">@Html.TextBoxFor(m => m.CTIME, new { @class = "easyui-datebox", @style = "width:98%;" })</span>
-            <input type="hidden" name="OrderType" value="1" />
+            <input type="hidden" name="OrderType" value="0" />
+            @Html.TextBoxFor(m => m.Currency, new { @class = "w50", @Value = YuShang.ERP.Entities.Configs.CurrencyConfigs.SALE_DEFAULT_CURRENCY_VALUE, @readonly = "readonly" })
+            <span class="default red">*</span><span class="default">@Html.DisplayNameFor(m => m.CurrencyExchangeRate)</span>@Html.TextBoxFor(m => m.CurrencyExchangeRate, new { @class = "w50"})
+
         </div>
         <div class="ddgl clearf calculate">
             <table id="picked_products_table" class="svs_table ml20 mr20" >

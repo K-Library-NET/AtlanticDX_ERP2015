@@ -14,18 +14,19 @@
             <span class="eta_in">@Html.TextBoxFor(m => m.CTIME, new { @class = "easyui-datebox", @id = "thedate", @style = "width:98%;", @required = "required", @Value = DateTime.Now.ToString("yyyy-MM-dd") })</span>
             @*
 
-            <span class="default">@Html.DisplayNameFor(m => m.HarborId)</span>@Html.DropDownListFor(m => m.HarborId, AtlanticDX.ERP.Helper.OrdersHelper.GetHarbors(), "--请选择--", new { @class = "date_select mr20" })*@
+                <span class="default">@Html.DisplayNameFor(m => m.HarborId)</span>@Html.DropDownListFor(m => m.HarborId, AtlanticDX.ERP.Helper.OrdersHelper.GetHarbors(), "--请选择--", new { @class = "date_select mr20" })*@
             <span class="default red">*</span><span class="default">@Html.DisplayNameFor(m => m.ContractKey)</span>
             <span class="eta_in">
-                @Html.TextBoxFor(m => m.ContractKey, new { @class = "w120",@readonly="readonly" })
+                @Html.TextBoxFor(m => m.ContractKey, new { @class = "w120", @readonly = "readonly" })
             </span>
             <span class="default red">*</span><span class="default">@Html.DisplayNameFor(m => m.OrderType)</span>
             <select name="OrderType" class="date_select date_select_r mr20">
                 <option value="0">期货</option>
                 <option value="1">现货</option>
             </select>
-
-            <span class="default red">*</span><span class="default">汇率</span>@Html.TextBoxFor(m => m.Comments, new { @class = "w50", @Value = 6.25 })
+            <span class="default red">*</span><span class="default">@Html.DisplayNameFor(m => m.Currency)</span>
+            @Html.TextBoxFor(m => m.Currency, new { @class = "w50", @Value = YuShang.ERP.Entities.Configs.CurrencyConfigs.ORDER_DEFAULT_CURRENCY_VALUE, @readonly = "readonly" })
+            <span class="default red">*</span><span class="default">@Html.DisplayNameFor(m => m.CurrencyExchangeRate)</span>@Html.TextBoxFor(m => m.CurrencyExchangeRate, new { @class = "w50" })
         </div>
         <div class="right_content_top bb1">
             <span class="default ml20">@Html.DisplayNameFor(m => m.ETA)</span><span class="eta_in">@Html.TextBoxFor(m => m.ETA, new { @class = "easyui-datebox", @style = "width:98%;" })</span>
@@ -169,11 +170,11 @@
                                                 <tr>
                                                     <td class="check">@(i + 1)</td>
                                                     <td>
-                                                       @Model.ContractItems.ElementAt(i).ProductFullName
+                                                        @Model.ContractItems.ElementAt(i).ProductFullName
                                                     </td>
                                                     <td>
                                                         <input type="hidden" name="HongkongLogistics.LogisItems[@i].ProductItemId" value="@Model.HongkongLogistics.LogisItems.ElementAt(i).ProductItemId" />
-                                                        <input name="HongkongLogistics.LogisItems[@i].ContractQuantity" class="quantity"  type="text" value="@Model.HongkongLogistics.LogisItems.ElementAt(i).ContractQuantity" />
+                                                        <input name="HongkongLogistics.LogisItems[@i].ContractQuantity" class="quantity" type="text" value="@Model.HongkongLogistics.LogisItems.ElementAt(i).ContractQuantity" />
                                                     </td>
                                                     <td>
                                                         <input name="HongkongLogistics.LogisItems[@i].ContractWeight" type="text" class="num_compute" value="@Model.HongkongLogistics.LogisItems.ElementAt(i).ContractWeight" />
@@ -220,13 +221,13 @@
                                         <th class="w120">
                                             @Html.LabelFor(m => m.MainlandLogistics.LogisItems.First().ContractWeight)
                                         </th>
-                                        <th class="w120" >
+                                        <th class="w120">
                                             @Html.LabelFor(m => m.MainlandLogistics.LogisItems.First().FreightCharges)
                                         </th>
-                                        <th class="w120" >
+                                        <th class="w120">
                                             @Html.LabelFor(m => m.MainlandLogistics.LogisItems.First().Insurance)
                                         </th>
-                                        <th class="w120" >
+                                        <th class="w120">
                                             @Html.LabelFor(m => m.MainlandLogistics.LogisItems.First().SubTotal)
                                         </th>
                                     </tr>
@@ -240,7 +241,7 @@
                                             <tr>
                                                 <td class="check">@(i + 1)</td>
                                                 <td>
-                                                   @Model.ContractItems.ElementAt(i).ProductFullName
+                                                    @Model.ContractItems.ElementAt(i).ProductFullName
                                                 </td>
                                                 <td>
                                                     <input type="hidden" name="MainlandLogistics.LogisItems[@i].ProductItemId" value="@Model.MainlandLogistics.LogisItems.ElementAt(i)" />
@@ -271,10 +272,10 @@
                     <p class="clearf ml20">
                         <span class="default red">*</span><span class="default">@Html.DisplayNameFor(m => m.Payment)</span><span class="default">@Html.TextBoxFor(m => m.Payment, new { @class = "w300" })</span>
                         <span class="default red">*</span>
-                        <span class="default">@Html.DisplayNameFor(m => m.PaymentTotal)</span> <span class="default">@Html.TextBoxFor(m => m.PaymentTotal, new { @class = "w115 compute_all_subtotal"})</span>
+                        <span class="default">@Html.DisplayNameFor(m => m.PaymentTotal)</span> <span class="default">@Html.TextBoxFor(m => m.PaymentTotal, new { @class = "w115 compute_all_subtotal" })</span>
                         <span class="default">@Html.DisplayNameFor(m => m.ImportDeposite)</span> <span class="default ">@Html.TextBoxFor(m => m.ImportDeposite, new { @class = "w115" })</span>
                         <span class="default red">*</span>
-                        <span class="default">@Html.DisplayNameFor(m => m.ImportBalancedPayment)</span> <span class="default eta_in">@Html.TextBoxFor(m => m.ImportBalancedPayment, new { @class = "w115 compute_all_subtotal"})</span>
+                        <span class="default">@Html.DisplayNameFor(m => m.ImportBalancedPayment)</span> <span class="default eta_in">@Html.TextBoxFor(m => m.ImportBalancedPayment, new { @class = "w115 compute_all_subtotal" })</span>
                     </p>
                     <p class="clearf ml20">
                         <span class="default mr100">@Html.DisplayNameFor(m => m.CreateSysUserKey)： @Model.CreateSysUserKey</span>

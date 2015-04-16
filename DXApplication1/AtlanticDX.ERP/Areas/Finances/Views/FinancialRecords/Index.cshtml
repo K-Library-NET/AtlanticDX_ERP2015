@@ -67,14 +67,14 @@
         <div class="form-item">
             <label>
                 <samp style="color:red;">*</samp>@Html.DisplayNameFor(m => m.Currency)
-            </label>
-            @Html.TextBoxFor(m => m.Currency, new { @class = "required" })
+            </label>    
+            @Html.TextBoxFor(m => m.Currency, new { @class = "required",@Value =1, @readonly = "readonly"  })
         </div>
         <div class="form-item">
             <label>
                 <samp style="color:red;">*</samp>@Html.DisplayNameFor(m => m.CurrencyExchangeRate)
             </label>
-            @Html.TextBoxFor(m => m.CurrencyExchangeRate, new { @class = "required", @Value = YuShang.ERP.Entities.Configs.CurrencyConfigs.DefaultCurrencyExchangeRateUSDtoCNY })
+            @Html.TextBoxFor(m => m.CurrencyExchangeRate, new { @class = "required", @Value = YuShang.ERP.Entities.Configs.CurrencyConfigs.SALE_DEFAULT_CURRENCY_EXCHANGE_RATE })
         </div>
         <div class="form-item">
             <label>@Html.DisplayNameFor(m => m.Comments):</label>

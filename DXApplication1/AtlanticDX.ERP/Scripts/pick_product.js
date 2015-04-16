@@ -111,7 +111,7 @@ $(document).ready(function () {
             var dataInputs = tr.find('input.num_compute[name^="' + type + '"]');
             if (dataInputs.length == 2 && !isNaN(dataInputs.eq(0).val()) && !isNaN(dataInputs.eq(1).val())) {
                 //单价统一按照“千克”计算
-                tr.find('td[name="' + type + '.SubTotal"]').text((1000*dataInputs.eq(0).val() * dataInputs.eq(1).val()).toFixed(2));
+                tr.find('td[name="' + type + '.SubTotal"]').text((1*dataInputs.eq(0).val() * dataInputs.eq(1).val()).toFixed(2));
             }
             var allTotal = compute_all_subtotal();
             $('.compute_all_subtotal').text(allTotal).val(allTotal).data('total', allTotal);

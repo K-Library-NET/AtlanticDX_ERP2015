@@ -28,7 +28,7 @@
                         <th class="w100" style="width:100px;">销售数量</th>
                         <th class="w100" style="width:100px;">销售吨重</th>
                         <th class="w100" style="width:100px;">销售单价</th>
-                        <th class="w100" style="width:100px;">货币</th>
+                        @*<th class="w100" style="width:100px;">货币</th>*@
                         <th class="w100" style="width:100px;">货款小计</th>
                         @if (Model != null && Model.SaleBargains != null)
                         {
@@ -70,26 +70,29 @@
                                 <td style="width:100px;">
                                     @Html.DisplayTextFor(m => m.SaleContract.SaleProducts.ElementAt(i).Weight)
                                 </td>
-                                <td style="width:100px;">
-                                    @Html.DisplayTextFor(m => m.SaleContract.SaleProducts.ElementAt(i).Currency)
-                                </td>
+                                @*<td style="width:100px;">
+                                        @Html.DisplayTextFor(m => m.SaleContract.SaleProducts.ElementAt(i).Currency)
+                                    </td>*@
                                 <td style="width:100px;">@Html.DisplayTextFor(m => m.SaleContract.SaleProducts.ElementAt(i).SubTotal)</td>
-                                @foreach (SaleBargain bargain in Model.SaleBargains)
+                                @if (Model.SaleBargains != null)
                                 {
-                                    <td>
-                                        @if (bargain != null && bargain.BargainItems != null && bargain.BargainItems.Count > 0)
-                                        {
-                                            SaleBargainItem item = bargain.BargainItems.FirstOrDefault(m => m.ProductKey == Model.SaleContract.SaleProducts.ElementAt(i).ProductKey);
-                                            if (item != null)
+                                    foreach (SaleBargain bargain in Model.SaleBargains)
+                                    {
+                                        <td>
+                                            @if (bargain != null && bargain.BargainItems != null && bargain.BargainItems.Count > 0)
                                             {
-                                                @item.BargainUnitPrice
+                                                SaleBargainItem item = bargain.BargainItems.FirstOrDefault(m => m.ProductKey == Model.SaleContract.SaleProducts.ElementAt(i).ProductKey);
+                                                if (item != null)
+                                                {
+                                                    @item.BargainUnitPrice
+                                                }
                                             }
-                                        }
-                                    </td>
+                                        </td>
+                                    }
                                 }
                             </tr>
                         }
-                    }                    
+                    }
                 </tbody>
             </table>
             <div class="table_info mt10">
@@ -156,10 +159,10 @@
                             var messages = GetModelStateErrors(resp);
                             if (messages.length > 0) {
                                 $.messager.alert('提示', messages.join('<br/>'));
-                            } else {                              
+                            } else {
                                 $.messager.alert('提示', '操作成功', null, function () {
                                     parent.closeMainTab('审核现货销售');
-                                });                               
+                                });
                             }
                         }
                     });
