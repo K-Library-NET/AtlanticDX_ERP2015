@@ -116,7 +116,7 @@ namespace AtlanticDX.ERP.Areas.Finances.Models
         /// <summary>
         /// 
         /// </summary>
-        [Display(Name = "实付账款")]
+        [Display(Name = "账款类型")]
         public YuShang.ERP.Entities.Finances.FinancialRecordType RecordType
         {
             get
@@ -271,30 +271,29 @@ namespace AtlanticDX.ERP.Areas.Finances.Models
 
         #region interfaces 暂时不用实现都可以
 
+        /// <summary>
+        /// 应付账款信息Id
+        /// </summary>
+        [Display(Name = "应付账款")]
         public int? AccountsPayableId
         {
-            get
-            {
-                throw new NotImplementedException();
-            }
-            set
-            {
-                throw new NotImplementedException();
-            }
+            get;
+            set;
         }
-
+        /// <summary>
+        /// 应收账款信息Id
+        /// </summary>
+        [Display(Name = "应收账款")]
         public int? AccountsReceivableId
         {
-            get
-            {
-                throw new NotImplementedException();
-            }
-            set
-            {
-                throw new NotImplementedException();
-            }
+            get;
+            set;
         }
 
+        /// <summary>
+        /// 应付账款信息
+        /// </summary>
+        [Display(Name = "应付账款")]
         public AccountsPayable AccountsPayable
         {
             get
@@ -307,6 +306,10 @@ namespace AtlanticDX.ERP.Areas.Finances.Models
             }
         }
 
+        /// <summary>
+        /// 应收账款信息
+        /// </summary>
+        [Display(Name = "应收账款")]
         public AccountsReceivable AccountsReceivable
         {
             get

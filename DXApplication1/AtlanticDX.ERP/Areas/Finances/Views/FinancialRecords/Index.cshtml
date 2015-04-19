@@ -3,14 +3,7 @@
     ViewBag.Title = "财务记录";
 }
 @*datagrid*@
-<script>
-    function operation_formatter(value, row, index) {
-        var temp = '';
 
-        temp += '<a href="javascript:;" class="edit" onclick="edit_row(\'' + index + '\')">编辑</a>';
-        return temp;
-    }
-</script>
 <div class="right_content_top" style="margin:15px;" id="declaration">
     <div class="topbar">
         <form id="filter_form">
@@ -21,7 +14,8 @@
                 <a href="javascript:;" class="easyui-linkbutton" id="btn_financial_record_filter" onclick="$('#filter_form').submit();">查找</a>
             </div>
         </form>
-        <button class="add_some mt10" onclick="add_row()"><i></i>添加 </button>
+        <button class="add_some mt10" onclick="self_add_row(true)"><i></i>添加实付账款</button>
+        <button class="add_some mt10 ml20" onclick="self_add_row(false)"><i></i>添加实收账款 </button>
         <div class="clear"></div>
     </div>
     <div class="clear"></div>
@@ -57,6 +51,20 @@
                 <samp style="color:red;">*</samp>@Html.DisplayNameFor(m => m.EventType)
             </label>
             @Html.EnumDropDownListFor(m => m.EventType)
+        </div>
+        <div class="form-item">
+            <label>
+                @Html.DisplayNameFor(m => m.AccountsPayableId)                
+            </label>
+            <input type="text" name="AccountsPayableName" value="" class="w120" readonly="readonly" />
+            <input type="hidden" name="AccountsPayableId" value="" />
+        </div>
+        <div class="form-item">
+            <label>
+                @Html.DisplayNameFor(m => m.AccountsReceivableId)
+            </label>          
+            <input type="text" name="AccountsReceivableName" value="" class="w120" readonly="readonly" />
+            <input type="hidden" name="AccountsReceivableId" value="" />
         </div>
         <div class="form-item">
             <label>
@@ -103,10 +111,144 @@
     <a href="javascript:void(0)" class="easyui-linkbutton" onclick="javascript: submitForm('#edit_dialog form');">提交</a>
     <a href="javascript:void(0)" class="easyui-linkbutton" onclick="javascript: closeDialog('#edit_dialog');">关闭</a>
 </div>
+
+@*选择应收账款弹出层*@
+<div id="pick_receive_dialog" class="easyui-dialog" style="width:680px;height:500px;  padding:10px 20px;" data-options="modal:true,closed:true" buttons="#pick_receive_dialog_bottons">
+    <div style="padding:10px 0px;">
+        <input type="text" name="filterValue" data-default-value="请输入查找信息" style="width:200px;height:28px; text-indent:1em; float:left;" />
+        <a href="javascript:;" class="easyui-linkbutton" id="btn_receive_filter">查找</a>
+        <div class="clear"></div>
+    </div>
+    <table id="pick_receive_datagrid" class="easyui-datagrid" data-options="url:'/Finances/AccountsReceivables/Index',fitColumns:true,fit:true,singleSelect:true,pageSize:5">
+        <thead>
+            <tr>
+                <th data-options="field:'SaleContractKey',editor:'text'">合同编号</th>
+                <th data-options="field:'EventType_Str',editor:'text'">费用类型</th>
+                <th data-options="field:'PayStatus_Str',editor:'text',width:80">支付状态</th>
+                <th data-options="field:'Amount_Round',editor:'text',width:100">金额</th>
+                <th data-options="field:'HasPaidAmount',editor:'text',width:100">已付账款</th>
+                <th data-options="field:'ToBePaidAmount',editor:'text',width:100">未付账款</th>
+                <th data-options="field:'Paid_Amount_Round',editor:'text',width:100">付款金额</th> 
+            </tr>
+        </thead>
+    </table>
+</div>
+<div id="pick_receive_dialog_bottons">
+    <a href="javascript:void(0)" class="easyui-linkbutton" onclick="javascript: ;" data-id-name="AccountsReceivableId">选中</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" onclick="javascript: closeDialog('#pick_receive_dialog');">关闭</a>
+</div>
+
+
+@*选择应付账款弹出层*@
+<div id="pick_pay_dialog" class="easyui-dialog" style="width:680px;height:500px;  padding:10px 20px;" data-options="modal:true,closed:true" buttons="#pick_pay_dialog_bottons">
+    <div style="padding:10px 0px;">
+        <input type="text" name="filterValue" data-default-value="请输入查找信息" style="width:200px;height:28px; text-indent:1em; float:left;" />
+        <a href="javascript:;" class="easyui-linkbutton" id="btn_pay_filter">查找</a>
+        <div class="clear"></div>
+    </div>
+    <table id="pick_pay_datagrid" class="easyui-datagrid" data-options="url:'/Finances/AccountsPayables/Index',fitColumns:true,fit:true,singleSelect:true,pageSize:5">
+        <thead>
+            <tr>
+                <th data-options="field:'OrderContractKey',editor:'text',width:150">合同编号</th>
+                <th data-options="field:'EventType_Str',editor:'text',width:80">费用类型</th>
+                <th data-options="field:'PayStatus_Str',editor:'text',width:80">支付状态</th>
+                <th data-options="field:'Amount_Round',editor:'text',width:100">金额</th>               
+                <th data-options="field:'HasPaidAmount',editor:'text',width:100">已付账款</th>
+                <th data-options="field:'ToBePaidAmount',editor:'text',width:100">未付账款</th>
+                <th data-options="field:'Paid_Amount_Round',editor:'text',width:100">付款金额</th>      
+            </tr>
+        </thead>
+    </table>    
+</div>
+<div id="pick_pay_dialog_bottons">
+    <a href="javascript:void(0)" class="easyui-linkbutton" onclick="javascript: ;" data-id-name="AccountsPayableId">选中</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" onclick="javascript: closeDialog('#pick_pay_dialog');">关闭</a>
+</div>
+
+
 @section Scripts{
 
     <script type="text/javascript">
+        function self_add_row(type) {
+            if (type) {
+                $('#add_dialog #EventType').val(1);
+            }
+            else {
+                $('#add_dialog #EventType').val(0);
+            }
+            add_row();
+        }
 
+
+        //选择应付账款
+        $('#add_dialog input[name="AccountsPayableName"]').click(function () {
+            parent.$('#pick_pay_dialog').dialog('open').dialog('setTitle', '选择应付账款');
+        });
+
+        //选择应付账款
+        var pickPayFilterDefaultValue = $('#pick_pay_dialog input[name="filterValue"]').data('default-value');
+        $('#pick_pay_dialog input[name="filterValue"]').val(pickPayFilterDefaultValue);
+        $('#pick_pay_dialog input[name="filterValue"]').focus(function () {
+            if ($(this).val() == pickPayFilterDefaultValue) $(this).val('');
+        }).blur(function () {
+            if ($(this).val() == '') $(this).val(pickPayFilterDefaultValue);
+        });
+        $('#btn_clients_filter').click(function () {
+            var filterValue = $('#pick_pay_dialog input[name="filterValue"]').val();
+            if (filterValue == '' || filterValue == pickPayFilterDefaultValue) {
+
+            } else {
+                $('#pick_pay_datagrid').datagrid('load', {
+                    filterValue: filterValue
+                });
+            }
+        });
+        //选中应付账款
+        $('#pick_pay_dialog_bottons a:first').click(function () {
+            var row = $('#pick_pay_datagrid').datagrid('getSelected');
+            if (row == null) {
+                $.messager.alert('提示', '请选择记录');
+            } else {
+                $('#add_dialog input[name="AccountsPayableName"]').val(row.OrderContractKey + row.EventType_Str);
+                $('#add_dialog :hidden[name="AccountsPayableId"]').val(row.AccountsPayableId);  
+                $('#pick_pay_dialog').dialog('close');
+            }
+        });
+
+
+        //选择应收账款
+        $('#add_dialog input[name="AccountsReceivableName"]').click(function () {
+            parent.$('#pick_receive_dialog').dialog('open').dialog('setTitle', '选择应付账款');
+        });
+        //选择应付账款
+        var pickReceiveFilterDefaultValue = $('#pick_receive_dialog input[name="filterValue"]').data('default-value');
+        $('#pick_receive_dialog input[name="filterValue"]').val(pickReceiveFilterDefaultValue);
+        $('#pick_receive_dialog input[name="filterValue"]').focus(function () {
+            if ($(this).val() == pickReceiveFilterDefaultValue) $(this).val('');
+        }).blur(function () {
+            if ($(this).val() == '') $(this).val(pickReceiveFilterDefaultValue);
+        });
+        $('#btn_clients_filter').click(function () {
+            var filterValue = $('#pick_receive_dialog input[name="filterValue"]').val();
+            if (filterValue == '' || filterValue == pickReceiveFilterDefaultValue) {
+
+            } else {
+                $('#pick_receive_datagrid').datagrid('load', {
+                    filterValue: filterValue
+                });
+            }
+        });
+        //选中应付账款
+        $('#pick_receive_dialog_bottons a:first').click(function () {
+            var row = $('#pick_receive_datagrid').datagrid('getSelected');
+            if (row == null) {
+                $.messager.alert('提示', '请选择记录');
+            } else {
+                $('#add_dialog input[name="AccountsReceivableName"]').val(row.SaleContractKey + row.EventType_Str);
+                $('#add_dialog :hidden[name="AccountsReceivableId"]').val(row.AccountsReceivableId);
+                $('#pick_receive_dialog').dialog('close');
+            }
+        });
     </script>
 }
 
