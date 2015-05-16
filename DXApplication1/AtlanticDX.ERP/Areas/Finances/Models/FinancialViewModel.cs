@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
 using YuShang.ERP.Entities.Finances;
 using UtilityFramework;  //获取枚举display[name]值
 
-namespace AtlanticDX.ERP.Areas.Finances.Models
+namespace AtlanticDX.Model.Areas.Finances.Models
 {
     public class AccountsPayableViewModel
     {

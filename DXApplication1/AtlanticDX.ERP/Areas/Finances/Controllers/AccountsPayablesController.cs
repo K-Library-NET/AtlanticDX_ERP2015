@@ -1,12 +1,10 @@
-﻿using AtlanticDX.ERP.Areas.Finances.Models;
-using System;
+﻿using AtlanticDX.Model.Areas.Finances.Models;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using YuShang.ERP.Entities.Finances;
 
-namespace AtlanticDX.ERP.Areas.Finances.Controllers
+namespace AtlanticDX.Model.Areas.Finances.Controllers
 {
     /// <summary>
     /// 应付账款

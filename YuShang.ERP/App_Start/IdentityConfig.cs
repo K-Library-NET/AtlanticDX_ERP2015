@@ -29,9 +29,9 @@ namespace YuShang.ERP
     }
 
     // 配置此应用程序中使用的应用程序用户管理器。UserManager 在 ASP.NET Identity 中定义，并由此应用程序使用。
-    public class ApplicationUserManager : UserManager<YuShang.ERP.Entities.Privileges.SysUser, int>
+    public class ApplicationUserManager : UserManager<SysUser, int>
     {
-        public ApplicationUserManager(IUserStore<YuShang.ERP.Entities.Privileges.SysUser, int> store)
+        public ApplicationUserManager(IUserStore<SysUser, int> store)
             : base(store)
         {
         }
@@ -41,7 +41,7 @@ namespace YuShang.ERP
         {
             var db = context.Get<PrivilegeFramework.ExtendedIdentityDbContext>();
             var manager = new ApplicationUserManager(
-                new UserStore<YuShang.ERP.Entities.Privileges.SysUser, SysRole,
+                new UserStore<SysUser, SysRole,
                     int, SysUserLogin, SysUserRole, SysUserClaim>(
                     db));
             //context.Get<ApplicationDbContext>()));
@@ -109,7 +109,7 @@ namespace YuShang.ERP
     }
 
     // 配置要在此应用程序中使用的应用程序登录管理器。
-    public class ApplicationSignInManager : SignInManager<YuShang.ERP.Entities.Privileges.SysUser, int>
+    public class ApplicationSignInManager : SignInManager<SysUser, int>
     {
         public ApplicationSignInManager(ApplicationUserManager userManager, IAuthenticationManager authenticationManager)
             : base(userManager, authenticationManager)
@@ -117,7 +117,7 @@ namespace YuShang.ERP
         }
 
         public async override Task<ClaimsIdentity> CreateUserIdentityAsync(
-            YuShang.ERP.Entities.Privileges.SysUser user)
+            SysUser user)
         {
             // 请注意，authenticationType 必须与 CookieAuthenticationOptions.AuthenticationType 中定义的相应项匹配
             var userIdentity = await this.UserManager.CreateIdentityAsync(

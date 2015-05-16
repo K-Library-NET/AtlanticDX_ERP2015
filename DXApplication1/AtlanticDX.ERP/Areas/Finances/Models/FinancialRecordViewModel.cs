@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
 using UtilityFramework;
-using System.Web;
 using YuShang.ERP.Entities.Finances;
 
-namespace AtlanticDX.ERP.Areas.Finances.Models
+namespace AtlanticDX.Model.Areas.Finances.Models
 {
     public class FinancialRecordViewModel : YuShang.ERP.Entities.Finances.IAccountsRecord
     {

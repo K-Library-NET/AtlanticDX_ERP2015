@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
 using YuShang.ERP.Entities.Orders;
 
-namespace AtlanticDX.ERP.Areas.Orders.Models
+namespace AtlanticDX.Model.Areas.Orders.Models
 {
     public class ReceiveViewModel
     {

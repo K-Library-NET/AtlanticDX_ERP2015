@@ -1,5 +1,5 @@
-﻿using AtlanticDX.ERP.Areas.Orders.Models;
-using AtlanticDX.ERP.Areas.Sales.Models;
+﻿using AtlanticDX.Model.Areas.Orders.Models;
+using AtlanticDX.Model.Areas.Sales.Models;
 using PrivilegeFramework;
 using System;
 using System.Collections.Generic;
@@ -9,7 +9,7 @@ using System.Web.Mvc;
 using YuShang.ERP.Entities.Orders;
 using YuShang.ERP.Entities.Sale;
 
-namespace AtlanticDX.ERP.Areas.Sales.Controllers
+namespace AtlanticDX.Model.Areas.Sales.Controllers
 {
     [ComplexAuthorize]
     /// <summary>
@@ -129,7 +129,7 @@ namespace AtlanticDX.ERP.Areas.Sales.Controllers
                     this.ModelState.AddModelError(string.Empty, errorMsg);
                 }
             }
-            return Json(ModelState.GetModelStateErrors());
+            return Json(this.GetModelStateErrors(ModelState));
         }
 
         public ActionResult Edit(string SaleContractKey)
@@ -159,7 +159,7 @@ namespace AtlanticDX.ERP.Areas.Sales.Controllers
                     this.ModelState.AddModelError(string.Empty, errorMsg);
                 }
             }
-            return Json(ModelState.GetModelStateErrors());
+            return Json(this.GetModelStateErrors(ModelState));
         }
 
         public ActionResult Audit(string SaleContractKey)
@@ -203,7 +203,7 @@ namespace AtlanticDX.ERP.Areas.Sales.Controllers
                 }
                 //FIXED 审核销售订单
             }
-            return Json(ModelState.GetModelStateErrors());
+            return Json(this.GetModelStateErrors(ModelState));
         }
 
         public ActionResult AddSaleBargin(string SaleContractKey)
@@ -234,7 +234,7 @@ namespace AtlanticDX.ERP.Areas.Sales.Controllers
                     ModelState.AddModelError(string.Empty, errorMsg);
                 //FIXED 添加销售还价逻辑
             }
-            return Json(ModelState.GetModelStateErrors());
+            return Json(this.GetModelStateErrors(ModelState));
         }
 
 

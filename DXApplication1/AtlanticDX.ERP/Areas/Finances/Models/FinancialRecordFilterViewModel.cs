@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
-namespace AtlanticDX.ERP.Areas.Finances.Models
+namespace AtlanticDX.Model.Areas.Finances.Models
 {
     public class FinancialRecordFilterViewModel
     {

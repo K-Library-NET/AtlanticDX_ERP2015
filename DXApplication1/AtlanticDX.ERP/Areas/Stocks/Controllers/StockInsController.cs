@@ -1,14 +1,11 @@
 ﻿using Microsoft.Owin;
 using PrivilegeFramework;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using YuShang.ERP.Entities.Orders;
 using YuShang.ERP.Entities.Stocks;
 
-namespace AtlanticDX.ERP.Areas.Stocks.Controllers
+namespace AtlanticDX.Model.Areas.Stocks.Controllers
 {
     /// <summary>
     /// 商品入仓
@@ -88,7 +85,7 @@ namespace AtlanticDX.ERP.Areas.Stocks.Controllers
                 if (!string.IsNullOrEmpty(errorMessage))
                     ModelState.AddModelError(string.Empty, errorMessage);
             }
-            var allErrors = ModelState.GetModelStateErrors();
+            var allErrors = this.GetModelStateErrors(ModelState);
             return Json(allErrors);
         }
 

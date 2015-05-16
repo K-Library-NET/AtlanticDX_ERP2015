@@ -2,11 +2,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using YuShang.ERP.Entities.Orders;
 
-namespace AtlanticDX.ERP.Areas.Orders.Controllers
+namespace AtlanticDX.Model.Areas.Orders.Controllers
 {
     [ComplexAuthorize]
     public class MainlandLogisticsController : PrivilegeFramework.NavigationProps.NavigationLoopSolvedController// Controller

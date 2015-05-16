@@ -1,1 +1,1 @@
-<%@ Application Codebehind="Global.asax.cs" Inherits="AtlanticDX.ERP.MvcApplication" Language="C#" %>
+<%@ Application Codebehind="Global.asax.cs" Inherits="AtlanticDX.Model.MvcApplication" Language="C#" %>

@@ -1,9 +1,5 @@
 ﻿using Microsoft.Owin;
 using Owin;
-using System.Linq;
-using System;
-using YuShang.ERP.Entities;
-using Devart.Data.MySql.Entity;
 
 [assembly: OwinStartupAttribute(typeof(YuShang.ERP.Startup))]
 namespace YuShang.ERP

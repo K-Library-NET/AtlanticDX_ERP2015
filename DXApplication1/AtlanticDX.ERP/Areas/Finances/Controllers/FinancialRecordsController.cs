@@ -1,14 +1,12 @@
-﻿using AtlanticDX.ERP.Areas.Finances.Models;
+﻿using AtlanticDX.Model.Areas.Finances.Models;
 using UtilityFramework;
 using PrivilegeFramework;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using YuShang.ERP.Entities.Finances;
 
-namespace AtlanticDX.ERP.Areas.Finances.Controllers
+namespace AtlanticDX.Model.Areas.Finances.Controllers
 {
     /// <summary>
     /// 财务记录
@@ -76,7 +74,7 @@ namespace AtlanticDX.ERP.Areas.Finances.Controllers
                     ModelState.AddModelError("", e.Message);
                 }                
             }
-            return Json(ModelState.GetModelStateErrors());
+            return Json(this.GetModelStateErrors(ModelState));
         }
 
         [HttpPost]
@@ -86,7 +84,7 @@ namespace AtlanticDX.ERP.Areas.Finances.Controllers
             {
                 //TODO 编辑财务记录
             }
-            return Json(ModelState.GetModelStateErrors());
+            return Json(this.GetModelStateErrors(ModelState));
         }
 
         [HttpPost]
@@ -96,7 +94,7 @@ namespace AtlanticDX.ERP.Areas.Finances.Controllers
             {
                 //TODO 删除财务记录
             }
-            return Json(ModelState.GetModelStateErrors());
+            return Json(this.GetModelStateErrors(ModelState));
         }
     }
 }

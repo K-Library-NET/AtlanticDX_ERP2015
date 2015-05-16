@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using YuShang.ERP.Entities.Privileges;
 
-namespace AtlanticDX.ERP.Helper
+namespace AtlanticDX.Model.Helper
 {
     public class ConfigsHelper
     {

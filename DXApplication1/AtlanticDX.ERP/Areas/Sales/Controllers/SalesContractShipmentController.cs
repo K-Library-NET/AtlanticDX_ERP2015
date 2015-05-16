@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using PrivilegeFramework;
 using YuShang.ERP.Entities.Sale;
 
-namespace AtlanticDX.ERP.Areas.Sales.Controllers
+namespace AtlanticDX.Model.Areas.Sales.Controllers
 {
     [ComplexAuthorize]
     public class SalesContractShipmentController : PrivilegeFramework.NavigationProps.NavigationLoopSolvedController// Controller
@@ -50,7 +48,7 @@ namespace AtlanticDX.ERP.Areas.Sales.Controllers
                 return Json(new { total = count, rows = viewModels.SaleProductItems });
             }
 
-            return Json(ModelState.GetModelStateErrors());
+            return Json(this.GetModelStateErrors(ModelState));
         }
 
         [HttpPost]
@@ -60,8 +58,8 @@ namespace AtlanticDX.ERP.Areas.Sales.Controllers
             if (item == null)
             {
                 ModelState.AddModelError(string.Empty, "找不到对应的货品项。");
-                return Json(ModelState.GetModelStateErrors());
-                //return View(ModelState.GetModelStateErrors());
+                return Json(this.GetModelStateErrors(ModelState));
+                //return View(this.GetModelStateErrors(ModelState));
             }
 
             if (item != null)
@@ -78,9 +76,9 @@ namespace AtlanticDX.ERP.Areas.Sales.Controllers
                 ModelState.AddModelError(string.Empty, errorMsg);
             }
 
-            return Json(ModelState.GetModelStateErrors());
+            return Json(this.GetModelStateErrors(ModelState));
             //FIXED 销售发货业务逻辑
-            //return View(ModelState.GetModelStateErrors());
+            //return View(this.GetModelStateErrors(ModelState));
         }
 
         private SaleProductItem GetSaleProductItem(SaleProductItemInfo model)
@@ -126,7 +124,7 @@ namespace AtlanticDX.ERP.Areas.Sales.Controllers
             if (model == null || model.SaleProductItemId.HasValue == false)
             {
                 ModelState.AddModelError(string.Empty, "找不到请求索赔所对应的货品。");
-                return Json(ModelState.GetModelStateErrors());
+                return Json(this.GetModelStateErrors(ModelState));
             }
             SaleClaimCompensation entity = this.GetSaleProductCompensationItem(model);
 
@@ -137,9 +135,9 @@ namespace AtlanticDX.ERP.Areas.Sales.Controllers
             {
                 ModelState.AddModelError(string.Empty, errorMsg);
             }
-            return Json(ModelState.GetModelStateErrors());
+            return Json(this.GetModelStateErrors(ModelState));
             //FIXED 销售索赔业务逻辑
-            //return View(ModelState.GetModelStateErrors());
+            //return View(this.GetModelStateErrors(ModelState));
         }
 
         private SaleClaimCompensation GetSaleProductCompensationItem(

@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using PrivilegeFramework;
-namespace AtlanticDX.ERP.Areas.Sales.Controllers
+namespace AtlanticDX.Model.Areas.Sales.Controllers
 {
-     [ComplexAuthorize]
+    [ComplexAuthorize]
     public class SalesClaimCompensationController : PrivilegeFramework.NavigationProps.NavigationLoopSolvedController// Controller
     {
         // GET: SalesClaimCompensation

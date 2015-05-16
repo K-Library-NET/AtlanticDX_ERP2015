@@ -1,18 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using AtlanticDX.ERP;
 using YuShang.ERP.Entities.ResMgr;
 using System.Threading.Tasks;
 using PrivilegeFramework;
 using UtilityFramework;
 
-namespace AtlanticDX.ERP.Areas.ResMgr.Controllers
+namespace AtlanticDX.Model.Areas.ResMgr.Controllers
 {
     public class HongkongLogisticsController : PrivilegeFramework.NavigationProps.NavigationLoopSolvedController// Controller
     {
@@ -53,7 +50,7 @@ namespace AtlanticDX.ERP.Areas.ResMgr.Controllers
                     //ModelState.AddModelError(string.Empty, e);
                 }
             }
-            var allErrors = ModelState.GetModelStateErrors();
+            var allErrors = this.GetModelStateErrors(ModelState);
             return Json(allErrors);
         }
 
@@ -97,7 +94,7 @@ namespace AtlanticDX.ERP.Areas.ResMgr.Controllers
                     //ModelState.AddModelError(string.Empty, e);
                 }
             }
-            var allErrors = ModelState.GetModelStateErrors();
+            var allErrors = this.GetModelStateErrors(ModelState);
             return Json(allErrors);
         }
 
@@ -133,7 +130,7 @@ namespace AtlanticDX.ERP.Areas.ResMgr.Controllers
                     //ModelState.AddModelError(string.Empty, e);
                 }
             }
-            var allErrors = ModelState.GetModelStateErrors();
+            var allErrors = this.GetModelStateErrors(ModelState);
             return Json(allErrors);
         }
 

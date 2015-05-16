@@ -3,19 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using System.Web.Routing;
-using System.Web.Security;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin.Security;
-using AtlanticDX.ERP.Filters;
-using AtlanticDX.ERP.Models;
 using PrivilegeFramework;
 using YuShang.ERP.Entities.Privileges;
-using AtlanticDX.ERP.Areas.Configs.Models;
+using AtlanticDX.Model.Areas.Configs.Models;
 
-namespace AtlanticDX.ERP.Areas.Configs.Controllers
+namespace AtlanticDX.Model.Areas.Configs.Controllers
 {
     [ComplexAuthorize(Roles = "系统管理员,Boss,Manager")]
     public class UserMgmtController : PrivilegeFramework.NavigationProps.NavigationLoopSolvedController// Controller
@@ -75,7 +70,7 @@ namespace AtlanticDX.ERP.Areas.Configs.Controllers
                     ModelState.AddModelError("", error);
                 }
             }
-            var allErrors = ModelState.GetModelStateErrors();
+            var allErrors = this.GetModelStateErrors(ModelState);
             return Json(allErrors);
         }
 
@@ -110,7 +105,7 @@ namespace AtlanticDX.ERP.Areas.Configs.Controllers
                     }
                 }
             }
-            var allErrors = ModelState.GetModelStateErrors();
+            var allErrors = this.GetModelStateErrors(ModelState);
             return Json(allErrors);
         }
 
@@ -200,7 +195,7 @@ namespace AtlanticDX.ERP.Areas.Configs.Controllers
                     }
                 }
             }
-            var allErrors = ModelState.GetModelStateErrors();
+            var allErrors = this.GetModelStateErrors(ModelState);
             return Json(allErrors);
         }
     }

@@ -4,12 +4,9 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using PrivilegeFramework.PrivilegeImpl;
 using System;
-using System.Collections.Generic;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Security.Claims;
-using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 using UtilityFramework;
 using YuShang.ERP.Entities.Privileges;
@@ -17,7 +14,7 @@ using YuShang.ERP.Entities.Privileges;
 namespace PrivilegeFramework
 {
     // 配置此应用程序中使用的应用程序用户管理器。UserManager 在 ASP.NET Identity 中定义，并由此应用程序使用。
-    public class ApplicationUserManager : UserManager<YuShang.ERP.Entities.Privileges.SysUser, int>,
+    public class ApplicationUserManager : UserManager<SysUser, int>,
         IUserManagerImplWrap
     {
         public ApplicationUserManager(

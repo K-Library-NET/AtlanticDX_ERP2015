@@ -36,7 +36,7 @@
                 <p class="clearf">
                     <span class="sp1">@Html.Label("SupplierId")</span>
                     <select name="SupplierId">
-                        @foreach (var item in @AtlanticDX.ERP.Helper.OrdersHelper.GetSuppliers())
+                        @foreach (var item in @AtlanticDX.Model.Helper.OrdersHelper.GetSuppliers())
                         {
                             <option value="@item.Value">@item.Text</option>
                         }

@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using System.Web.Routing;
 using System.Web.Security;
-using AtlanticDX.ERP.Filters;
-using AtlanticDX.ERP.Models;
+using AtlanticDX.Model.Models;
 using PrivilegeFramework;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity.Owin;
@@ -14,7 +10,7 @@ using Microsoft.Owin.Security;
 using YuShang.ERP.Entities.Privileges;
 using Microsoft.AspNet.Identity;
 
-namespace AtlanticDX.ERP.Areas.Public.Controllers
+namespace AtlanticDX.Model.Areas.Public.Controllers
 {
     [ComplexAuthorize]
     //[InitializeSimpleMembership]

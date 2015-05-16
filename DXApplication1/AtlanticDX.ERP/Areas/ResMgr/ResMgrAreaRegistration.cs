@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
 
-namespace AtlanticDX.ERP.Areas.ResMgr
+namespace AtlanticDX.Model.Areas.ResMgr
 {
     public class ResMgrAreaRegistration : AreaRegistration 
     {

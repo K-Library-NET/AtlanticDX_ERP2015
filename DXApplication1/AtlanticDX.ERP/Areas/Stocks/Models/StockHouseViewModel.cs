@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 using YuShang.ERP.Entities.ResMgr;
-using YuShang.ERP.Entities.Stocks;
 
-namespace AtlanticDX.ERP.Areas.Stocks.Models
+namespace AtlanticDX.Model.Areas.Stocks.Models
 {
     /// <summary>
     /// 按照仓库来组织库存显示

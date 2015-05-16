@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 
-namespace AtlanticDX.ERP.Areas.Reports.Controllers
+namespace AtlanticDX.Model.Areas.Reports.Controllers
 {
     /// <summary>
     /// 应付账款汇总表

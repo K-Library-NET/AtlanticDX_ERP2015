@@ -7,13 +7,26 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using UtilityFramework;
 
-namespace PrivilegeFramework.NavigationProps
+namespace PrivilegeFramework.NavigationProps 
 {
     /// <summary>
     /// 解决掉Navigation Property循环引用使得Json反序列化失败的问题。
     /// </summary>
     public class NavigationLoopSolvedController : Controller
     {
+        public IEnumerable<KeyValuePair<string, IEnumerable<string>>>
+            GetModelStateErrors(ModelStateDictionary obj)
+        {
+            var allErrors = obj.Values.Where(m => (m.Errors.Count() > 0)).Select(
+                (m, index) => (new { Key = obj.Keys.ElementAt<string>(index),
+                    Messages = m.Errors.Select((error) => (error.ErrorMessage)) }));
+
+            var result = from one in allErrors
+                         select new KeyValuePair<string, IEnumerable<string>>(one.Key, one.Messages);
+
+            return result;
+        }
+
         protected override JsonResult Json(object data, string contentType, System.Text.Encoding contentEncoding)
         {
             return this.Json(data, contentType, contentEncoding, JsonRequestBehavior.DenyGet);

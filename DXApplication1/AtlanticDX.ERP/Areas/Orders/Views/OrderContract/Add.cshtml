@@ -15,12 +15,12 @@
 
         <div class="right_content_top bgc1">
             <span class="default red ml20"></span><span class="default">@Html.DisplayNameFor(m => m.SupplierId)</span>
-            @Html.DropDownListFor(m => m.SupplierId, AtlanticDX.ERP.Helper.OrdersHelper.GetSuppliers(), "--请选择--", new { @class = "date_select mr20" })
+            @Html.DropDownListFor(m => m.SupplierId, AtlanticDX.Model.Helper.OrdersHelper.GetSuppliers(), "--请选择--", new { @class = "date_select mr20" })
             <span class="default red">*</span><span class="default">@Html.DisplayNameFor(m => m.CTIME)</span>
             <span class="eta_in">@Html.TextBoxFor(m => m.CTIME, new { @class = "easyui-datebox", @id = "thedate", @style = "width:98%;", @required = "required", @Value = DateTime.Now.ToString("yyyy-MM-dd") })</span>
             @*
 
-                <span class="default">@Html.DisplayNameFor(m => m.HarborId)</span>@Html.DropDownListFor(m => m.HarborId, AtlanticDX.ERP.Helper.OrdersHelper.GetHarbors(), "--请选择--", new { @class = "date_select mr20" })*@
+                <span class="default">@Html.DisplayNameFor(m => m.HarborId)</span>@Html.DropDownListFor(m => m.HarborId, AtlanticDX.Model.Helper.OrdersHelper.GetHarbors(), "--请选择--", new { @class = "date_select mr20" })*@
             <span class="default red">*</span><span class="default">@Html.DisplayNameFor(m => m.ContractKey)</span>
             <span class="eta_in">
                 @Html.TextBoxFor(m => m.ContractKey, new { @class = "easyui-textbox w120" })
@@ -120,7 +120,7 @@
                 <div class="gkdl_list">
                     <div class="gkdl_list_top">
                         <span class="default">港口代理代理商</span>
-                        @Html.DropDownListFor(m => m.HarborAgent.DeclarationCompanyId, AtlanticDX.ERP.Helper.OrdersHelper.GetHarborAgents(), new { @class = "date_select mr20" })
+                        @Html.DropDownListFor(m => m.HarborAgent.DeclarationCompanyId, AtlanticDX.Model.Helper.OrdersHelper.GetHarborAgents(), new { @class = "date_select mr20" })
                     </div>
                     <div class="gkdl_list_bot">
                         @Html.LabelFor(m => m.HarborAgent.HarborCost)
@@ -147,7 +147,7 @@
                 <div class="gkdl_list">
                     <div class="gkdl_list_top">
                         <span class="default">香港物流公司</span>
-                        @Html.DropDownListFor(m => m.HongkongLogistics.HongKongLogisticsCompanyId, AtlanticDX.ERP.Helper.OrdersHelper.GetHongkongLogisticsCompanies(), new { @class = "date_select mr20" })
+                        @Html.DropDownListFor(m => m.HongkongLogistics.HongKongLogisticsCompanyId, AtlanticDX.Model.Helper.OrdersHelper.GetHongkongLogisticsCompanies(), new { @class = "date_select mr20" })
                     </div>
 
                     <div class="gkdl_list_bot">
@@ -211,7 +211,7 @@
 
                     <div class="gkdl_list_top">
                         <span class="default">内地物流公司</span>
-                        @Html.DropDownListFor(m => m.MainlandLogistics.MainlandLogisticsCompanyId, AtlanticDX.ERP.Helper.OrdersHelper.GetMainlandLogisticsCompanies(), new { @class = "date_select mr20" })
+                        @Html.DropDownListFor(m => m.MainlandLogistics.MainlandLogisticsCompanyId, AtlanticDX.Model.Helper.OrdersHelper.GetMainlandLogisticsCompanies(), new { @class = "date_select mr20" })
                     </div>
 
                     <div class="gkdl_list_bot">

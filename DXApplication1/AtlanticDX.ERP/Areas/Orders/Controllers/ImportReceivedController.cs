@@ -1,13 +1,12 @@
-﻿using AtlanticDX.ERP.Areas.Orders.Models;
+﻿using AtlanticDX.Model.Areas.Orders.Models;
 using PrivilegeFramework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using YuShang.ERP.Entities.Orders;
 
-namespace AtlanticDX.ERP.Areas.Orders.Controllers
+namespace AtlanticDX.Model.Areas.Orders.Controllers
 {
     [ComplexAuthorize]
     public class ImportReceivedController : PrivilegeFramework.NavigationProps.NavigationLoopSolvedController// Controller
@@ -72,7 +71,7 @@ namespace AtlanticDX.ERP.Areas.Orders.Controllers
 
                 //FIXED 添加索赔处理业务逻辑
             }
-            return Json(ModelState.GetModelStateErrors());
+            return Json(this.GetModelStateErrors(ModelState));
         }
 
         [HttpPost]
@@ -88,7 +87,7 @@ namespace AtlanticDX.ERP.Areas.Orders.Controllers
                     ModelState.AddModelError(string.Empty, errorMessage);
                 //FIXED 添加收货处理业务逻辑
             }
-            return Json(ModelState.GetModelStateErrors());
+            return Json(this.GetModelStateErrors(ModelState));
         }
 
         protected override void Dispose(bool disposing)

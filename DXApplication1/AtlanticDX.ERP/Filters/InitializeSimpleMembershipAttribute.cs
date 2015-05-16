@@ -4,10 +4,10 @@ using System.Data.Entity.Infrastructure;
 using System.Threading;
 using System.Web.Mvc;
 using WebMatrix.WebData;
-using AtlanticDX.ERP.Models;
-using AtlanticDX.ERP.Areas.Public.Models;
+using AtlanticDX.Model.Areas.Public.Models;
 
-namespace AtlanticDX.ERP.Filters {
+namespace AtlanticDX.Model.Filters
+{
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = false, Inherited = true)]
     public sealed class InitializeSimpleMembershipAttribute : ActionFilterAttribute {
         private static SimpleMembershipInitializer _initializer;

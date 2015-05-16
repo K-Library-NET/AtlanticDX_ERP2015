@@ -1,37 +1,18 @@
 ﻿#region usings
 using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
-using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Linq;
-using System.Reflection;
 using System.Data.Entity;
-using System.Data.Entity.Core;
-using System.Data.Entity.Core.Objects;
-using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Migrations;
 using System.Collections.Generic;
-using System.Web;
-using System.Web.Mvc;
-using System.Web.Routing;
-using System.Web.Security;
-using System.Threading.Tasks;
-using System.Xml.Linq;
-using Owin;
-using Microsoft.Owin;
-using Microsoft.Owin.Host;
-using Microsoft.Owin.Host.SystemWeb;
-using Microsoft.Owin.Security.Cookies;
-using Microsoft.Owin.Security;
 using UtilityFramework;
-using YuShang.ERP.Entities;
 using YuShang.ERP.Entities.Orders;
 using YuShang.ERP.Entities.Privileges;
 using YuShang.ERP.Entities.Stocks;
 using PrivilegeFramework;
 #endregion
 
-namespace AtlanticDX.ERP.Migrations.Debugs
+namespace AtlanticDX.Model.Migrations.Debugs
 {
     public class DebugSeed : ICustomMigrationHandler
     {

@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Linq;
 using System.Web.Mvc;
 
-namespace AtlanticDX.ERP.Areas.Finances.Controllers
+namespace AtlanticDX.Model.Areas.Finances.Controllers
 {
     /// <summary>
     /// 仓租

@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using System.Data;
 using System.Data.Entity;
 using System.Linq;
-using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using AtlanticDX.ERP;
 using YuShang.ERP.Entities.Configs;
 
-namespace AtlanticDX.ERP.Areas.Configs.Controllers
+namespace AtlanticDX.Model.Areas.Configs.Controllers
 {
     public class SysConfigsController : PrivilegeFramework.NavigationProps.NavigationLoopSolvedController// Controller
     {
@@ -45,7 +40,7 @@ namespace AtlanticDX.ERP.Areas.Configs.Controllers
                 db.CoreConfigs.Add(coreConfig);
                 db.SaveChanges();
             }
-            var errors = ModelState.GetModelStateErrors();
+            var errors = this.GetModelStateErrors(ModelState);
             return Json(errors);
         }
 
@@ -57,7 +52,7 @@ namespace AtlanticDX.ERP.Areas.Configs.Controllers
                     db.Entry(coreConfig).State = EntityState.Modified;
                     db.SaveChanges();
             }
-            var errors = ModelState.GetModelStateErrors();
+            var errors = this.GetModelStateErrors(ModelState);
             return Json(errors);
         }
         
@@ -73,7 +68,7 @@ namespace AtlanticDX.ERP.Areas.Configs.Controllers
             else {
                 ModelState.AddModelError("", "");
             }
-            var errors = ModelState.GetModelStateErrors();
+            var errors = this.GetModelStateErrors(ModelState);
             return Json(errors);
         }
 

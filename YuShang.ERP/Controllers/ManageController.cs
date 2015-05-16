@@ -7,6 +7,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using YuShang.ERP.Models;
+using YuShang.ERP.Entities.Privileges;
 
 namespace YuShang.ERP.Controllers
 {
@@ -330,7 +331,7 @@ namespace YuShang.ERP.Controllers
             }
         }
 
-        private async Task SignInAsync(YuShang.ERP.Entities.Privileges.SysUser user,
+        private async Task SignInAsync(SysUser user,
             bool isPersistent)
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ExternalCookie, DefaultAuthenticationTypes.TwoFactorCookie);

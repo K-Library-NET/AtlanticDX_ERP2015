@@ -22,7 +22,7 @@
                 <div class="gkdl_list">
                     <div class="gkdl_list_top">
                         <span class="default">港口代理代理商</span>
-                        @Html.DropDownListFor(m => m.HarborAgent.DeclarationCompanyId, AtlanticDX.ERP.Helper.OrdersHelper.GetHarborAgents(), new { @class = "date_select mr20" })
+                        @Html.DropDownListFor(m => m.HarborAgent.DeclarationCompanyId, AtlanticDX.Model.Helper.OrdersHelper.GetHarborAgents(), new { @class = "date_select mr20" })
                     </div>
                     <div class="gkdl_list_bot">
                         @Html.LabelFor(m => m.HarborAgent.HarborCost)
@@ -49,7 +49,7 @@
                 <div class="gkdl_list">
                     <div class="gkdl_list_top">
                         <span class="default">香港物流公司</span>
-                        @Html.DropDownListFor(m => m.HongkongLogistics.HongKongLogisticsCompanyId, AtlanticDX.ERP.Helper.OrdersHelper.GetHongkongLogisticsCompanies(), new { @class = "date_select mr20" })
+                        @Html.DropDownListFor(m => m.HongkongLogistics.HongKongLogisticsCompanyId, AtlanticDX.Model.Helper.OrdersHelper.GetHongkongLogisticsCompanies(), new { @class = "date_select mr20" })
                     </div>
 
                     <div class="gkdl_list_bot">
@@ -122,7 +122,7 @@
 
                     <div class="gkdl_list_top">
                         <span class="default">内地物流公司</span>
-                        @Html.DropDownListFor(m => m.MainlandLogistics.MainlandLogisticsCompanyId, AtlanticDX.ERP.Helper.OrdersHelper.GetMainlandLogisticsCompanies(), new { @class = "date_select mr20" })
+                        @Html.DropDownListFor(m => m.MainlandLogistics.MainlandLogisticsCompanyId, AtlanticDX.Model.Helper.OrdersHelper.GetMainlandLogisticsCompanies(), new { @class = "date_select mr20" })
                     </div>
 
                     <div class="gkdl_list_bot">

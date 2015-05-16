@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
+﻿using System.ComponentModel.DataAnnotations;
 using YuShang.ERP.Entities.Configs;
 using YuShang.ERP.Entities.Sale;
 
-namespace AtlanticDX.ERP.Areas.Sales.Models
+namespace AtlanticDX.Model.Areas.Sales.Models
 {
     public class SaleProductItemBargainItemViewModel
     {

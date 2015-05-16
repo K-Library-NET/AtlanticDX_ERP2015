@@ -2,19 +2,14 @@
 using System;
 using System.Linq;
 using System.Data.Entity;
-using System.Data.Entity.Core;
-using System.Data.Entity.Core.Objects;
-using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Migrations;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Xml.Linq;
 using UtilityFramework;
 using YuShang.ERP.Entities.Privileges;
 using Microsoft.AspNet.Identity;
 
-namespace AtlanticDX.ERP.Migrations.Releases
+namespace AtlanticDX.Model.Migrations.Releases
 {
     public class ReleaseSeed : ICustomMigrationHandler
     {

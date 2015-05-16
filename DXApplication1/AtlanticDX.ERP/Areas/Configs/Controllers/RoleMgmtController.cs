@@ -1,11 +1,8 @@
 ﻿using PrivilegeFramework;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
-namespace AtlanticDX.ERP.Areas.Configs.Controllers
+namespace AtlanticDX.Model.Areas.Configs.Controllers
 {
     [ComplexAuthorize]
     public class RoleMgmtController : PrivilegeFramework.NavigationProps.NavigationLoopSolvedController// Controller
@@ -43,7 +40,7 @@ namespace AtlanticDX.ERP.Areas.Configs.Controllers
 
                 //TODO 添加角色
             }
-            var allErrors = ModelState.GetModelStateErrors();
+            var allErrors = this.GetModelStateErrors(ModelState);
             return Json(allErrors);
         }
 
@@ -55,7 +52,7 @@ namespace AtlanticDX.ERP.Areas.Configs.Controllers
                 ApplicationRoleManager manager = new ApplicationRoleManager(db);
                 //TODO 编辑角色
             }
-            var allErrors = ModelState.GetModelStateErrors();
+            var allErrors = this.GetModelStateErrors(ModelState);
             return Json(allErrors);
         }
 
@@ -68,7 +65,7 @@ namespace AtlanticDX.ERP.Areas.Configs.Controllers
                 ApplicationRoleManager manager = new ApplicationRoleManager(db);
                 //TODO 删除角色
             }
-            var allErrors = ModelState.GetModelStateErrors();
+            var allErrors = this.GetModelStateErrors(ModelState);
             return Json(allErrors);
         }
     }

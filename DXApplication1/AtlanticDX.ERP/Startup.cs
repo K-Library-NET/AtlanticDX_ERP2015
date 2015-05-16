@@ -1,27 +1,17 @@
 ﻿using System;
 using System.Linq;
 using System.Reflection;
-using System.Data.Entity;
-using System.Collections.Generic;
-using System.Web;
-using System.Web.Mvc;
-using System.Web.Routing;
-using System.Web.Security;
-using System.Threading.Tasks;
 using Owin;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
-using Microsoft.Owin.Host;
-using Microsoft.Owin.Host.SystemWeb;
 using Microsoft.Owin.Security.Cookies;
-using Microsoft.Owin.Security;
 using PrivilegeFramework;
 using UtilityFramework;
 
-[assembly: OwinStartup(typeof(AtlanticDX.ERP.Startup))]
+[assembly: OwinStartup(typeof(AtlanticDX.Model.Startup))]
 
-namespace AtlanticDX.ERP
+namespace AtlanticDX.Model
 {
     public class Startup
     {

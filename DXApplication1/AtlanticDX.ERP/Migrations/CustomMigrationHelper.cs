@@ -1,10 +1,8 @@
 ﻿using PrivilegeFramework;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
-namespace AtlanticDX.ERP.Migrations
+namespace AtlanticDX.Model.Migrations
 {
     public class CustomMigrationHelper
     {
@@ -35,7 +33,7 @@ namespace AtlanticDX.ERP.Migrations
                 return new ICustomMigrationHandler[] { new Releases.ReleaseSeed() };
             }
             return new ICustomMigrationHandler[]{
-                new AtlanticDX.ERP.Migrations.Debugs.DebugSeed()
+                new AtlanticDX.Model.Migrations.Debugs.DebugSeed()
             };
         }
     }

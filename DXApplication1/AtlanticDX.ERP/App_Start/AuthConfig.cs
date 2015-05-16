@@ -1,11 +1,10 @@
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
-using Microsoft.Web.WebPages.OAuth;
 using PrivilegeFramework;
 using System.Collections.Generic;
 using YuShang.ERP.Entities.Privileges;
 
-namespace AtlanticDX.ERP
+namespace AtlanticDX.Model
 {
     public static class AuthConfig
     {

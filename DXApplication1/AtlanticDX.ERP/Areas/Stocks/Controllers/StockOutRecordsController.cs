@@ -1,15 +1,10 @@
-﻿using AtlanticDX.ERP.Areas.Stocks.Models;
-using PrivilegeFramework;
-using System;
+﻿using PrivilegeFramework;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
-using YuShang.ERP.Entities.Orders;
 using YuShang.ERP.Entities.Stocks;
 
-namespace AtlanticDX.ERP.Areas.Stocks.Controllers
+namespace AtlanticDX.Model.Areas.Stocks.Controllers
 {
     /// <summary>
     /// 商品出仓记录
@@ -17,7 +12,7 @@ namespace AtlanticDX.ERP.Areas.Stocks.Controllers
     [ComplexAuthorize]
     public class StockOutRecordsController : PrivilegeFramework.NavigationProps.NavigationLoopSolvedController// Controller
     {
-        private AtlanticDX.ERP.AtlanticDXContext m_db = new AtlanticDXContext();
+        private AtlanticDX.Model.AtlanticDXContext m_db = new AtlanticDXContext();
 
         // GET: Stocks/StockOutRecords
         public ActionResult Index()
@@ -84,7 +79,7 @@ namespace AtlanticDX.ERP.Areas.Stocks.Controllers
                 if (!string.IsNullOrEmpty(errorMessage))
                     ModelState.AddModelError(string.Empty, errorMessage);
             }
-            var allErrors = ModelState.GetModelStateErrors();
+            var allErrors = this.GetModelStateErrors(ModelState);
             return Json(allErrors);
         }
 

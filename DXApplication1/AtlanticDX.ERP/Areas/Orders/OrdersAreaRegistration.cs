@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
 
-namespace AtlanticDX.ERP.Areas.Orders
+namespace AtlanticDX.Model.Areas.Orders
 {
     public class OrdersAreaRegistration : AreaRegistration 
     {

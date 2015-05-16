@@ -1,12 +1,11 @@
-﻿using AtlanticDX.ERP.Areas.Stocks.Models;
+﻿using AtlanticDX.Model.Areas.Stocks.Models;
 using PrivilegeFramework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
-namespace AtlanticDX.ERP.Areas.Stocks.Controllers
+namespace AtlanticDX.Model.Areas.Stocks.Controllers
 {
     /// <summary>
     /// 现货库存

@@ -1,7 +1,6 @@
-﻿using System.Web;
-using System.Web.Optimization;
+﻿using System.Web.Optimization;
 
-namespace AtlanticDX.ERP
+namespace AtlanticDX.Model
 {
     public class BundleConfig
     {

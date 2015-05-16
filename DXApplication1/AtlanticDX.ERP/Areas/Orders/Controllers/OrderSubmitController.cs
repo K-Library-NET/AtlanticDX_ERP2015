@@ -1,4 +1,4 @@
-﻿using AtlanticDX.ERP.Areas.Orders.Models;
+﻿using AtlanticDX.Model.Areas.Orders.Models;
 using PrivilegeFramework;
 using PrivilegeFramework.PrivilegeFilters;
 using System;
@@ -9,7 +9,7 @@ using System.Web.Mvc;
 using UtilityFramework;
 using YuShang.ERP.Entities.Orders;
 
-namespace AtlanticDX.ERP.Areas.Orders.Controllers
+namespace AtlanticDX.Model.Areas.Orders.Controllers
 {
     [ComplexAuthorize]
     /// <summary>
@@ -100,7 +100,7 @@ namespace AtlanticDX.ERP.Areas.Orders.Controllers
 
                 }
             }
-            return Json(ModelState.GetModelStateErrors());
+            return Json(this.GetModelStateErrors(ModelState));
         }
 
         /// <summary>
@@ -144,7 +144,7 @@ namespace AtlanticDX.ERP.Areas.Orders.Controllers
                     ModelState.AddModelError(string.Empty, ee);
                 }
             }
-            return Json(ModelState.GetModelStateErrors());
+            return Json(this.GetModelStateErrors(ModelState));
         }
 
         protected override void Dispose(bool disposing)

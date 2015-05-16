@@ -1,12 +1,9 @@
-﻿using AtlanticDX.ERP.Areas.Finances.Models;
-using System;
-using System.Collections.Generic;
+﻿using AtlanticDX.Model.Areas.Finances.Models;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using YuShang.ERP.Entities.Finances;
 
-namespace AtlanticDX.ERP.Areas.Finances.Controllers
+namespace AtlanticDX.Model.Areas.Finances.Controllers
 {
     /// <summary>
     /// 其他分类

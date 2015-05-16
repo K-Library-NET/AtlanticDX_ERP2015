@@ -46,7 +46,7 @@
         </div>
         <div class="form-item">
             <label>角色</label>
-            @Html.DropDownListFor(m=>m.RoleName, AtlanticDX.ERP.Helper.ConfigsHelper.GetSysRoles(), "--请选择--", new { @class = "date_select mr20" })
+            @Html.DropDownListFor(m=>m.RoleName, AtlanticDX.Model.Helper.ConfigsHelper.GetSysRoles(), "--请选择--", new { @class = "date_select mr20" })
         </div>
         <div class="form-item">
             <label>@Html.Label("Email")</label>
@@ -79,7 +79,7 @@
         </div>
         <div class="form-item">
             <label>角色</label>
-            @Html.DropDownListFor(m => m.RoleName, AtlanticDX.ERP.Helper.ConfigsHelper.GetSysRoles(), "--请选择--", new { @class = "date_select mr20" })
+            @Html.DropDownListFor(m => m.RoleName, AtlanticDX.Model.Helper.ConfigsHelper.GetSysRoles(), "--请选择--", new { @class = "date_select mr20" })
         </div>
         <div class="form-item">
             <label>@Html.Label("PhoneNumber")</label>

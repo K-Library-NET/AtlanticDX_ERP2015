@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
 
-namespace AtlanticDX.ERP.Areas.Configs.Controllers
+namespace AtlanticDX.Model.Areas.Configs.Controllers
 {
     public class ConfigsAreaRegistration : AreaRegistration 
     {

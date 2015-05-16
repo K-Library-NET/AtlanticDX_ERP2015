@@ -45,7 +45,7 @@
         <input type="hidden" name="ProductItemId" value="" />
         <div class="form-item">
             @Html.LabelFor(m => m.StoreHouseId)
-            @Html.DropDownListFor(m => m.StoreHouseId, AtlanticDX.ERP.Helper.StocksHelper.GetStoreHouses())
+            @Html.DropDownListFor(m => m.StoreHouseId, AtlanticDX.Model.Helper.StocksHelper.GetStoreHouses())
         </div>
         <div class="form-item">
             @Html.LabelFor(m => m.StoreHouseMountNumber)

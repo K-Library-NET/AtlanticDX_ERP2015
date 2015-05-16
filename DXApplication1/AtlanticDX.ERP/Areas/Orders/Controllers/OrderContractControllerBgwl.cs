@@ -6,7 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using YuShang.ERP.Entities.Orders;
 
-namespace AtlanticDX.ERP.Areas.Orders.Controllers
+namespace AtlanticDX.Model.Areas.Orders.Controllers
 {
     /// <summary>
     /// 采购管理——报关物流
@@ -102,9 +102,9 @@ namespace AtlanticDX.ERP.Areas.Orders.Controllers
                     ModelState.AddModelError(string.Empty, "添加失败");
                 }
             }
-            var temp = ModelState.GetModelStateErrors();
-            //System.Diagnostics.Debug.WriteLine(ModelState.GetModelStateErrors());
-            return Json(temp);  //ModelState.GetModelStateErrors());
+            var temp = this.GetModelStateErrors(ModelState);
+            //System.Diagnostics.Debug.WriteLine(this.GetModelStateErrors(ModelState));
+            return Json(temp);  //this.GetModelStateErrors(ModelState));
         }
 
         public ActionResult Edit(string OrderContractKey)
@@ -140,7 +140,7 @@ namespace AtlanticDX.ERP.Areas.Orders.Controllers
 
                 if (!string.IsNullOrEmpty(errorMessage))
                     ModelState.AddModelError(string.Empty, errorMessage);
-                return Json(ModelState.GetModelStateErrors());
+                return Json(this.GetModelStateErrors(ModelState));
             }
 
             return Json(null);
