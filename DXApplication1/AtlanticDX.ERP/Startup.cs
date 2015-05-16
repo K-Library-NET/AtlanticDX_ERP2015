@@ -111,6 +111,7 @@ namespace AtlanticDX.Model
 
                 //必须留下下面这行，配置使用Devart数据生成MySQL的脚本
                 System.Data.Entity.Database.SetInitializer(
+                    //new System.Data.Entity.DropCreateDatabaseIfModelChanges<AtlanticDXContext>());
                    new DevartDbMigrationInitializer());
 
                 var config = new Migrations.Configuration();
@@ -119,10 +120,14 @@ namespace AtlanticDX.Model
                 {
                     System.Data.Entity.Migrations.DbMigrator migrator
                         = new System.Data.Entity.Migrations.DbMigrator(config);
-
-                    //var migrationsss = migrator.GetDatabaseMigrations();
-                    //var temp11 = migrator.GetLocalMigrations();
+                    config.TargetDatabase = new System.Data.Entity.Infrastructure.DbConnectionInfo(
+                        context.Database.Connection.ConnectionString, "Devart.Data.MySql");
+                    var migrationsss = migrator.GetDatabaseMigrations();
+                    var temp11 = migrator.GetLocalMigrations();
                     var temp22 = migrator.GetPendingMigrations();
+
+                    temp22 = temp22.Except(migrationsss);
+
                     if (temp22 != null && temp22.Count() > 0)
                     {
                         LogHelper.Info(string.Format("Start Code First force default migrations......"));

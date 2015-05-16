@@ -5,7 +5,7 @@ namespace AtlanticDX.Model.Migrations
     public partial class InitDatabaseV23 : DbMigration
     {
         public override void Up()
-        {
+        {  
             CreateTable(
                 "dbo.AccountsPayables",
                 c => new
