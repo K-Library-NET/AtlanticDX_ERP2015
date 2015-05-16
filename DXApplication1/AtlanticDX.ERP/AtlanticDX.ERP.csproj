@@ -718,7 +718,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\ConfigsHelper.cs" />
-    <Compile Include="Models\ControllerExtension.cs" />
     <Compile Include="Models\OrdersHelper.cs" />
     <Compile Include="Models\StocksHelper.cs" />
     <Compile Include="App_Start\AuthConfig.cs" />
