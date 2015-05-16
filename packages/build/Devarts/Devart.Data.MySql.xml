@@ -2,8 +2,8 @@
 <doc>
   <assembly>
     <name>Devart.Data.MySql</name>
-    <version>8.3.356.0</version>
-    <fullname>Devart.Data.MySql, Version=8.3.356.0, Culture=neutral, PublicKeyToken=09af7300eec23701</fullname>
+    <version>8.3.382.0</version>
+    <fullname>Devart.Data.MySql, Version=8.3.382.0, Culture=neutral, PublicKeyToken=09af7300eec23701</fullname>
   </assembly>
   <members>
     <member name="N:Devart.Common">
@@ -1517,7 +1517,7 @@ A positive integer means that the current instance is greater than the <b>object
     </member>
     <member name="P:Devart.Data.MySql.MySqlConnectionStringBuilder.ClientInteractive">
       <summary>Determines the inactivity timeout before the server breaks the connection. </summary>
-      <keywords>interactive_timeout                                                                                  </keywords>
+      <keywords>interactive_timeout                                                                                   </keywords>
       <keywords>wait_timeout </keywords>
       <keywords>MySqlConnectionStringBuilder.ClientInteractive property </keywords>
       <value>If <see langword="true" />, the server breaks the connection after number of seconds specified in <i>interactive_timeout</i> sever variable, otherwise <i>wait_timeout</i> is used.

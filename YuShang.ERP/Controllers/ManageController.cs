@@ -7,7 +7,6 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using YuShang.ERP.Models;
-using YuShang.ERP.Entities.Privileges;
 
 namespace YuShang.ERP.Controllers
 {
@@ -64,9 +63,10 @@ namespace YuShang.ERP.Controllers
         // GET: /Manage/RemoveLogin
         public ActionResult RemoveLogin()
         {
-            var linkedAccounts = UserManager.GetLogins<SysUser, int>(User.Identity.GetUserId<int>());
-            ViewBag.ShowRemoveButton = HasPassword() || linkedAccounts.Count > 1;
-            return View(linkedAccounts);
+            return View();
+            //var linkedAccounts = UserManager.GetLogins<SysUser, int>(User.Identity.GetUserId<int>());
+            //ViewBag.ShowRemoveButton = HasPassword() || linkedAccounts.Count > 1;
+            //return View(linkedAccounts);
         }
 
         //

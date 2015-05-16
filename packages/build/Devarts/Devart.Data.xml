@@ -2,8 +2,8 @@
 <doc>
   <assembly>
     <name>Devart.Data</name>
-    <version>5.0.1148.0</version>
-    <fullname>Devart.Data, Version=5.0.1148.0, Culture=neutral, PublicKeyToken=09af7300eec23701</fullname>
+    <version>5.0.1174.0</version>
+    <fullname>Devart.Data, Version=5.0.1174.0, Culture=neutral, PublicKeyToken=09af7300eec23701</fullname>
   </assembly>
   <members>
     <member name="N:Devart.Common">
