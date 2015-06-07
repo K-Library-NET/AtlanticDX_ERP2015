@@ -6,14 +6,14 @@ namespace AtlanticDX.Model.Migrations
     using System.Data.Entity.Migrations.Infrastructure;
     using System.Resources;
     
-    [GeneratedCode("EntityFramework.Migrations", "6.1.2-31219")]
-    public sealed partial class InitDatabaseV23 : IMigrationMetadata
+    [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
+    public sealed partial class InitMySQLTestA01 : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(InitDatabaseV23));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(InitMySQLTestA01));
         
         string IMigrationMetadata.Id
         {
-            get { return "201504110652082_InitDatabaseV23"; }
+            get { return "201506070745270_InitMySQLTestA01"; }
         }
         
         string IMigrationMetadata.Source

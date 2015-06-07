@@ -104,12 +104,12 @@ namespace AtlanticDX.Model.Migrations.Releases
                 this.OutputInitError(result1);
             }
             var role1 = roleManager.FindByName("系统管理员");
-            if (role1 != null && role1.Id > 0)
-            {
-                context.Database.ExecuteSqlCommand(string.Format(
-                    "UPDATE aspnetroles SET Id = -{0} WHERE Id = {0}"
-                    , role1.Id));
-            }
+            //if (role1 != null && role1.Id > 0)
+            //{
+            //    context.Database.ExecuteSqlCommand(string.Format(
+            //        "UPDATE aspnetroles SET Id = -{0} WHERE Id = {0}"
+            //        , role1.Id));
+            //}
 
             SysRole sysadmin = roleManager.FindById(role1.Id);//.FindByName("系统管理员");
             if (roleManager.RoleExists("Boss") == false)
@@ -123,12 +123,12 @@ namespace AtlanticDX.Model.Migrations.Releases
                 this.OutputInitError(result2);
             }
             var role2 = roleManager.FindByName("Boss");
-            if (role2 != null && role2.Id > 0)
-            {
-                context.Database.ExecuteSqlCommand(string.Format(
-                    "UPDATE aspnetroles SET Id = -{0} WHERE Id = {0}"
-                    , role2.Id));
-            }
+            //if (role2 != null && role2.Id > 0)
+            //{
+            //    context.Database.ExecuteSqlCommand(string.Format(
+            //        "UPDATE aspnetroles SET Id = -{0} WHERE Id = {0}"
+            //        , role2.Id));
+            //}
 
             SysRole boss = roleManager.FindById(role2.Id);//.FindByName("Boss");
             if (roleManager.RoleExists("Manager") == false)
@@ -142,12 +142,12 @@ namespace AtlanticDX.Model.Migrations.Releases
                 this.OutputInitError(result3);
             }
             var role3 = roleManager.FindByName("Manager");
-            if (role3 != null && role3.Id > 0)
-            {
-                context.Database.ExecuteSqlCommand(string.Format(
-                    "UPDATE aspnetroles SET Id = -{0} WHERE Id = {0}"
-                    , role3.Id));
-            }
+            //if (role3 != null && role3.Id > 0)
+            //{
+            //    context.Database.ExecuteSqlCommand(string.Format(
+            //        "UPDATE aspnetroles SET Id = -{0} WHERE Id = {0}"
+            //        , role3.Id));
+            //}
 
             SysRole manager = roleManager.FindById(role3.Id);//.FindByName("Manager");
             if (roleManager.RoleExists("一般用户") == false)
@@ -161,12 +161,12 @@ namespace AtlanticDX.Model.Migrations.Releases
                 this.OutputInitError(result4);
             }
             var role4 = roleManager.FindByName("一般用户");
-            if (role4 != null && role4.Id > 0)
-            {
-                context.Database.ExecuteSqlCommand(string.Format(
-                    "UPDATE aspnetroles SET Id = -{0} WHERE Id = {0}"
-                    , role4.Id));
-            }
+            //if (role4 != null && role4.Id > 0)
+            //{
+            //    context.Database.ExecuteSqlCommand(string.Format(
+            //        "UPDATE aspnetroles SET Id = -{0} WHERE Id = {0}"
+            //        , role4.Id));
+            //}
 
             SysRole userrole = roleManager.FindById(role4.Id);//.FindByName("一般用户");
             if (roleManager.RoleExists("游客") == false)
@@ -180,12 +180,12 @@ namespace AtlanticDX.Model.Migrations.Releases
                 this.OutputInitError(result5);
             }
             var role5 = roleManager.FindByName("游客");
-            if (role5 != null && role5.Id != 0)
-            {
-                context.Database.ExecuteSqlCommand(string.Format(
-                    "UPDATE aspnetroles SET Id = 0 WHERE Id = {0}"
-                    , role5.Id));//Default Role
-            }
+            //if (role5 != null && role5.Id != 0)
+            //{
+            //    context.Database.ExecuteSqlCommand(string.Format(
+            //        "UPDATE aspnetroles SET Id = 0 WHERE Id = {0}"
+            //        , role5.Id));//Default Role
+            //}
         }
 
         private void InitUsers(ExtendedIdentityDbContext context)
@@ -193,7 +193,7 @@ namespace AtlanticDX.Model.Migrations.Releases
             IdentityManager manager = new IdentityManager(context);
             var userManager = manager.UserManager;
             var roleManager = manager.RoleManager;
-
+            this.InitRoles(roleManager, context);
 #if DEBUG
             var user = new SysUser()
             {
@@ -236,14 +236,14 @@ namespace AtlanticDX.Model.Migrations.Releases
 
             var result2 = userManager.AddToRole(userid, roleName);
             OutputInitError(result2);
-            using (var tran = context.Database.BeginTransaction())
-            {
-                context.Database.ExecuteSqlCommand(TransactionalBehavior.EnsureTransaction,
-                    string.Format("UPDATE aspnetusers SET Id = -{0} WHERE Id = {0}", userid));
-                context.Database.ExecuteSqlCommand(TransactionalBehavior.EnsureTransaction,
-                    string.Format("UPDATE aspnetuserroles SET UserId = -{0} WHERE UserId = {0}", userid));
-                tran.Commit();
-            }
+            //using (var tran = context.Database.BeginTransaction())
+            //{
+            //    context.Database.ExecuteSqlCommand(TransactionalBehavior.EnsureTransaction,
+            //        string.Format("UPDATE aspnetusers SET Id = -{0} WHERE Id = {0}", userid));
+            //    context.Database.ExecuteSqlCommand(TransactionalBehavior.EnsureTransaction,
+            //        string.Format("UPDATE aspnetuserroles SET UserId = -{0} WHERE UserId = {0}", userid));
+            //    tran.Commit();
+            //}
         }
 
         private void InitDefaultResItems(ExtendedIdentityDbContext context)

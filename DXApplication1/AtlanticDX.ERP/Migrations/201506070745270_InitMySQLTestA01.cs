@@ -1,11 +1,12 @@
 namespace AtlanticDX.Model.Migrations
 {
+    using System;
     using System.Data.Entity.Migrations;
-
-    public partial class InitDatabaseV23 : DbMigration
+    
+    public partial class InitMySQLTestA01 : DbMigration
     {
         public override void Up()
-        {  
+        {
             CreateTable(
                 "dbo.AccountsPayables",
                 c => new

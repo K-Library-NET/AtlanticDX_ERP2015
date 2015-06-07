@@ -717,6 +717,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Migrations\201506070745270_InitMySQLTestA01.cs" />
+    <Compile Include="Migrations\201506070745270_InitMySQLTestA01.Designer.cs">
+      <DependentUpon>201506070745270_InitMySQLTestA01.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\ConfigsHelper.cs" />
     <Compile Include="Models\OrdersHelper.cs" />
     <Compile Include="Models\StocksHelper.cs" />
@@ -805,10 +809,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201504110652082_InitDatabaseV23.cs" />
-    <Compile Include="Migrations\201504110652082_InitDatabaseV23.Designer.cs">
-      <DependentUpon>201504110652082_InitDatabaseV23.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Areas\Public\Models\AccountModels.cs" />
     <Compile Include="Migrations\CustomMigrationHelper.cs" />
@@ -851,8 +851,8 @@
     <Folder Include="Scripts\Sales\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201504110652082_InitDatabaseV23.resx">
-      <DependentUpon>201504110652082_InitDatabaseV23.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201506070745270_InitMySQLTestA01.resx">
+      <DependentUpon>201506070745270_InitMySQLTestA01.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
